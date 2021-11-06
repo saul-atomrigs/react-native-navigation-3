@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { Text, View, Button, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -45,7 +45,6 @@ function HomeScreen({ navigation }) {
     </View>
   );
 }
-
 // Community Screen 
 function CommunityScreen() {
   return (
@@ -54,7 +53,6 @@ function CommunityScreen() {
     </View>
   );
 }
-
 // Schedules, birthdays, etc. Screen
 function CalendarScreen() {
   return (
@@ -63,21 +61,31 @@ function CalendarScreen() {
     </View>
   );
 }
-
 // Test Screen with header 
-function StackScreen() {
+function StackScreen({ navigation }) {
+  const [count, setCount] = useState(0);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button
+          onPress={() => setCount(count + 1)}
+          title="count"
+          color="black"
+        />
+      ),
+    });
+  }, [navigation, count]);
   return (
-    <Stack.Navigator screenOptions={screenOptions}>
+    <Stack.Navigator>
       <Stack.Screen
         name="KPOP"
-        component={HomeScreen}
+        component={LikeCounter}
         options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-
       />
     </Stack.Navigator>
   );
 }
-
 // Replacing the title with a custom component
 function LogoTitle() {
   return (
@@ -87,13 +95,31 @@ function LogoTitle() {
     />
   );
 }
+// Vote counter
+function LikeCounter() {
+  const [count, setCount] = useState(0);
+  return (
+    <View style={center}>
+      <Text style={textUpvote}>{count}</Text>
+      <Button
+        title="Upvote"
+        onPress={() => setCount(count + 1)}
+      />
+      <Button
+        title="Downvote"
+        onPress={() => setCount(count - 1)}
+      />
+    </View>
+  );
+}
+
 
 // react navigation
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 
-// styling 
+// styling and parameters(options)
 const grayBox = {
   boxSizing: "border-box",
   flexShrink: 0,
@@ -123,4 +149,10 @@ const screenOptions = {
       color="#000000"
     />
   ),
+}
+const textUpvote = {
+  fontSize: 20,
+  fontWeight: "bold",
+  color: "black",
+  textAlign: "center",
 }
