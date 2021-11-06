@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Button } from 'react-native';
+import { Text, View, Button, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -71,8 +71,20 @@ function StackScreen() {
       <Stack.Screen
         name="KPOP"
         component={HomeScreen}
+        options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+
       />
     </Stack.Navigator>
+  );
+}
+
+// Replacing the title with a custom component
+function LogoTitle() {
+  return (
+    <Image
+      style={{ width: 50, height: 50 }}
+      source={{ uri: 'https://reactnative.dev/img/tiny_logo.png', }}
+    />
   );
 }
 
