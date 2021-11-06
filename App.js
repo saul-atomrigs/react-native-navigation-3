@@ -64,9 +64,14 @@ function CalendarScreen() {
 // Test Screen with header 
 function StackScreen({ navigation }) {
   const [count, setCount] = useState(0);
-
   useLayoutEffect(() => {
     navigation.setOptions({
+      headerLeft: () => (
+        <Button
+          title="Menu"
+          onPress={() => navigation.toggleDrawer()}
+        />
+      ),
       headerRight: () => (
         <Button
           onPress={() => setCount(count + 1)}
@@ -90,8 +95,8 @@ function StackScreen({ navigation }) {
 function LogoTitle() {
   return (
     <Image
-      style={{ width: 50, height: 50 }}
-      source={{ uri: 'https://reactnative.dev/img/tiny_logo.png', }}
+      style={{ width: 30, height: 30 }}
+      source={require('./assets/logo.png')}
     />
   );
 }
@@ -99,7 +104,7 @@ function LogoTitle() {
 function LikeCounter() {
   const [count, setCount] = useState(0);
   return (
-    <View style={center}>
+    <View style={stack}>
       <Text style={textUpvote}>{count}</Text>
       <Button
         title="Upvote"
@@ -108,6 +113,13 @@ function LikeCounter() {
       <Button
         title="Downvote"
         onPress={() => setCount(count - 1)}
+      />
+      <Button
+        style={button}
+        title="👍 Upvote"
+      />
+      <Button
+        title='Give us feedback'
       />
     </View>
   );
@@ -155,4 +167,16 @@ const textUpvote = {
   fontWeight: "bold",
   color: "black",
   textAlign: "center",
+}
+const button = {
+  backgroundColor: "#000000",
+  borderRadius: 5,
+  padding: 10,
+  margin: 10,
+  fontSize: 50,
+}
+const stack = {
+  flex: 1,
+  alignItems: 'left',
+  padding: 30,
 }
