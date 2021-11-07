@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useLayoutEffect, useCallback } from 'react';
-import { Text, View, Button, Image } from 'react-native';
+import { Text, View, Button, Image, FlatList, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { GiftedChat } from 'react-native-gifted-chat'
-
+import MessagesScreen from './Chat/MessageScreen'
+import { Input } from 'react-native-elements'
 
 export default function App() {
   return (
@@ -43,14 +44,36 @@ function HomeScreen({ navigation }) {
       <Text>Home!</Text>
       <Button title="Go to calendar" onPress={() => navigation.navigate('Calendar')}
       />
+      <Button title="Go to community" onPress={() => navigation.navigate('Community')}
+      />
     </View>
   );
 }
 // Community Screen 
-function CommunityScreen() {
+function CommunityScreen({ navigation }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   return (
     <View style={center}>
-      <Text>Community!</Text>
+      <GiftedChat />
+      <Input
+        placeholder="Enter your email"
+        label="Email"
+        leftIcon={{ type: 'material', name: 'email' }}
+        value={email}
+        onChengeText={(text) => setEmail(text)}
+      />
+      <Input
+        placeholder="Enter your password"
+        label="Password"
+        leftIcon={{ type: 'material', name: 'lock' }}
+        value={password}
+        onChengeText={(text) => setPassword(text)}
+        secureTextEntry
+      />
+      <Button title='chat' onPress={() => navigation.navigate('Chat')} />
+      <Button title='sign in' />
+      <Button title='register' onPress={() => navigation.navigate('Calendar')} />
     </View>
   );
 }
@@ -115,14 +138,8 @@ function LikeCounter() {
         title="Downvote"
         onPress={() => setCount(count - 1)}
       />
-      <Button
-        style={button}
-        title="👍 Upvote"
-      />
-      <Button
-        title='Give us feedback'
-      />
-      <Chat style={{ width: '100%' }} />
+      {/* <Chat style={{ width: '100%' }} /> */}
+      <MessageStack />
     </View>
   );
 }
@@ -158,6 +175,17 @@ export function Chat() {
         _id: 1,
       }}
     />
+  )
+}
+// Chat example
+const MessageStack = ({ navigation }) => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="MessagesScreen"
+        component={MessagesScreen}
+      />
+    </Stack.Navigator>
   )
 }
 
