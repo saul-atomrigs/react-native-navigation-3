@@ -56,7 +56,7 @@ const Messages = [
     },
 ];
 
-const MessagesScreen = ({ navigation }) => {
+const MessageScreen = ({ navigation }) => {
     return (
         <Container style={container}>
             <FlatList
@@ -83,7 +83,7 @@ const MessagesScreen = ({ navigation }) => {
     );
 };
 
-export default MessagesScreen;
+export default MessageScreen;
 
 
 const container = {

@@ -5,7 +5,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { GiftedChat } from 'react-native-gifted-chat'
-import MessagesScreen from './Chat/MessageScreen'
+import MessageScreen from './chat/MessageScreen'
+import ChatScreen from './chat/ChatScreen'
 import { Input } from 'react-native-elements'
 
 export default function App() {
@@ -54,8 +55,7 @@ function CommunityScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   return (
-    <View style={center}>
-      <GiftedChat />
+    <View >
       <Input
         placeholder="Enter your email"
         label="Email"
@@ -63,6 +63,7 @@ function CommunityScreen({ navigation }) {
         value={email}
         onChengeText={(text) => setEmail(text)}
       />
+      <ChatScreen />
       <Input
         placeholder="Enter your password"
         label="Password"
@@ -182,8 +183,8 @@ const MessageStack = ({ navigation }) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="MessagesScreen"
-        component={MessagesScreen}
+        name="MessageScreen"
+        component={MessageScreen}
       />
     </Stack.Navigator>
   )
