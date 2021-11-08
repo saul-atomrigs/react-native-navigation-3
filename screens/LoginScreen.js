@@ -12,7 +12,7 @@ export default function LoginScreen({ navigation }) {
             .catch((error) => {
                 var errorCode = error.code;
                 var errorMessage = error.message;
-                alert(error)
+                alert(errorMessage)
             })
     }
     useEffect(() => {
@@ -20,7 +20,8 @@ export default function LoginScreen({ navigation }) {
             if (user) {
                 navigation.replace('Chat')
             } else {
-
+                navigation.canGoBack() &&
+                    navigation.popToTop()
             }
         })
         return unsubscribe
@@ -44,7 +45,7 @@ export default function LoginScreen({ navigation }) {
                 secureTextEntry
             />
             <Button title='chat' onPress={() => navigation.navigate('Chat')} />
-            <Button title='sign in' />
+            <Button title='sign in' onPress={{ signIn }} />
             <Button title='register' onPress={() => navigation.navigate('Register')} />
         </View>
     );

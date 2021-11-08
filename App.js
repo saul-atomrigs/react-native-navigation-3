@@ -8,6 +8,8 @@ import { Input } from 'react-native-elements';
 import { GiftedChat } from 'react-native-gifted-chat';
 import ChatScreen from './chat/ChatScreen';
 import MessageScreen from './chat/MessageScreen';
+import RegisterScreen from './screens/RegisterScreen';
+import LoginScreen from './screens/LoginScreen';
 
 export default function App() {
   return (
@@ -52,7 +54,7 @@ function HomeScreen({ navigation }) {
   );
 }
 // Community Screen 
-function CommunityScreen({ navigation }) {
+function CommunityScreen({ navigation, RegisterScreen }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   return (
@@ -72,7 +74,7 @@ function CommunityScreen({ navigation }) {
         onChengeText={(text) => setPassword(text)}
         secureTextEntry
       />
-      <Button title='sign in' />
+      <Button title='sign in' onPress={() => navigation.navigate({ RegisterScreen })} />
       <Button title='register' onPress={() => navigation.navigate('Calendar')} />
       <Button title='chat' onPress={() => navigation.navigate('ChatScreen')} />
     </View>
@@ -108,10 +110,15 @@ function StackScreen({ navigation }) {
   }, [navigation, count]);
   return (
     <Stack.Navigator>
-      <Stack.Screen
+      {/* <Stack.Screen
         name="KPOP"
         component={LikeCounter}
         options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+      /> */}
+      <Stack.Screen
+        name="Register"
+        component={RegisterScreen}
+        options={{ headerTitle: 'Register' }}
       />
     </Stack.Navigator>
   );
@@ -139,7 +146,6 @@ function LikeCounter() {
         title="Downvote"
         onPress={() => setCount(count - 1)}
       />
-      {/* <Chat style={{ width: '100%' }} /> */}
       <MessageStack />
     </View>
   );

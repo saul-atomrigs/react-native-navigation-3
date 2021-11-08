@@ -1,29 +1,30 @@
 import React, { useState } from 'react'
-import { View } from 'react-native'
+import { View, Button } from 'react-native'
 import { Input } from 'react-native-elements'
 import { auth } from '../firebase'
 
-export default function RegisterScreen() {
+export default function RegisterScreen({ navigation }) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
     const [imageURL, setImageURL] = useState('')
-    const register = ({ navigation }) => {
+    const register = () => {
         auth.createUserWithEmailAndPassword(email, password)
             .then((userCredential) => {
-                auth.currentUser.updateProfile({
+                // signed in 
+                userCredential.user.updateProfile({
                     displayName: name,
-                    photoURL: imageURL
+                    photoURL: imageURL ? imageURL :
+                        "https://www.trackergps.com/canvas/images/icons/avatar.jpg"
                 }).then(function () {
                     // update successful
                 }).catch(function (error) {
                     // An error happened.
                 });
-                navigation.navigate('Home')
+                navigation.popToTop()
             })
             .catch(error => alert(error.message))
     }
-
     return (
         <View>
             <Input
@@ -55,6 +56,10 @@ export default function RegisterScreen() {
                 value={imageURL}
                 onChangeText={(text) => setImageURL(text)}
                 secureTextEntry
+            />
+            <Button
+                title="register"
+                onPress={() => { register }}
             />
         </View>
     )
