@@ -1,29 +1,21 @@
-import React, { useState, useEffect, useCallback, useLayoutEffect } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { auth, db } from '../firebase'
+import React, { useCallback, useLayoutEffect, useState } from 'react'
 import { AntDesign } from '@expo/vector-icons'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { View } from 'react-native'
 import { Avatar } from 'react-native-elements'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import { GiftedChat } from 'react-native-gifted-chat'
+import { auth, db } from '../firebase'
 
 
 export default function ChatScreen({ navigation }) {
+    const signOut = () => {
+        firebase.auth().signOut().then(() => {
+            // sign out successful
+        }).catch(error => {
+            // sign out failed
+        })
+    }
     const [messages, setMessages] = useState([]);
-
-    // useEffect(() => {
-    //     setMessages([
-    //         {
-    //             _id: 1,
-    //             text: 'Hello developer',
-    //             createdAt: new Date(),
-    //             user: {
-    //                 _id: 2,
-    //                 name: 'React Native',
-    //                 avatar: 'https://placeimg.com/140/140/any',
-    //             },
-    //         },
-    //     ])
-    // }, [])
 
     useLayoutEffect(() => {
         const unsubscribe = db.collection('chats').orderBy('createdAt', 'desc').onSnapshot(snapshot => {
@@ -33,6 +25,23 @@ export default function ChatScreen({ navigation }) {
                 text: doc.data().text,
                 user: doc.data().user,
             }))
+            )
+        })
+        navigation.setOptions(() => {
+            headerLeft: () => (
+                <View>
+                    <Avatar
+                        rounded
+                        source={{
+                            uri: auth?.currentUser?.photoURL
+                        }}
+                    />
+                </View>
+            )
+            headerRight: () => (
+                <TouchableOpacity onPress={signOut}>
+                    <AntDesign name="logout" size={24} color="black" />
+                </TouchableOpacity>
             )
         })
         return () => {

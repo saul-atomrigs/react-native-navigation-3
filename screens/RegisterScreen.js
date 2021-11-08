@@ -1,12 +1,28 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { Input, Button } from 'react-native-elements'
+import { View } from 'react-native'
+import { Input } from 'react-native-elements'
+import { auth } from '../firebase'
 
 export default function RegisterScreen() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
     const [imageURL, setImageURL] = useState('')
+    const register = ({ navigation }) => {
+        auth.createUserWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                auth.currentUser.updateProfile({
+                    displayName: name,
+                    photoURL: imageURL
+                }).then(function () {
+                    // update successful
+                }).catch(function (error) {
+                    // An error happened.
+                });
+                navigation.navigate('Home')
+            })
+            .catch(error => alert(error.message))
+    }
 
     return (
         <View>

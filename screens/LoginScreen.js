@@ -1,11 +1,30 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { Input, Button } from 'react-native-elements'
 import { auth } from '../firebase'
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
-export default function CommunityScreen({ navigation }) {
+export default function LoginScreen({ navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const signIn = () => {
+        auth.signInWithEmailAndPassword(email, password)
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                alert(error)
+            })
+    }
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged(user => {
+            if (user) {
+                navigation.replace('Chat')
+            } else {
+
+            }
+        })
+        return unsubscribe
+    }, [])
     return (
         <View >
             <Input

@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useLayoutEffect, useCallback } from 'react';
-import { Text, View, Button, Image, FlatList, StyleSheet } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import { Button, Image, Text, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { GiftedChat } from 'react-native-gifted-chat'
-import MessageScreen from './chat/MessageScreen'
-import ChatScreen from './chat/ChatScreen'
-import { Input } from 'react-native-elements'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Input } from 'react-native-elements';
+import { GiftedChat } from 'react-native-gifted-chat';
+import ChatScreen from './chat/ChatScreen';
+import MessageScreen from './chat/MessageScreen';
 
 export default function App() {
   return (
@@ -33,6 +33,7 @@ export default function App() {
         <Tab.Screen name="Community" component={CommunityScreen} options={{ tabBarBadge: 5 }} />
         <Tab.Screen name="Calendar" component={CalendarScreen} />
         <Tab.Screen name="HeaderButton" component={StackScreen} options={{ tabBarBadge: 3 }} />
+        <Tab.Screen name="Connect" component={ChatScreen} options={{ tabBarBadge: 3 }} />
       </Tab.Navigator>
     </NavigationContainer>
   );
@@ -63,7 +64,6 @@ function CommunityScreen({ navigation }) {
         value={email}
         onChengeText={(text) => setEmail(text)}
       />
-      <ChatScreen />
       <Input
         placeholder="Enter your password"
         label="Password"
@@ -72,9 +72,9 @@ function CommunityScreen({ navigation }) {
         onChengeText={(text) => setPassword(text)}
         secureTextEntry
       />
-      <Button title='chat' onPress={() => navigation.navigate('Chat')} />
       <Button title='sign in' />
       <Button title='register' onPress={() => navigation.navigate('Calendar')} />
+      <Button title='chat' onPress={() => navigation.navigate('ChatScreen')} />
     </View>
   );
 }
