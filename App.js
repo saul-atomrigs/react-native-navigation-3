@@ -7,12 +7,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Input } from 'react-native-elements';
 import { GiftedChat } from 'react-native-gifted-chat';
 import ChatScreen from './chat/ChatScreen';
-import MessageScreen from './chat/MessageScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import LoginScreen from './screens/LoginScreen';
 
 export default function App() {
   return (
+    // Navigation tabs (bottom)
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -45,23 +45,36 @@ export default function App() {
 function HomeScreen({ navigation }) {
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: 'Home',
-      // Left header button
+      // header button left
       headerLeft: () => (
         <Button
-          title="Home"
-          onPress={() => navigation.navigate('Home')}
+          title="Menu"
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+          onPress={() => navigation.navigate('Home')}
         />
       ),
-      // Right header button
+      // header button right
       headerRight: () => (
-        <Button
-          title="Connect"
-          onPress={() => navigation.navigate('Connect')}
-          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-        />
-      )
+        <View style={{ flexDirection: 'row' }}>
+
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Home')}
+          >
+            <Image
+              style={{ width: 30, height: 30, margin: 10, }}
+              source={require('./assets/logo.png')}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Home')}
+          >
+            <Image
+              style={{ width: 30, height: 30, margin: 10, }}
+              source={require('./assets/dots-nine.png')}
+            />
+          </TouchableOpacity>
+        </View>
+      ),
     });
   }, [navigation]);
   return (
@@ -79,23 +92,35 @@ function CommunityScreen({ navigation, RegisterScreen }) {
   const [password, setPassword] = useState('');
   useLayoutEffect(() => {
     navigation.setOptions({
-      // Left header button
+      // header button left
       headerLeft: () => (
         <Button
-          title="Home"
-          onPress={() => navigation.navigate('Home')}
+          title="Menu"
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+          onPress={() => navigation.navigate('Home')}
         />
       ),
-      // Right header button
+      // header button right
       headerRight: () => (
-        <Button
-          title="Connect"
-          onPress={() => navigation.navigate('Connect')}
-          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-        >
-        </Button>
-      )
+        <View style={{ flexDirection: 'row' }}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Home')}
+          >
+            <Image
+              style={{ width: 30, height: 30, margin: 10, }}
+              source={require('./assets/logo.png')}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Home')}
+          >
+            <Image
+              style={{ width: 30, height: 30, margin: 10, }}
+              source={require('./assets/dots-nine.png')}
+            />
+          </TouchableOpacity>
+        </View>
+      ),
     });
   }, [navigation]);
   return (
@@ -126,22 +151,36 @@ function CommunityScreen({ navigation, RegisterScreen }) {
 function CalendarScreen({ navigation }) {
   useLayoutEffect(() => {
     navigation.setOptions({
-      // Left header button
+      // header button left
       headerLeft: () => (
         <Button
-          title="Home"
-          onPress={() => navigation.navigate('Home')}
+          title="Menu"
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+          onPress={() => navigation.navigate('Home')}
         />
       ),
-      // Right header button
+      // header button right
       headerRight: () => (
-        <Button
-          title="Connect"
-          onPress={() => navigation.navigate('Connect')}
-          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-        />
-      )
+        <View style={{ flexDirection: 'row' }}>
+
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Home')}
+          >
+            <Image
+              style={{ width: 30, height: 30, margin: 10, }}
+              source={require('./assets/logo.png')}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Home')}
+          >
+            <Image
+              style={{ width: 30, height: 30, margin: 10, }}
+              source={require('./assets/dots-nine.png')}
+            />
+          </TouchableOpacity>
+        </View>
+      ),
     });
   }, [navigation]);
   return (
@@ -232,7 +271,6 @@ function LikeCounter() {
         title="Downvote"
         onPress={() => setCount(count - 1)}
       />
-      <MessageStack />
     </View>
   );
 }
@@ -268,17 +306,6 @@ export function Chat() {
         _id: 1,
       }}
     />
-  )
-}
-// Chat example
-const MessageStack = ({ navigation }) => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="MessageScreen"
-        component={MessageScreen}
-      />
-    </Stack.Navigator>
   )
 }
 
