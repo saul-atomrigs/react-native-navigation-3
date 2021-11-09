@@ -81,10 +81,16 @@ function CommunityScreen({ navigation, RegisterScreen }) {
   );
 }
 // Schedules, birthdays, etc. Screen
-function CalendarScreen() {
+function CalendarScreen({ navigation }) {
   return (
     <View style={center}>
-      <Text>Calendar!</Text>
+      <Text style={{ fontWeight: 'bold', fontSize: 20, margin: 10, }}>Welcome to Calendar!</Text>
+      <Text>You can search KPOP group's schedules, anniversaries, and more.</Text>
+      <Button
+        title="Start"
+        style={{ fontWeight: 'bold', margin: 10, }}
+        onPress={() => navigation.navigate('Community')}
+      />
     </View>
   );
 }
@@ -96,7 +102,7 @@ function StackScreen({ navigation }) {
       headerLeft: () => (
         <Button
           title="Menu"
-          onPress={() => navigation.toggleDrawer()}
+          onPress={() => navigation.navigate('Home')}
         />
       ),
       headerRight: () => (
@@ -118,7 +124,7 @@ function StackScreen({ navigation }) {
       <Stack.Screen
         name="Register"
         component={RegisterScreen}
-        options={{ headerTitle: 'Register' }}
+        options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
       />
     </Stack.Navigator>
   );
@@ -217,7 +223,10 @@ const grayBox = {
   borderRadius: 5,
 }
 const center = {
-  flex: 1, justifyContent: 'center', alignItems: 'center'
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: 20,
 }
 const screenOptions = {
   headerTitle: props => <Text {...props} />,
