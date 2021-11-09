@@ -74,8 +74,8 @@ function CommunityScreen({ navigation, RegisterScreen }) {
         onChengeText={(text) => setPassword(text)}
         secureTextEntry
       />
-      <Button title='sign in' onPress={() => navigation.navigate({ RegisterScreen })} />
-      <Button title='register' onPress={() => navigation.navigate('Calendar')} />
+      <Button title='Sign In' onPress={() => navigation.navigate('Calendar')} />
+      <Button title='Register' onPress={() => navigation.navigate('Register')} />
       <Button title='chat' onPress={() => navigation.navigate('ChatScreen')} />
     </View>
   );

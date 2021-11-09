@@ -67,6 +67,7 @@ export default function ChatScreen({ navigation }) {
     return (
         <GiftedChat
             messages={messages}
+            showAvatarForEveryMessage={true}
             onSend={messages => onSend(messages)}
             user={{
                 _id: auth?.currentUser?.email,
