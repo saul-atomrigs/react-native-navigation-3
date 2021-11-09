@@ -188,7 +188,7 @@ function StackScreen({ navigation }) {
           >
             <Image
               style={{ width: 30, height: 30, margin: 10, }}
-              source={require('./assets/caret-down.png')}
+              source={require('./assets/dots-nine.png')}
             />
           </TouchableOpacity>
         </View>
