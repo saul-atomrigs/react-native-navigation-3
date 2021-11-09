@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
-import { Button, Image, Text, View } from 'react-native';
+import { Button, Image, Text, View, TouchableOpacity } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
@@ -50,8 +50,8 @@ function HomeScreen({ navigation }) {
       headerLeft: () => (
         <Button
           title="Home"
-          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
           onPress={() => navigation.navigate('Home')}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
         />
       ),
       // Right header button
@@ -77,6 +77,27 @@ function HomeScreen({ navigation }) {
 function CommunityScreen({ navigation, RegisterScreen }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      // Left header button
+      headerLeft: () => (
+        <Button
+          title="Home"
+          onPress={() => navigation.navigate('Home')}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+      ),
+      // Right header button
+      headerRight: () => (
+        <Button
+          title="Connect"
+          onPress={() => navigation.navigate('Connect')}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        >
+        </Button>
+      )
+    });
+  }, [navigation]);
   return (
     // body
     <View >
@@ -103,6 +124,26 @@ function CommunityScreen({ navigation, RegisterScreen }) {
 }
 // Schedules, birthdays, etc. Screen
 function CalendarScreen({ navigation }) {
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      // Left header button
+      headerLeft: () => (
+        <Button
+          title="Home"
+          onPress={() => navigation.navigate('Home')}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+      ),
+      // Right header button
+      headerRight: () => (
+        <Button
+          title="Connect"
+          onPress={() => navigation.navigate('Connect')}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+      )
+    });
+  }, [navigation]);
   return (
     // body
     <View style={center}>
@@ -132,29 +173,40 @@ function StackScreen({ navigation }) {
       ),
       // header button right
       headerRight: () => (
-        <Button
-          onPress={() => setCount(count + 1)}
-          title="count"
-          color="black"
-        />
+        <View style={{ flexDirection: 'row' }}>
+
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Home')}
+          >
+            <Image
+              style={{ width: 30, height: 30, margin: 10, }}
+              source={require('./assets/logo.png')}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Home')}
+          >
+            <Image
+              style={{ width: 30, height: 30, margin: 10, }}
+              source={require('./assets/caret-down.png')}
+            />
+          </TouchableOpacity>
+        </View>
       ),
     });
   }, [navigation, count]);
   return (
     // body's header 
-    <Stack.Navigator>
-      {/* <Stack.Screen
-        name="KPOP"
-        component={LikeCounter}
-        options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-      /> */}
-
-      <Stack.Screen
-        name="Register"
-        component={RegisterScreen}
-        options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-      />
-    </Stack.Navigator>
+    <View style={center}>
+      <Text>Test Screen!</Text>
+    </View>
+    // <Stack.Navigator>
+    //   <Stack.Screen
+    //     name="Register"
+    //     component={RegisterScreen}
+    //   // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+    //   />
+    // </Stack.Navigator>
   );
 }
 // Replacing the title with a custom component
