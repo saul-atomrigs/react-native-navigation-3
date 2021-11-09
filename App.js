@@ -43,13 +43,33 @@ export default function App() {
 
 // Home Screen
 function HomeScreen({ navigation }) {
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: 'Home',
+      // Left header button
+      headerLeft: () => (
+        <Button
+          title="Home"
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+          onPress={() => navigation.navigate('Home')}
+        />
+      ),
+      // Right header button
+      headerRight: () => (
+        <Button
+          title="Connect"
+          onPress={() => navigation.navigate('Connect')}
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+        />
+      )
+    });
+  }, [navigation]);
   return (
+    // body
     <View style={center}>
       <Text>Home!</Text>
-      <Button title="Go to calendar" onPress={() => navigation.navigate('Calendar')}
-      />
-      <Button title="Go to community" onPress={() => navigation.navigate('Community')}
-      />
+      <Button title="Go to calendar" onPress={() => navigation.navigate('Calendar')} />
+      <Button title="Go to community" onPress={() => navigation.navigate('Community')} />
     </View>
   );
 }
@@ -58,6 +78,7 @@ function CommunityScreen({ navigation, RegisterScreen }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   return (
+    // body
     <View >
       <Input
         placeholder="Enter your email"
@@ -83,6 +104,7 @@ function CommunityScreen({ navigation, RegisterScreen }) {
 // Schedules, birthdays, etc. Screen
 function CalendarScreen({ navigation }) {
   return (
+    // body
     <View style={center}>
       <Text style={{ fontWeight: 'bold', fontSize: 20, margin: 10, }}>Welcome to Calendar!</Text>
       <Text>You can search KPOP group's schedules, anniversaries, and more.</Text>
@@ -97,14 +119,18 @@ function CalendarScreen({ navigation }) {
 // Test Screen with header 
 function StackScreen({ navigation }) {
   const [count, setCount] = useState(0);
+  // header buttons
   useLayoutEffect(() => {
     navigation.setOptions({
+      // header button left
       headerLeft: () => (
         <Button
           title="Menu"
+          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
           onPress={() => navigation.navigate('Home')}
         />
       ),
+      // header button right
       headerRight: () => (
         <Button
           onPress={() => setCount(count + 1)}
@@ -115,12 +141,14 @@ function StackScreen({ navigation }) {
     });
   }, [navigation, count]);
   return (
+    // body's header 
     <Stack.Navigator>
       {/* <Stack.Screen
         name="KPOP"
         component={LikeCounter}
         options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
       /> */}
+
       <Stack.Screen
         name="Register"
         component={RegisterScreen}
@@ -159,7 +187,7 @@ function LikeCounter() {
 // Gifted Chat 
 export function Chat() {
   const [messages, setMessages] = useState([]);
-
+  // 
   useEffect(() => {
     setMessages([
       {
@@ -174,11 +202,11 @@ export function Chat() {
       },
     ])
   }, [])
-
+  // 
   const onSend = useCallback((messages = []) => {
     setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
   }, [])
-
+  // Chat body
   return (
     <GiftedChat
       style={{ width: '100%' }}
@@ -201,6 +229,7 @@ const MessageStack = ({ navigation }) => {
     </Stack.Navigator>
   )
 }
+
 
 // react navigation
 const Tab = createBottomTabNavigator();
