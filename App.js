@@ -24,11 +24,15 @@ export default function App() {
               iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
             } else if (route.name === 'Calendar') {
               iconName = focused ? 'calendar' : 'calendar-outline';
+            } else if (route.name === 'HeaderButton') {
+              iconName = focused ? 'grid' : 'grid-outline';
+            } else if (route.name === 'Connect') {
+              iconName = focused ? 'star' : 'star-outline';
             }
             return <Ionicons name={iconName} size={size} color={color} />;
           },
           tabBarActiveTintColor: 'black',
-          tabBarInactiveTintColor: 'gray',
+          tabBarInactiveTintColor: 'black',
         })}
       >
         <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 3 }} />
@@ -56,7 +60,6 @@ function HomeScreen({ navigation }) {
       // header button right
       headerRight: () => (
         <View style={{ flexDirection: 'row' }}>
-
           <TouchableOpacity
             onPress={() => navigation.navigate('Home')}
           >
@@ -87,7 +90,7 @@ function HomeScreen({ navigation }) {
   );
 }
 // Community Screen 
-function CommunityScreen({ navigation, RegisterScreen }) {
+function CommunityScreen({ navigation, ChatScreen }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   useLayoutEffect(() => {
@@ -126,28 +129,13 @@ function CommunityScreen({ navigation, RegisterScreen }) {
   return (
     // body
     <View >
-      <Input
-        placeholder="Enter your email"
-        label="Email"
-        leftIcon={{ type: 'material', name: 'email' }}
-        value={email}
-        onChengeText={(text) => setEmail(text)}
-      />
-      <Input
-        placeholder="Enter your password"
-        label="Password"
-        leftIcon={{ type: 'material', name: 'lock' }}
-        value={password}
-        onChengeText={(text) => setPassword(text)}
-        secureTextEntry
-      />
       <Button title='Sign In' onPress={() => navigation.navigate('Calendar')} />
       <Button title='Register' onPress={() => navigation.navigate('Register')} />
-      <Button title='chat' onPress={() => navigation.navigate('ChatScreen')} />
+      <Button title='chat' onPress={() => navigation.navigate('Connect')} />
     </View>
   );
 }
-// Schedules, birthdays, etc. Screen
+// Calendar Screen 
 function CalendarScreen({ navigation }) {
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -162,7 +150,6 @@ function CalendarScreen({ navigation }) {
       // header button right
       headerRight: () => (
         <View style={{ flexDirection: 'row' }}>
-
           <TouchableOpacity
             onPress={() => navigation.navigate('Home')}
           >
@@ -213,7 +200,6 @@ function StackScreen({ navigation }) {
       // header button right
       headerRight: () => (
         <View style={{ flexDirection: 'row' }}>
-
           <TouchableOpacity
             onPress={() => navigation.navigate('Home')}
           >
@@ -239,13 +225,6 @@ function StackScreen({ navigation }) {
     <View style={center}>
       <Text>Test Screen!</Text>
     </View>
-    // <Stack.Navigator>
-    //   <Stack.Screen
-    //     name="Register"
-    //     component={RegisterScreen}
-    //   // options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-    //   />
-    // </Stack.Navigator>
   );
 }
 // Replacing the title with a custom component
@@ -316,51 +295,17 @@ const Stack = createNativeStackNavigator();
 
 
 // styling and parameters(options)
-const grayBox = {
-  boxSizing: "border-box",
-  flexShrink: 0,
-  width: 80,
-  height: 80,
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-evenly",
-  alignItems: "center",
-  padding: "0px 13px 0px 13px",
-  backgroundColor: "#e6e6e6",
-  overflow: "visible",
-  borderRadius: 5,
-}
 const center = {
   flex: 1,
   justifyContent: 'center',
   alignItems: 'center',
   padding: 20,
 }
-const screenOptions = {
-  headerTitle: props => <Text {...props} />,
-  headerStyle: {
-    backgroundColor: '#e6e6e6',
-  },
-  headerRight: () => (
-    <Button
-      onPress={() => alert('This is a button!')}
-      title="Info"
-      color="#000000"
-    />
-  ),
-}
 const textUpvote = {
   fontSize: 20,
   fontWeight: "bold",
   color: "black",
   textAlign: "center",
-}
-const button = {
-  backgroundColor: "#000000",
-  borderRadius: 5,
-  padding: 10,
-  margin: 10,
-  fontSize: 50,
 }
 const stack = {
   flex: 1,
