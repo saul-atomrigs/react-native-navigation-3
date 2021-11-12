@@ -1,14 +1,15 @@
 import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
-import { Button, Image, Text, View, TouchableOpacity } from 'react-native';
+import { Button, Image, Text, View, TouchableOpacity, SafeAreaView } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Input } from 'react-native-elements';
 import { GiftedChat } from 'react-native-gifted-chat';
 import ChatScreen from './chat/ChatScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import { Input } from 'react-native-elements';
 import LoginScreen from './screens/LoginScreen';
+import { StreamApp } from 'expo-activity-feed';
 
 export default function App() {
   return (
@@ -40,6 +41,7 @@ export default function App() {
         <Tab.Screen name="Calendar" component={CalendarScreen} />
         <Tab.Screen name="HeaderButton" component={StackScreen} options={{ tabBarBadge: 3 }} />
         <Tab.Screen name="Connect" component={ChatScreen} options={{ tabBarBadge: 3 }} />
+        {/* <Tab.Screen name="Connect" component={StreamFeed} options={{ tabBarBadge: 3 }} /> */}
       </Tab.Navigator>
     </NavigationContainer>
   );
@@ -285,6 +287,14 @@ export function Chat() {
         _id: 1,
       }}
     />
+  )
+}
+// Stream Feed 
+function StreamFeed() {
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <StreamApp apiKey='tc7ru58bttgf' appId='1148469' token='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiY3VybHktc3Vuc2V0LTIifQ.HzD3xfFPGfM0MMXuQEx-cPaF53AYdYYjxx9RcdZiun0' />
+    </SafeAreaView>
   )
 }
 
