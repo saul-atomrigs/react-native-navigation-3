@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
-import { Button, Image, Text, View, TouchableOpacity, SafeAreaView } from 'react-native';
+import { Button, Image, Text, View, TouchableOpacity, SafeAreaView, Dimensions } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
@@ -10,6 +10,7 @@ import RegisterScreen from './screens/RegisterScreen';
 import { Input } from 'react-native-elements';
 import LoginScreen from './screens/LoginScreen';
 import { StreamApp } from 'expo-activity-feed';
+import Swiper from 'react-native-swiper'
 
 export default function App() {
   return (
@@ -25,7 +26,7 @@ export default function App() {
               iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
             } else if (route.name === 'Calendar') {
               iconName = focused ? 'calendar' : 'calendar-outline';
-            } else if (route.name === 'HeaderButton') {
+            } else if (route.name === 'News') {
               iconName = focused ? 'grid' : 'grid-outline';
             } else if (route.name === 'Connect') {
               iconName = focused ? 'star' : 'star-outline';
@@ -39,7 +40,7 @@ export default function App() {
         <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 3 }} />
         <Tab.Screen name="Community" component={CommunityScreen} options={{ tabBarBadge: 5 }} />
         <Tab.Screen name="Calendar" component={CalendarScreen} />
-        <Tab.Screen name="HeaderButton" component={StackScreen} options={{ tabBarBadge: 3 }} />
+        <Tab.Screen name="News" component={News} options={{ tabBarBadge: 3 }} />
         <Tab.Screen name="Connect" component={ChatScreen} options={{ tabBarBadge: 3 }} />
         {/* <Tab.Screen name="Connect" component={StreamFeed} options={{ tabBarBadge: 3 }} /> */}
       </Tab.Navigator>
@@ -67,7 +68,7 @@ function HomeScreen({ navigation }) {
           >
             <Image
               style={{ width: 30, height: 30, margin: 10, }}
-              source={require('./assets/logo.png')}
+              source={require('./assets/icons/logo.png')}
             />
           </TouchableOpacity>
           <TouchableOpacity
@@ -75,7 +76,7 @@ function HomeScreen({ navigation }) {
           >
             <Image
               style={{ width: 30, height: 30, margin: 10, }}
-              source={require('./assets/dots-nine.png')}
+              source={require('./assets/icons/dots-nine.png')}
             />
           </TouchableOpacity>
         </View>
@@ -84,11 +85,28 @@ function HomeScreen({ navigation }) {
   }, [navigation]);
   return (
     // body
-    <View style={center}>
-      <Text>Home!</Text>
-      <Button title="Go to calendar" onPress={() => navigation.navigate('Calendar')} />
-      <Button title="Go to community" onPress={() => navigation.navigate('Community')} />
-    </View>
+    <>
+      <View style={{ height: '30%' }}>
+        <Swiper showButtons={true} loop={false}>
+          <View>
+            <Image
+              source={require('./assets/001.jpg')}
+              style={wrap}
+            />
+          </View>
+          <View>
+            <Image
+              source={require('./assets/002.jpeg')}
+              style={wrap}
+            />
+          </View>
+        </Swiper>
+      </View>
+      <View style={center}>
+        <Button title="Go to calendar" onPress={() => navigation.navigate('Calendar')} />
+        <Button title="Go to community" onPress={() => navigation.navigate('Community')} />
+      </View >
+    </>
   );
 }
 // Community Screen 
@@ -113,7 +131,7 @@ function CommunityScreen({ navigation, ChatScreen }) {
           >
             <Image
               style={{ width: 30, height: 30, margin: 10, }}
-              source={require('./assets/logo.png')}
+              source={require('./assets/icons/logo.png')}
             />
           </TouchableOpacity>
           <TouchableOpacity
@@ -121,7 +139,7 @@ function CommunityScreen({ navigation, ChatScreen }) {
           >
             <Image
               style={{ width: 30, height: 30, margin: 10, }}
-              source={require('./assets/dots-nine.png')}
+              source={require('./assets/icons/dots-nine.png')}
             />
           </TouchableOpacity>
         </View>
@@ -157,7 +175,7 @@ function CalendarScreen({ navigation }) {
           >
             <Image
               style={{ width: 30, height: 30, margin: 10, }}
-              source={require('./assets/logo.png')}
+              source={require('./assets/icons/logo.png')}
             />
           </TouchableOpacity>
           <TouchableOpacity
@@ -165,7 +183,7 @@ function CalendarScreen({ navigation }) {
           >
             <Image
               style={{ width: 30, height: 30, margin: 10, }}
-              source={require('./assets/dots-nine.png')}
+              source={require('./assets/icons/dots-nine.png')}
             />
           </TouchableOpacity>
         </View>
@@ -185,8 +203,8 @@ function CalendarScreen({ navigation }) {
     </View>
   );
 }
-// Test Screen with header 
-function StackScreen({ navigation }) {
+// KPOP News
+function News({ navigation }) {
   const [count, setCount] = useState(0);
   // header buttons
   useLayoutEffect(() => {
@@ -207,7 +225,7 @@ function StackScreen({ navigation }) {
           >
             <Image
               style={{ width: 30, height: 30, margin: 10, }}
-              source={require('./assets/logo.png')}
+              source={require('./assets/icons/logo.png')}
             />
           </TouchableOpacity>
           <TouchableOpacity
@@ -215,7 +233,7 @@ function StackScreen({ navigation }) {
           >
             <Image
               style={{ width: 30, height: 30, margin: 10, }}
-              source={require('./assets/dots-nine.png')}
+              source={require('./assets/icons/dots-nine.png')}
             />
           </TouchableOpacity>
         </View>
@@ -304,6 +322,11 @@ const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 
+// Swiper slide images dimensions
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
+
+
 // styling and parameters(options)
 const center = {
   flex: 1,
@@ -321,4 +344,8 @@ const stack = {
   flex: 1,
   alignItems: 'left',
   padding: 30,
+}
+const wrap = {
+  width: WIDTH,
+  height: HEIGHT * 0.35,
 }
