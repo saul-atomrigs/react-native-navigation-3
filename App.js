@@ -11,6 +11,7 @@ import { Input } from 'react-native-elements';
 import LoginScreen from './screens/LoginScreen';
 import { StreamApp } from 'expo-activity-feed';
 import Swiper from 'react-native-swiper'
+import Categories from './components/Categories'
 
 export default function App() {
   return (
@@ -102,9 +103,16 @@ function HomeScreen({ navigation }) {
           </View>
         </Swiper>
       </View>
+      <View style={{ height: '50%' }}>
+        <Categories />
+      </View>
       <View style={center}>
-        <Button title="Go to calendar" onPress={() => navigation.navigate('Calendar')} />
-        <Button title="Go to community" onPress={() => navigation.navigate('Community')} />
+        <View style={button}>
+          <Button title="Calendar" onPress={() => navigation.navigate('Calendar')} />
+        </View>
+        <View style={button}>
+          <Button title="Community" onPress={() => navigation.navigate('Community')} />
+        </View>
       </View >
     </>
   );
@@ -116,14 +124,7 @@ function CommunityScreen({ navigation, ChatScreen }) {
   useLayoutEffect(() => {
     navigation.setOptions({
       // header button left
-      headerLeft: () => (
-        <Button
-          title="Menu"
-          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-          onPress={() => navigation.navigate('Home')}
-        />
-      ),
-      // header button right
+      headerTitleAlign: 'left',
       headerRight: () => (
         <View style={{ flexDirection: 'row' }}>
           <TouchableOpacity
@@ -193,13 +194,14 @@ function CalendarScreen({ navigation }) {
   return (
     // body
     <View style={center}>
-      <Text style={{ fontWeight: 'bold', fontSize: 20, margin: 10, }}>Welcome to Calendar!</Text>
-      <Text>You can search KPOP group's schedules, anniversaries, and more.</Text>
-      <Button
-        title="Start"
-        style={{ fontWeight: 'bold', margin: 10, }}
-        onPress={() => navigation.navigate('Community')}
-      />
+      <Text style={{ fontWeight: 'bold', fontSize: 20, }}>Welcome to Calendar!</Text>
+      <Text style={{ margin: 10 }}>You can search KPOP group's schedules, anniversaries, and more.</Text>
+      <View style={button}>
+        <Button
+          title="Start"
+          onPress={() => navigation.navigate('Community')}
+        />
+      </View>
     </View>
   );
 }
@@ -210,13 +212,7 @@ function News({ navigation }) {
   useLayoutEffect(() => {
     navigation.setOptions({
       // header button left
-      headerLeft: () => (
-        <Button
-          title="Menu"
-          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-          onPress={() => navigation.navigate('Home')}
-        />
-      ),
+      headerTitleAlign: 'left',
       // header button right
       headerRight: () => (
         <View style={{ flexDirection: 'row' }}>
@@ -348,4 +344,17 @@ const stack = {
 const wrap = {
   width: WIDTH,
   height: HEIGHT * 0.35,
+}
+const button = {
+  boxSizing: "border-box",
+  flexShrink: 0,
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+  boxShadow: "0px 1px 10px 1px black",
+  backgroundColor: "#fff",
+  overflow: "visible",
+  borderRadius: 13,
+  marginBottom: 10,
 }
