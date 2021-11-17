@@ -53,7 +53,7 @@ export default function Schedules() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 22,
+        paddingTop: 10,
         width: '100%',
     },
     sectionHeader: {
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     },
     input: {
         height: 40,
-        margin: 12,
+        marginBottom: 10,
         borderWidth: 1,
         borderRadius: 13,
         backgroundColor: '#fff',

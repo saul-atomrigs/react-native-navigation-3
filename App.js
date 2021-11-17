@@ -1,49 +1,50 @@
 import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
-import { Button, Image, Text, View, ScrollView, TouchableOpacity, SafeAreaView, Dimensions } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { Button, Dimensions, Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { GiftedChat } from 'react-native-gifted-chat';
-import ChatScreen from './chat/ChatScreen';
-import RegisterScreen from './screens/RegisterScreen';
-import { Input } from 'react-native-elements';
-import LoginScreen from './screens/LoginScreen';
 import { StreamApp } from 'expo-activity-feed';
-import Swiper from 'react-native-swiper'
-import Categories from './components/Categories'
-import NewsArticles from './News/NewsArticles'
-import NewsFeed from './News/NewsFeed'
-import Schedules from './Calendar/Schedules'
-import { useNavigation } from '@react-navigation/native';
+import { GiftedChat } from 'react-native-gifted-chat';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import Swiper from 'react-native-swiper';
+import Schedules from './Calendar/Schedules';
+import ChatScreen from './chat/ChatScreen';
 
 
 export default function App() {
+  // Stack Navigator
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeStackScreen} options={{ tabBarBadge: 3, headerShown: false }} />
-        <Stack.Screen name="Community" component={CommunityScreen} options={{ tabBarBadge: 5 }} />
+      <Stack.Navigator >
+        <Stack.Screen name="HomeTabNavigation" component={HomeTabNavigation} options={{ headerShown: false }} />
+        <Stack.Screen name="Community" component={CommunityScreen} />
         <Stack.Screen name="Calendar" component={CalendarScreen} />
-        <Stack.Screen name="News" component={News} options={{ tabBarBadge: 3 }} />
-        <Stack.Screen name="Connect" component={ChatScreen} options={{ tabBarBadge: 3 }} />
+        <Stack.Screen name="News" component={News} />
+        <Stack.Screen name="Connect" component={ChatScreen} />
+        <Stack.Screen name="NewsPage" component={NewsPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-// Home Screen
+// tab = 밑에 탭 네비게이션 
+function HomeTabNavigation() {
+  return (
+    <Tab.Navigator screenOptions={screenOptions}>
+      <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 3 }} />
+      <Tab.Screen name="Community" component={CommunityScreen} options={{ tabBarBadge: 5 }} />
+      <Tab.Screen name="Calendar" component={CalendarScreen} />
+      <Tab.Screen name="News" component={News} />
+      <Tab.Screen name="Connect" component={ChatScreen} />
+    </Tab.Navigator>
+  );
+}
+// Home Screen ✅
 function HomeScreen({ navigation }) {
   useLayoutEffect(() => {
     navigation.setOptions({
       // header button left
-      headerLeft: () => (
-        <Button
-          title='home'
-          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-          onPress={() => navigation.navigate('Home')}
-        />
-      ),
+      headerTitleAlign: 'left',
+      title: 'KPOP',
       // header button right
       headerRight: () => (
         <View style={{ flexDirection: 'row' }}>
@@ -95,7 +96,7 @@ function HomeScreen({ navigation }) {
           <Button title="Register" onPress={() => navigation.navigate('Register')} />
         </View>
         <View style={button}>
-          <Button title="Community" onPress={() => navigation.push('Community')} />
+          <Button title="Calendar" onPress={() => navigation.push('Calendar')} />
         </View>
         <View style={button}>
           <Button title="News" onPress={() => navigation.push('News')} />
@@ -104,19 +105,8 @@ function HomeScreen({ navigation }) {
     </>
   );
 }
-function HomeStackScreen() {
-  return (
-    <Tab.Navigator screenOptions={screenOptions}>
-      <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 3 }} />
-      <Tab.Screen name="Community" component={CommunityScreen} options={{ tabBarBadge: 5 }} />
-      <Tab.Screen name="Calendar" component={CalendarScreen} />
-      <Tab.Screen name="News" component={News} options={{ tabBarBadge: 3 }} />
-      <Tab.Screen name="Connect" component={ChatScreen} options={{ tabBarBadge: 3 }} />
-    </Tab.Navigator>
-  );
-}
-// Community Screen 
-function CommunityScreen({ navigation, ChatScreen }) {
+// Community Screen ✅✅
+function CommunityScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   useLayoutEffect(() => {
@@ -151,23 +141,14 @@ function CommunityScreen({ navigation, ChatScreen }) {
     <View >
       <Button title='Calendar' onPress={() => navigation.navigate('Calendar')} />
       <Button title='Register' onPress={() => navigation.navigate('Register')} />
-      <Button title='chat' onPress={() => navigation.navigate('Connect')} />
+      <Button title='chat' onPress={() => navigation.push('Connect')} />
     </View>
-
   );
 }
-// Calendar Screen 
+// Calendar Screen ✅✅✅
 function CalendarScreen({ navigation }) {
   useLayoutEffect(() => {
     navigation.setOptions({
-      // header button left
-      // headerLeft: () => (
-      //   <Button
-      //     title="Menu"
-      //     options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-      //     onPress={() => navigation.navigate('Home')}
-      //   />
-      // ),
       // header button left
       headerTitleAlign: 'left',
       // header button right
@@ -196,19 +177,12 @@ function CalendarScreen({ navigation }) {
   return (
     // body
     <View style={center}>
-      <Text style={{ fontWeight: 'bold', fontSize: 20, }}>Welcome to Calendar!</Text>
-      <Text style={{ margin: 10 }}>You can find or suggest KPOP group's schedules, anniversaries, and more.</Text>
-      {/* <View style={button}>
-        <Button
-          title="Start"
-          onPress={() => navigation.navigate('Schedules')}
-        />
-      </View> */}
+      <Text>You can find or suggest KPOP group's schedules, anniversaries, and more.</Text>
       <Schedules />
     </View>
   );
 }
-// KPOP News
+// KPOP News ✅✅✅✅
 function News({ navigation }) {
   const [count, setCount] = useState(0);
   // header buttons
@@ -242,7 +216,6 @@ function News({ navigation }) {
   return (
     // body 
     <View style={center}>
-      {/* <NewsArticles /> */}
       <ScrollView style={articleStyle} showsVerticalScrollIndicator={false} >
         <Header />
         <View>
@@ -252,7 +225,7 @@ function News({ navigation }) {
         </View>
         <Button
           title='home'
-          onPress={() => navigation.navigate('Home')}
+          onPress={() => navigation.push('HomeTabNavigation')}
         />
       </ScrollView >
     </View>
@@ -326,19 +299,6 @@ function StreamFeed() {
     </SafeAreaView>
   )
 }
-function getHeaderTitle(route) {
-  // tab navigator의 `route.state` state를 사용한다
-  const routeName = route.state
-    ? route.state.routes[route.state.index].name // 현재 active된 route name을 tab navigator에서 가져온다
-    : route.params?.screen || 'Home';
-
-  switch (routeName) {
-    case 'Home':
-      return 'GEAGURI';
-    case 'Settings':
-      return 'GEAGURI Setting';
-  }
-}
 
 
 // react navigation
@@ -373,6 +333,35 @@ const screenOptions = ({ route }) => ({
 })
 
 
+// header options 
+const headerOptions = ({ navigation }) => (
+  {
+    // header button left
+    headerTitleAlign: 'left',
+    // header button right
+    headerRight: () => (
+      <View style={{ flexDirection: 'row' }}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Home')}
+        >
+          <Image
+            style={{ width: 30, height: 30, margin: 10, }}
+            source={require('./assets/icons/logo.png')}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Home')}
+        >
+          <Image
+            style={{ width: 30, height: 30, margin: 10, }}
+            source={require('./assets/icons/dots-nine.png')}
+          />
+        </TouchableOpacity>
+      </View>
+    ),
+  }
+)
+
 // News components 
 const text1 = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
 function Header() {
@@ -398,7 +387,7 @@ const ArticleImage = (props) => (
 function ArticleBlock() {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+    <TouchableOpacity onPress={() => navigation.push('NewsPage')}>
       <View style={articleList}>
         <ArticleImage />
         <View style={articleTextView}>
@@ -408,6 +397,13 @@ function ArticleBlock() {
         </View>
       </View>
     </TouchableOpacity>
+  )
+}
+function NewsPage() {
+  return (
+    <View style={center}>
+      <Text>NewsPage!</Text>
+    </View>
   )
 }
 
