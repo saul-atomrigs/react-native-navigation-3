@@ -1,49 +1,62 @@
 import React from 'react'
-import { View, Text, ScrollView, Image } from 'react-native'
+import { View, Text, ScrollView, Image, Button, TouchableOpacity } from 'react-native'
+// import NewsPage from './NewsPage'
+import { useNavigation } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+
+export default function NewsArticles({ NewsPage }) {
+    const navigation = useNavigation();
+
+    return (
+        <ScrollView style={articleStyle} showsVerticalScrollIndicator={false} >
+            <Header />
+            <View>
+                <ArticleBlock />
+                <ArticleBlock />
+                <ArticleBlock />
+            </View>
+            <Button
+                title={`Go to ${NewsPage}`}
+                onPress={() => navigation.navigate('NewsPage')}
+            />
+        </ScrollView >
+
+        // <Stack.Navigator>
+        //     <Stack.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 3, headerShown: false }} />
+        // </Stack.Navigator>
+
+    )
+}
+
+
+function HomeScreen() {
+    return (
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Text>Home Screen</Text>
+        </View>
+    );
+}
 
 const text1 = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
 const text2 = 'Contrary to popular belief, Lorem Ipsum is not simply random text.'
 const text3 = 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.'
 
-export default function NewsArticles({ marginLeft }) {
-    return (
-        <ScrollView style={articleStyle} showsVerticalScrollIndicator={false} >
-            <View>
-                <View>
-                    <Text style={textTitle}>Today</Text>
-                    <Text style={textSubtitle}>Discover Latest News Today</Text>
-                </View>
-                <View style={articleList}>
-                    <ArticleImage />
-                    <View style={articleTextView}>
-                        <Text style={articleArtist}>Twice</Text>
-                        <Text style={articleTitle}>Title</Text>
-                        <Text style={articleSummary}>{text1}</Text>
-                    </View>
-                </View>
-                <View style={articleList}>
-                    <ArticleImage marginLeft={marginLeft ? marginLeft : 0} />
-                    <View style={articleTextView}>
-                        <Text style={articleArtist}>Twice</Text>
-                        <Text style={articleTitle}>Title</Text>
-                        <Text style={articleSummary}>{text2}</Text>
-                    </View>
-                </View>
-                <View style={articleList}>
-                    <ArticleImage marginLeft={marginLeft ? marginLeft : 0} />
-                    <View style={articleTextView}>
-                        <Text style={articleArtist}>Twice</Text>
-                        <Text style={articleTitle}>Title</Text>
-                        <Text style={articleSummary}>{text3}</Text>
-                    </View>
-                </View>
-            </View>
-        </ScrollView >
-    )
-}
-
+// react navigation
+const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 // components 
+function Header() {
+    return (
+        <View>
+            <Text style={textTitle}>Today</Text>
+            <Text style={textSubtitle}>Discover Latest News Today</Text>
+        </View>
+    )
+}
 const ArticleImage = (props) => (
     <View>
         <Image
@@ -56,7 +69,21 @@ const ArticleImage = (props) => (
         />
     </View>
 );
-
+function ArticleBlock() {
+    const navigation = useNavigation();
+    return (
+        <TouchableOpacity onPress={() => navigation.navigate('LikeCounter')}>
+            <View style={articleList}>
+                <ArticleImage />
+                <View style={articleTextView}>
+                    <Text style={articleArtist}>Twice</Text>
+                    <Text style={articleTitle}>Title</Text>
+                    <Text style={articleSummary}>{text1}</Text>
+                </View>
+            </View>
+        </TouchableOpacity>
+    )
+}
 
 // styles 
 const articleStyle = {

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
-import { Button, Image, Text, View, TouchableOpacity, SafeAreaView, Dimensions } from 'react-native';
+import { Button, Image, Text, View, ScrollView, TouchableOpacity, SafeAreaView, Dimensions } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
@@ -15,39 +15,19 @@ import Categories from './components/Categories'
 import NewsArticles from './News/NewsArticles'
 import NewsFeed from './News/NewsFeed'
 import Schedules from './Calendar/Schedules'
+import { useNavigation } from '@react-navigation/native';
+
 
 export default function App() {
   return (
-    // Navigation tabs (bottom)
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-            if (route.name === 'Home') {
-              iconName = focused ? 'ios-planet' : 'ios-planet-outline';
-            } else if (route.name === 'Community') {
-              iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
-            } else if (route.name === 'Calendar') {
-              iconName = focused ? 'calendar' : 'calendar-outline';
-            } else if (route.name === 'News') {
-              iconName = focused ? 'grid' : 'grid-outline';
-            } else if (route.name === 'Connect') {
-              iconName = focused ? 'star' : 'star-outline';
-            }
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-          tabBarActiveTintColor: 'black',
-          tabBarInactiveTintColor: 'black',
-        })}
-      >
-        <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 3 }} />
-        <Tab.Screen name="Community" component={CommunityScreen} options={{ tabBarBadge: 5 }} />
-        <Tab.Screen name="Calendar" component={CalendarScreen} />
-        <Tab.Screen name="News" component={News} options={{ tabBarBadge: 3 }} />
-        <Tab.Screen name="Connect" component={ChatScreen} options={{ tabBarBadge: 3 }} />
-        {/* <Tab.Screen name="Connect" component={StreamFeed} options={{ tabBarBadge: 3 }} /> */}
-      </Tab.Navigator>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeStackScreen} options={{ tabBarBadge: 3, headerShown: false }} />
+        <Stack.Screen name="Community" component={CommunityScreen} options={{ tabBarBadge: 5 }} />
+        <Stack.Screen name="Calendar" component={CalendarScreen} />
+        <Stack.Screen name="News" component={News} options={{ tabBarBadge: 3 }} />
+        <Stack.Screen name="Connect" component={ChatScreen} options={{ tabBarBadge: 3 }} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
@@ -59,7 +39,7 @@ function HomeScreen({ navigation }) {
       // header button left
       headerLeft: () => (
         <Button
-          title="Menu"
+          title='home'
           options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
           onPress={() => navigation.navigate('Home')}
         />
@@ -92,32 +72,47 @@ function HomeScreen({ navigation }) {
     <>
       <View style={{ height: '30%' }}>
         <Swiper showButtons={true} loop={false}>
-          <View>
-            <Image
-              source={require('./assets/001.jpg')}
-              style={wrap}
-            />
-          </View>
-          <View>
-            <Image
-              source={require('./assets/002.jpeg')}
-              style={wrap}
-            />
-          </View>
+          <TouchableOpacity onPress={() => navigation.push('News')}>
+            <View>
+              <Image
+                source={require('./assets/001.jpg')}
+                style={wrap}
+              />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.push('News')}>
+            <View>
+              <Image
+                source={require('./assets/002.jpeg')}
+                style={wrap}
+              />
+            </View>
+          </TouchableOpacity>
         </Swiper>
-      </View>
-      <View style={{ height: '50%' }}>
-        <Categories />
       </View>
       <View style={center}>
         <View style={button}>
-          <Button title="Calendar" onPress={() => navigation.navigate('Calendar')} />
+          <Button title="Register" onPress={() => navigation.navigate('Register')} />
         </View>
         <View style={button}>
-          <Button title="Community" onPress={() => navigation.navigate('Community')} />
+          <Button title="Community" onPress={() => navigation.push('Community')} />
+        </View>
+        <View style={button}>
+          <Button title="News" onPress={() => navigation.push('News')} />
         </View>
       </View >
     </>
+  );
+}
+function HomeStackScreen() {
+  return (
+    <Tab.Navigator screenOptions={screenOptions}>
+      <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 3 }} />
+      <Tab.Screen name="Community" component={CommunityScreen} options={{ tabBarBadge: 5 }} />
+      <Tab.Screen name="Calendar" component={CalendarScreen} />
+      <Tab.Screen name="News" component={News} options={{ tabBarBadge: 3 }} />
+      <Tab.Screen name="Connect" component={ChatScreen} options={{ tabBarBadge: 3 }} />
+    </Tab.Navigator>
   );
 }
 // Community Screen 
@@ -128,6 +123,7 @@ function CommunityScreen({ navigation, ChatScreen }) {
     navigation.setOptions({
       // header button left
       headerTitleAlign: 'left',
+      // header button right
       headerRight: () => (
         <View style={{ flexDirection: 'row' }}>
           <TouchableOpacity
@@ -157,6 +153,7 @@ function CommunityScreen({ navigation, ChatScreen }) {
       <Button title='Register' onPress={() => navigation.navigate('Register')} />
       <Button title='chat' onPress={() => navigation.navigate('Connect')} />
     </View>
+
   );
 }
 // Calendar Screen 
@@ -164,13 +161,15 @@ function CalendarScreen({ navigation }) {
   useLayoutEffect(() => {
     navigation.setOptions({
       // header button left
-      headerLeft: () => (
-        <Button
-          title="Menu"
-          options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
-          onPress={() => navigation.navigate('Home')}
-        />
-      ),
+      // headerLeft: () => (
+      //   <Button
+      //     title="Menu"
+      //     options={{ headerTitle: (props) => <LogoTitle {...props} /> }}
+      //     onPress={() => navigation.navigate('Home')}
+      //   />
+      // ),
+      // header button left
+      headerTitleAlign: 'left',
       // header button right
       headerRight: () => (
         <View style={{ flexDirection: 'row' }}>
@@ -241,10 +240,21 @@ function News({ navigation }) {
     });
   }, [navigation, count]);
   return (
-    // body's header 
+    // body 
     <View style={center}>
-      {/* <Text>KPOP NEWS and ARTICLES</Text> */}
-      <NewsArticles />
+      {/* <NewsArticles /> */}
+      <ScrollView style={articleStyle} showsVerticalScrollIndicator={false} >
+        <Header />
+        <View>
+          <ArticleBlock />
+          <ArticleBlock />
+          <ArticleBlock />
+        </View>
+        <Button
+          title='home'
+          onPress={() => navigation.navigate('Home')}
+        />
+      </ScrollView >
     </View>
   );
 }
@@ -316,6 +326,19 @@ function StreamFeed() {
     </SafeAreaView>
   )
 }
+function getHeaderTitle(route) {
+  // tab navigator의 `route.state` state를 사용한다
+  const routeName = route.state
+    ? route.state.routes[route.state.index].name // 현재 active된 route name을 tab navigator에서 가져온다
+    : route.params?.screen || 'Home';
+
+  switch (routeName) {
+    case 'Home':
+      return 'GEAGURI';
+    case 'Settings':
+      return 'GEAGURI Setting';
+  }
+}
 
 
 // react navigation
@@ -326,6 +349,67 @@ const Stack = createNativeStackNavigator();
 // Swiper slide images dimensions
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
+
+
+// tab bar icon
+const screenOptions = ({ route }) => ({
+  tabBarIcon: ({ focused, color, size }) => {
+    let iconName;
+    if (route.name === 'Home') {
+      iconName = focused ? 'ios-planet' : 'ios-planet-outline';
+    } else if (route.name === 'Community') {
+      iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
+    } else if (route.name === 'Calendar') {
+      iconName = focused ? 'calendar' : 'calendar-outline';
+    } else if (route.name === 'News') {
+      iconName = focused ? 'grid' : 'grid-outline';
+    } else if (route.name === 'Connect') {
+      iconName = focused ? 'star' : 'star-outline';
+    }
+    return <Ionicons name={iconName} size={size} color={color} />;
+  },
+  tabBarActiveTintColor: 'black',
+  tabBarInactiveTintColor: 'black',
+})
+
+
+// News components 
+const text1 = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+function Header() {
+  return (
+    <View>
+      <Text style={textTitle}>Today</Text>
+      <Text style={textSubtitle}>Discover Latest News Today</Text>
+    </View>
+  )
+}
+const ArticleImage = (props) => (
+  <View>
+    <Image
+      source={require('./assets/002.jpeg')}
+      style={{
+        width: 100,
+        height: 100,
+        borderRadius: 8,
+      }}
+    />
+  </View>
+);
+function ArticleBlock() {
+  const navigation = useNavigation();
+  return (
+    <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+      <View style={articleList}>
+        <ArticleImage />
+        <View style={articleTextView}>
+          <Text style={articleArtist}>Twice</Text>
+          <Text style={articleTitle}>Title</Text>
+          <Text style={articleSummary}>{text1}</Text>
+        </View>
+      </View>
+    </TouchableOpacity>
+  )
+}
 
 
 // styling and parameters(options)
@@ -362,4 +446,42 @@ const button = {
   overflow: "visible",
   borderRadius: 13,
   marginBottom: 10,
+}
+// News styles 
+const articleStyle = {
+  width: '100%',
+}
+const textTitle = {
+  fontWeight: 'bold',
+  fontSize: 50,
+}
+const textSubtitle = {
+  fontSize: 12,
+  color: '#000',
+  margin: 5,
+}
+const articleList = {
+  marginTop: 10,
+  flexDirection: 'row',
+  padding: 10,
+  backgroundColor: '#fff',
+  borderRadius: 13,
+}
+const articleTextView = {
+  marginLeft: 15,
+  marginRight: 15,
+}
+const articleArtist = {
+  marginLeft: 5,
+  color: 'gray',
+}
+const articleTitle = {
+  marginLeft: 5,
+  fontSize: 20,
+  fontWeight: 'bold',
+}
+const articleSummary = {
+  marginLeft: 5,
+  marginRight: 5,
+  width: '40%',
 }
