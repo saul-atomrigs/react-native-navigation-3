@@ -12,6 +12,9 @@ import LoginScreen from './screens/LoginScreen';
 import { StreamApp } from 'expo-activity-feed';
 import Swiper from 'react-native-swiper'
 import Categories from './components/Categories'
+import NewsArticles from './News/NewsArticles'
+import NewsFeed from './News/NewsFeed'
+import Schedules from './Calendar/Schedules'
 
 export default function App() {
   return (
@@ -150,7 +153,7 @@ function CommunityScreen({ navigation, ChatScreen }) {
   return (
     // body
     <View >
-      <Button title='Sign In' onPress={() => navigation.navigate('Calendar')} />
+      <Button title='Calendar' onPress={() => navigation.navigate('Calendar')} />
       <Button title='Register' onPress={() => navigation.navigate('Register')} />
       <Button title='chat' onPress={() => navigation.navigate('Connect')} />
     </View>
@@ -195,14 +198,16 @@ function CalendarScreen({ navigation }) {
     // body
     <View style={center}>
       <Text style={{ fontWeight: 'bold', fontSize: 20, }}>Welcome to Calendar!</Text>
-      <Text style={{ margin: 10 }}>You can search KPOP group's schedules, anniversaries, and more.</Text>
-      <View style={button}>
+      <Text style={{ margin: 10 }}>You can find or suggest KPOP group's schedules, anniversaries, and more.</Text>
+      {/* <View style={button}>
         <Button
           title="Start"
-          onPress={() => navigation.navigate('Community')}
+          onPress={() => navigation.navigate('Schedules')}
         />
-      </View>
+      </View> */}
+      <Schedules />
     </View>
+
   );
 }
 // KPOP News
@@ -239,7 +244,8 @@ function News({ navigation }) {
   return (
     // body's header 
     <View style={center}>
-      <Text>Test Screen!</Text>
+      {/* <Text>KPOP NEWS and ARTICLES</Text> */}
+      <NewsArticles />
     </View>
   );
 }
