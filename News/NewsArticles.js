@@ -14,7 +14,7 @@ export default function NewsArticles({ marginLeft }) {
                     <Text style={textSubtitle}>Discover Latest News Today</Text>
                 </View>
                 <View style={articleList}>
-                    <ArticleImage marginLeft={marginLeft ? marginLeft : 0} />
+                    <ArticleImage />
                     <View style={articleTextView}>
                         <Text style={articleArtist}>Twice</Text>
                         <Text style={articleTitle}>Title</Text>
@@ -47,7 +47,7 @@ export default function NewsArticles({ marginLeft }) {
 const ArticleImage = (props) => (
     <View>
         <Image
-            source={require('../assets/001.jpg')}
+            source={require('../assets/002.jpeg')}
             style={{
                 width: 100,
                 height: 100,
@@ -82,7 +82,8 @@ const articleList = {
     borderRadius: 13,
 }
 const articleTextView = {
-    marginLeft: 10,
+    marginLeft: 15,
+    marginRight: 15,
 }
 const articleArtist = {
     marginLeft: 5,
@@ -95,4 +96,6 @@ const articleTitle = {
 }
 const articleSummary = {
     marginLeft: 5,
+    marginRight: 5,
+    width: '40%',
 }

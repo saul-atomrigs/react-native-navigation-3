@@ -207,7 +207,6 @@ function CalendarScreen({ navigation }) {
       </View> */}
       <Schedules />
     </View>
-
   );
 }
 // KPOP News
