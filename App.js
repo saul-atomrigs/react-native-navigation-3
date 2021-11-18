@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
-import { Button, Dimensions, Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Button, Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -9,6 +9,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import Swiper from 'react-native-swiper';
 import Schedules from './Calendar/Schedules';
 import ChatScreen from './chat/ChatScreen';
+import { Divider } from 'react-native-elements';
 
 
 export default function App() {
@@ -20,6 +21,7 @@ export default function App() {
         <Stack.Screen name="Community" component={CommunityScreen} />
         <Stack.Screen name="Calendar" component={CalendarScreen} />
         <Stack.Screen name="News" component={News} />
+        <Stack.Screen name="NewsTabNavigation" component={NewsTabNavigation} options={{ headerShown: false }} />
         <Stack.Screen name="Connect" component={ChatScreen} />
         <Stack.Screen name="NewsPage" component={NewsPage} />
       </Stack.Navigator>
@@ -28,6 +30,17 @@ export default function App() {
 }
 // tab = 밑에 탭 네비게이션 
 function HomeTabNavigation() {
+  return (
+    <Tab.Navigator screenOptions={screenOptions}>
+      <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 3 }} />
+      <Tab.Screen name="Community" component={CommunityScreen} options={{ tabBarBadge: 5 }} />
+      <Tab.Screen name="Calendar" component={CalendarScreen} />
+      <Tab.Screen name="News" component={News} />
+      <Tab.Screen name="Connect" component={ChatScreen} />
+    </Tab.Navigator>
+  );
+}
+function NewsTabNavigation() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 3 }} />
@@ -99,7 +112,7 @@ function HomeScreen({ navigation }) {
           <Button title="Calendar" onPress={() => navigation.push('Calendar')} />
         </View>
         <View style={button}>
-          <Button title="News" onPress={() => navigation.push('News')} />
+          <Button title="NewsTabNavigation" onPress={() => navigation.push('NewsTabNavigation')} />
         </View>
       </View >
     </>
@@ -138,10 +151,15 @@ function CommunityScreen({ navigation }) {
   }, [navigation]);
   return (
     // body
-    <View >
-      <Button title='Calendar' onPress={() => navigation.navigate('Calendar')} />
-      <Button title='Register' onPress={() => navigation.navigate('Register')} />
-      <Button title='chat' onPress={() => navigation.push('Connect')} />
+    <View style={center}>
+      <ScrollView style={articleStyle} showsVerticalScrollIndicator={false} >
+        <CommunityHeader />
+        <View>
+          <CommunityBlock />
+          <CommunityBlock />
+          <CommunityBlock />
+        </View>
+      </ScrollView >
     </View>
   );
 }
@@ -176,7 +194,7 @@ function CalendarScreen({ navigation }) {
   }, [navigation]);
   return (
     // body
-    <View style={center}>
+    <View style={calendarCenter}>
       <Text>You can find or suggest KPOP group's schedules, anniversaries, and more.</Text>
       <Schedules />
     </View>
@@ -217,7 +235,7 @@ function News({ navigation }) {
     // body 
     <View style={center}>
       <ScrollView style={articleStyle} showsVerticalScrollIndicator={false} >
-        <Header />
+        <NewsHeader />
         <View>
           <ArticleBlock />
           <ArticleBlock />
@@ -362,13 +380,43 @@ const headerOptions = ({ navigation }) => (
   }
 )
 
-// News components 
-const text1 = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
-function Header() {
+
+// Community components 
+function CommunityHeader() {
   return (
     <View>
-      <Text style={textTitle}>Today</Text>
-      <Text style={textSubtitle}>Discover Latest News Today</Text>
+      <Text style={headerTitle}>Community</Text>
+      <Text style={headerSubtitle}>Discover Latest News Today</Text>
+    </View>
+  )
+}
+function CommunityBlock() {
+  const navigation = useNavigation();
+  return (
+    <TouchableOpacity onPress={() => navigation.push('NewsPage')}>
+      <View style={articleList}>
+        <View style={articleTextView}>
+          <Text style={articleArtist}>Twice</Text>
+          <Text style={articleTitle}>Title</Text>
+          <Text style={articleSummary}>{text1}</Text>
+          <Divider style={{ margin: 7 }} />
+          <View style={articleStats}>
+            <Text style={articleStatsDetails}>3 Likes</Text>
+            <Text style={articleStatsDetails}>2 Comments</Text>
+          </View>
+        </View>
+      </View>
+    </TouchableOpacity>
+  )
+}
+
+// News components 
+const text1 = 'Lorem Ipsum is simply dummy text of the printing.'
+function NewsHeader() {
+  return (
+    <View>
+      <Text style={headerTitle}>Today</Text>
+      <Text style={headerSubtitle}>Discover Latest News Today</Text>
     </View>
   )
 }
@@ -394,16 +442,34 @@ function ArticleBlock() {
           <Text style={articleArtist}>Twice</Text>
           <Text style={articleTitle}>Title</Text>
           <Text style={articleSummary}>{text1}</Text>
+          <View style={articleStats}>
+            <Text style={articleStatsDetails}>3 Likes</Text>
+            <Text style={articleStatsDetails}>2 Comments</Text>
+          </View>
         </View>
       </View>
     </TouchableOpacity>
   )
 }
 function NewsPage() {
+  const [text, onChangeText] = useState("");
   return (
-    <View style={center}>
-      <Text>NewsPage!</Text>
-    </View>
+    <>
+      <View style={center}>
+        <Text>NewsPage!</Text>
+      </View>
+      <SafeAreaView>
+        <View
+          style={newsArticleCommentInput}
+        >
+          <TextInput
+            onChangeText={onChangeText}
+            value={text}
+            placeholder={'Comment this news...'}
+          />
+        </View>
+      </SafeAreaView>
+    </>
   )
 }
 
@@ -413,7 +479,9 @@ const center = {
   flex: 1,
   justifyContent: 'center',
   alignItems: 'center',
-  padding: 20,
+  // padding: 20,
+  marginTop: 10,
+  // backgroundColor: '#ffffff',
 }
 const textUpvote = {
   fontSize: 20,
@@ -443,25 +511,36 @@ const button = {
   borderRadius: 13,
   marginBottom: 10,
 }
+// Calendar Styles 
+const calendarCenter = {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: 20,
+  marginTop: 10,
+  // backgroundColor: '#ffffff',
+}
 // News styles 
 const articleStyle = {
   width: '100%',
 }
-const textTitle = {
+const headerTitle = {
   fontWeight: 'bold',
   fontSize: 50,
+  paddingLeft: 20,
 }
-const textSubtitle = {
+const headerSubtitle = {
   fontSize: 12,
   color: '#000',
   margin: 5,
+  paddingLeft: 20,
 }
 const articleList = {
   marginTop: 10,
   flexDirection: 'row',
   padding: 10,
   backgroundColor: '#fff',
-  borderRadius: 13,
+  // borderRadius: 13,
 }
 const articleTextView = {
   marginLeft: 15,
@@ -479,5 +558,25 @@ const articleTitle = {
 const articleSummary = {
   marginLeft: 5,
   marginRight: 5,
-  width: '40%',
+  width: '60%',
+  color: 'gray'
+}
+const articleStats = {
+  flexDirection: 'row',
+  marginLeft: 5,
+  marginTop: 5,
+  // justifyContent: 'space-around',
+}
+const articleStatsDetails = {
+  marginLeft: 5,
+}
+const newsArticleCommentInput = {
+  height: 40,
+  marginBottom: 20,
+  marginLeft: 20,
+  marginRight: 20,
+  borderWidth: 1,
+  borderRadius: 13,
+  backgroundColor: '#fff',
+  padding: 10,
 }
