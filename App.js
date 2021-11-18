@@ -5,11 +5,11 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StreamApp } from 'expo-activity-feed';
 import { GiftedChat } from 'react-native-gifted-chat';
+import { Divider } from 'react-native-elements';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Swiper from 'react-native-swiper';
 import Schedules from './Calendar/Schedules';
-import ChatScreen from './chat/ChatScreen';
-import { Divider } from 'react-native-elements';
+import Connect from './chat/Connect';
 
 
 export default function App() {
@@ -18,12 +18,12 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator >
         <Stack.Screen name="HomeTabNavigation" component={HomeTabNavigation} options={{ headerShown: false }} />
-        <Stack.Screen name="Community" component={CommunityScreen} />
-        <Stack.Screen name="Calendar" component={CalendarScreen} />
+        <Stack.Screen name="Community" component={Community} />
+        <Stack.Screen name="Calendar" component={Calendar} />
         <Stack.Screen name="News" component={News} />
-        <Stack.Screen name="NewsTabNavigation" component={NewsTabNavigation} options={{ headerShown: false }} />
-        <Stack.Screen name="Connect" component={ChatScreen} />
+        <Stack.Screen name="Connect" component={Connect} />
         <Stack.Screen name="NewsPage" component={NewsPage} />
+        <Stack.Screen name="Settings" component={Settings} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -33,21 +33,10 @@ function HomeTabNavigation() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 3 }} />
-      <Tab.Screen name="Community" component={CommunityScreen} options={{ tabBarBadge: 5 }} />
-      <Tab.Screen name="Calendar" component={CalendarScreen} />
+      <Tab.Screen name="Community" component={Community} options={{ tabBarBadge: 5 }} />
+      <Tab.Screen name="Calendar" component={Calendar} />
       <Tab.Screen name="News" component={News} />
-      <Tab.Screen name="Connect" component={ChatScreen} />
-    </Tab.Navigator>
-  );
-}
-function NewsTabNavigation() {
-  return (
-    <Tab.Navigator screenOptions={screenOptions}>
-      <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 3 }} />
-      <Tab.Screen name="Community" component={CommunityScreen} options={{ tabBarBadge: 5 }} />
-      <Tab.Screen name="Calendar" component={CalendarScreen} />
-      <Tab.Screen name="News" component={News} />
-      <Tab.Screen name="Connect" component={ChatScreen} />
+      <Tab.Screen name="Connect" component={Connect} />
     </Tab.Navigator>
   );
 }
@@ -70,7 +59,7 @@ function HomeScreen({ navigation }) {
             />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => navigation.navigate('Settings')}
           >
             <Image
               style={{ width: 30, height: 30, margin: 10, }}
@@ -112,14 +101,14 @@ function HomeScreen({ navigation }) {
           <Button title="Calendar" onPress={() => navigation.push('Calendar')} />
         </View>
         <View style={button}>
-          <Button title="NewsTabNavigation" onPress={() => navigation.push('NewsTabNavigation')} />
+          <Button title="News" onPress={() => navigation.push('News')} />
         </View>
       </View >
     </>
   );
 }
 // Community Screen ✅✅
-function CommunityScreen({ navigation }) {
+function Community({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   useLayoutEffect(() => {
@@ -138,7 +127,7 @@ function CommunityScreen({ navigation }) {
             />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => navigation.navigate('Settings')}
           >
             <Image
               style={{ width: 30, height: 30, margin: 10, }}
@@ -164,7 +153,7 @@ function CommunityScreen({ navigation }) {
   );
 }
 // Calendar Screen ✅✅✅
-function CalendarScreen({ navigation }) {
+function Calendar({ navigation }) {
   useLayoutEffect(() => {
     navigation.setOptions({
       // header button left
@@ -181,7 +170,7 @@ function CalendarScreen({ navigation }) {
             />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => navigation.navigate('Settings')}
           >
             <Image
               style={{ width: 30, height: 30, margin: 10, }}
@@ -220,7 +209,7 @@ function News({ navigation }) {
             />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => navigation.navigate('Settings')}
           >
             <Image
               style={{ width: 30, height: 30, margin: 10, }}
@@ -368,7 +357,7 @@ const headerOptions = ({ navigation }) => (
           />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navigation.navigate('Home')}
+          onPress={() => navigation.navigate('Settings')}
         >
           <Image
             style={{ width: 30, height: 30, margin: 10, }}
@@ -474,14 +463,22 @@ function NewsPage() {
 }
 
 
+// Settings component 
+function Settings() {
+  return (
+    <View style={center}>
+      <Text>Settings!</Text>
+    </View>
+  )
+}
+
+
 // styling and parameters(options)
 const center = {
   flex: 1,
   justifyContent: 'center',
   alignItems: 'center',
-  // padding: 20,
   marginTop: 10,
-  // backgroundColor: '#ffffff',
 }
 const textUpvote = {
   fontSize: 20,
@@ -518,7 +515,6 @@ const calendarCenter = {
   alignItems: 'center',
   padding: 20,
   marginTop: 10,
-  // backgroundColor: '#ffffff',
 }
 // News styles 
 const articleStyle = {
@@ -540,7 +536,6 @@ const articleList = {
   flexDirection: 'row',
   padding: 10,
   backgroundColor: '#fff',
-  // borderRadius: 13,
 }
 const articleTextView = {
   marginLeft: 15,
@@ -565,7 +560,6 @@ const articleStats = {
   flexDirection: 'row',
   marginLeft: 5,
   marginTop: 5,
-  // justifyContent: 'space-around',
 }
 const articleStatsDetails = {
   marginLeft: 5,

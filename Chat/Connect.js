@@ -8,7 +8,7 @@ import { GiftedChat } from 'react-native-gifted-chat'
 import { auth, db } from '../firebase'
 
 
-export default function ChatScreen({ navigation }) {
+export default function Connect({ navigation }) {
     const signOut = () => {
         firebase.auth().signOut().then(() => {
             // sign out successful
