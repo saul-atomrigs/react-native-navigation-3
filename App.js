@@ -69,7 +69,7 @@ function HomeScreen({ navigation }) {
         </View>
       ),
     });
-  }, [navigation]);
+  }, [navigation])
   return (
     // body
     <>
@@ -141,7 +141,7 @@ function Community({ navigation }) {
   return (
     // body
     <View style={center}>
-      <ScrollView style={articleStyle} showsVerticalScrollIndicator={false} >
+      <ScrollView style={communityStyle} showsVerticalScrollIndicator={false} >
         <CommunityHeader />
         <View>
           <CommunityBlock />
@@ -336,7 +336,10 @@ const screenOptions = ({ route }) => ({
     return <Ionicons name={iconName} size={size} color={color} />;
   },
   tabBarActiveTintColor: 'black',
-  tabBarInactiveTintColor: 'black',
+  tabBarInactiveTintColor: 'gray',
+  tabBarActiveBackgroundColor: '#eaf1f8',
+  tabBarItemStyle: { borderRadius: 5, paddingBottom: 5, paddingTop: 5 },
+  tabBarStyle: { position: 'absolute' }
 })
 
 
@@ -383,15 +386,15 @@ function CommunityBlock() {
   const navigation = useNavigation();
   return (
     <TouchableOpacity onPress={() => navigation.push('NewsPage')}>
-      <View style={articleList}>
-        <View style={articleTextView}>
-          <Text style={articleArtist}>Twice</Text>
-          <Text style={articleTitle}>Title</Text>
-          <Text style={articleSummary}>{text1}</Text>
+      <View style={communityList}>
+        <View style={communityTextView}>
+          <Text style={communityArtist}>Twice</Text>
+          <Text style={communityTitle}>Title</Text>
+          <Text style={communitySummary}>{text2}</Text>
           <Divider style={{ margin: 7 }} />
-          <View style={articleStats}>
-            <Text style={articleStatsDetails}>3 Likes</Text>
-            <Text style={articleStatsDetails}>2 Comments</Text>
+          <View style={communityStats}>
+            <Text style={communityStatsDetails}>3 Likes</Text>
+            <Text style={communityStatsDetails}>2 Comments</Text>
           </View>
         </View>
       </View>
@@ -400,7 +403,8 @@ function CommunityBlock() {
 }
 
 // News components 
-const text1 = 'Lorem Ipsum is simply dummy text of the printing.'
+const text1 = 'Lorem Ipsum is simply dummy text of the printing. lorem ipsum..'
+const text2 = 'CL will perform at the 2021 102.7 KIIS FM Jingle Ball Village in Los Angeles on December 3'
 function NewsHeader() {
   return (
     <View>
@@ -468,6 +472,7 @@ function Settings() {
   return (
     <View style={center}>
       <Text>Settings!</Text>
+      <Text>Suggest</Text>
     </View>
   )
 }
@@ -508,6 +513,43 @@ const button = {
   borderRadius: 13,
   marginBottom: 10,
 }
+// Community styles 
+const communityStyle = {
+  width: '100%',
+}
+const communityList = {
+  marginTop: 10,
+  flexDirection: 'row',
+  padding: 10,
+  backgroundColor: '#fff',
+}
+const communityTextView = {
+  marginLeft: 15,
+  marginRight: 15,
+}
+const communityArtist = {
+  marginLeft: 5,
+  color: 'gray',
+}
+const communityTitle = {
+  marginLeft: 5,
+  fontSize: 20,
+  fontWeight: 'bold',
+}
+const communitySummary = {
+  marginLeft: 5,
+  marginRight: 5,
+  width: '80%',
+  color: 'gray'
+}
+const communityStats = {
+  flexDirection: 'row',
+  marginLeft: 5,
+  marginTop: 5,
+}
+const communityStatsDetails = {
+  marginLeft: 5,
+}
 // Calendar Styles 
 const calendarCenter = {
   flex: 1,
@@ -515,6 +557,7 @@ const calendarCenter = {
   alignItems: 'center',
   padding: 20,
   marginTop: 10,
+  marginBottom: 50,
 }
 // News styles 
 const articleStyle = {
