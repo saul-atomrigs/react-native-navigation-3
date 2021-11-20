@@ -76,5 +76,6 @@ export default function Connect({ navigation }) {
                 avatar: auth?.currentUser?.photoURL,
             }}
         />
+
     )
 }

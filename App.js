@@ -3,14 +3,14 @@ import { Button, Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, T
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { StreamApp } from 'expo-activity-feed';
-import { GiftedChat } from 'react-native-gifted-chat';
 import { Divider } from 'react-native-elements';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Swiper from 'react-native-swiper';
 import Schedules from './Calendar/Schedules';
 import Connect from './chat/Connect';
-
+import Feeds from './Community/Feed'
+import * as eva from '@eva-design/eva';
+import { ApplicationProvider } from '@ui-kitten/components'
 
 export default function App() {
   // Stack Navigator
@@ -24,6 +24,7 @@ export default function App() {
         <Stack.Screen name="Connect" component={Connect} />
         <Stack.Screen name="NewsPage" component={NewsPage} />
         <Stack.Screen name="Settings" component={Settings} />
+        <Stack.Screen name="Me" component={Me} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -33,10 +34,10 @@ function HomeTabNavigation() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 3 }} />
-      <Tab.Screen name="Community" component={Community} options={{ tabBarBadge: 5 }} />
+      <Tab.Screen name="Community" component={Social} options={{ tabBarBadge: 5 }} />
       <Tab.Screen name="Calendar" component={Calendar} />
       <Tab.Screen name="News" component={News} />
-      <Tab.Screen name="Connect" component={Connect} />
+      <Tab.Screen name="Me" component={Me} />
     </Tab.Navigator>
   );
 }
@@ -182,7 +183,6 @@ function Calendar({ navigation }) {
     });
   }, [navigation]);
   return (
-    // body
     <View style={calendarCenter}>
       <Text>You can find or suggest KPOP group's schedules, anniversaries, and more.</Text>
       <Schedules />
@@ -221,8 +221,7 @@ function News({ navigation }) {
     });
   }, [navigation, count]);
   return (
-    // body 
-    <View style={center}>
+    <View>
       <ScrollView style={articleStyle} showsVerticalScrollIndicator={false} >
         <NewsHeader />
         <View>
@@ -238,72 +237,73 @@ function News({ navigation }) {
     </View>
   );
 }
-// Replacing the title with a custom component
-function LogoTitle() {
+
+function Social({ navigation }) {
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      // header button left
+      headerTitleAlign: 'left',
+      // header button right
+      headerRight: () => (
+        <View style={{ flexDirection: 'row' }}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Home')}
+          >
+            <Image
+              style={{ width: 30, height: 30, margin: 10, }}
+              source={require('./assets/icons/logo.png')}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Settings')}
+          >
+            <Image
+              style={{ width: 30, height: 30, margin: 10, }}
+              source={require('./assets/icons/dots-nine.png')}
+            />
+          </TouchableOpacity>
+        </View>
+      ),
+    });
+  }, [navigation])
   return (
-    <Image
-      style={{ width: 30, height: 30 }}
-      source={require('./assets/icons/logo.png')}
-    />
-  );
-}
-// Vote counter
-function LikeCounter() {
-  const [count, setCount] = useState(0);
-  return (
-    <View style={stack}>
-      <Text style={textUpvote}>{count}</Text>
-      <Button
-        title="Upvote"
-        onPress={() => setCount(count + 1)}
-      />
-      <Button
-        title="Downvote"
-        onPress={() => setCount(count - 1)}
-      />
-    </View>
-  );
-}
-// Gifted Chat 
-export function Chat() {
-  const [messages, setMessages] = useState([]);
-  // 
-  useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: 'Hello developer',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
-        },
-      },
-    ])
-  }, [])
-  // 
-  const onSend = useCallback((messages = []) => {
-    setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
-  }, [])
-  // Chat body
-  return (
-    <GiftedChat
-      style={{ width: '100%' }}
-      messages={messages}
-      onSend={messages => onSend(messages)}
-      user={{
-        _id: 1,
-      }}
-    />
+    <ApplicationProvider {...eva} theme={eva.light}>
+      <Feeds />
+    </ApplicationProvider>
   )
 }
-// Stream Feed 
-function StreamFeed() {
+function Me({ navigation }) {
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      // header button left
+      headerTitleAlign: 'left',
+      // header button right
+      headerRight: () => (
+        <View style={{ flexDirection: 'row' }}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Home')}
+          >
+            <Image
+              style={{ width: 30, height: 30, margin: 10, }}
+              source={require('./assets/icons/logo.png')}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Settings')}
+          >
+            <Image
+              style={{ width: 30, height: 30, margin: 10, }}
+              source={require('./assets/icons/dots-nine.png')}
+            />
+          </TouchableOpacity>
+        </View>
+      ),
+    });
+  }, [navigation])
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <StreamApp apiKey='tc7ru58bttgf' appId='1148469' token='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiY3VybHktc3Vuc2V0LTIifQ.HzD3xfFPGfM0MMXuQEx-cPaF53AYdYYjxx9RcdZiun0' />
-    </SafeAreaView>
+    <>
+      <Text>Me!</Text>
+    </>
   )
 }
 
@@ -331,6 +331,8 @@ const screenOptions = ({ route }) => ({
     } else if (route.name === 'News') {
       iconName = focused ? 'grid' : 'grid-outline';
     } else if (route.name === 'Connect') {
+      iconName = focused ? 'star' : 'star-outline';
+    } else if (route.name === 'Me') {
       iconName = focused ? 'star' : 'star-outline';
     }
     return <Ionicons name={iconName} size={size} color={color} />;
@@ -484,17 +486,7 @@ const center = {
   justifyContent: 'center',
   alignItems: 'center',
   marginTop: 10,
-}
-const textUpvote = {
-  fontSize: 20,
-  fontWeight: "bold",
-  color: "black",
-  textAlign: "center",
-}
-const stack = {
-  flex: 1,
-  alignItems: 'left',
-  padding: 30,
+  flexDirection: "row",
 }
 const wrap = {
   width: WIDTH,
@@ -504,7 +496,6 @@ const button = {
   boxSizing: "border-box",
   flexShrink: 0,
   display: "flex",
-  flexDirection: "row",
   justifyContent: "space-between",
   alignItems: "center",
   boxShadow: "0px 1px 10px 1px black",
@@ -512,6 +503,7 @@ const button = {
   overflow: "visible",
   borderRadius: 13,
   marginBottom: 10,
+  marginRight: 10,
 }
 // Community styles 
 const communityStyle = {
