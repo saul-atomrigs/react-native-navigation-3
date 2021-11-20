@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import { Image, View, TouchableOpacity, StyleSheet } from 'react-native'
-import { Text, Avatar, List } from '@ui-kitten/components'
+import React, { Component, Fragment } from 'react'
+import { Image, View, TouchableOpacity, StyleSheet, Button } from 'react-native'
+import { Text, Avatar, List, ApplicationProvider, IconRegistry } from '@ui-kitten/components'
 import { Divider } from 'react-native-elements';
-// import { mapping, light as lightTheme } from '@eva-design/eva'
-// import { ApplicationProvider, IconRegistry } from 'react-native-ui-kitten'
-// import Firebase, { FirebaseProvider } from '../src/utils'
+import { mapping, light as lightTheme } from '@eva-design/eva'
+import Firebase, { FirebaseProvider } from '../src/utils'
+import AddPost from './AddPost';
 export default function Feeds() {
     const renderItem = ({ item }) => (
         <View style={styles.card}>
@@ -35,12 +35,24 @@ export default function Feeds() {
     )
 
     return (
-        <List
-            style={styles.container}
-            data={DATA}
-            renderItem={renderItem}
-            keyExtractor={DATA.id}
-        />
+        <Fragment>
+            {/* <IconRegistry icons={EvaIconsPack} /> */}
+            <ApplicationProvider mapping={mapping} theme={lightTheme}>
+                <FirebaseProvider value={Firebase}>
+                    <Button
+                        title="Add a post"
+                        onPress={() => this.props.navigation.navigate('AddPost')}
+                    />
+                    <AddPost />
+                    <List
+                        style={styles.container}
+                        data={DATA}
+                        renderItem={renderItem}
+                        keyExtractor={DATA.id}
+                    />
+                </FirebaseProvider>
+            </ApplicationProvider>
+        </Fragment>
     )
 }
 

@@ -224,6 +224,26 @@ function News({ navigation }) {
     <View>
       <ScrollView style={articleStyle} showsVerticalScrollIndicator={false} >
         <NewsHeader />
+        <ScrollView horizontal={true} style={articleSelectArtist}>
+          <View style={button}>
+            <Button title="BTS" color='#000' onPress={() => navigation.navigate('Register')} />
+          </View>
+          <View style={button}>
+            <Button title="Twice" onPress={() => navigation.push('Calendar')} />
+          </View>
+          <View style={button}>
+            <Button title="aespa" onPress={() => navigation.push('News')} />
+          </View>
+          <View style={button}>
+            <Button title="BTS" onPress={() => navigation.navigate('Register')} />
+          </View>
+          <View style={button}>
+            <Button title="Twice" onPress={() => navigation.push('Calendar')} />
+          </View>
+          <View style={button}>
+            <Button title="aespa" onPress={() => navigation.push('News')} />
+          </View>
+        </ScrollView >
         <View>
           <ArticleBlock />
           <ArticleBlock />
@@ -504,6 +524,7 @@ const button = {
   borderRadius: 13,
   marginBottom: 10,
   marginRight: 10,
+  color: '#000'
 }
 // Community styles 
 const communityStyle = {
@@ -565,6 +586,10 @@ const headerSubtitle = {
   color: '#000',
   margin: 5,
   paddingLeft: 20,
+}
+const articleSelectArtist = {
+  marginLeft: 20,
+  marginRight: 20,
 }
 const articleList = {
   marginTop: 10,

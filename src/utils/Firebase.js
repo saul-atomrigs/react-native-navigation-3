@@ -1,4 +1,4 @@
-import firebase from 'react-native-firebase'
+import firebase from 'firebase'
 import uuid from 'uuid' // https://www.npmjs.com/package/uuid
 
 const Firebase = {
