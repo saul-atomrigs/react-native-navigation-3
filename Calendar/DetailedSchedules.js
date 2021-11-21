@@ -13,20 +13,16 @@ export default function DetailedSchedules() {
         </NavigationContainer>
     );
 }
-const Details = props => {
-    const { text } = useRoute().params
-    return (
-        <View style={styles.screen}>
-            {/* <RouteInfo /> */}
-            <Text>{text}</Text>
-            <Text>klk</Text>
-            <Button
-                onPress={() => props.navigation.navigate('name2')}
-                title="Go To Product Screen"
-            />
-        </View>
-    );
-};
+
+
+
+
+
+
+
+
+
+
 
 
 const Stack = createNativeStackNavigator();

@@ -36,7 +36,7 @@ export default function Schedules() {
                 <SectionList
                     sections={dummy}
                     renderSectionHeader={({ section }) => <Text style={styles.sectionHeader}>{section.title}</Text>}
-                    renderItem={({ item }) => <Text onPress={() => navigation.navigate('DetailedSchedules', { text: { item } })} style={styles.item}>{item}</Text>}
+                    renderItem={({ item }) => <Text onPress={() => navigation.navigate('DetailedSchedules')} style={styles.item}>{item}</Text>}
                     // renderItem={({ item }) => <Text onPress={() => navigation.navigate('DetailedSchedules')} style={styles.item}>{item}</Text>}
                     // renderItem={({ item }) => <Text onPress={() => alert(JSON.stringify(item))} style={styles.item}>{item}</Text>}
                     keyExtractor={(item, index) => index}
