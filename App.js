@@ -1,14 +1,15 @@
 import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { Button, Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { Divider } from 'react-native-elements';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Swiper from 'react-native-swiper';
 import Schedules from './Calendar/Schedules';
 import Connect from './chat/Connect';
 import Feeds from './Community/Feed'
+import DetailedSchedules from './Calendar/DetailedSchedules.js'
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components'
 
@@ -25,6 +26,7 @@ export default function App() {
         <Stack.Screen name="NewsPage" component={NewsPage} />
         <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="Me" component={Me} />
+        <Stack.Screen name="DetailedSchedules" component={DetailedSchedules} />
       </Stack.Navigator>
     </NavigationContainer>
   );

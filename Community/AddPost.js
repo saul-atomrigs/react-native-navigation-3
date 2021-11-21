@@ -57,7 +57,7 @@ class AddPost extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1, marginTop: 5 }}>
+            <View style={{ backgroundColor: '#fff', marginTop: 5 }}>
                 <View>
                     {this.state.image ? (
                         <Image
@@ -67,10 +67,9 @@ class AddPost extends Component {
                     ) : (
                         <Button
                             onPress={this.selectImage}
-                            style={{
-                                alignItems: 'center',
-                                margin: 10
-                            }}>
+                            style={{ backgroundColor: '#eee' }}
+                            color='#000'
+                        >
                             Add an image
                         </Button>
                     )}
@@ -88,7 +87,7 @@ class AddPost extends Component {
                         value={this.state.description}
                         onChangeText={description => this.onChangeDescription(description)}
                     />
-                    <Button status='success' onPress={this.onSubmit}>
+                    <Button style={{ backgroundColor: '#eee' }} onPress={this.onSubmit}>
                         Add post
                     </Button>
                 </View>

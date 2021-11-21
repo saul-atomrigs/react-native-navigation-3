@@ -2,26 +2,24 @@ import React, { useState } from 'react'
 import { SectionList, StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import * as eva from '@eva-design/eva';
-import { ApplicationProvider, Layout } from '@ui-kitten/components';
+import { ApplicationProvider, Tooltip } from '@ui-kitten/components';
 import AutocompleteField from '../Components/Autocomplete'
-import AutocompleteField2 from '../Components/Autocomplete2'
+import DetailedSchedules from './DetailedSchedules'
 
 export default function Schedules() {
     const [text, onChangeText] = useState("");
     const navigation = useNavigation();
 
+    const navigateToDetail = (car) => {
+        navigation.navigate(DetailedSchedules, {
+            name: car
+        })
+    }
+
     return (
         <ApplicationProvider {...eva} theme={eva.light}>
             <View style={styles.container}>
-                {/* <TextInput
-                    style={styles.input}
-                    onChangeText={onChangeText}
-                    value={text}
-                    placeholder={'Search kpop'}
-                /> */}
-                {/* <Layout> */}
                 <AutocompleteField />
-                {/* </Layout> */}
                 <SectionList
                     sections={[
                         { title: 'POPULAR', data: ['BTS (방탄소년단)', 'BLACKPINK (블랙핑크)', 'TWICE (트와이스)'] },
@@ -52,10 +50,19 @@ export default function Schedules() {
                         { title: 'Y', data: [] },
                         { title: 'Z', data: ['zo'] },
                     ]}
-                    renderItem={({ item }) => <Text style={styles.item}>{item}</Text>}
+                    // renderItem={({ item }) => <Text style={styles.item}>{item}</Text>}
+                    renderItem={({ item }) => <Text onPress={() => navigation.push('DetailedSchedules')} style={styles.item}>{item}</Text>}
+                    // renderItem={({ item }) =>
+                    //     <Text
+                    //         // navigation={this.props.navigation}
+                    //         onPress={navigateToDetail}
+                    //         style={styles.item}>
+                    //         {item}
+                    //     </Text>}
                     renderSectionHeader={({ section }) => <Text style={styles.sectionHeader}>{section.title}</Text>}
                     keyExtractor={(item, index) => index}
                     style={styles.list}
+                    indicatorStyle='black'
                 />
             </View>
         </ApplicationProvider>
