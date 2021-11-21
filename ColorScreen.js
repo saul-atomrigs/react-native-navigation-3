@@ -1,22 +1,17 @@
-import React from 'react'
-import { View, Text, Button, StyleSheet } from 'react-native'
-import { NavigationContainer, useNavigation, useRoute } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react';
+import { Text, View } from 'react-native';
+import { useRoute } from '@react-navigation/native';
 
-const Stack = createNativeStackNavigator();
-
-export default ColorScreen = ({ navigation, route }) => {
+export default ColorScreen = () => {
     // const color = navigation.getParam("color", "white"); ❌
     const { color } = useRoute().params;
     const { text } = useRoute().params
 
     return (
         <View style={{ flex: 1, backgroundColor: color }}>
-            <Text>{text}</Text>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
+                <Text>{text}</Text>
+            </View>
         </View >
     )
 };
-
-ColorScreen.navigationOptions = screenProps => ({
-    title: screenProps.navigation.getParam("color", "White")
-});
