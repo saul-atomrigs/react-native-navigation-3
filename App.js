@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
-import { Button, Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { FlatList, Button, Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
@@ -10,8 +10,11 @@ import Schedules from './Calendar/Schedules';
 import Connect from './chat/Connect';
 import Feeds from './Community/Feed'
 import DetailedSchedules from './Calendar/DetailedSchedules.js'
+import ColorScreen from './ColorScreen'
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components'
+import SalonList from './SalonList'
+import salon from './salon'
 
 export default function App() {
   // Stack Navigator
@@ -27,6 +30,7 @@ export default function App() {
         <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="Me" component={Me} />
         <Stack.Screen name="DetailedSchedules" component={DetailedSchedules} />
+        <Stack.Screen name="Color" component={ColorScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -96,7 +100,11 @@ function HomeScreen({ navigation }) {
           </TouchableOpacity>
         </Swiper>
       </View>
-      <View style={center}>
+
+
+
+
+      <View View style={center} >
         <View style={button}>
           <Button title="Register" onPress={() => navigation.navigate('Register')} />
         </View>
@@ -518,7 +526,7 @@ const button = {
   boxSizing: "border-box",
   flexShrink: 0,
   display: "flex",
-  justifyContent: "space-between",
+  justifyContent: "space-evenly",
   alignItems: "center",
   boxShadow: "0px 1px 10px 1px black",
   backgroundColor: "#fff",

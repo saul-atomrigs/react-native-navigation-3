@@ -21,8 +21,10 @@
     "expo-linking": "~2.4.2",
     "expo-permissions": "~13.0.3",
     "expo-status-bar": "~1.1.0",
+    "faker": "^5.5.3",
     "firebase": "^8.10.0",
     "getstream": "^7.3.1",
+    "nice-color-palettes": "^3.0.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.2",
@@ -43,6 +45,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@types/faker": "^5.5.9",
     "@types/react-native": "^0.64.18",
     "@types/styled-components": "^5.1.15",
     "@types/uuid": "^8.3.3",

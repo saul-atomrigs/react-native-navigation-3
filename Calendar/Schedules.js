@@ -4,22 +4,30 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, Tooltip } from '@ui-kitten/components';
 import AutocompleteField from '../Components/Autocomplete'
-import DetailedSchedules from './DetailedSchedules'
+import DetailedSchedules from './DetailedSchedules';
 
 export default function Schedules() {
     const [text, onChangeText] = useState("");
     const navigation = useNavigation();
 
-    const navigateToDetail = (car) => {
-        navigation.navigate(DetailedSchedules, {
-            name: car
-        })
-    }
+    // const navigateToDetail = () => {
+    //     navigation.navigate(DetailedSchedules, {
+    //         names: ['bts', 'blackpink', 'aespa']
+    //     })
+    // }
 
     return (
         <ApplicationProvider {...eva} theme={eva.light}>
             <View style={styles.container}>
                 <AutocompleteField />
+                <Button
+                    title="Red"
+                    onPress={() => navigation.navigate("Color", { color: "red", text: "BTS" })}
+                />
+                <Button
+                    title="Blue"
+                    onPress={() => navigation.navigate("Color", { color: "blue", text: "blackpink" })}
+                />
                 <SectionList
                     sections={[
                         { title: 'POPULAR', data: ['BTS (방탄소년단)', 'BLACKPINK (블랙핑크)', 'TWICE (트와이스)'] },

@@ -8,7 +8,7 @@ const Stack = createNativeStackNavigator();
 // export default function DetailedSchedules({ navigation: { setParams } }) {
 //     const navigation = useNavigation();
 //     const route = useRoute();
-//     // const car = navigation.setParams("name", "novalue")
+//     // const car = navigation.getParam("name", "novalue")
 
 //     return (
 //         <>
@@ -30,12 +30,16 @@ const Stack = createNativeStackNavigator();
 //         </>
 //     )
 // }
+
+
+
 const RouteInfo = props => {
     const route = useRoute();
     return (
         <View>
             <Text>Route Name: {route.name}</Text>
             <Text>Route Key: {route.key}</Text>
+            <Text>Route Params: {route.params}</Text>
         </View>
     );
 };
@@ -45,7 +49,7 @@ const HomeScreen = props => {
         <View style={styles.screen}>
             <RouteInfo />
             <Button
-                onPress={() => props.navigation.navigate('Product')}
+                onPress={() => props.navigation.navigate('name2')}
                 title="Go To Product Screen"
             />
         </View>
@@ -62,8 +66,8 @@ function DetailedSchedules() {
     return (
         <NavigationContainer independent={true}>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="Home" component={HomeScreen} />
-                <Stack.Screen name="Product" component={ProductScreen} />
+                <Stack.Screen name="name1" component={HomeScreen} getId={({ params }) => params.userId} />
+                <Stack.Screen name="name2" component={ProductScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
@@ -71,7 +75,8 @@ function DetailedSchedules() {
 
 
 export default DetailedSchedules;
-/// Just some styles
+
+
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
