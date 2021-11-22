@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Text, View, Image } from 'react-native';
+import { StyleSheet, ScrollView, Text, View, Image, Dimensions } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 
 export default function DetailedSchedules() {
@@ -14,6 +14,9 @@ export default function DetailedSchedules() {
     );
 }
 
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
+
 
 // styling 
 const styles = StyleSheet.create({
@@ -23,7 +26,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     logo: {
-        width: 66,
-        height: 58,
+        width: WIDTH * 0.9,
+        height: HEIGHT * 0.5,
     },
 });

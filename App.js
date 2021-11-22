@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useState, useRef } from 'react';
 import { FlatList, Button, Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -38,9 +38,10 @@ function HomeTabNavigation() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 3 }} />
-      <Tab.Screen name="Community" component={Social} options={{ tabBarBadge: 5 }} />
       <Tab.Screen name="Calendar" component={Calendar} />
-      <Tab.Screen name="News" component={News} />
+      <Tab.Screen name="Community" component={Social} options={{ tabBarBadge: 5 }} />
+      <Tab.Screen name="Radar" component={Radar} />
+      {/* <Tab.Screen name="News" component={News} /> */}
       <Tab.Screen name="Me" component={Me} />
     </Tab.Navigator>
   );
@@ -279,7 +280,6 @@ function News({ navigation }) {
     </View>
   );
 }
-
 function Social({ navigation }) {
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -314,6 +314,40 @@ function Social({ navigation }) {
     </ApplicationProvider>
   )
 }
+function Radar({ navigation }) {
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      // header button left
+      headerTitleAlign: 'left',
+      // header button right
+      headerRight: () => (
+        <View style={{ flexDirection: 'row' }}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Home')}
+          >
+            <Image
+              style={{ width: 30, height: 30, margin: 10, }}
+              source={require('./assets/icons/logo.png')}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Settings')}
+          >
+            <Image
+              style={{ width: 30, height: 30, margin: 10, }}
+              source={require('./assets/icons/dots-nine.png')}
+            />
+          </TouchableOpacity>
+        </View>
+      ),
+    });
+  }, [navigation])
+  return (
+    <>
+      <Text>Radar!</Text>
+    </>
+  )
+}
 function Me({ navigation }) {
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -344,9 +378,7 @@ function Me({ navigation }) {
   }, [navigation])
   return (
     <View>
-      {/* <Text>Me!</Text> */}
-      {/* <FacebookSignIn /> */}
-      <WebView source={{ uri: 'https://naver.com' }} />
+
     </View>
   )
 }
@@ -371,13 +403,15 @@ const screenOptions = ({ route }) => ({
     } else if (route.name === 'Community') {
       iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
     } else if (route.name === 'Calendar') {
-      iconName = focused ? 'calendar' : 'calendar-outline';
+      iconName = focused ? 'today' : 'today-outline';
     } else if (route.name === 'News') {
       iconName = focused ? 'grid' : 'grid-outline';
     } else if (route.name === 'Connect') {
       iconName = focused ? 'star' : 'star-outline';
     } else if (route.name === 'Me') {
-      iconName = focused ? 'star' : 'star-outline';
+      iconName = focused ? 'finger-print' : 'finger-print-outline';
+    } else if (route.name === 'Radar') {
+      iconName = focused ? 'compass' : 'compass-outline';
     }
     return <Ionicons name={iconName} size={size} color={color} />;
   },
@@ -547,6 +581,52 @@ function FacebookSignIn() {
 }
 
 
+// Webview component 
+const Webview = () => {
+  // 웹뷰와 rn과의 소통은 아래의 ref 값을 이용하여 이루어집니다.
+  let webviewRef = useRef();
+
+  /** 웹뷰 ref */
+  const handleSetRef = _ref => {
+    webviewRef = _ref;
+  };
+
+  /** webview 로딩 완료시 */
+  const handleEndLoading = e => {
+    console.log("webview 로딩 완료!");
+    /** rn에서 웹뷰로 정보를 보내는 메소드 */
+    webviewRef.postMessage("로딩 완료시 webview로 정보를 보내는 곳");
+  };
+
+  return (
+    <WebviewContainer
+      webviewRef={webviewRef}
+      handleSetRef={handleSetRef}
+      handleEndLoading={handleEndLoading}
+    />
+  );
+};
+
+const WebviewContainer = ({ handleSetRef, handleEndLoading }) => {
+  const url = "http://localhost:19002";
+
+  /** 웹뷰에서 rn으로 값을 보낼때 거치는 함수 */
+  const handleOnMessage = ({ nativeEvent: { data } }) => {
+    // data에 웹뷰에서 보낸 값이 들어옵니다.
+    console.log(data);
+  };
+
+  return (
+    <WebView
+      onLoadEnd={handleEndLoading}
+      onMessage={handleOnMessage}
+      ref={handleSetRef}
+      // source={{ uri: 'https://www.google.com' }}
+      source={{ html: '<h1>This is a static HTML source!</h1>' }}
+    />
+  );
+};
+
 // styling and parameters(options)
 const center = {
   flex: 1,
@@ -626,6 +706,7 @@ const calendarCenter = {
   padding: 20,
   marginTop: 10,
   marginBottom: 50,
+  backgroundColor: '#fff',
 }
 // News styles 
 const articleStyle = {

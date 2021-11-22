@@ -1,10 +1,9 @@
-import React, { useState } from 'react'
-import { SectionList, StyleSheet, Text, View, TextInput, Button } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { SectionList, StyleSheet, Text, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import * as eva from '@eva-design/eva';
-import { ApplicationProvider, Tooltip } from '@ui-kitten/components';
-import AutocompleteField from '../Components/Autocomplete'
-import DetailedSchedules from './DetailedSchedules';
+import { ApplicationProvider } from '@ui-kitten/components';
+import AutocompleteField from '../Components/Autocomplete';
 
 export default function Schedules() {
     const navigation = useNavigation();
@@ -35,6 +34,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 10,
         width: '100%',
+        backgroundColor: '#fff'
     },
     sectionHeader: {
         paddingTop: 2,
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     },
     list: {
         marginTop: 10,
+        backgroundColor: '#fff'
     },
 })
 

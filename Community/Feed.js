@@ -3,41 +3,44 @@ import { Image, View, TouchableOpacity, StyleSheet, Button } from 'react-native'
 import { Text, Avatar, List, ApplicationProvider, IconRegistry } from '@ui-kitten/components'
 import { Divider } from 'react-native-elements';
 import { mapping, light as lightTheme } from '@eva-design/eva'
+import { useNavigation } from '@react-navigation/core';
 import Firebase, { FirebaseProvider } from '../src/utils'
 import AddPost from './AddPost';
-// import Stream from './Stream';
+import Icon from 'react-native-vector-icons/Ionicons';
+// import ActionButton from 'react-native-action-button';
 export default function Feeds() {
+    const navigation = useNavigation();
     const renderItem = ({ item }) => (
-        <View style={styles.card}>
-            <Image source={{ uri: item.imageURI }}
-                style={styles.cardImage} />
-            <View style={styles.cardHeader}>
-                <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate('Profile')}>
-                    <Avatar
-                        source={{ uri: item.avatarURI }}
-                        size='small'
-                        style={styles.cardAvatar}
-                    />
-                </TouchableOpacity>
-                <Text category='s1' style={styles.cardTitle}>
-                    {item.postTitle}
-                </Text>
+        <TouchableOpacity
+            onPress={() => navigation.push('Me')}>
+            <View style={styles.card}>
+                <View style={styles.cardHeader}>
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate('Profile')}>
+                        <Avatar
+                            source={{ uri: item.avatarURI }}
+                            size='small'
+                            style={styles.cardAvatar}
+                        />
+                    </TouchableOpacity>
+                    <Text category='s1' style={styles.cardTitle}>
+                        {item.postTitle}
+                    </Text>
+                </View>
+                <View style={styles.cardContent}>
+                    <Text category='p2'>{item.randomText}</Text>
+                </View>
+                <View style={styles.cardStats}>
+                    <Text style={styles.cardStatsDetails}>3 Likes</Text>
+                    <Text style={styles.cardStatsDetails}>2 Comments</Text>
+                </View>
+                <Divider />
             </View>
-            <View style={styles.cardContent}>
-                <Text category='p2'>{item.randomText}</Text>
-            </View>
-            <View style={styles.cardStats}>
-                <Text style={styles.cardStatsDetails}>3 Likes</Text>
-                <Text style={styles.cardStatsDetails}>2 Comments</Text>
-            </View>
-            <Divider />
-        </View>
+        </TouchableOpacity>
     )
 
     return (
         <Fragment>
-            {/* <IconRegistry icons={EvaIconsPack} /> */}
             <ApplicationProvider mapping={mapping} theme={lightTheme}>
                 <FirebaseProvider value={Firebase}>
                     <Button
@@ -45,13 +48,14 @@ export default function Feeds() {
                         onPress={() => this.props.navigation.navigate('AddPost')}
                     />
                     <AddPost />
-                    {/* <Stream /> */}
                     <List
                         style={styles.container}
                         data={DATA}
                         renderItem={renderItem}
                         keyExtractor={DATA.id}
+                        maxLength={8}
                     />
+
                 </FirebaseProvider>
             </ApplicationProvider>
         </Fragment>
@@ -80,7 +84,7 @@ const DATA = [
         imageURI:
             'https://pbs.twimg.com/media/FEkEZ0wX0Akq_MW?format=jpg&name=900x900',
         randomText:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. sdlfa;sdkf   sdlfkjslfkjdsfie  sldjfid'
     }
 ]
 
@@ -135,6 +139,12 @@ const styles = StyleSheet.create({
         marginRight: 20,
         marginBottom: 10,
         fontSize: 12,
-    }
+    },
+    actionButtonIcon: {
+        fontSize: 20,
+        height: 22,
+        color: 'white',
+    },
+
 })
 // }))
