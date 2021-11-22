@@ -8,37 +8,18 @@ import DetailedSchedules from './DetailedSchedules';
 
 export default function Schedules() {
     const navigation = useNavigation();
-
-    // const navigateToDetail = () => {
-    //     navigation.navigate(DetailedSchedules, {
-    //         names: ['bts', 'blackpink']
-    //     })
-    // }
-
-    // const navigateToDetail = () => {
-    //     navigation.navigate(DetailedSchedules, {
-    //         names: JSON.stringify(item)
-    //     })
-    // }
-
     return (
         <ApplicationProvider {...eva} theme={eva.light}>
             <View style={styles.container}>
                 <AutocompleteField />
-                <Button
-                    title="Red"
-                    onPress={() => navigation.navigate("Color", { color: "red", text: "BTS" })}
-                />
-                <Button
-                    title="Blue"
-                    onPress={() => navigation.navigate("Color", { color: "blue", text: "blackpink" })}
-                />
                 <SectionList
-                    sections={dummy}
+                    sections={realData}
                     renderSectionHeader={({ section }) => <Text style={styles.sectionHeader}>{section.title}</Text>}
-                    renderItem={({ item }) => <Text onPress={() => navigation.navigate('DetailedSchedules')} style={styles.item}>{item}</Text>}
-                    // renderItem={({ item }) => <Text onPress={() => navigation.navigate('DetailedSchedules')} style={styles.item}>{item}</Text>}
-                    // renderItem={({ item }) => <Text onPress={() => alert(JSON.stringify(item))} style={styles.item}>{item}</Text>}
+                    renderItem={({ item }) => <Text onPress={() => navigation.navigate('DetailedSchedules', {
+                        itemId: 86,
+                        param: item,
+                        uri: 'https://cdn-icons-png.flaticon.com/512/5463/5463680.png',
+                    })} style={styles.item}>{item}</Text>}
                     keyExtractor={(item, index) => index}
                     style={styles.list}
                     indicatorStyle='black'
@@ -47,30 +28,8 @@ export default function Schedules() {
         </ApplicationProvider>
     );
 }
-const Item = ({ title }) => (
-    <View style={styles.item}>
-        <Text>{title}</Text>
-    </View>
-);
-const dummy = [
-    {
-        title: "Main dishes",
-        data: ["Pizza", "Burger", "Risotto"],
-    },
-    {
-        title: "Sides",
-        data: ["French Fries", "Onion Rings", "Fried Shrimps"]
-    },
-    {
-        title: "Drinks",
-        data: ["Water", "Coke", "Beer"]
-    },
-    {
-        title: "Desserts",
-        data: ["Cheese Cake", "Ice Cream"]
-    }
-];
 
+// styling 
 const styles = StyleSheet.create({
     container: {
         flex: 1,

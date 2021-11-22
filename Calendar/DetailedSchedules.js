@@ -1,52 +1,29 @@
-import React from 'react'
-import { View, Text, Button, StyleSheet } from 'react-native'
-import { NavigationContainer, useNavigation, useRoute } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Feed from '../Community/Feed'
+import React from 'react';
+import { StyleSheet, ScrollView, Text, View, Image } from 'react-native';
+import { useRoute } from '@react-navigation/native';
 
 export default function DetailedSchedules() {
+    const { param, uri } = useRoute().params;
     return (
-        <NavigationContainer independent={true}>
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="Details" component={Details} />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <ScrollView>
+            <View style={styles.screen}>
+                <Text style={{ fontSize: 30, fontWeight: 'bold' }}>{param}</Text>
+                <Image style={styles.logo} source={{ uri: uri }} />
+            </View>
+        </ScrollView>
     );
 }
 
 
-
-
-
-
-
-
-
-
-
-
-const Stack = createNativeStackNavigator();
-
-
-const RouteInfo = props => {
-    const route = useRoute();
-    return (
-        <View>
-            <Text>Route Name: {route.name}</Text>
-            <Text>Route Key: {route.key}</Text>
-        </View>
-    );
-};
-
-
-
-
-
-
+// styling 
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    logo: {
+        width: 66,
+        height: 58,
     },
 });

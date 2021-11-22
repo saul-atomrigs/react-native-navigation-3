@@ -13,8 +13,6 @@ import DetailedSchedules from './Calendar/DetailedSchedules.js'
 import ColorScreen from './ColorScreen'
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components'
-import SalonList from './SalonList'
-import salon from './salon'
 
 export default function App() {
   // Stack Navigator
@@ -30,7 +28,6 @@ export default function App() {
         <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="Me" component={Me} />
         <Stack.Screen name="DetailedSchedules" component={DetailedSchedules} />
-        <Stack.Screen name="Color" component={ColorScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
