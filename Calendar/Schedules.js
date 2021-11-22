@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         paddingBottom: 2,
         fontSize: 15,
         fontWeight: 'bold',
-        backgroundColor: '#e6e6e6',
+        backgroundColor: '#eee',
     },
     item: {
         padding: 10,

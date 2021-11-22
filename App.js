@@ -14,6 +14,8 @@ import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components'
 import { AppleButton } from '@invertase/react-native-apple-authentication';
 import { WebView } from 'react-native-webview';
+import MyFeed from './Me/MyFeed';
+import DetailedFeed from './Community/DetailedFeed'
 
 export default function App() {
   // Stack Navigator
@@ -28,7 +30,8 @@ export default function App() {
         <Stack.Screen name="NewsPage" component={NewsPage} />
         <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="Me" component={Me} />
-        <Stack.Screen name="DetailedSchedules" component={DetailedSchedules} />
+        <Stack.Screen name="DetailedSchedules" component={DetailedSchedules} options={({ route }) => ({ title: route.params.param })} />
+        <Stack.Screen name="DetailedFeed" component={DetailedFeed} options={{ title: '' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -78,7 +81,7 @@ function HomeScreen({ navigation }) {
   }, [navigation])
   return (
     // body
-    <ScrollView>
+    <ScrollView >
       <View style={home}>
         <TouchableOpacity style={{ margin: 10 }} onPress={() => navigation.push('News')}>
           <View>
@@ -112,22 +115,32 @@ function HomeScreen({ navigation }) {
             />
           </View>
         </TouchableOpacity>
+        <TouchableOpacity style={{ margin: 10 }} onPress={() => navigation.push('News')}>
+          <View>
+            <Image
+              source={require('./assets/001.jpg')}
+              style={wrap}
+            />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={{ margin: 10 }} onPress={() => navigation.push('News')}>
+          <View>
+            <Image
+              source={require('./assets/001.jpg')}
+              style={wrap}
+            />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={{ margin: 10 }} onPress={() => navigation.push('News')}>
+          <View>
+            <Image
+              source={require('./assets/001.jpg')}
+              style={wrap}
+            />
+          </View>
+        </TouchableOpacity>
       </View>
 
-
-
-
-      <View View style={center} >
-        <View style={button}>
-          <Button title="Register" onPress={() => navigation.navigate('Register')} />
-        </View>
-        <View style={button}>
-          <Button title="Calendar" onPress={() => navigation.push('Calendar')} />
-        </View>
-        <View style={button}>
-          <Button title="News" onPress={() => navigation.push('News')} />
-        </View>
-      </View >
     </ScrollView>
   );
 }
@@ -378,7 +391,7 @@ function Me({ navigation }) {
   }, [navigation])
   return (
     <View>
-
+      <MyFeed />
     </View>
   )
 }
@@ -632,7 +645,7 @@ const center = {
   flex: 1,
   justifyContent: 'center',
   alignItems: 'center',
-  marginTop: 10,
+  // marginTop: 10,
   flexDirection: "row",
 }
 const home = {
@@ -640,7 +653,9 @@ const home = {
   flexDirection: 'row',
   flexWrap: 'wrap',
   alignItems: 'flex-start',
-  justifyContent: 'space-evenly'
+  justifyContent: 'space-evenly',
+  marginTop: 10,
+  backgroundColor: '#fff'
 }
 const wrap = {
   width: WIDTH * 0.40,

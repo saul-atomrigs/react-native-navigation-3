@@ -49,8 +49,8 @@ export default function AutocompleteField() {
             placement={placement}
             // accessoryRight={() => navigation.push('News')}
             onChangeText={onChangeText}
-            onSelect={onSelect}>
-
+            onSelect={onSelect}
+        >
             {data.map(renderOption)}
         </Autocomplete>
     );
@@ -65,7 +65,6 @@ const artists = [
     { title: 'EXO 엑소' },
     { title: 'TWICE 트와이스' },
 ];
-
 
 const showEvent = Platform.select({
     android: 'keyboardDidShow',

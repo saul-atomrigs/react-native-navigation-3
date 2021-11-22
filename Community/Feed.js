@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component, Fragment, useLayoutEffect } from 'react'
 import { Image, View, TouchableOpacity, StyleSheet, Button } from 'react-native'
 import { Text, Avatar, List, ApplicationProvider, IconRegistry } from '@ui-kitten/components'
 import { Divider } from 'react-native-elements';
@@ -8,46 +8,45 @@ import Firebase, { FirebaseProvider } from '../src/utils'
 import AddPost from './AddPost';
 import Icon from 'react-native-vector-icons/Ionicons';
 // import ActionButton from 'react-native-action-button';
-export default function Feeds() {
+
+export default function Feed() {
     const navigation = useNavigation();
     const renderItem = ({ item }) => (
         <TouchableOpacity
-            onPress={() => navigation.push('Me')}>
+            onPress={() => navigation.push('DetailedFeed')}>
+            <Divider />
             <View style={styles.card}>
                 <View style={styles.cardHeader}>
                     <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('Profile')}>
+                        onPress={() => navigation.push('Home')}
+                        style={{ flexDirection: 'row' }}
+                    >
                         <Avatar
                             source={{ uri: item.avatarURI }}
                             size='small'
                             style={styles.cardAvatar}
                         />
+                        <Text category='p1' style={styles.cardTitle}>
+                            {item.postTitle}
+                        </Text>
                     </TouchableOpacity>
-                    <Text category='s1' style={styles.cardTitle}>
-                        {item.postTitle}
-                    </Text>
                 </View>
                 <View style={styles.cardContent}>
-                    <Text category='p2'>{item.randomText}</Text>
+                    <Icon style={{ marginRight: 5, marginTop: 5 }} name="ellipse" size={7} color="orange" />
+                    <Text category='s1'>{item.randomText}</Text>
                 </View>
                 <View style={styles.cardStats}>
-                    <Text style={styles.cardStatsDetails}>3 Likes</Text>
-                    <Text style={styles.cardStatsDetails}>2 Comments</Text>
+                    <Text style={styles.cardStatsDetails}>{item.views} Views</Text>
+                    <Text style={styles.cardStatsDetails}>{item.likes} Likes</Text>
+                    <Text style={styles.cardStatsDetails}>{item.comments} Comments</Text>
                 </View>
-                <Divider />
             </View>
         </TouchableOpacity>
     )
-
     return (
         <Fragment>
             <ApplicationProvider mapping={mapping} theme={lightTheme}>
                 <FirebaseProvider value={Firebase}>
-                    <Button
-                        title="Add a post"
-                        onPress={() => this.props.navigation.navigate('AddPost')}
-                    />
-                    <AddPost />
                     <List
                         style={styles.container}
                         data={DATA}
@@ -55,14 +54,11 @@ export default function Feeds() {
                         keyExtractor={DATA.id}
                         maxLength={8}
                     />
-
                 </FirebaseProvider>
             </ApplicationProvider>
         </Fragment>
     )
 }
-
-
 
 // data 
 const DATA = [
@@ -74,60 +70,77 @@ const DATA = [
         imageURI:
             'https://pbs.twimg.com/media/FEi4-HRWYAEFDZh?format=jpg&name=900x900',
         randomText:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. '
+            'this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!',
+        views: '39',
+        likes: '3',
+        comments: '2',
+
     },
     {
         id: 2,
         postTitle: 'BTS 방탄소년단',
         avatarURI:
-            'https://images.unsplash.com/photo-1559526323-cb2f2fe2591b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
+            'https://media.istockphoto.com/photos/young-asian-woman-with-glitter-makeup-wearing-sporty-fashion-picture-id1286624383',
         imageURI:
             'https://pbs.twimg.com/media/FEkEZ0wX0Akq_MW?format=jpg&name=900x900',
         randomText:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. sdlfa;sdkf   sdlfkjslfkjdsfie  sldjfid'
-    }
+            'this is example 2',
+        views: '34',
+        likes: '5',
+        comments: '1',
+    },
+    {
+        id: 2,
+        postTitle: 'BTS 방탄소년단',
+        avatarURI:
+            'https://media.istockphoto.com/photos/portrait-of-a-young-asian-woman-wearing-street-fashion-picture-id1304661616',
+        imageURI:
+            'https://pbs.twimg.com/media/FEkEZ0wX0Akq_MW?format=jpg&name=900x900',
+        randomText:
+            'this is example 2dslfk,sdfjsei? emoji!!❤️❤️',
+        views: '102',
+        likes: '9',
+        comments: '5',
+    },
 ]
 
 
-
 //  Styling 
-// export default Feed = withStyles(_Feed, theme => ({
-// styled-component
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff'
+        backgroundColor: '#eee',
     },
     card: {
-        // backgroundColor: theme['color-basic-100'],
-        // marginBottom: 25,
+        marginTop: 10,
+        backgroundColor: '#fff'
     },
     cardImage: {
-        marginTop: 20,
         width: '90%',
         height: 300,
         alignSelf: 'center',
         borderRadius: 13,
     },
     cardHeader: {
-        padding: 10,
+        paddingTop: 10,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-start'
     },
     cardTitle: {
-        // color: theme['color-basic-1000']
+        marginTop: 5,
     },
     cardAvatar: {
         marginRight: 10,
         marginLeft: 20
     },
     cardContent: {
-        marginLeft: 20,
+        marginLeft: 50,
         marginRight: 20,
+        marginTop: 10,
+        marginBottom: 10,
         color: 'gray',
-        // borderWidth: 0.25,
-        // borderColor: theme['color-basic-600']
+        flexDirection: 'row',
     },
     cardStats: {
         flexDirection: 'row',
@@ -147,4 +160,3 @@ const styles = StyleSheet.create({
     },
 
 })
-// }))
