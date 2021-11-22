@@ -5,6 +5,7 @@ import { Divider } from 'react-native-elements';
 import { mapping, light as lightTheme } from '@eva-design/eva'
 import Firebase, { FirebaseProvider } from '../src/utils'
 import AddPost from './AddPost';
+// import Stream from './Stream';
 export default function Feeds() {
     const renderItem = ({ item }) => (
         <View style={styles.card}>
@@ -44,6 +45,7 @@ export default function Feeds() {
                         onPress={() => this.props.navigation.navigate('AddPost')}
                     />
                     <AddPost />
+                    {/* <Stream /> */}
                     <List
                         style={styles.container}
                         data={DATA}

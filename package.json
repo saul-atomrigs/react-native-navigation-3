@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@eva-design/eva": "^2.1.1",
+    "@invertase/react-native-apple-authentication": "^2.1.5",
     "@react-navigation/bottom-tabs": "^6.0.9",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
@@ -31,6 +32,7 @@
     "react-native-activity-feed": "^1.1.0",
     "react-native-autocomplete-input": "^5.0.2",
     "react-native-elements": "^3.4.2",
+    "react-native-fbsdk-next": "^6.1.0",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-gifted-chat": "^0.16.3",
     "react-native-image-picker": "^4.3.0",
@@ -39,6 +41,7 @@
     "react-native-svg": "^12.1.1",
     "react-native-swiper": "^1.6.0-rc.3",
     "react-native-web": "0.17.1",
+    "react-native-webview": "^11.13.0",
     "react-redux": "^7.2.6",
     "styled-components": "^5.3.3",
     "uuid": "^8.3.2"

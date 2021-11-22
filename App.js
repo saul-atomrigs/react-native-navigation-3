@@ -10,15 +10,16 @@ import Schedules from './Calendar/Schedules';
 import Connect from './chat/Connect';
 import Feeds from './Community/Feed'
 import DetailedSchedules from './Calendar/DetailedSchedules.js'
-import ColorScreen from './ColorScreen'
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components'
+import { AppleButton } from '@invertase/react-native-apple-authentication';
+import { WebView } from 'react-native-webview';
 
 export default function App() {
   // Stack Navigator
   return (
     <NavigationContainer>
-      <Stack.Navigator >
+      <Stack.Navigator screenOptions={{ headerBackTitleVisible: false }}>
         <Stack.Screen name="HomeTabNavigation" component={HomeTabNavigation} options={{ headerShown: false }} />
         <Stack.Screen name="Community" component={Community} />
         <Stack.Screen name="Calendar" component={Calendar} />
@@ -76,26 +77,40 @@ function HomeScreen({ navigation }) {
   }, [navigation])
   return (
     // body
-    <>
-      <View style={{ height: '30%' }}>
-        <Swiper showButtons={true} loop={false}>
-          <TouchableOpacity onPress={() => navigation.push('News')}>
-            <View>
-              <Image
-                source={require('./assets/001.jpg')}
-                style={wrap}
-              />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.push('News')}>
-            <View>
-              <Image
-                source={require('./assets/002.jpeg')}
-                style={wrap}
-              />
-            </View>
-          </TouchableOpacity>
-        </Swiper>
+    <ScrollView>
+      <View style={home}>
+        <TouchableOpacity style={{ margin: 10 }} onPress={() => navigation.push('News')}>
+          <View>
+            <Image
+              source={require('./assets/001.jpg')}
+              style={wrap}
+            />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={{ margin: 10, }} onPress={() => navigation.push('News')}>
+          <View>
+            <Image
+              source={require('./assets/002.jpeg')}
+              style={wrap}
+            />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={{ margin: 10, }} onPress={() => navigation.push('News')}>
+          <View>
+            <Image
+              source={require('./assets/002.jpeg')}
+              style={wrap}
+            />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={{ margin: 10 }} onPress={() => navigation.push('News')}>
+          <View>
+            <Image
+              source={require('./assets/001.jpg')}
+              style={wrap}
+            />
+          </View>
+        </TouchableOpacity>
       </View>
 
 
@@ -112,7 +127,7 @@ function HomeScreen({ navigation }) {
           <Button title="News" onPress={() => navigation.push('News')} />
         </View>
       </View >
-    </>
+    </ScrollView>
   );
 }
 // Community Screen ✅✅
@@ -328,9 +343,11 @@ function Me({ navigation }) {
     });
   }, [navigation])
   return (
-    <>
-      <Text>Me!</Text>
-    </>
+    <View>
+      {/* <Text>Me!</Text> */}
+      {/* <FacebookSignIn /> */}
+      <WebView source={{ uri: 'https://naver.com' }} />
+    </View>
   )
 }
 
@@ -497,13 +514,36 @@ function NewsPage() {
 
 
 // Settings component 
-function Settings() {
+function Settings({ navigation }) {
   return (
     <View style={center}>
       <Text>Settings!</Text>
-      <Text>Suggest</Text>
+      <Text onPress={() => navigation.navigate('Connect')}>Suggest</Text>
     </View>
   )
+}
+
+// Authentication component 
+function AppleSignIn() {
+  return (
+    <AppleButton
+      // buttonStyle={AppleButton.Style.WHITE}
+      // buttonType={AppleButton.Type.SIGN_IN}
+      style={{
+        width: 160,
+        height: 45,
+      }}
+      onPress={() => onAppleButtonPress().then(() => console.log('Apple sign-in complete!'))}
+    />
+  );
+}
+function FacebookSignIn() {
+  return (
+    <Button
+      title="Facebook Sign-In"
+      onPress={() => onFacebookButtonPress().then(() => console.log('Signed in with Facebook!'))}
+    />
+  );
 }
 
 
@@ -515,9 +555,17 @@ const center = {
   marginTop: 10,
   flexDirection: "row",
 }
+const home = {
+  flex: 1,
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  alignItems: 'flex-start',
+  justifyContent: 'space-evenly'
+}
 const wrap = {
-  width: WIDTH,
-  height: HEIGHT * 0.35,
+  width: WIDTH * 0.40,
+  height: HEIGHT * 0.2,
+  borderRadius: 13,
 }
 const button = {
   boxSizing: "border-box",
