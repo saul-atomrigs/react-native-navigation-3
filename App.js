@@ -16,6 +16,8 @@ import DetailedSchedules from './Calendar/DetailedSchedules.js';
 import Twitter from './Radar/Twitter';
 import Youtube from './Radar/Youtube';
 import Translate from './Radar/Translate';
+import AddPost from './Community/AddPost';
+
 export default function App() {
   // Stack Navigator
   return (
@@ -35,6 +37,7 @@ export default function App() {
         <Stack.Screen name="Youtube" component={Youtube} options={{ title: '' }} />
         <Stack.Screen name="Twitter" component={Twitter} options={{ title: '' }} />
         <Stack.Screen name="Translate" component={Translate} options={{ title: '' }} />
+        <Stack.Screen name="AddPost" component={AddPost} options={{ title: '' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

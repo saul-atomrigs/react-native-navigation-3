@@ -7,9 +7,6 @@ import { useNavigation } from '@react-navigation/core';
 import Firebase, { FirebaseProvider } from '../src/utils'
 import AddPost from './AddPost';
 import Icon from 'react-native-vector-icons/Ionicons';
-// import { Plus } from "phosphor-react";
-
-// import ActionButton from 'react-native-action-button';
 
 export default function Feed() {
     const navigation = useNavigation();
@@ -58,8 +55,13 @@ export default function Feed() {
                         keyExtractor={DATA.id}
                         maxLength={8}
                     />
-                    <TouchableOpacity style={styles.floatingBtn}>
-                        <Image style={{ width: 50, height: 50, resizeMode: 'contain' }} source={require('../assets/icons/plus.png')} />
+                    <TouchableOpacity style={styles.floatingBtn}
+                        onPress={() => navigation.navigate('AddPost')}
+                    >
+                        <Image
+                            style={{ width: 50, height: 50, resizeMode: 'contain' }}
+                            source={require('../assets/icons/plus.png')}
+                        />
                     </TouchableOpacity>
                 </FirebaseProvider>
             </ApplicationProvider>
@@ -216,5 +218,15 @@ const styles = StyleSheet.create({
         right: 30,
         backgroundColor: 'hotpink',
         borderRadius: 100,
+        // shadow ios:
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 5,
+            height: 5,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 10,
+        // shadow android: 
+        elevation: 0.8,
     }
 })
