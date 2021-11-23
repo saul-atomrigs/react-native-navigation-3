@@ -4,8 +4,6 @@ import { Text, Avatar, ApplicationProvider } from '@ui-kitten/components'
 import * as eva from '@eva-design/eva';
 import React, { useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
-
-
 import Reply from '../Components/Reply'
 export default function DetailedFeed() {
     const { param } = useRoute().params
@@ -69,8 +67,8 @@ export default function DetailedFeed() {
                         <Text style={styles.cardStatsDetails}>{param.comments} Comments</Text>
                     </View>
                 </View>
-                <Reply />
             </ScrollView>
+            <Reply />
         </ApplicationProvider >
     )
 }

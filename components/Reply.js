@@ -1,20 +1,21 @@
 import React, { useState } from 'react'
-import { StyleSheet, TextInput, View, SafeAreaView, Dimensions } from 'react-native'
-
+import { StyleSheet, TextInput, View, SafeAreaView, ScrollView, Dimensions, KeyboardAvoidingView } from 'react-native'
+import KeyboardAvoidingComponent from '../Components/KeyboardAvoidingComponent'
 export default function Reply() {
     const [text, onChangeText] = useState("");
 
     return (
-        <SafeAreaView>
-            <View style={newsArticleCommentInput} >
+        <KeyboardAvoidingComponent>
+            <ScrollView>
                 <TextInput
+                    style={newsArticleCommentInput}
                     onChangeText={onChangeText}
                     value={text}
                     placeholder={'Comment this post'}
                     placeholderTextColor="gray"
                 />
-            </View>
-        </SafeAreaView>
+            </ScrollView>
+        </KeyboardAvoidingComponent>
     )
 }
 
@@ -28,8 +29,6 @@ const newsArticleCommentInput = {
     width: WIDTH * 0.9,
     flex: 1,
     justifyContent: 'center',
-    // marginVertical: 20,
-    // marginHorizontal: 20,
     margin: 20,
     borderWidth: 1,
     borderRadius: 13,

@@ -15,6 +15,7 @@ import DetailedFeed from './Community/DetailedFeed';
 import DetailedSchedules from './Calendar/DetailedSchedules.js';
 import Twitter from './Radar/Twitter';
 import Youtube from './Radar/Youtube';
+import Translate from './Radar/Translate';
 export default function App() {
   // Stack Navigator
   return (
@@ -33,6 +34,7 @@ export default function App() {
         <Stack.Screen name="Radar" component={Radar} options={{ title: '' }} />
         <Stack.Screen name="Youtube" component={Youtube} options={{ title: '' }} />
         <Stack.Screen name="Twitter" component={Twitter} options={{ title: '' }} />
+        <Stack.Screen name="Translate" component={Translate} options={{ title: '' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -145,8 +147,6 @@ function HomeScreen({ navigation }) {
 }
 // Community Screen ✅✅
 function Community({ navigation }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   useLayoutEffect(() => {
     navigation.setOptions({
       // header button left
@@ -465,6 +465,9 @@ function Radar({ navigation }) {
       <Text
         onPress={() => navigation.push('Youtube')}
       >Youtube</Text>
+      <Text
+        onPress={() => navigation.push('Translate')}
+      >Translate</Text>
     </TouchableOpacity>
     // </SafeAreaView>
   )

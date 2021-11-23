@@ -1,5 +1,5 @@
 import React, { Component, Fragment, useLayoutEffect } from 'react'
-import { Image, View, TouchableOpacity, StyleSheet, Button } from 'react-native'
+import { Image, Fab, View, TouchableOpacity, StyleSheet, Button } from 'react-native'
 import { Text, Avatar, List, ApplicationProvider, IconRegistry } from '@ui-kitten/components'
 import { Divider } from 'react-native-elements';
 import { mapping, light as lightTheme } from '@eva-design/eva'
@@ -7,6 +7,8 @@ import { useNavigation } from '@react-navigation/core';
 import Firebase, { FirebaseProvider } from '../src/utils'
 import AddPost from './AddPost';
 import Icon from 'react-native-vector-icons/Ionicons';
+// import { Plus } from "phosphor-react";
+
 // import ActionButton from 'react-native-action-button';
 
 export default function Feed() {
@@ -56,9 +58,12 @@ export default function Feed() {
                         keyExtractor={DATA.id}
                         maxLength={8}
                     />
+                    <TouchableOpacity style={styles.floatingBtn}>
+                        <Image style={{ width: 50, height: 50, resizeMode: 'contain' }} source={require('../assets/icons/plus.png')} />
+                    </TouchableOpacity>
                 </FirebaseProvider>
             </ApplicationProvider>
-        </Fragment>
+        </Fragment >
     )
 }
 
@@ -90,6 +95,45 @@ const DATA = [
         views: '34',
         likes: '5',
         comments: '1',
+    },
+    {
+        id: 2,
+        postTitle: 'BTS 방탄소년단',
+        avatarURI:
+            'https://media.istockphoto.com/photos/portrait-of-a-young-asian-woman-wearing-street-fashion-picture-id1304661616',
+        imageURI:
+            'https://pbs.twimg.com/media/FEkEZ0wX0Akq_MW?format=jpg&name=900x900',
+        randomText:
+            'this is example 2dslfk,sdfjsei? emoji!!❤️❤️',
+        views: '102',
+        likes: '9',
+        comments: '5',
+    },
+    {
+        id: 2,
+        postTitle: 'BTS 방탄소년단',
+        avatarURI:
+            'https://media.istockphoto.com/photos/portrait-of-a-young-asian-woman-wearing-street-fashion-picture-id1304661616',
+        imageURI:
+            'https://pbs.twimg.com/media/FEkEZ0wX0Akq_MW?format=jpg&name=900x900',
+        randomText:
+            'this is example 2dslfk,sdfjsei? emoji!!❤️❤️',
+        views: '102',
+        likes: '9',
+        comments: '5',
+    },
+    {
+        id: 2,
+        postTitle: 'BTS 방탄소년단',
+        avatarURI:
+            'https://media.istockphoto.com/photos/portrait-of-a-young-asian-woman-wearing-street-fashion-picture-id1304661616',
+        imageURI:
+            'https://pbs.twimg.com/media/FEkEZ0wX0Akq_MW?format=jpg&name=900x900',
+        randomText:
+            'this is example 2dslfk,sdfjsei? emoji!!❤️❤️',
+        views: '102',
+        likes: '9',
+        comments: '5',
     },
     {
         id: 2,
@@ -160,5 +204,17 @@ const styles = StyleSheet.create({
         height: 22,
         color: 'white',
     },
-
+    floatingBtn: {
+        borderWidth: 1,
+        borderColor: 'hotpink',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 70,
+        height: 70,
+        position: 'absolute',
+        bottom: 120,
+        right: 30,
+        backgroundColor: 'hotpink',
+        borderRadius: 100,
+    }
 })
