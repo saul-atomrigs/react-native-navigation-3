@@ -16,7 +16,7 @@ export default function Twitter() {
                         onPress={() => navigation.navigate('Home')}
                     >
                         <Image
-                            style={{ width: WIDTH * 0.08, height: HEIGHT * 0.03, marginRight: WIDTH * 0.05, }}
+                            style={headerRightButtons}
 
                             source={require('../assets/icons/logo.png')}
                         />
@@ -25,7 +25,7 @@ export default function Twitter() {
                         onPress={() => navigation.navigate('Settings')}
                     >
                         <Image
-                            style={{ width: WIDTH * 0.08, height: HEIGHT * 0.03, marginRight: WIDTH * 0.05, }}
+                            style={headerRightButtons}
 
                             source={require('../assets/icons/dots-nine.png')}
                         />
@@ -45,5 +45,11 @@ export default function Twitter() {
 // Swiper slide images dimensions
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
+
+const headerRightButtons = {
+    width: WIDTH * 0.08,
+    height: HEIGHT * 0.03,
+    marginRight: WIDTH * 0.05,
+}
 
 const styles = StyleSheet.create({})
