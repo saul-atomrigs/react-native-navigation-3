@@ -44,9 +44,9 @@ export default function App() {
 function HomeTabNavigation() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
+      <Tab.Screen name="Community" component={Social} options={{ tabBarBadge: 5 }} />
       <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 3 }} />
       <Tab.Screen name="Calendar" component={Calendar} />
-      <Tab.Screen name="Community" component={Social} options={{ tabBarBadge: 5 }} />
       <Tab.Screen name="Radar" component={Radar} />
       <Tab.Screen name="Me" component={Me} />
     </Tab.Navigator>

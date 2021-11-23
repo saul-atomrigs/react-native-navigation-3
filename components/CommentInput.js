@@ -1,18 +1,15 @@
 import React from 'react';
 import { View, KeyboardAvoidingView, Dimensions, TextInput, StyleSheet, Text, Platform, TouchableWithoutFeedback, Button, Keyboard } from 'react-native';
 
-const KeyboardAvoidingComponent = () => {
+const CommentInput = () => {
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             style={styles.container}
         >
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={styles.btnContainer}>
+                <View >
                     <TextInput placeholder="Comment" style={styles.textInput} />
-                    <View style={styles.button}>
-                        <Button title="Submit" onPress={() => null} />
-                    </View>
                 </View>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
@@ -26,15 +23,8 @@ const HEIGHT = Dimensions.get('window').height;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
-    inner: {
-        padding: 24,
-        flex: 1,
-        justifyContent: "space-around"
-    },
-    header: {
-        fontSize: 36,
-        marginBottom: 48
+        marginBottom: 10,
+        backgroundColor: '#eee',
     },
     textInput: {
         position: 'absolute',
@@ -76,4 +66,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default KeyboardAvoidingComponent;
+export default CommentInput;

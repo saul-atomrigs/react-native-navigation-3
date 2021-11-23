@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, Image, View } from 'react-native'
-import KeyboardAvoidingComponent from '../Components/KeyboardAvoidingComponent'
+import KeyboardAvoidingComponent from '../Components/CommentInput'
 // import ImagePicker from 'react-native-image-picker'
 // import { withFirebaseHOC } from '../src/utils/FirebaseContext'
 
