@@ -140,7 +140,6 @@ function HomeScreen({ navigation }) {
           </View>
         </TouchableOpacity>
       </View>
-
     </ScrollView>
   );
 }
@@ -339,7 +338,7 @@ function Radar({ navigation }) {
             onPress={() => navigation.navigate('Home')}
           >
             <Image
-              style={{ width: 30, height: 30, margin: 10, }}
+              style={{ width: WIDTH * 0.08, height: HEIGHT * 0.03, marginRight: WIDTH * 0.05, }}
               source={require('./assets/icons/logo.png')}
             />
           </TouchableOpacity>
@@ -347,7 +346,7 @@ function Radar({ navigation }) {
             onPress={() => navigation.navigate('Settings')}
           >
             <Image
-              style={{ width: 30, height: 30, margin: 10, }}
+              style={{ width: WIDTH * 0.08, height: HEIGHT * 0.03, marginRight: WIDTH * 0.05, }}
               source={require('./assets/icons/dots-nine.png')}
             />
           </TouchableOpacity>

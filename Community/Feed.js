@@ -13,7 +13,9 @@ export default function Feed() {
     const navigation = useNavigation();
     const renderItem = ({ item }) => (
         <TouchableOpacity
-            onPress={() => navigation.push('DetailedFeed')}>
+            onPress={() => navigation.push('DetailedFeed', {
+                param: item,
+            })}>
             <Divider />
             <View style={styles.card}>
                 <View style={styles.cardHeader}>
