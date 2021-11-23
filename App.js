@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useLayoutEffect, useState, useRef } from 'react';
+import React, { Component, useCallback, useEffect, useLayoutEffect, useState, useRef } from 'react';
 import { FlatList, Button, Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -13,10 +13,11 @@ import DetailedSchedules from './Calendar/DetailedSchedules.js'
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components'
 import { AppleButton } from '@invertase/react-native-apple-authentication';
-import { WebView } from 'react-native-webview';
 import MyFeed from './Me/MyFeed';
 import DetailedFeed from './Community/DetailedFeed'
-
+import { WebView } from 'react-native-webview';
+import Twitter from './Radar/Twitter'
+import Youtube from './Radar/Youtube'
 export default function App() {
   // Stack Navigator
   return (
@@ -32,6 +33,9 @@ export default function App() {
         <Stack.Screen name="Me" component={Me} />
         <Stack.Screen name="DetailedSchedules" component={DetailedSchedules} options={({ route }) => ({ title: route.params.param })} />
         <Stack.Screen name="DetailedFeed" component={DetailedFeed} options={{ title: '' }} />
+        <Stack.Screen name="Radar" component={Radar} options={{ title: '' }} />
+        <Stack.Screen name="Youtube" component={Youtube} options={{ title: '' }} />
+        <Stack.Screen name="Twitter" component={Twitter} options={{ title: '' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -63,7 +67,8 @@ function HomeScreen({ navigation }) {
             onPress={() => navigation.navigate('Home')}
           >
             <Image
-              style={{ width: 30, height: 30, margin: 10, }}
+              style={{ width: WIDTH * 0.08, height: HEIGHT * 0.03, marginRight: WIDTH * 0.05, }}
+
               source={require('./assets/icons/logo.png')}
             />
           </TouchableOpacity>
@@ -71,7 +76,8 @@ function HomeScreen({ navigation }) {
             onPress={() => navigation.navigate('Settings')}
           >
             <Image
-              style={{ width: 30, height: 30, margin: 10, }}
+              style={{ width: WIDTH * 0.08, height: HEIGHT * 0.03, marginRight: WIDTH * 0.05, }}
+
               source={require('./assets/icons/dots-nine.png')}
             />
           </TouchableOpacity>
@@ -83,7 +89,7 @@ function HomeScreen({ navigation }) {
     // body
     <ScrollView >
       <View style={home}>
-        <TouchableOpacity style={{ margin: 10 }} onPress={() => navigation.push('News')}>
+        <TouchableOpacity style={{ margin: 10 }} onPress={() => navigation.push('Radar')}>
           <View>
             <Image
               source={require('./assets/001.jpg')}
@@ -158,7 +164,8 @@ function Community({ navigation }) {
             onPress={() => navigation.navigate('Home')}
           >
             <Image
-              style={{ width: 30, height: 30, margin: 10, }}
+              style={{ width: WIDTH * 0.08, height: HEIGHT * 0.03, marginRight: WIDTH * 0.05, }}
+
               source={require('./assets/icons/logo.png')}
             />
           </TouchableOpacity>
@@ -166,7 +173,8 @@ function Community({ navigation }) {
             onPress={() => navigation.navigate('Settings')}
           >
             <Image
-              style={{ width: 30, height: 30, margin: 10, }}
+              style={{ width: WIDTH * 0.08, height: HEIGHT * 0.03, marginRight: WIDTH * 0.05, }}
+
               source={require('./assets/icons/dots-nine.png')}
             />
           </TouchableOpacity>
@@ -201,7 +209,8 @@ function Calendar({ navigation }) {
             onPress={() => navigation.navigate('Home')}
           >
             <Image
-              style={{ width: 30, height: 30, margin: 10, }}
+              style={{ width: WIDTH * 0.08, height: HEIGHT * 0.03, marginRight: WIDTH * 0.05, }}
+
               source={require('./assets/icons/logo.png')}
             />
           </TouchableOpacity>
@@ -209,7 +218,8 @@ function Calendar({ navigation }) {
             onPress={() => navigation.navigate('Settings')}
           >
             <Image
-              style={{ width: 30, height: 30, margin: 10, }}
+              style={{ width: WIDTH * 0.08, height: HEIGHT * 0.03, marginRight: WIDTH * 0.05, }}
+
               source={require('./assets/icons/dots-nine.png')}
             />
           </TouchableOpacity>
@@ -239,7 +249,8 @@ function News({ navigation }) {
             onPress={() => navigation.navigate('Home')}
           >
             <Image
-              style={{ width: 30, height: 30, margin: 10, }}
+              style={{ width: WIDTH * 0.08, height: HEIGHT * 0.03, marginRight: WIDTH * 0.05, }}
+
               source={require('./assets/icons/logo.png')}
             />
           </TouchableOpacity>
@@ -247,7 +258,8 @@ function News({ navigation }) {
             onPress={() => navigation.navigate('Settings')}
           >
             <Image
-              style={{ width: 30, height: 30, margin: 10, }}
+              style={{ width: WIDTH * 0.08, height: HEIGHT * 0.03, marginRight: WIDTH * 0.05, }}
+
               source={require('./assets/icons/dots-nine.png')}
             />
           </TouchableOpacity>
@@ -304,7 +316,8 @@ function Social({ navigation }) {
             onPress={() => navigation.navigate('Home')}
           >
             <Image
-              style={{ width: 30, height: 30, margin: 10, }}
+              style={{ width: WIDTH * 0.08, height: HEIGHT * 0.03, marginRight: WIDTH * 0.05, }}
+
               source={require('./assets/icons/logo.png')}
             />
           </TouchableOpacity>
@@ -312,7 +325,8 @@ function Social({ navigation }) {
             onPress={() => navigation.navigate('Settings')}
           >
             <Image
-              style={{ width: 30, height: 30, margin: 10, }}
+              style={{ width: WIDTH * 0.08, height: HEIGHT * 0.03, marginRight: WIDTH * 0.05, }}
+
               source={require('./assets/icons/dots-nine.png')}
             />
           </TouchableOpacity>
@@ -355,9 +369,16 @@ function Radar({ navigation }) {
     });
   }, [navigation])
   return (
-    <>
-      <Text>Radar!</Text>
-    </>
+    // <SafeAreaView>
+    <TouchableOpacity style={center}>
+      <Text
+        onPress={() => navigation.push('Twitter')}
+      >Twitter</Text>
+      <Text
+        onPress={() => navigation.push('Youtube')}
+      >Youtube</Text>
+    </TouchableOpacity>
+    // </SafeAreaView>
   )
 }
 function Me({ navigation }) {
@@ -372,7 +393,7 @@ function Me({ navigation }) {
             onPress={() => navigation.navigate('Home')}
           >
             <Image
-              style={{ width: 30, height: 30, margin: 10, }}
+              style={{ width: WIDTH * 0.08, height: HEIGHT * 0.03, marginRight: WIDTH * 0.05, }}
               source={require('./assets/icons/logo.png')}
             />
           </TouchableOpacity>
@@ -380,7 +401,7 @@ function Me({ navigation }) {
             onPress={() => navigation.navigate('Settings')}
           >
             <Image
-              style={{ width: 30, height: 30, margin: 10, }}
+              style={{ width: WIDTH * 0.08, height: HEIGHT * 0.03, marginRight: WIDTH * 0.05, }}
               source={require('./assets/icons/dots-nine.png')}
             />
           </TouchableOpacity>
@@ -390,7 +411,6 @@ function Me({ navigation }) {
   }, [navigation])
   return (
     <View>
-      <MyFeed />
     </View>
   )
 }
@@ -447,7 +467,8 @@ const headerOptions = ({ navigation }) => (
           onPress={() => navigation.navigate('Home')}
         >
           <Image
-            style={{ width: 30, height: 30, margin: 10, }}
+            style={{ width: WIDTH * 0.08, height: HEIGHT * 0.03, marginRight: WIDTH * 0.05, }}
+
             source={require('./assets/icons/logo.png')}
           />
         </TouchableOpacity>
@@ -455,7 +476,8 @@ const headerOptions = ({ navigation }) => (
           onPress={() => navigation.navigate('Settings')}
         >
           <Image
-            style={{ width: 30, height: 30, margin: 10, }}
+            style={{ width: WIDTH * 0.08, height: HEIGHT * 0.03, marginRight: WIDTH * 0.05, }}
+
             source={require('./assets/icons/dots-nine.png')}
           />
         </TouchableOpacity>
@@ -593,51 +615,51 @@ function FacebookSignIn() {
 }
 
 
-// Webview component 
-const Webview = () => {
-  // 웹뷰와 rn과의 소통은 아래의 ref 값을 이용하여 이루어집니다.
-  let webviewRef = useRef();
+// // Webview component 
+// const Webview = () => {
+//   // 웹뷰와 rn과의 소통은 아래의 ref 값을 이용하여 이루어집니다.
+//   let webviewRef = useRef();
 
-  /** 웹뷰 ref */
-  const handleSetRef = _ref => {
-    webviewRef = _ref;
-  };
+//   /** 웹뷰 ref */
+//   const handleSetRef = _ref => {
+//     webviewRef = _ref;
+//   };
 
-  /** webview 로딩 완료시 */
-  const handleEndLoading = e => {
-    console.log("webview 로딩 완료!");
-    /** rn에서 웹뷰로 정보를 보내는 메소드 */
-    webviewRef.postMessage("로딩 완료시 webview로 정보를 보내는 곳");
-  };
+//   /** webview 로딩 완료시 */
+//   const handleEndLoading = e => {
+//     console.log("webview 로딩 완료!");
+//     /** rn에서 웹뷰로 정보를 보내는 메소드 */
+//     webviewRef.postMessage("로딩 완료시 webview로 정보를 보내는 곳");
+//   };
 
-  return (
-    <WebviewContainer
-      webviewRef={webviewRef}
-      handleSetRef={handleSetRef}
-      handleEndLoading={handleEndLoading}
-    />
-  );
-};
+//   return (
+//     <WebviewContainer
+//       webviewRef={webviewRef}
+//       handleSetRef={handleSetRef}
+//       handleEndLoading={handleEndLoading}
+//     />
+//   );
+// };
 
-const WebviewContainer = ({ handleSetRef, handleEndLoading }) => {
-  const url = "http://localhost:19002";
+// const WebviewContainer = ({ handleSetRef, handleEndLoading }) => {
+//   const url = "http://localhost:19002";
 
-  /** 웹뷰에서 rn으로 값을 보낼때 거치는 함수 */
-  const handleOnMessage = ({ nativeEvent: { data } }) => {
-    // data에 웹뷰에서 보낸 값이 들어옵니다.
-    console.log(data);
-  };
+//   /** 웹뷰에서 rn으로 값을 보낼때 거치는 함수 */
+//   const handleOnMessage = ({ nativeEvent: { data } }) => {
+//     // data에 웹뷰에서 보낸 값이 들어옵니다.
+//     console.log(data);
+//   };
 
-  return (
-    <WebView
-      onLoadEnd={handleEndLoading}
-      onMessage={handleOnMessage}
-      ref={handleSetRef}
-      // source={{ uri: 'https://www.google.com' }}
-      source={{ html: '<h1>This is a static HTML source!</h1>' }}
-    />
-  );
-};
+//   return (
+//     <WebView
+//       onLoadEnd={handleEndLoading}
+//       onMessage={handleOnMessage}
+//       ref={handleSetRef}
+//       // source={{ uri: 'https://www.google.com' }}
+//       source={{ html: '<h1>This is a static HTML source!</h1>' }}
+//     />
+//   );
+// };
 
 // styling and parameters(options)
 const center = {
@@ -645,7 +667,7 @@ const center = {
   justifyContent: 'center',
   alignItems: 'center',
   // marginTop: 10,
-  flexDirection: "row",
+  // flexDirection: "row",
 }
 const home = {
   flex: 1,

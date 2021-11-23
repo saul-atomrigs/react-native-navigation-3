@@ -1,13 +1,42 @@
-import React from 'react'
 import { useRoute } from '@react-navigation/native';
-import { StyleSheet, View, ScrollView, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, View, ScrollView, TouchableOpacity, Image, Dimensions } from 'react-native'
 import { Text, Avatar, ApplicationProvider } from '@ui-kitten/components'
 import * as eva from '@eva-design/eva';
+import React, { useLayoutEffect } from 'react'
+import { useNavigation } from '@react-navigation/native';
 
 
 import Reply from '../Components/Reply'
 export default function DetailedFeed() {
     const { param } = useRoute().params
+    const navigation = useNavigation();
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            // header button left
+            headerTitleAlign: 'left',
+            // header button right
+            headerRight: () => (
+                <View style={{ flexDirection: 'row' }}>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Home')}
+                    >
+                        <Image
+                            style={{ width: WIDTH * 0.08, height: HEIGHT * 0.03, marginRight: WIDTH * 0.05, }}
+                            source={require('../assets/icons/logo.png')}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Settings')}
+                    >
+                        <Image
+                            style={{ width: WIDTH * 0.08, height: HEIGHT * 0.03, marginRight: WIDTH * 0.05, }}
+                            source={require('../assets/icons/dots-nine.png')}
+                        />
+                    </TouchableOpacity>
+                </View>
+            ),
+        });
+    }, [navigation])
     return (
         <ApplicationProvider {...eva} theme={eva.light}>
             <ScrollView>
@@ -45,6 +74,12 @@ export default function DetailedFeed() {
         </ApplicationProvider >
     )
 }
+
+
+// dimensions
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
+
 
 const styles = StyleSheet.create({
     container: {

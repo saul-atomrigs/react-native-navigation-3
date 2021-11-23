@@ -42,7 +42,7 @@
     "react-native-svg": "^12.1.1",
     "react-native-swiper": "^1.6.0-rc.3",
     "react-native-web": "0.17.1",
-    "react-native-webview": "^11.13.0",
+    "react-native-webview": "^11.14.3",
     "react-redux": "^7.2.6",
     "styled-components": "^5.3.3",
     "uuid": "^8.3.2"
