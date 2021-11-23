@@ -2,12 +2,10 @@ import React, { useLayoutEffect, useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { ApplicationProvider } from '@ui-kitten/components';
 import { Button, Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Divider } from 'react-native-elements';
 import { AppleButton } from '@invertase/react-native-apple-authentication';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import * as eva from '@eva-design/eva';
 import Schedules from './Calendar/Schedules';
 import Connect from './chat/Connect';
 import Feeds from './Community/Feed';
@@ -325,12 +323,11 @@ function Social({ navigation }) {
     });
   }, [navigation])
   return (
-    <ApplicationProvider {...eva} theme={eva.light}>
+    <>
       <Feeds />
-    </ApplicationProvider>
+    </>
   )
 }
-// Radar Screen 
 // Community components 
 function CommunityHeader() {
   return (

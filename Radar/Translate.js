@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from 'react'
-import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, View, TouchableOpacity, Image, Dimensions } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
 import { WebView } from 'react-native-webview';
 
 export default function Twitter() {
