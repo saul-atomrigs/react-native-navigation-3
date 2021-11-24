@@ -1,10 +1,9 @@
-import { useRoute } from '@react-navigation/native';
-import { KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, TextInput, SafeAreaView, Text, StyleSheet, View, ScrollView, TouchableOpacity, Image, Dimensions } from 'react-native'
-import { Avatar, ApplicationProvider } from '@ui-kitten/components'
-import * as eva from '@eva-design/eva';
-import React, { useLayoutEffect } from 'react'
-import { useNavigation } from '@react-navigation/native';
-import CommentInput from '../Components/CommentInput'
+import React, { useLayoutEffect } from 'react';
+import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import CommentInput from '../Components/CommentInput';
+
 export default function DetailedFeed() {
     const { param } = useRoute().params
     const navigation = useNavigation();
@@ -37,40 +36,33 @@ export default function DetailedFeed() {
     }, [navigation])
     return (
         // <ApplicationProvider {...eva} theme={eva.light}>
-
-        <>
+        <KeyboardAwareScrollView >
             <View style={styles.container}>
-                <ScrollView >
-                    <View style={styles.card}>
-                        <View style={styles.cardHeader}>
-                            <TouchableOpacity
-                                onPress={() => navigation.push('Home')}
-                                style={{ flexDirection: 'row' }}
-                            >
-                                <Text style={styles.cardTitle}>
-                                    {param.postTitle}
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.cardContent}>
-                            <Text style={{ fontSize: 18, fontWeight: '700' }} >{param.randomText}</Text>
-                        </View>
-                        <View style={styles.cardContent}>
-                            <Text style={{ fontWeight: '500' }}>{param.randomText}</Text>
-                            <Image source={{ uri: param.imageURI }} style={{ height: '80%', width: '100%' }} />
-                        </View>
-                        <View style={styles.cardStats}>
-                            <Text style={styles.cardStatsDetails}>{param.views} Views</Text>
-                            <Text style={styles.cardStatsDetails}>{param.likes} Likes</Text>
-                            <Text style={styles.cardStatsDetails}>{param.comments} Comments</Text>
-                        </View>
+                <View style={styles.card}>
+                    <View style={styles.cardHeader}>
+                        <TouchableOpacity
+                            onPress={() => navigation.push('Home')}
+                            style={{ flexDirection: 'row' }}
+                        >
+                            <Text style={styles.cardTitle}>
+                                {param.postTitle}
+                            </Text>
+                        </TouchableOpacity>
                     </View>
-                </ScrollView>
-                <CommentInput />
+                    <View style={styles.cardContent}>
+                        <Text style={{ fontSize: 18, fontWeight: '700' }} >{param.randomText}</Text>
+                        <Image source={{ uri: param.imageURI }} style={styles.cardImage} />
+                        <Text style={{ fontWeight: '500' }}>{param.randomText}</Text>
+                    </View>
+                    <View style={styles.cardStats}>
+                        <Text style={styles.cardStatsDetails}>{param.views} Views</Text>
+                        <Text style={styles.cardStatsDetails}>{param.likes} Likes</Text>
+                        <Text style={styles.cardStatsDetails}>{param.comments} Comments</Text>
+                    </View>
+                    <CommentInput />
+                </View>
             </View>
-            {/* <SafeAreaView style={{ flex: 1 }}> */}
-            {/* </SafeAreaView> */}
-        </>
+        </KeyboardAwareScrollView>
         // </ApplicationProvider >
     )
 }
@@ -83,23 +75,25 @@ const HEIGHT = Dimensions.get('window').height;
 const headerRightButtons = {
     width: WIDTH * 0.08,
     height: HEIGHT * 0.03,
-    marginRight: WIDTH * 0.05,
+    marginRight: WIDTH * 0.03,
 }
 
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
-        flex: 9,
+        flex: 5,
     },
     card: {
         marginTop: 10,
         backgroundColor: '#fff',
+        flex: 5,
     },
     cardImage: {
-        width: '90%',
-        height: 300,
-        alignSelf: 'center',
+        width: WIDTH * 0.9,
+        height: HEIGHT * 0.3,
+        // alignSelf: 'center',
         borderRadius: 13,
+        resizeMode: 'cover'
     },
     cardHeader: {
         paddingTop: 10,

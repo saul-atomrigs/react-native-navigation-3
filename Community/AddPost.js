@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Text, Image, View } from 'react-native'
-import KeyboardAvoidingComponent from '../Components/CommentInput'
+import CommentInput from '../Components/CommentInput'
 // import ImagePicker from 'react-native-image-picker'
 // import { withFirebaseHOC } from '../src/utils/FirebaseContext'
 
@@ -101,9 +101,9 @@ import KeyboardAvoidingComponent from '../Components/CommentInput'
 
 export default function AddPost() {
     return (
-        <View style={container}>
+        <View >
             <Text>AddPost!</Text>
-            <KeyboardAvoidingComponent />
+            <CommentInput />
         </View>
     )
 }

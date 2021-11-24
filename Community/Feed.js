@@ -1,5 +1,5 @@
 import React, { Component, Fragment, useLayoutEffect } from 'react'
-import { Image, Fab, View, TouchableOpacity, StyleSheet, Button } from 'react-native'
+import { Image, Fab, View, TouchableOpacity, StyleSheet, Button, FlatList } from 'react-native'
 import { Text, Avatar, List, ApplicationProvider, IconRegistry } from '@ui-kitten/components'
 import { Divider } from 'react-native-elements';
 import { mapping, light as lightTheme } from '@eva-design/eva'
@@ -45,10 +45,10 @@ export default function Feed() {
         </TouchableOpacity>
     )
     return (
-        <Fragment>
+        <Fragment style={{ marginBottom: 100 }}>
             <ApplicationProvider mapping={mapping} theme={lightTheme}>
                 <FirebaseProvider value={Firebase}>
-                    <List
+                    <FlatList
                         style={styles.container}
                         data={DATA}
                         renderItem={renderItem}
@@ -79,7 +79,7 @@ const DATA = [
         imageURI:
             'https://pbs.twimg.com/media/FEi4-HRWYAEFDZh?format=jpg&name=900x900',
         randomText:
-            'this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!',
+            'this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!',
         views: '39',
         likes: '3',
         comments: '2',
@@ -158,6 +158,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#eee',
+        marginBottom: 80,
     },
     card: {
         marginTop: 10,

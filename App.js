@@ -401,22 +401,22 @@ function ArticleBlock() {
 function NewsPage() {
   const [text, onChangeText] = useState("");
   return (
+
     <>
-      <View style={center}>
+      <View style={{ height: HEIGHT * 0.8, backgroundColor: 'blue' }}>
         <Text>NewsPage!</Text>
       </View>
-      <SafeAreaView>
-        <View
-          style={newsArticleCommentInput}
-        >
-          <TextInput
-            onChangeText={onChangeText}
-            value={text}
-            placeholder={'Comment this news...'}
-          />
-        </View>
-      </SafeAreaView>
+      <View
+        style={newsArticleCommentInput}
+      >
+        <TextInput
+          onChangeText={onChangeText}
+          value={text}
+          placeholder={'Comment this news...'}
+        />
+      </View>
     </>
+
   )
 }
 // Settings screen  
@@ -707,12 +707,13 @@ const articleStatsDetails = {
   marginLeft: 5,
 }
 const newsArticleCommentInput = {
-  height: 40,
   marginBottom: 20,
   marginLeft: 20,
   marginRight: 20,
+  height: HEIGHT * 0.1,
+  padding: 10,
   borderWidth: 1,
   borderRadius: 13,
-  backgroundColor: '#fff',
-  padding: 10,
+  backgroundColor: '#000',
+
 }
