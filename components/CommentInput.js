@@ -9,7 +9,12 @@ const CommentInput = () => {
         >
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View >
-                    <TextInput placeholder="Comment" style={styles.textInput} />
+                    <TextInput
+                        multiline
+                        numberOfLines={8}
+                        placeholder="Comment"
+                        style={styles.textInput}
+                    />
                 </View>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
@@ -28,7 +33,7 @@ const styles = StyleSheet.create({
     },
     textInput: {
         position: 'absolute',
-        height: HEIGHT * 0.05,
+        height: HEIGHT * 0.1,
         width: WIDTH * 0.9,
         marginHorizontal: 20,
         marginVertical: 5,

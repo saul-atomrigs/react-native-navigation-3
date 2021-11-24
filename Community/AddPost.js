@@ -105,49 +105,6 @@ export default function AddPost() {
         <KeyboardAwareScrollView>
             <View style={container}>
                 <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-                <Text>AddPost!</Text>
-
                 <CommentInput />
             </View>
         </KeyboardAwareScrollView>
