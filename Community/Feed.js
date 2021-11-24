@@ -1,5 +1,5 @@
 import React, { Component, Fragment, useLayoutEffect } from 'react'
-import { Image, Fab, View, TouchableOpacity, StyleSheet, Button, FlatList } from 'react-native'
+import { Image, Fab, View, TouchableOpacity, StyleSheet, Button, FlatList, RefreshControl } from 'react-native'
 import { Text, Avatar, List, ApplicationProvider, IconRegistry } from '@ui-kitten/components'
 import { Divider } from 'react-native-elements';
 import { mapping, light as lightTheme } from '@eva-design/eva'
@@ -44,8 +44,16 @@ export default function Feed() {
             </View>
         </TouchableOpacity>
     )
+
+    // Refresh Control 
+    const [refreshing, setRefreshing] = React.useState(false);
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(2000).then(() => setRefreshing(false));
+    }, []);
+
     return (
-        <Fragment style={{ marginBottom: 100 }}>
+        <Fragment >
             <ApplicationProvider mapping={mapping} theme={lightTheme}>
                 <FirebaseProvider value={Firebase}>
                     <FlatList
@@ -54,6 +62,12 @@ export default function Feed() {
                         renderItem={renderItem}
                         keyExtractor={DATA.id}
                         maxLength={8}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refreshing}
+                                onRefresh={onRefresh}
+                            />
+                        }
                     />
                     <TouchableOpacity style={styles.floatingBtn}
                         onPress={() => navigation.navigate('AddPost')}
@@ -69,6 +83,14 @@ export default function Feed() {
     )
 }
 
+
+
+// Refresh Control 
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+}
+
+
 // data 
 const DATA = [
     {
@@ -79,7 +101,7 @@ const DATA = [
         imageURI:
             'https://pbs.twimg.com/media/FEi4-HRWYAEFDZh?format=jpg&name=900x900',
         randomText:
-            'this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!',
+            'this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!!',
         views: '39',
         likes: '3',
         comments: '2',
@@ -99,7 +121,7 @@ const DATA = [
         comments: '1',
     },
     {
-        id: 2,
+        id: 3,
         postTitle: 'BTS 방탄소년단',
         avatarURI:
             'https://media.istockphoto.com/photos/portrait-of-a-young-asian-woman-wearing-street-fashion-picture-id1304661616',
@@ -112,7 +134,7 @@ const DATA = [
         comments: '5',
     },
     {
-        id: 2,
+        id: 4,
         postTitle: 'BTS 방탄소년단',
         avatarURI:
             'https://media.istockphoto.com/photos/portrait-of-a-young-asian-woman-wearing-street-fashion-picture-id1304661616',
@@ -125,7 +147,7 @@ const DATA = [
         comments: '5',
     },
     {
-        id: 2,
+        id: 5,
         postTitle: 'BTS 방탄소년단',
         avatarURI:
             'https://media.istockphoto.com/photos/portrait-of-a-young-asian-woman-wearing-street-fashion-picture-id1304661616',
@@ -138,7 +160,7 @@ const DATA = [
         comments: '5',
     },
     {
-        id: 2,
+        id: 6,
         postTitle: 'BTS 방탄소년단',
         avatarURI:
             'https://media.istockphoto.com/photos/portrait-of-a-young-asian-woman-wearing-street-fashion-picture-id1304661616',

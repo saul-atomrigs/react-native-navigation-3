@@ -1,12 +1,22 @@
 import React, { useLayoutEffect } from 'react';
-import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View, RefreshControl } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CommentInput from '../Components/CommentInput';
+// import RefreshControl from '../Components/RefreshControl';
 
 export default function DetailedFeed() {
     const { param } = useRoute().params
     const navigation = useNavigation();
+
+    // Refresh Control 
+    const [refreshing, setRefreshing] = React.useState(false);
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(2000).then(() => setRefreshing(false));
+    }, []);
+
+
     useLayoutEffect(() => {
         navigation.setOptions({
             // header button left
@@ -36,7 +46,14 @@ export default function DetailedFeed() {
     }, [navigation])
     return (
         // <ApplicationProvider {...eva} theme={eva.light}>
-        <KeyboardAwareScrollView >
+        <KeyboardAwareScrollView
+            refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                />
+            }
+        >
             <View style={styles.container}>
                 <View style={styles.card}>
                     <View style={styles.cardHeader}>
@@ -59,12 +76,20 @@ export default function DetailedFeed() {
                         <Text style={styles.cardStatsDetails}>{param.likes} Likes</Text>
                         <Text style={styles.cardStatsDetails}>{param.comments} Comments</Text>
                     </View>
+                    <View>
+                    </View>
                     <CommentInput />
                 </View>
             </View>
         </KeyboardAwareScrollView>
         // </ApplicationProvider >
     )
+}
+
+
+// Refresh Control 
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
 }
 
 

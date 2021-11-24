@@ -13,6 +13,7 @@ import DetailedFeed from './Community/DetailedFeed';
 import DetailedSchedules from './Calendar/DetailedSchedules.js';
 import Twitter from './Radar/Twitter';
 import Youtube from './Radar/Youtube';
+import Discover from './Radar/Discover';
 import Translate from './Radar/Translate';
 import AddPost from './Community/AddPost';
 
@@ -36,6 +37,7 @@ export default function App() {
         <Stack.Screen name="Twitter" component={Twitter} options={{ title: '' }} />
         <Stack.Screen name="Translate" component={Translate} options={{ title: '' }} />
         <Stack.Screen name="AddPost" component={AddPost} options={{ title: '' }} />
+        <Stack.Screen name="Discover" component={Discover} options={{ title: '' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -461,13 +463,20 @@ function Radar({ navigation }) {
     <TouchableOpacity style={center}>
       <Text
         onPress={() => navigation.push('Twitter')}
+        style={{ marginTop: 20, fontSize: 20, fontWeight: 'bold' }}
       >Twitter</Text>
       <Text
         onPress={() => navigation.push('Youtube')}
+        style={{ marginTop: 20, fontSize: 20, fontWeight: 'bold' }}
       >Youtube</Text>
       <Text
         onPress={() => navigation.push('Translate')}
+        style={{ marginTop: 20, fontSize: 20, fontWeight: 'bold' }}
       >Translate</Text>
+      <Text
+        onPress={() => navigation.push('Discover')}
+        style={{ marginTop: 20, fontSize: 20, fontWeight: 'bold' }}
+      >Discover</Text>
     </TouchableOpacity>
     // </SafeAreaView>
   )

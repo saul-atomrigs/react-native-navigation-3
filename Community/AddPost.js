@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Text, Image, View } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import CommentInput from '../Components/CommentInput'
 // import ImagePicker from 'react-native-image-picker'
 // import { withFirebaseHOC } from '../src/utils/FirebaseContext'
@@ -101,11 +102,61 @@ import CommentInput from '../Components/CommentInput'
 
 export default function AddPost() {
     return (
-        <View >
-            <Text>AddPost!</Text>
-            <CommentInput />
-        </View>
+        <KeyboardAwareScrollView>
+            <View style={container}>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+                <Text>AddPost!</Text>
+
+                <CommentInput />
+            </View>
+        </KeyboardAwareScrollView>
     )
 }
 
-const container = { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff', marginTop: 5 }
+const container = {
+    flexDirection: 'column',
+    flex: 1,
+    backgroundColor: '#fff',
+    marginTop: 5
+}
