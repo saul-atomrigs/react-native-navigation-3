@@ -104,7 +104,7 @@ export default function AddPost() {
     return (
         <KeyboardAwareScrollView>
             <View style={container}>
-                <Text>AddPost!</Text>
+                <Text>Ask questions to the KPOP community!</Text>
                 <CommentInput />
             </View>
         </KeyboardAwareScrollView>

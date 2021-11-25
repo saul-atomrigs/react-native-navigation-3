@@ -17,7 +17,9 @@ export default function Schedules() {
                     renderItem={({ item }) => <Text onPress={() => navigation.navigate('DetailedSchedules', {
                         itemId: 86,
                         param: item,
-                        uri: 'https://cdn-icons-png.flaticon.com/512/5463/5463680.png',
+                        // uri: 'https://cdn-icons-png.flaticon.com/512/5463/5463680.png',
+                        uri: 'https://oncejapan.com/static/twice/fanclub/top/202110/ph_main_sp_202110_6847c8fbd1cc0651e0527f575dbf5b4f.jpg',
+                        title: schedules,
                     })} style={styles.item}>{item}</Text>}
                     keyExtractor={(item, index) => index}
                     style={styles.list}
@@ -63,6 +65,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
 })
+
+const schedules = ' OOO 방송출연'
 
 const realData = [
     {
