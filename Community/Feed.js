@@ -73,7 +73,7 @@ export default function Feed() {
                         onPress={() => navigation.navigate('AddPost')}
                     >
                         <Image
-                            style={{ width: 50, height: 50, resizeMode: 'contain' }}
+                            style={{ width: 30, height: 30, resizeMode: 'contain' }}
                             source={require('../assets/icons/plus.png')}
                         />
                     </TouchableOpacity>
@@ -234,21 +234,21 @@ const styles = StyleSheet.create({
         borderColor: 'hotpink',
         alignItems: 'center',
         justifyContent: 'center',
-        width: 70,
-        height: 70,
+        width: 50,
+        height: 50,
         position: 'absolute',
         bottom: 120,
         right: 30,
         backgroundColor: 'hotpink',
         borderRadius: 100,
         // shadow ios:
-        shadowColor: '#000',
+        shadowColor: 'lightgray',
         shadowOffset: {
             width: 5,
             height: 5,
         },
         shadowOpacity: 0.5,
-        shadowRadius: 10,
+        shadowRadius: 5,
         // shadow android: 
         elevation: 0.8,
     }
