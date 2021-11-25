@@ -1,50 +1,111 @@
-import React from 'react';
-import { StyleSheet, ScrollView, Text, View, Image, Dimensions } from 'react-native';
-import { useRoute } from '@react-navigation/native';
-import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
-import { StyleService } from '@ui-kitten/components';
-import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
-export default function DetailedSchedules() {
-    const { param, uri, title } = useRoute().params;
-    return (
-        <>
+import React, { Component } from 'react';
+import { Alert, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+// @ts-expect-error
+import { Agenda } from 'react-native-calendars';
+import testIDs from './testIDs';
+
+export default class AgendaScreen extends Component {
+    state = {
+        items: {}
+    };
+
+    render() {
+        return (
             <Agenda
-                // Collection of dates that have to be marked. Default = {}
-                markedDates={{
-                    '2021-11-21': { selected: true, marked: true, selectedColor: 'blue' },
-                    '2021-11-22': { marked: true },
-                    '2021-11-23': { marked: true, dotColor: 'red', activeOpacity: 0 },
-                    '2021-11-24': { disableTouchEvent: true }
-                }}
+                testID={testIDs.agenda.CONTAINER}
+                items={this.state.items}
+                loadItemsForMonth={this.loadItems.bind(this)}
+                selected={'2017-05-16'}
+                renderItem={this.renderItem.bind(this)}
+                renderEmptyDate={this.renderEmptyDate.bind(this)}
+                rowHasChanged={this.rowHasChanged.bind(this)}
+                showClosingKnob={true}
+            // markingType={'period'}
+            // markedDates={{
+            //    '2017-05-08': {textColor: '#43515c'},
+            //    '2017-05-09': {textColor: '#43515c'},
+            //    '2017-05-14': {startingDay: true, endingDay: true, color: 'blue'},
+            //    '2017-05-21': {startingDay: true, color: 'blue'},
+            //    '2017-05-22': {endingDay: true, color: 'gray'},
+            //    '2017-05-24': {startingDay: true, color: 'gray'},
+            //    '2017-05-25': {color: 'gray'},
+            //    '2017-05-26': {endingDay: true, color: 'gray'}}}
+            // monthFormat={'yyyy'}
+            // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
+            //renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
+            // hideExtraDays={false}
             />
-            <ScrollView>
-                {/* <Text style={{ fontSize: 30, fontWeight: 'bold' }}>{param}</Text> */}
-                {/* <Image style={styles.logo} source={{ uri: uri }} /> */}
-                {/* <Calendar style={styles.calendar} /> */}
-                <Text style={{ margin: 20, fontSize: 20, fontWeight: 'bold' }}>{date}{title}</Text>
-            </ScrollView>
-        </>
-    );
+        );
+    }
+
+    loadItems(day) {
+        setTimeout(() => {
+            for (let i = -15; i < 85; i++) {
+                const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+                const strTime = this.timeToString(time);
+                if (!this.state.items[strTime]) {
+                    this.state.items[strTime] = [];
+                    const numItems = Math.floor(Math.random() * 3 + 1);
+                    for (let j = 0; j < numItems; j++) {
+                        this.state.items[strTime].push({
+                            name: 'Item for ' + strTime + ' #' + j,
+                            height: Math.max(50, Math.floor(Math.random() * 150))
+                        });
+                    }
+                }
+            }
+            const newItems = {};
+            Object.keys(this.state.items).forEach(key => {
+                newItems[key] = this.state.items[key];
+            });
+            this.setState({
+                items: newItems
+            });
+        }, 1000);
+    }
+
+    renderItem(item) {
+        return (
+            <TouchableOpacity
+                testID={testIDs.agenda.ITEM}
+                style={[styles.item, { height: item.height }]}
+                onPress={() => Alert.alert(item.name)}
+            >
+                <Text>{item.name}</Text>
+            </TouchableOpacity>
+        );
+    }
+
+    renderEmptyDate() {
+        return (
+            <View style={styles.emptyDate}>
+                <Text>This is empty date!</Text>
+            </View>
+        );
+    }
+
+    rowHasChanged(r1, r2) {
+        return r1.name !== r2.name;
+    }
+
+    timeToString(time) {
+        const date = new Date(time);
+        return date.toISOString().split('T')[0];
+    }
 }
 
-const WIDTH = Dimensions.get('window').width;
-const HEIGHT = Dimensions.get('window').height;
-
-const date = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
-
-// styling 
 const styles = StyleSheet.create({
-    screen: {
+    item: {
+        backgroundColor: 'white',
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        borderRadius: 5,
+        padding: 10,
+        marginRight: 10,
+        marginTop: 17
     },
-    calendar: {
-        marginVertical: 10,
-
-    },
-    logo: {
-        width: WIDTH * 0.9,
-        height: HEIGHT * 0.5,
-    },
+    emptyDate: {
+        height: 15,
+        flex: 1,
+        paddingTop: 30
+    }
 });

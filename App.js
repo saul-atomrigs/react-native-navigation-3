@@ -10,7 +10,7 @@ import Schedules from './Calendar/Schedules';
 import Chat from './chat/Chat';
 import Feeds from './Community/Feed';
 import DetailedFeed from './Community/DetailedFeed';
-import DetailedSchedules from './Calendar/DetailedSchedules.js';
+import DetailedSchedules from './Calendar/DetailedSchedules';
 import Twitter from './Radar/Twitter';
 import Youtube from './Radar/Youtube';
 import Discover from './Radar/Discover';
