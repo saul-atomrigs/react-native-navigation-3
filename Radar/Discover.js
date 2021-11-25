@@ -38,14 +38,14 @@ export default function Discover() {
     let JS = '<script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script>';
 
     let source = JS + '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">aespa rehearsing ‘Savage’ ahead of the Macy’s Thanksgiving Day Parade, which will be held on November 25th!<br><br>aespa and various other performers participated in rehearsals earlier this evening<a href="https://twitter.com/hashtag/aespa?src=hash&amp;ref_src=twsrc%5Etfw">#aespa</a> <a href="https://twitter.com/hashtag/%EC%97%90%EC%8A%A4%ED%8C%8C?src=hash&amp;ref_src=twsrc%5Etfw">#에스파</a><a href="https://twitter.com/aespa_official?ref_src=twsrc%5Etfw">@aespa_official</a> <br><br> <a href="https://t.co/LCqW1g6v1C">pic.twitter.com/LCqW1g6v1C</a></p>&mdash; aespresso (semi-ia) (@aespresso_SM) <a href="https://twitter.com/aespresso_SM/status/1463050607728549889?ref_src=twsrc%5Etfw">November 23, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>';
+    // let source = '<iframe width="1000" height="500" src="https://www.youtube.com/embed/j8o96TWALHw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
 
     return (
         <WebView
+            style={{ backgroundColor: '#000', height: HEIGHT, width: WIDTH }}
             source={{ html: source }}
             javaScriptEnabled={true}
-            automaticallyAdjustContentInsets={true}
-            style={{ height: HEIGHT, WIDTH, resizeMode: 'cover', flex: 1 }}
-            scalesPageToFit={true}
+            allowFullScreen={true}
         />
     );
 }
