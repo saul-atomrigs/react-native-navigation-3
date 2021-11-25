@@ -232,6 +232,9 @@ const styles = StyleSheet.create({
         marginRight: 60,
         minHeight: 20,
         justifyContent: 'flex-end',
+        padding: 10,
+        borderRadius: 13,
+        backgroundColor: '#e6e6e6'
     },
     username: {
         fontWeight: 'bold',

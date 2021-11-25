@@ -16,7 +16,7 @@ export default class Chat extends React.Component {
             messages: [
                 {
                     _id: 1,
-                    text: '안녕하세요! Please ask, suggest, tell us anything!',
+                    text: '안녕하세요! Thank you very much for using the App! Please help us improve by asking, suggesting, telling us anything!',
                     createdAt: new Date(),
                     user: {
                         _id: 2,
