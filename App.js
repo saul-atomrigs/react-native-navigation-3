@@ -7,7 +7,7 @@ import { Divider } from 'react-native-elements';
 import { AppleButton } from '@invertase/react-native-apple-authentication';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Schedules from './Calendar/Schedules';
-import Connect from './chat/Connect';
+import Chat from './chat/Chat';
 import Feeds from './Community/Feed';
 import DetailedFeed from './Community/DetailedFeed';
 import DetailedSchedules from './Calendar/DetailedSchedules.js';
@@ -26,7 +26,7 @@ export default function App() {
         <Stack.Screen name="Community" component={Community} />
         <Stack.Screen name="Calendar" component={Calendar} />
         <Stack.Screen name="News" component={News} />
-        <Stack.Screen name="Connect" component={Connect} />
+        <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="NewsPage" component={NewsPage} />
         <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="Me" component={Me} />
@@ -426,7 +426,7 @@ function Settings({ navigation }) {
   return (
     <View style={center}>
       <Text>Settings!</Text>
-      <Text onPress={() => navigation.navigate('Connect')}>Suggest</Text>
+      <Text onPress={() => navigation.navigate('Chat')}>Suggest</Text>
     </View>
   )
 }
@@ -537,7 +537,7 @@ const screenOptions = ({ route }) => ({
       iconName = focused ? 'today' : 'today-outline';
     } else if (route.name === 'News') {
       iconName = focused ? 'grid' : 'grid-outline';
-    } else if (route.name === 'Connect') {
+    } else if (route.name === 'Chat') {
       iconName = focused ? 'star' : 'star-outline';
     } else if (route.name === 'Me') {
       iconName = focused ? 'finger-print' : 'finger-print-outline';
