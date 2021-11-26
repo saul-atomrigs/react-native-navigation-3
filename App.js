@@ -11,6 +11,9 @@ import Feeds from './Community/Feed';
 import DetailedFeed from './Community/DetailedFeed';
 import Calendar from './Calendar/Calendar';
 import Twitter from './Radar/Twitter';
+import Pinterest from './Radar/Pinterest';
+import Instagram from './Radar/Instagram';
+import Tiktok from './Radar/Tiktok';
 import Youtube from './Radar/Youtube';
 import Discover from './Radar/Discover';
 import Translate from './Radar/Translate';
@@ -33,6 +36,9 @@ export default function App() {
         <Stack.Screen name="DetailedFeed" component={DetailedFeed} options={{ title: '' }} />
         <Stack.Screen name="Radar" component={Radar} options={{ title: '' }} />
         <Stack.Screen name="Youtube" component={Youtube} options={{ title: '' }} />
+        <Stack.Screen name="Tiktok" component={Tiktok} options={{ title: '' }} />
+        <Stack.Screen name="Instagram" component={Instagram} options={{ title: '' }} />
+        <Stack.Screen name="Pinterest" component={Pinterest} options={{ title: '' }} />
         <Stack.Screen name="Twitter" component={Twitter} options={{ title: '' }} />
         <Stack.Screen name="Translate" component={Translate} options={{ title: '' }} />
         <Stack.Screen name="AddPost" component={AddPost} options={{ title: '' }} />
@@ -461,27 +467,39 @@ function DetailedRadar({ navigation }) {
   }, [navigation])
   return (
     // <SafeAreaView>
-    <TouchableOpacity style={center}>
-      <View style={{ flexDirection: 'row' }}>
+    // <TouchableOpacity style={center}>
+    <>
+      <View style={{
+        flexDirection: 'row',
+        // flex: 1,
+        // marginTop: 5,
+        justifyContent: 'space-evenly',
+        // backgroundColor: '#fff',
+      }}>
         <Text
           onPress={() => navigation.push('Twitter')}
-          style={{ marginTop: 20, fontSize: 20, fontWeight: 'bold' }}
+          style={{ marginTop: 15, fontSize: 15, }}
         >Twitter</Text>
+        <Text
+          onPress={() => navigation.push('Youtube')}
+          style={{ marginTop: 15, fontSize: 15, }}
+        >Youtube</Text>
+        <Text
+          onPress={() => navigation.push('Instagram')}
+          style={{ marginTop: 15, fontSize: 15, }}
+        >Instagram</Text>
+        <Text
+          onPress={() => navigation.push('Tiktok')}
+          style={{ marginTop: 15, fontSize: 15, }}
+        >Tiktok</Text>
+        <Text
+          onPress={() => navigation.push('Pinterest')}
+          style={{ marginTop: 15, fontSize: 15, }}
+        >Pinterest</Text>
       </View>
-      <Text
-        onPress={() => navigation.push('Youtube')}
-        style={{ marginTop: 20, fontSize: 20, fontWeight: 'bold' }}
-      >Youtube</Text>
-      <Text
-        onPress={() => navigation.push('Translate')}
-        style={{ marginTop: 20, fontSize: 20, fontWeight: 'bold' }}
-      >Translate</Text>
-      <Text
-        onPress={() => navigation.push('Discover')}
-        style={{ marginTop: 20, fontSize: 20, fontWeight: 'bold' }}
-      >Discover</Text>
-    </TouchableOpacity>
-    // </SafeAreaView>
+      <Twitter />
+    </>
+    // </TouchableOpacity>
   )
 }
 function Me({ navigation }) {

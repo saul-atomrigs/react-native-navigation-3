@@ -33,7 +33,7 @@ export default function Feed() {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.cardContent}>
-                    <Icon style={{ marginRight: 5, marginTop: 5 }} name="ellipse" size={7} color="orange" />
+                    <Icon style={{ marginRight: 5, marginTop: 5 }} name="ellipse" size={8} color="hotpink" />
                     <Text category='s1'>{item.randomText}</Text>
                 </View>
                 <View style={styles.cardStats}>
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
         marginLeft: 20
     },
     cardContent: {
-        marginLeft: 50,
+        marginLeft: 20,
         marginRight: 20,
         marginTop: 10,
         marginBottom: 10,
