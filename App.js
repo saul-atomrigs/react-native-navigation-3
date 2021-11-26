@@ -462,10 +462,12 @@ function DetailedRadar({ navigation }) {
   return (
     // <SafeAreaView>
     <TouchableOpacity style={center}>
-      <Text
-        onPress={() => navigation.push('Twitter')}
-        style={{ marginTop: 20, fontSize: 20, fontWeight: 'bold' }}
-      >Twitter</Text>
+      <View style={{ flexDirection: 'row' }}>
+        <Text
+          onPress={() => navigation.push('Twitter')}
+          style={{ marginTop: 20, fontSize: 20, fontWeight: 'bold' }}
+        >Twitter</Text>
+      </View>
       <Text
         onPress={() => navigation.push('Youtube')}
         style={{ marginTop: 20, fontSize: 20, fontWeight: 'bold' }}

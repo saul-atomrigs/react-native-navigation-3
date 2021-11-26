@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from 'react';
-import { SectionList, StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { SectionList, StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Dimensions, RefreshControl } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 // import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
@@ -7,6 +7,13 @@ import AutocompleteField from '../Components/Autocomplete';
 
 export default function Radar() {
     const navigation = useNavigation();
+
+    // Refresh Control 
+    const [refreshing, setRefreshing] = React.useState(false);
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(2000).then(() => setRefreshing(false));
+    }, []);
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -39,7 +46,8 @@ export default function Radar() {
 
     return (
         // <ApplicationProvider {...eva} theme={eva.light}>
-        <View style={styles.container}>
+        <View style={styles.container}
+        >
             {/* <AutocompleteField /> */}
             <SectionList
                 sections={realData}
@@ -54,11 +62,24 @@ export default function Radar() {
                 keyExtractor={(item, index) => index}
                 style={styles.list}
                 indicatorStyle='black'
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                    />
+                }
             />
         </View>
         // </ApplicationProvider>
     );
 }
+
+
+// Refresh Control 
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+}
+
 
 // styling 
 const styles = StyleSheet.create({

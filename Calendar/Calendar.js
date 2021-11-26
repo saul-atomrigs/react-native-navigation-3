@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Alert, StyleSheet, Text, View, TouchableOpacity, RefreshControl } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 // @ts-expect-error
 import { Agenda } from 'react-native-calendars';
@@ -9,6 +9,7 @@ export default class Calendar extends Component {
     state = {
         items: {}
     };
+
 
     render() {
         return (
