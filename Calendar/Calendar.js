@@ -15,6 +15,9 @@ export default class Calendar extends Component {
             // <SafeAreaProvider>
             // <SafeAreaView style={{ width: '100%', height: '100%', }}>
             <Agenda
+                items={{
+                    '2021-11-27': [{ name: 'item 1 - test!!' }],
+                }}
                 testID={testIDs.agenda.CONTAINER} //agenda 
                 items={this.state.items}
                 loadItemsForMonth={this.loadItems.bind(this)}
@@ -23,7 +26,7 @@ export default class Calendar extends Component {
                 renderEmptyDate={this.renderEmptyDate.bind(this)}
                 rowHasChanged={this.rowHasChanged.bind(this)}
                 showClosingKnob={true}
-                markingType={'period'}
+                markingType={'custom'}
                 // markedDates={{
                 //     '2017-05-08': { textColor: '#43515c' },
                 //     '2017-05-09': { textColor: '#43515c' },
@@ -37,15 +40,80 @@ export default class Calendar extends Component {
                 // monthFormat={'mm'}
                 markedDates={{
                     // '2021-11-26': { selected: true, selectedColor: 'black', textColor: 'white' }
+                    '2021-11-26': {
+                        marked: true,
+                        customStyles: {
+                            container: {
+                                backgroundColor: 'black'
+                            },
+                            text: {
+                                color: 'white',
+                                fontWeight: 'bold'
+                            }
+                        },
+                    }
                 }}
                 theme={{
                     textDayFontWeight: '900',
                     textMonthFontWeight: '900',
                     todayButtonFontWeight: '900',
                     textDayHeaderFontWeight: '700',
-                    calendarBackground: 'pink',
+                    calendarBackground: '#FFF2F4',
                     agendaKnobColor: 'gray',
+                    'stylesheet.calendar.header': {
+                        marginBottom: 80,
+                    },
                     // dotColor: 'gray',
+                    // 'stylesheet.calendar.header': {
+                    //     dayTextAtIndex0: {
+                    //         color: 'red'
+                    //     },
+                    //     dayTextAtIndex1: {
+                    //         color: 'black'
+                    //     },
+                    //     dayTextAtIndex2: {
+                    //         color: 'black'
+                    //     },
+                    //     dayTextAtIndex3: {
+                    //         color: 'black'
+                    //     },
+                    //     dayTextAtIndex4: {
+                    //         color: 'black'
+                    //     },
+                    //     dayTextAtIndex5: {
+                    //         color: 'black'
+                    //     },
+                    //     dayTextAtIndex6: {
+                    //         color: 'blue'
+                    //     },
+                    //     monthText: {
+                    //         fontSize: 28,
+                    //         color: 'black',
+                    //     },
+                    // },
+                    // 'stylesheet.agenda.header': {
+                    //     dayTextAtIndex0: {
+                    //         color: 'red'
+                    //     },
+                    //     dayTextAtIndex1: {
+                    //         color: 'black'
+                    //     },
+                    //     dayTextAtIndex2: {
+                    //         color: 'black'
+                    //     },
+                    //     dayTextAtIndex3: {
+                    //         color: 'black'
+                    //     },
+                    //     dayTextAtIndex4: {
+                    //         color: 'black'
+                    //     },
+                    //     dayTextAtIndex5: {
+                    //         color: 'black'
+                    //     },
+                    //     dayTextAtIndex6: {
+                    //         color: 'blue'
+                    //     },
+                    // }
                 }}
                 renderDay={(day, item) => (<Text>{day ? day.day : 'item'}</Text>)}
                 hideExtraDays={false}

@@ -597,6 +597,7 @@ const home = {
   alignItems: 'flex-start',
   justifyContent: 'space-evenly',
   marginTop: 10,
+  marginBottom: 79,
   backgroundColor: '#fff'
 }
 const wrap = {
