@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
 import { Alert, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 // @ts-expect-error
 import { Agenda } from 'react-native-calendars';
 import testIDs from './testIDs';
 
-export default class AgendaScreen extends Component {
+export default class Calendar extends Component {
     state = {
         items: {}
     };
 
     render() {
         return (
+            // <SafeAreaProvider>
+            // <SafeAreaView style={{ width: '100%', height: '100%', }}>
             <Agenda
-                testID={testIDs.agenda.CONTAINER}
+                testID={testIDs.agenda.CONTAINER} //agenda 
                 items={this.state.items}
                 loadItemsForMonth={this.loadItems.bind(this)}
-                // selected={'2017-05-16'}
+                // selected={'2021-11-26'}
                 renderItem={this.renderItem.bind(this)}
                 renderEmptyDate={this.renderEmptyDate.bind(this)}
                 rowHasChanged={this.rowHasChanged.bind(this)}
@@ -31,11 +34,26 @@ export default class AgendaScreen extends Component {
                 //     '2017-05-25': { color: 'gray' },
                 //     '2017-05-26': { endingDay: true, color: 'gray' }
                 // }}
-                monthFormat={'yyyy'}
-                theme={{ calendarBackground: 'pink', agendaKnobColor: 'gray' }}
+                // monthFormat={'mm'}
+                markedDates={{
+                    // '2021-11-26': { selected: true, selectedColor: 'black', textColor: 'white' }
+                }}
+                theme={{
+                    textDayFontWeight: '900',
+                    textMonthFontWeight: '900',
+                    todayButtonFontWeight: '900',
+                    textDayHeaderFontWeight: '700',
+                    calendarBackground: 'pink',
+                    agendaKnobColor: 'gray',
+                    // dotColor: 'gray',
+                }}
                 renderDay={(day, item) => (<Text>{day ? day.day : 'item'}</Text>)}
                 hideExtraDays={false}
+            // style={{ marginBottom: 80 }}
             />
+
+            // </SafeAreaView>
+            // </SafeAreaProvider>
         );
     }
 
@@ -95,14 +113,16 @@ export default class AgendaScreen extends Component {
     }
 }
 
+
+// styling 
 const styles = StyleSheet.create({
     item: {
-        backgroundColor: 'black',
+        backgroundColor: '#fff',
         flex: 1,
-        borderRadius: 5,
+        borderRadius: 13,
         padding: 10,
-        marginRight: 10,
-        marginTop: 17
+        // marginRight: 10,
+        marginTop: 10
     },
     emptyDate: {
         height: 15,

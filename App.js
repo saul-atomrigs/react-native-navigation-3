@@ -6,17 +6,17 @@ import { Button, Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, T
 import { Divider } from 'react-native-elements';
 import { AppleButton } from '@invertase/react-native-apple-authentication';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import Schedules from './Calendar/Schedules';
 import Chat from './chat/Chat';
 import Feeds from './Community/Feed';
 import DetailedFeed from './Community/DetailedFeed';
-import DetailedSchedules from './Calendar/DetailedSchedules';
+import Calendar from './Calendar/Calendar';
 import Twitter from './Radar/Twitter';
 import Youtube from './Radar/Youtube';
 import Discover from './Radar/Discover';
 import Translate from './Radar/Translate';
+import Radar from './Radar/Radar';
 import AddPost from './Community/AddPost';
-
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 export default function App() {
   // Stack Navigator
   return (
@@ -24,13 +24,12 @@ export default function App() {
       <Stack.Navigator screenOptions={{ headerBackTitleVisible: false }}>
         <Stack.Screen name="HomeTabNavigation" component={HomeTabNavigation} options={{ headerShown: false }} />
         <Stack.Screen name="Community" component={Community} />
-        <Stack.Screen name="Calendar" component={Calendar} />
         <Stack.Screen name="News" component={News} />
         <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="NewsPage" component={NewsPage} />
         <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="Me" component={Me} />
-        <Stack.Screen name="DetailedSchedules" component={DetailedSchedules} options={({ route }) => ({ title: route.params.param })} />
+        <Stack.Screen name="Calendar" component={Calendar} options={({ route }) => ({ title: route.params.param })} />
         <Stack.Screen name="DetailedFeed" component={DetailedFeed} options={{ title: '' }} />
         <Stack.Screen name="Radar" component={Radar} options={{ title: '' }} />
         <Stack.Screen name="Youtube" component={Youtube} options={{ title: '' }} />
@@ -38,6 +37,7 @@ export default function App() {
         <Stack.Screen name="Translate" component={Translate} options={{ title: '' }} />
         <Stack.Screen name="AddPost" component={AddPost} options={{ title: '' }} />
         <Stack.Screen name="Discover" component={Discover} options={{ title: '' }} />
+        <Stack.Screen name="DetailedRadar" component={DetailedRadar} options={{ title: '' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -46,8 +46,8 @@ export default function App() {
 function HomeTabNavigation() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
-      <Tab.Screen name="Community" component={Social} options={{ tabBarBadge: 5 }} />
-      <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 3 }} />
+      <Tab.Screen name="Community" component={Social} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' } }} />
+      <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} />
       <Tab.Screen name="Calendar" component={Calendar} />
       <Tab.Screen name="Radar" component={Radar} />
       <Tab.Screen name="Me" component={Me} />
@@ -56,6 +56,7 @@ function HomeTabNavigation() {
 }
 // Home Screen ✅
 function HomeScreen({ navigation }) {
+  const tabBarHeight = useBottomTabBarHeight();
   useLayoutEffect(() => {
     navigation.setOptions({
       // header button left
@@ -86,9 +87,9 @@ function HomeScreen({ navigation }) {
   }, [navigation])
   return (
     // body
-    <ScrollView >
+    <ScrollView>
       <View style={home}>
-        <TouchableOpacity style={{ margin: 10 }} onPress={() => navigation.push('Radar')}>
+        <TouchableOpacity style={{ margin: 10 }} onPress={() => navigation.push('RadarOriginal')}>
           <View>
             <Image
               source={require('./assets/001.jpg')}
@@ -191,42 +192,42 @@ function Community({ navigation }) {
     </View>
   );
 }
-// Calendar Screen ✅✅✅
-function Calendar({ navigation }) {
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      // header button left
-      headerTitleAlign: 'left',
-      // header button right
-      headerRight: () => (
-        <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Home')}
-          >
-            <Image
-              style={headerRightButtons}
-              source={require('./assets/icons/logo.png')}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Settings')}
-          >
-            <Image
-              style={headerRightButtons}
-              source={require('./assets/icons/dots-nine.png')}
-            />
-          </TouchableOpacity>
-        </View>
-      ),
-    });
-  }, [navigation]);
-  return (
-    <View style={calendarCenter}>
-      <Text>You can find or suggest KPOP group's schedules, anniversaries, and more.</Text>
-      <Schedules />
-    </View>
-  );
-}
+// // Calendar Screen ✅✅✅
+// function Calendar({ navigation }) {
+//   useLayoutEffect(() => {
+//     navigation.setOptions({
+//       // header button left
+//       headerTitleAlign: 'left',
+//       // header button right
+//       headerRight: () => (
+//         <View style={{ flexDirection: 'row' }}>
+//           <TouchableOpacity
+//             onPress={() => navigation.navigate('Home')}
+//           >
+//             <Image
+//               style={headerRightButtons}
+//               source={require('./assets/icons/logo.png')}
+//             />
+//           </TouchableOpacity>
+//           <TouchableOpacity
+//             onPress={() => navigation.navigate('Settings')}
+//           >
+//             <Image
+//               style={headerRightButtons}
+//               source={require('./assets/icons/dots-nine.png')}
+//             />
+//           </TouchableOpacity>
+//         </View>
+//       ),
+//     });
+//   }, [navigation]);
+//   return (
+//     <View style={calendarCenter}>
+//       <Text>You can find or suggest KPOP group's schedules, anniversaries, and more.</Text>
+//       <Schedules />
+//     </View>
+//   );
+// }
 // KPOP News ✅✅✅✅
 function News({ navigation }) {
   const [count, setCount] = useState(0);
@@ -430,7 +431,7 @@ function Settings({ navigation }) {
     </View>
   )
 }
-function Radar({ navigation }) {
+function DetailedRadar({ navigation }) {
   useLayoutEffect(() => {
     navigation.setOptions({
       // header button left
@@ -552,6 +553,7 @@ const screenOptions = ({ route }) => ({
   tabBarItemStyle: { borderRadius: 5, paddingBottom: 5, paddingTop: 5 },
   tabBarStyle: { position: 'absolute' }
 })
+
 
 // Authentication component 
 function AppleSignIn() {

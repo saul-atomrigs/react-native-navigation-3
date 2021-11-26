@@ -125,8 +125,8 @@ const DATA = [
         postTitle: 'BTS 방탄소년단',
         avatarURI:
             'https://media.istockphoto.com/photos/portrait-of-a-young-asian-woman-wearing-street-fashion-picture-id1304661616',
-        imageURI:
-            'https://pbs.twimg.com/media/FEkEZ0wX0Akq_MW?format=jpg&name=900x900',
+        // imageURI:
+        // 'https://pbs.twimg.com/media/FEkEZ0wX0Akq_MW?format=jpg&name=900x900',
         randomText:
             'this is example 2dslfk,sdfjsei? emoji!!❤️❤️',
         views: '102',
@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
     },
     floatingBtn: {
         borderWidth: 1,
-        borderColor: 'hotpink',
+        borderColor: 'pink',
         alignItems: 'center',
         justifyContent: 'center',
         width: 50,
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 120,
         right: 30,
-        backgroundColor: 'hotpink',
+        backgroundColor: 'pink',
         borderRadius: 100,
         // shadow ios:
         shadowColor: 'lightgray',

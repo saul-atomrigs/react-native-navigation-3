@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         marginVertical: 5,
         borderWidth: 1,
+        borderColor: 'pink',
         borderRadius: 13,
         backgroundColor: '#fff',
         padding: 13,

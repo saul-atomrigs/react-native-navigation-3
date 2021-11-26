@@ -68,7 +68,7 @@ export default function DetailedFeed() {
                     </View>
                     <View style={styles.cardContent}>
                         <Text style={{ fontSize: 18, fontWeight: '700' }} >{param.randomText}</Text>
-                        <Image source={{ uri: param.imageURI }} style={styles.cardImage} />
+                        {/* <Image source={{ uri: param.imageURI }} style={styles.cardImage} /> */}
                         <Text style={{ fontWeight: '500' }}>{param.randomText}</Text>
                     </View>
                     <View style={styles.cardStats}>
