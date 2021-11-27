@@ -7,6 +7,8 @@ import { useNavigation } from '@react-navigation/core';
 import Firebase, { FirebaseProvider } from '../src/utils'
 import AddPost from './AddPost';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { IconContext, ThumbsUp, ChatText } from "phosphor-react-native";
+
 
 export default function Feed() {
     const navigation = useNavigation();
@@ -34,12 +36,16 @@ export default function Feed() {
                 </View>
                 <View style={styles.cardContent}>
                     <Icon style={{ marginRight: 5, marginTop: 5 }} name="ellipse" size={8} color="hotpink" />
-                    <Text style={{ color: "#02007F" }}>{item.randomText}</Text>
+                    <Text style={styles.cardText}>{item.randomText}</Text>
                 </View>
                 <View style={styles.cardStats}>
                     <Text style={[styles.cardStatsDetails, { fontWeight: '600' }]}>{item.views} Views</Text>
-                    <Text style={styles.cardStatsDetails}>{item.likes} Likes</Text>
-                    <Text style={styles.cardStatsDetails}>{item.comments} Comments</Text>
+                    <View style={{ flexDirection: 'row' }}>
+                        <ThumbsUp size={15} />
+                        <Text style={styles.cardStatsDetails}>{item.likes}</Text>
+                    </View>
+                    <ChatText size={15} />
+                    <Text style={styles.cardStatsDetails}>{item.comments}</Text>
                 </View>
             </View>
         </TouchableOpacity >
@@ -101,7 +107,7 @@ const DATA = [
         imageURI:
             'https://pbs.twimg.com/media/FEi4-HRWYAEFDZh?format=jpg&name=900x900',
         randomText:
-            'this is title example 1, dlskfjslk sldkfjsldkfj sldie dlkfs!!!',
+            'MAMA 2021 Predictions Tournament',
         views: '39',
         likes: '3',
         comments: '2',
@@ -115,7 +121,7 @@ const DATA = [
         imageURI:
             'https://pbs.twimg.com/media/FEkEZ0wX0Akq_MW?format=jpg&name=900x900',
         randomText:
-            'this is example 2',
+            'Billlie - New Group Profile Photo (with Sheon)',
         views: '34',
         likes: '5',
         comments: '1',
@@ -128,7 +134,7 @@ const DATA = [
         // imageURI:
         // 'https://pbs.twimg.com/media/FEkEZ0wX0Akq_MW?format=jpg&name=900x900',
         randomText:
-            'this is example 2dslfk,sdfjsei? emoji!!❤️❤️',
+            `TWICE - 3rd Full Album 'Formula of Love: O+T=<3' (Two Weeks Later)`,
         views: '102',
         likes: '9',
         comments: '5',
@@ -141,7 +147,7 @@ const DATA = [
         imageURI:
             'https://pbs.twimg.com/media/FEkEZ0wX0Akq_MW?format=jpg&name=900x900',
         randomText:
-            'this is example 2dslfk,sdfjsei? emoji!!❤️❤️',
+            'TWICE Jeongyeon - Once again #1 (211127) [Eng Sub]❤️❤️',
         views: '102',
         likes: '9',
         comments: '5',
@@ -154,7 +160,7 @@ const DATA = [
         imageURI:
             'https://pbs.twimg.com/media/FEkEZ0wX0Akq_MW?format=jpg&name=900x900',
         randomText:
-            'this is example 2dslfk,sdfjsei? emoji!!❤️❤️',
+            'Ex miss A Fei - "Freaky Cinderella" Image Teaser #1',
         views: '102',
         likes: '9',
         comments: '5',
@@ -183,7 +189,7 @@ const styles = StyleSheet.create({
         marginBottom: 80,
     },
     card: {
-        marginTop: 10,
+        marginTop: 8,
         backgroundColor: '#fff'
     },
     cardImage: {
@@ -213,16 +219,23 @@ const styles = StyleSheet.create({
         color: 'gray',
         flexDirection: 'row',
     },
+    cardText: {
+        fontSize: 16,
+        color: "#02007F"
+    },
     cardStats: {
         flexDirection: 'row',
         marginLeft: 5,
+        marginRight: 5,
         marginTop: 5,
         justifyContent: 'flex-end'
     },
     cardStatsDetails: {
-        marginRight: 20,
+        marginRight: 12,
+        marginLeft: 5,
         marginBottom: 10,
         fontSize: 12,
+        fontWeight: '600',
     },
     actionButtonIcon: {
         fontSize: 20,

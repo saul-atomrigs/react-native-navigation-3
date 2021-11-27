@@ -7,7 +7,6 @@ export function RootFunction() {
     const navigation = useNavigation() // extract navigation prop here 
 
     return <Calendar navigation={navigation} /> //pass to your component.
-
 }
 export default class Calendar extends Component {
     state = {
@@ -48,7 +47,7 @@ export default class Calendar extends Component {
                         textMonthFontWeight: '900',
                         todayButtonFontWeight: '900',
                         textDayHeaderFontWeight: '700',
-                        calendarBackground: '#FFF2F4',
+                        calendarBackground: '#fff',
                         agendaKnobColor: 'gray',
                         'stylesheet.calendar.header': {
                             marginBottom: 80,
@@ -66,7 +65,7 @@ export default class Calendar extends Component {
                         source={require('../assets/icons/plus.png')}
                     />
                 </TouchableOpacity>
-            </>
+            </ >
         );
     }
 

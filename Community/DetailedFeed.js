@@ -69,7 +69,7 @@ export default function DetailedFeed() {
                     <View style={styles.cardContent}>
                         <Text style={{ fontSize: 18, fontWeight: '700' }} >{param.randomText}</Text>
                         {/* <Image source={{ uri: param.imageURI }} style={styles.cardImage} /> */}
-                        <Text style={{ fontWeight: '500' }}>{param.randomText}</Text>
+                        <Text style={{ fontWeight: '500', marginVertical: 20 }}>{param.randomText}</Text>
                     </View>
                     <View style={styles.cardStats}>
                         <Text style={styles.cardStatsDetails}>{param.views} Views</Text>
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     cardContent: {
         marginLeft: 20,
         marginRight: 20,
-        marginTop: 10,
+        marginTop: 15,
         marginBottom: 10,
         paddingVertical: 5,
         color: '#fff',
