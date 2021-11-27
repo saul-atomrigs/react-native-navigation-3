@@ -1,9 +1,15 @@
+import { useNavigation } from '@react-navigation/core';
 import React, { Component } from 'react';
 import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 
-export default class Calendar extends Component {
+export function RootFunction() {
+    const navigation = useNavigation() // extract navigation prop here 
 
+    return <Calendar navigation={navigation} /> //pass to your component.
+
+}
+export default class Calendar extends Component {
     state = {
         items: {
             "2021-11-27": [
@@ -51,8 +57,10 @@ export default class Calendar extends Component {
                     hideExtraDays={false}
                 />
                 <TouchableOpacity style={styles.floatingBtn}
-                    onPress={() => navigation.navigate('AddSchedule')}
-                >
+                    // onPress={() => navigation.navigate('AddSchedule')}
+                    onPress={() => {
+                        this.props.navigation.navigate('AddSchedule')
+                    }}>
                     <Image
                         style={{ width: 30, height: 30, resizeMode: 'contain' }}
                         source={require('../assets/icons/plus.png')}
