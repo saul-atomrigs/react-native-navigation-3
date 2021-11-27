@@ -1,6 +1,6 @@
 import React, { Component, Fragment, useLayoutEffect } from 'react'
-import { Image, Fab, View, TouchableOpacity, StyleSheet, Button, FlatList, RefreshControl } from 'react-native'
-import { Text, Avatar, List, ApplicationProvider, IconRegistry } from '@ui-kitten/components'
+import { Text, Image, Fab, View, TouchableOpacity, StyleSheet, Button, FlatList, RefreshControl } from 'react-native'
+import { Avatar, List, ApplicationProvider, IconRegistry } from '@ui-kitten/components'
 import { Divider } from 'react-native-elements';
 import { mapping, light as lightTheme } from '@eva-design/eva'
 import { useNavigation } from '@react-navigation/core';
@@ -27,22 +27,22 @@ export default function Feed() {
                             size='small'
                             style={styles.cardAvatar}
                         />
-                        <Text category='p1' style={styles.cardTitle}>
+                        <Text style={styles.cardTitle}>
                             {item.postTitle}
                         </Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.cardContent}>
                     <Icon style={{ marginRight: 5, marginTop: 5 }} name="ellipse" size={8} color="hotpink" />
-                    <Text category='s1'>{item.randomText}</Text>
+                    <Text style={{ color: "#02007F" }}>{item.randomText}</Text>
                 </View>
                 <View style={styles.cardStats}>
-                    <Text style={styles.cardStatsDetails}>{item.views} Views</Text>
+                    <Text style={[styles.cardStatsDetails, { fontWeight: '600' }]}>{item.views} Views</Text>
                     <Text style={styles.cardStatsDetails}>{item.likes} Likes</Text>
                     <Text style={styles.cardStatsDetails}>{item.comments} Comments</Text>
                 </View>
             </View>
-        </TouchableOpacity>
+        </TouchableOpacity >
     )
 
     // Refresh Control 
