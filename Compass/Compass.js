@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ApplicationProvider } from '@ui-kitten/components';
 import AutocompleteField from '../Components/Autocomplete';
 
-export default function Radar() {
+export default function Compass() {
     const navigation = useNavigation();
 
     // Refresh Control 
@@ -52,7 +52,7 @@ export default function Radar() {
             <SectionList
                 sections={realData}
                 renderSectionHeader={({ section }) => <Text style={styles.sectionHeader}>{section.title}</Text>}
-                renderItem={({ item }) => <Text onPress={() => navigation.push('DetailedRadar', {
+                renderItem={({ item }) => <Text onPress={() => navigation.push('DetailedCompass', {
                     itemId: 86,
                     param: item,
                     // uri: 'https://cdn-icons-png.flaticon.com/512/5463/5463680.png',

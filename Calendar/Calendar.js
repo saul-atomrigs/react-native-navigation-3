@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 // @ts-expect-error
 import { Agenda } from 'react-native-calendars';
+import DetailedSchedules from './DetailedSchedules'
 import testIDs from './testIDs';
 
 export default class Calendar extends Component {
@@ -15,6 +16,7 @@ export default class Calendar extends Component {
             // <SafeAreaProvider>
             // <SafeAreaView style={{ width: '100%', height: '100%', }}>
             <>
+                <DetailedSchedules />
                 <Agenda
                     items={{
                         '2021-11-27': [{ name: 'item 1 - test!!' }],

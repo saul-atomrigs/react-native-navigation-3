@@ -10,14 +10,14 @@ import Chat from './chat/Chat';
 import Feeds from './Community/Feed';
 import DetailedFeed from './Community/DetailedFeed';
 import Calendar from './Calendar/Calendar';
-import Twitter from './Radar/Twitter';
-import Pinterest from './Radar/Pinterest';
-import Instagram from './Radar/Instagram';
-import Tiktok from './Radar/Tiktok';
-import Youtube from './Radar/Youtube';
-import Discover from './Radar/Discover';
-import Translate from './Radar/Translate';
-import Radar from './Radar/Radar';
+import Twitter from './Compass/Twitter';
+import Pinterest from './Compass/Pinterest';
+import Instagram from './Compass/Instagram';
+import Tiktok from './Compass/Tiktok';
+import Youtube from './Compass/Youtube';
+import Discover from './Compass/Discover';
+import Translate from './Compass/Translate';
+import Compass from './Compass/Compass';
 import AddPost from './Community/AddPost';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 export default function App() {
@@ -34,7 +34,7 @@ export default function App() {
         <Stack.Screen name="Me" component={Me} />
         <Stack.Screen name="Calendar" component={Calendar} options={({ route }) => ({ title: route.params.param })} />
         <Stack.Screen name="DetailedFeed" component={DetailedFeed} options={{ title: '' }} />
-        <Stack.Screen name="Radar" component={Radar} options={{ title: '' }} />
+        <Stack.Screen name="Compass" component={Compass} options={{ title: '' }} />
         <Stack.Screen name="Youtube" component={Youtube} options={{ title: '' }} />
         <Stack.Screen name="Tiktok" component={Tiktok} options={{ title: '' }} />
         <Stack.Screen name="Instagram" component={Instagram} options={{ title: '' }} />
@@ -43,7 +43,7 @@ export default function App() {
         <Stack.Screen name="Translate" component={Translate} options={{ title: '' }} />
         <Stack.Screen name="AddPost" component={AddPost} options={{ title: '' }} />
         <Stack.Screen name="Discover" component={Discover} options={{ title: '' }} />
-        <Stack.Screen name="DetailedRadar" component={DetailedRadar} options={{ title: '' }} />
+        <Stack.Screen name="DetailedCompass" component={DetailedCompass} options={{ title: '' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -55,7 +55,7 @@ function HomeTabNavigation() {
       <Tab.Screen name="Community" component={Social} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' } }} />
       <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} />
       <Tab.Screen name="Calendar" component={Calendar} />
-      <Tab.Screen name="Radar" component={Radar} />
+      <Tab.Screen name="Compass" component={Compass} />
       <Tab.Screen name="Me" component={Me} />
     </Tab.Navigator>
   );
@@ -437,7 +437,7 @@ function Settings({ navigation }) {
     </View>
   )
 }
-function DetailedRadar({ navigation }) {
+function DetailedCompass({ navigation }) {
   useLayoutEffect(() => {
     navigation.setOptions({
       // header button left
@@ -562,7 +562,7 @@ const screenOptions = ({ route }) => ({
       iconName = focused ? 'star' : 'star-outline';
     } else if (route.name === 'Me') {
       iconName = focused ? 'finger-print' : 'finger-print-outline';
-    } else if (route.name === 'Radar') {
+    } else if (route.name === 'Compass') {
       iconName = focused ? 'compass' : 'compass-outline';
     }
     return <Ionicons name={iconName} size={size} color={color} />;

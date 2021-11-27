@@ -4,109 +4,119 @@ import { Alert, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import testIDs from './testIDs';
 
-export default class AgendaScreen extends Component {
-    state = {
-        items: {}
-    };
+const getMonthData = () => {
+    let loadingData = true
+    let dataToReturn = {
+        "2021-12-07": [
+            { name: "Whats up Food Stuff", start: "2021-12-09T13:45:00", end: "2021-12-09 19:45" }
+            , { name: "Whats up second Stuff", start: "2021-12-09T18:45:00", end: "2021-12-09 21:45" }
+        ],
 
-    render() {
-        return (
-            <Agenda
-                testID={testIDs.agenda.CONTAINER}
-                items={this.state.items}
-                loadItemsForMonth={this.loadItems.bind(this)}
-                // selected={'2017-05-16'}
-                renderItem={this.renderItem.bind(this)}
-                renderEmptyDate={this.renderEmptyDate.bind(this)}
-                rowHasChanged={this.rowHasChanged.bind(this)}
-                showClosingKnob={true}
-                markingType={'period'}
-                // markedDates={{
-                //     '2017-05-08': { textColor: '#43515c' },
-                //     '2017-05-09': { textColor: '#43515c' },
-                //     '2017-05-14': { startingDay: true, endingDay: true, color: 'blue' },
-                //     '2017-05-21': { startingDay: true, color: 'blue' },
-                //     '2017-05-22': { endingDay: true, color: 'gray' },
-                //     '2017-05-24': { startingDay: true, color: 'gray' },
-                //     '2017-05-25': { color: 'gray' },
-                //     '2017-05-26': { endingDay: true, color: 'gray' }
-                // }}
-                monthFormat={'yyyy'}
-                theme={{ calendarBackground: 'pink', agendaKnobColor: 'gray' }}
-                renderDay={(day, item) => (<Text>{day ? day.day : 'item'}</Text>)}
-                hideExtraDays={false}
-            />
-        );
+        "2021-12-08": [
+            { name: "Whats up Food Stuff", start: "2021-12-09T13:45:00", end: "2021-12-09 19:45" }
+            , { name: "Whats up second Stuff", start: "2021-12-09T18:45:00", end: "2021-12-09 21:45" }
+        ]
     }
+    return [dataToReturn, false]
+}
 
-    loadItems(day) {
-        setTimeout(() => {
-            for (let i = -15; i < 85; i++) {
-                const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-                const strTime = this.timeToString(time);
-                if (!this.state.items[strTime]) {
-                    this.state.items[strTime] = [];
-                    const numItems = Math.floor(Math.random() * 3 + 1);
-                    for (let j = 0; j < numItems; j++) {
-                        this.state.items[strTime].push({
-                            name: 'Item for ' + strTime + ' #' + j,
-                            height: Math.max(50, Math.floor(Math.random() * 150))
-                        });
-                    }
-                }
-            }
-            const newItems = {};
-            Object.keys(this.state.items).forEach(key => {
-                newItems[key] = this.state.items[key];
-            });
-            this.setState({
-                items: newItems
-            });
-        }, 1000);
-    }
+export default function AgendaScreen({ props, navigation, route }) {
+    const [monthData, loadingData] = getMonthData()
 
-    renderItem(item) {
+    const renderItem = (item, firstItemInDay) => {
+        console.log('rendering', item)
         return (
-            <TouchableOpacity
-                testID={testIDs.agenda.ITEM}
-                style={[styles.item, { height: item.height }]}
-                onPress={() => Alert.alert(item.name)}
-            >
-                <Text>{item.name}</Text>
+            <TouchableOpacity>
+                <>
+                    <Text style={{ color: xtextlink }}>{Moment(item.start).format("hh:mm a")}</Text>
+                    <Text style={{ color: '#555' }}>{item.name}</Text>
+                </>
             </TouchableOpacity>
         );
     }
 
-    renderEmptyDate() {
+
+    if (loadingData || !monthData) {
         return (
-            <View style={styles.emptyDate}>
-                <Text>This is empty date!</Text>
+            <View>
+                <Text>Loading</Text>
             </View>
-        );
+        )
     }
+    return (
 
-    rowHasChanged(r1, r2) {
-        return r1.name !== r2.name;
-    }
+        <View >
+            <Agenda
+                items={monthData}
+                renderItem={(item, firstItemInDay) => { return (renderItem(item, firstItemInDay)) }}
+                pastScrollRange={0}
+                futureScrollRange={0}
+                //renderEmptyData={renderEmptyItem}
+                //renderEmptyDate={renderEmptyDate}
+                theme={{
+                    textDayFontWeight: '900',
+                    textMonthFontWeight: '900',
+                    todayButtonFontWeight: '900',
+                    textDayHeaderFontWeight: '700',
+                    calendarBackground: '#FFF2F4',
+                    agendaKnobColor: 'gray',
+                    'stylesheet.calendar.header': {
+                        marginBottom: 80,
+                    },
+                    // dotColor: 'gray',
+                    // 'stylesheet.calendar.header': {
+                    //     dayTextAtIndex0: {
+                    //         color: 'red'
+                    //     },
+                    //     dayTextAtIndex1: {
+                    //         color: 'black'
+                    //     },
+                    //     dayTextAtIndex2: {
+                    //         color: 'black'
+                    //     },
+                    //     dayTextAtIndex3: {
+                    //         color: 'black'
+                    //     },
+                    //     dayTextAtIndex4: {
+                    //         color: 'black'
+                    //     },
+                    //     dayTextAtIndex5: {
+                    //         color: 'black'
+                    //     },
+                    //     dayTextAtIndex6: {
+                    //         color: 'blue'
+                    //     },
+                    //     monthText: {
+                    //         fontSize: 28,
+                    //         color: 'black',
+                    //     },
+                    // },
+                    // 'stylesheet.agenda.header': {
+                    //     dayTextAtIndex0: {
+                    //         color: 'red'
+                    //     },
+                    //     dayTextAtIndex1: {
+                    //         color: 'black'
+                    //     },
+                    //     dayTextAtIndex2: {
+                    //         color: 'black'
+                    //     },
+                    //     dayTextAtIndex3: {
+                    //         color: 'black'
+                    //     },
+                    //     dayTextAtIndex4: {
+                    //         color: 'black'
+                    //     },
+                    //     dayTextAtIndex5: {
+                    //         color: 'black'
+                    //     },
+                    //     dayTextAtIndex6: {
+                    //         color: 'blue'
+                    //     },
+                    // }
+                }}
+            />
+        </View>
+    );
 
-    timeToString(time) {
-        const date = new Date(time);
-        return date.toISOString().split('T')[0];
-    }
 }
-
-const styles = StyleSheet.create({
-    item: {
-        backgroundColor: 'black',
-        flex: 1,
-        borderRadius: 5,
-        padding: 10,
-        marginRight: 10,
-        marginTop: 17
-    },
-    emptyDate: {
-        height: 15,
-        flex: 1,
-        paddingTop: 30
-    }
-});
