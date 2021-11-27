@@ -20,6 +20,7 @@ import Translate from './Compass/Translate';
 import Compass from './Compass/Compass';
 import AddPost from './Community/AddPost';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import AddSchedule from './Calendar/AddSchedule';
 export default function App() {
   // Stack Navigator
   return (
@@ -44,6 +45,7 @@ export default function App() {
         <Stack.Screen name="AddPost" component={AddPost} options={{ title: '' }} />
         <Stack.Screen name="Discover" component={Discover} options={{ title: '' }} />
         <Stack.Screen name="DetailedCompass" component={DetailedCompass} options={{ title: '' }} />
+        <Stack.Screen name="AddSchedule" component={AddSchedule} options={{ title: '' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -53,9 +55,9 @@ function HomeTabNavigation() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen name="Community" component={Social} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' } }} />
-      <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} />
-      <Tab.Screen name="Calendar" component={Calendar} />
+      {/* <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} /> */}
       <Tab.Screen name="Compass" component={Compass} />
+      <Tab.Screen name="Calendar" component={Calendar} />
       <Tab.Screen name="Me" component={Me} />
     </Tab.Navigator>
   );

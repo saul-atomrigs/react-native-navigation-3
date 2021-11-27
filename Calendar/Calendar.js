@@ -1,28 +1,35 @@
 import React, { Component } from 'react';
-import { Alert, StyleSheet, Text, View, TouchableOpacity, RefreshControl, Image } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-// @ts-expect-error
+import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
-import DetailedSchedules from './DetailedSchedules'
-import testIDs from './testIDs';
 
 export default class Calendar extends Component {
+
     state = {
-        items: {}
+        items: {
+            "2021-11-27": [
+                { name: "TWICE", start: "18:45:00", end: "2021-11-29 19:45" }
+            ],
+            "2021-11-28": [],
+            "2021-11-29": [
+                { name: "TWICE", start: "13:45:00", end: "2021-11-29 19:45" }
+                , { name: "aespa", start: "18:45:00", end: "2021-11-29 21:45" }
+                , { name: "aespa", start: "18:45:00", end: "2021-11-29 21:45" }
+            ],
+            "2021-11-30": [
+                { name: "TWICE", start: "13:45:00", end: "2021-11-29 19:45" }
+                , { name: "aespa", start: "18:45:00", end: "2021-11-29 21:45" }
+            ],
+            "2021-12-01": [],
+        }
     };
     render() {
+        // const monthData = this.props.monthData
         return (
-            // <SafeAreaProvider>
-            // <SafeAreaView style={{ width: '100%', height: '100%', }}>
             <>
-                <DetailedSchedules />
                 <Agenda
-                    items={{
-                        '2021-11-27': [{ name: 'item 1 - test!!' }],
-                    }}
-                    testID={testIDs.agenda.CONTAINER} //agenda 
+                    // testID={testIDs.agenda.CONTAINER} //agenda 
                     items={this.state.items}
+                    // items={monthData}
                     loadItemsForMonth={this.loadItems.bind(this)}
                     // selected={'2021-11-26'}
                     renderItem={this.renderItem.bind(this)}
@@ -30,32 +37,6 @@ export default class Calendar extends Component {
                     rowHasChanged={this.rowHasChanged.bind(this)}
                     showClosingKnob={true}
                     markingType={'custom'}
-                    // markedDates={{
-                    //     '2017-05-08': { textColor: '#43515c' },
-                    //     '2017-05-09': { textColor: '#43515c' },
-                    //     '2017-05-14': { startingDay: true, endingDay: true, color: 'blue' },
-                    //     '2017-05-21': { startingDay: true, color: 'blue' },
-                    //     '2017-05-22': { endingDay: true, color: 'gray' },
-                    //     '2017-05-24': { startingDay: true, color: 'gray' },
-                    //     '2017-05-25': { color: 'gray' },
-                    //     '2017-05-26': { endingDay: true, color: 'gray' }
-                    // }}
-                    // monthFormat={'mm'}
-                    markedDates={{
-                        // '2021-11-26': { selected: true, selectedColor: 'black', textColor: 'white' }
-                        '2021-11-26': {
-                            marked: true,
-                            customStyles: {
-                                container: {
-                                    backgroundColor: 'black'
-                                },
-                                text: {
-                                    color: 'white',
-                                    fontWeight: 'bold'
-                                }
-                            },
-                        }
-                    }}
                     theme={{
                         textDayFontWeight: '900',
                         textMonthFontWeight: '900',
@@ -66,64 +47,11 @@ export default class Calendar extends Component {
                         'stylesheet.calendar.header': {
                             marginBottom: 80,
                         },
-                        // dotColor: 'gray',
-                        // 'stylesheet.calendar.header': {
-                        //     dayTextAtIndex0: {
-                        //         color: 'red'
-                        //     },
-                        //     dayTextAtIndex1: {
-                        //         color: 'black'
-                        //     },
-                        //     dayTextAtIndex2: {
-                        //         color: 'black'
-                        //     },
-                        //     dayTextAtIndex3: {
-                        //         color: 'black'
-                        //     },
-                        //     dayTextAtIndex4: {
-                        //         color: 'black'
-                        //     },
-                        //     dayTextAtIndex5: {
-                        //         color: 'black'
-                        //     },
-                        //     dayTextAtIndex6: {
-                        //         color: 'blue'
-                        //     },
-                        //     monthText: {
-                        //         fontSize: 28,
-                        //         color: 'black',
-                        //     },
-                        // },
-                        // 'stylesheet.agenda.header': {
-                        //     dayTextAtIndex0: {
-                        //         color: 'red'
-                        //     },
-                        //     dayTextAtIndex1: {
-                        //         color: 'black'
-                        //     },
-                        //     dayTextAtIndex2: {
-                        //         color: 'black'
-                        //     },
-                        //     dayTextAtIndex3: {
-                        //         color: 'black'
-                        //     },
-                        //     dayTextAtIndex4: {
-                        //         color: 'black'
-                        //     },
-                        //     dayTextAtIndex5: {
-                        //         color: 'black'
-                        //     },
-                        //     dayTextAtIndex6: {
-                        //         color: 'blue'
-                        //     },
-                        // }
                     }}
-                    renderDay={(day, item) => (<Text>{day ? day.day : 'item'}</Text>)}
                     hideExtraDays={false}
-                // style={{ marginBottom: 80 }}
                 />
                 <TouchableOpacity style={styles.floatingBtn}
-                    onPress={() => navigation.navigate('AddPost')}
+                    onPress={() => navigation.navigate('AddSchedule')}
                 >
                     <Image
                         style={{ width: 30, height: 30, resizeMode: 'contain' }}
@@ -131,8 +59,6 @@ export default class Calendar extends Component {
                     />
                 </TouchableOpacity>
             </>
-            // </SafeAreaView>
-            // </SafeAreaProvider>
         );
     }
 
@@ -165,11 +91,13 @@ export default class Calendar extends Component {
     renderItem(item) {
         return (
             <TouchableOpacity
-                testID={testIDs.agenda.ITEM}
                 style={[styles.item, { height: item.height }]}
-                onPress={() => Alert.alert(item.name)}
+                onPress={() => null}
             >
                 <Text>{item.name}</Text>
+                <Text>Event starts: {item.start}</Text>
+                <Text>On air: </Text>
+
             </TouchableOpacity>
         );
     }
@@ -177,7 +105,8 @@ export default class Calendar extends Component {
     renderEmptyDate() {
         return (
             <View style={styles.emptyDate}>
-                <Text>This is empty date!</Text>
+                <Button title='Add schedule'
+                    style={{ backgroundColor: 'pink', width: '50', height: '30' }} />
             </View>
         );
     }
