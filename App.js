@@ -1,11 +1,11 @@
 import React, { useLayoutEffect, useState } from 'react';
+// import AsyncStorage from '@react-native-community/async-storage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Button, Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Divider, Avatar } from 'react-native-elements';
 import { AppleButton } from '@invertase/react-native-apple-authentication';
-import Ionicons from '@expo/vector-icons/Ionicons';
 import Chat from './chat/Chat';
 import Feeds from './Community/Feed';
 import DetailedFeed from './Community/DetailedFeed';
@@ -21,6 +21,7 @@ import AddPost from './Community/AddPost';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import AddSchedule from './Calendar/AddSchedule';
 import { HandsClapping, ChatsCircle, CalendarCheck, Fingerprint, Compass, } from 'phosphor-react-native';
+import ShareComponent from './Components/ShareComponent';
 export default function App() {
   // Stack Navigator
   return (
@@ -375,7 +376,6 @@ function ArticleBlock() {
 function NewsPage() {
   const [text, onChangeText] = useState("");
   return (
-
     <>
       <View style={{ height: HEIGHT * 0.8, backgroundColor: 'blue' }}>
         <Text>NewsPage!</Text>
@@ -517,6 +517,7 @@ function Me({ navigation }) {
         <HandsClapping />
         <Text>5 Claps received</Text>
       </View>
+      <ShareComponent />
     </View>
   )
 }

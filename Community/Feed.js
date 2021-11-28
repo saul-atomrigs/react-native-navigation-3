@@ -1,5 +1,5 @@
 import React, { Component, Fragment, useLayoutEffect } from 'react'
-import { Text, Image, Fab, View, TouchableOpacity, StyleSheet, Button, FlatList, RefreshControl } from 'react-native'
+import { Text, Image, View, TouchableOpacity, StyleSheet, Button, FlatList, RefreshControl } from 'react-native'
 import { Avatar } from 'react-native-elements'
 import { Divider } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/core';
@@ -79,9 +79,11 @@ export default function Feed() {
                     onPress={() => navigation.navigate('AddPost')}
                 >
                     <Image
-                        style={{ width: 30, height: 30, resizeMode: 'contain' }}
+                        style={{ width: 20, height: 20, resizeMode: 'contain' }}
                         source={require('../assets/icons/plus.png')}
                     />
+                    <Text style={{ fontSize: 15, fontWeight: '700' }}>Post</Text>
+
                 </TouchableOpacity>
             </FirebaseProvider>
         </Fragment >
@@ -126,7 +128,7 @@ const DATA = [
     },
     {
         id: 3,
-        postTitle: 'tree0192',
+        postTitle: 'tree019',
         avatarURI:
             'https://media.istockphoto.com/photos/portrait-of-a-young-asian-woman-wearing-street-fashion-picture-id1304661616',
         // imageURI:
@@ -242,10 +244,11 @@ const styles = StyleSheet.create({
     },
     floatingBtn: {
         borderWidth: 1,
+        flexDirection: 'row',
         borderColor: 'pink',
         alignItems: 'center',
         justifyContent: 'center',
-        width: 50,
+        width: 100,
         height: 50,
         position: 'absolute',
         bottom: 120,
@@ -262,5 +265,5 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         // shadow android: 
         elevation: 0.8,
-    }
+    },
 })

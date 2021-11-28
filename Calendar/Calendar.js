@@ -56,16 +56,20 @@ export default class Calendar extends Component {
                     }}
                     hideExtraDays={false}
                 />
-                <TouchableOpacity style={styles.floatingBtn}
-                    // onPress={() => navigation.navigate('AddSchedule')}
-                    onPress={() => {
-                        this.props.navigation.navigate('AddSchedule')
-                    }}>
-                    <Image
-                        style={{ width: 30, height: 30, resizeMode: 'contain' }}
-                        source={require('../assets/icons/plus.png')}
-                    />
-                </TouchableOpacity>
+                <View style={styles.floatingBtn}>
+                    <TouchableOpacity
+                        style={{ flexDirection: 'row' }}
+                        // {/* onPress={() => navigation.navigate('AddSchedule')} */}
+                        onPress={() => {
+                            this.props.navigation.navigate('AddSchedule')
+                        }}>
+                        <Image
+                            style={{ width: 20, height: 20, resizeMode: 'contain' }}
+                            source={require('../assets/icons/plus.png')}
+                        />
+                        <Text style={{ fontSize: 15, fontWeight: '700' }}>Add schedule</Text>
+                    </TouchableOpacity>
+                </View>
             </ >
         );
     }
@@ -166,13 +170,14 @@ const styles = StyleSheet.create({
     },
     floatingBtn: {
         borderWidth: 1,
+        flexDirection: 'row',
         borderColor: 'pink',
         alignItems: 'center',
         justifyContent: 'center',
-        width: 50,
+        width: 150,
         height: 50,
         position: 'absolute',
-        bottom: 120,
+        bottom: 100,
         right: 30,
         backgroundColor: 'pink',
         borderRadius: 100,
