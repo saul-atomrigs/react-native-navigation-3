@@ -10,21 +10,17 @@ import Chat from './chat/Chat';
 import Feeds from './Community/Feed';
 import DetailedFeed from './Community/DetailedFeed';
 import Calendar from './Calendar/Calendar';
-import Twitter from './Compass/Twitter';
-import Pinterest from './Compass/Pinterest';
-import Instagram from './Compass/Instagram';
-import Tiktok from './Compass/Tiktok';
-import Youtube from './Compass/Youtube';
-import Discover from './Compass/Discover';
-import Translate from './Compass/Translate';
-import Compass from './Compass/Compass';
+import Discover from './Discover/Discover';
+import Twitter from './Discover/Twitter';
+import Pinterest from './Discover/Pinterest';
+import Instagram from './Discover/Instagram';
+import Tiktok from './Discover/Tiktok';
+import Youtube from './Discover/Youtube';
+import Translate from './Discover/Translate';
 import AddPost from './Community/AddPost';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import AddSchedule from './Calendar/AddSchedule';
-import {
-  HandsClapping,
-  ChatsCircle, CalendarCheck, Fingerprint
-} from 'phosphor-react-native';
+import { HandsClapping, ChatsCircle, CalendarCheck, Fingerprint, Compass, } from 'phosphor-react-native';
 export default function App() {
   // Stack Navigator
   return (
@@ -39,7 +35,6 @@ export default function App() {
         <Stack.Screen name="Me" component={Me} />
         <Stack.Screen name="Calendar" component={Calendar} options={({ route }) => ({ title: route.params.param })} />
         <Stack.Screen name="DetailedFeed" component={DetailedFeed} options={{ title: '' }} />
-        <Stack.Screen name="Compass" component={Compass} options={{ title: '' }} />
         <Stack.Screen name="Youtube" component={Youtube} options={{ title: '' }} />
         <Stack.Screen name="Tiktok" component={Tiktok} options={{ title: '' }} />
         <Stack.Screen name="Instagram" component={Instagram} options={{ title: '' }} />
@@ -48,7 +43,7 @@ export default function App() {
         <Stack.Screen name="Translate" component={Translate} options={{ title: '' }} />
         <Stack.Screen name="AddPost" component={AddPost} options={{ title: '' }} />
         <Stack.Screen name="Discover" component={Discover} options={{ title: '' }} />
-        <Stack.Screen name="DetailedCompass" component={DetailedCompass} options={{ title: '' }} />
+        <Stack.Screen name="DetailedDiscover" component={DetailedDiscover} options={{ title: '' }} />
         <Stack.Screen name="AddSchedule" component={AddSchedule} options={{ title: '' }} />
       </Stack.Navigator>
     </NavigationContainer>
@@ -60,7 +55,7 @@ function HomeTabNavigation() {
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen name="Community" component={Social} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' } }} />
       {/* <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} /> */}
-      <Tab.Screen name="Compass" component={Compass} />
+      <Tab.Screen name="Discover" component={Discover} />
       <Tab.Screen name="Calendar" component={Calendar} />
       <Tab.Screen name="Me" component={Me} />
     </Tab.Navigator>
@@ -407,7 +402,7 @@ function Settings({ navigation }) {
     </View>
   )
 }
-function DetailedCompass({ navigation }) {
+function DetailedDiscover({ navigation }) {
   useLayoutEffect(() => {
     navigation.setOptions({
       // header button left
@@ -552,8 +547,8 @@ const screenOptions = ({ route }) => ({
   //     iconName = focused ? 'star' : 'star-outline';
   //   } else if (route.name === 'Me') {
   //     iconName = focused ? 'finger-print' : 'finger-print-outline';
-  //   } else if (route.name === 'Compass') {
-  //     iconName = focused ? 'compass' : 'compass-outline';
+  //   } else if (route.name === 'Discover') {
+  //     iconName = focused ? 'Discover' : 'Discover-outline';
   //   }
   //   // return <Ionicons name={iconName} size={size} color={color} />;
   //   return <Ionicons name={iconName} size={size} color={color} />;
@@ -563,8 +558,8 @@ const screenOptions = ({ route }) => ({
   //   let iconSource
   //   if (route.name === 'Community') {
   //     iconSource = focused ? require('./assets/icons/chats-circle.png') : require('./assets/icons/megaphone.png')
-  //   } else if (route.name === 'Compass') {
-  //     iconSource = focused ? require('./assets/icons/compass-icon.png') : require('./assets/icons/megaphone.png')
+  //   } else if (route.name === 'Discover') {
+  //     iconSource = focused ? require('./assets/icons/Discover-icon.png') : require('./assets/icons/megaphone.png')
 
   //   }
   //   return (
@@ -583,6 +578,8 @@ const screenOptions = ({ route }) => ({
       iconSource = focused ? <CalendarCheck weight='fill' size={30} /> : <CalendarCheck weight='duotone' size={25} />
     } else if (route.name === 'Me') {
       iconSource = focused ? <Fingerprint weight='fill' size={30} /> : <Fingerprint weight='duotone' size={25} />
+    } else if (route.name === 'Discover') {
+      iconSource = focused ? <Compass weight='fill' size={30} /> : <Compass size={25} />
     }
     return (
       <>
@@ -590,7 +587,6 @@ const screenOptions = ({ route }) => ({
       </>
     )
   },
-
   tabBarActiveTintColor: 'black',
   tabBarInactiveTintColor: 'gray',
   tabBarActiveBackgroundColor: '#eaf1f8',

@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ApplicationProvider } from '@ui-kitten/components';
 import AutocompleteField from '../Components/Autocomplete';
 
-export default function Compass() {
+export default function Discover() {
     const navigation = useNavigation();
 
     // Refresh Control 
@@ -19,7 +19,7 @@ export default function Compass() {
         navigation.setOptions({
             // header button left
             headerTitleAlign: 'left',
-            title: 'Compass',
+            title: 'Discover',
             // header button right
             headerRight: () => (
                 <View style={{ flexDirection: 'row' }}>
@@ -52,7 +52,7 @@ export default function Compass() {
             <SectionList
                 sections={realData}
                 renderSectionHeader={({ section }) => <Text style={styles.sectionHeader}>{section.title}</Text>}
-                renderItem={({ item }) => <Text onPress={() => navigation.push('DetailedCompass', {
+                renderItem={({ item }) => <Text onPress={() => navigation.push('DetailedDiscover', {
                     itemId: 86,
                     param: item,
                     // uri: 'https://cdn-icons-png.flaticon.com/512/5463/5463680.png',
