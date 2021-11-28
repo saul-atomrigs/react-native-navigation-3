@@ -1,13 +1,12 @@
 import React, { Component, Fragment, useLayoutEffect } from 'react'
 import { Text, Image, Fab, View, TouchableOpacity, StyleSheet, Button, FlatList, RefreshControl } from 'react-native'
-import { Avatar, List, ApplicationProvider, IconRegistry } from '@ui-kitten/components'
+import { Avatar } from 'react-native-elements'
 import { Divider } from 'react-native-elements';
-import { mapping, light as lightTheme } from '@eva-design/eva'
 import { useNavigation } from '@react-navigation/core';
 import Firebase, { FirebaseProvider } from '../src/utils'
 import AddPost from './AddPost';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { IconContext, ThumbsUp, ChatText } from "phosphor-react-native";
+import { ThumbsUp, ChatText } from "phosphor-react-native";
 
 
 export default function Feed() {
@@ -25,9 +24,9 @@ export default function Feed() {
                         style={{ flexDirection: 'row' }}
                     >
                         <Avatar
+                            rounded
                             source={{ uri: item.avatarURI }}
-                            size='small'
-                            style={styles.cardAvatar}
+                            containerStyle={styles.cardAvatar}
                         />
                         <Text style={styles.cardTitle}>
                             {item.postTitle}
@@ -41,11 +40,13 @@ export default function Feed() {
                 <View style={styles.cardStats}>
                     <Text style={[styles.cardStatsDetails, { fontWeight: '600' }]}>{item.views} Views</Text>
                     <View style={{ flexDirection: 'row' }}>
-                        <ThumbsUp size={15} />
+                        <ThumbsUp size={15} weight='duotone' />
                         <Text style={styles.cardStatsDetails}>{item.likes}</Text>
                     </View>
-                    <ChatText size={15} />
-                    <Text style={styles.cardStatsDetails}>{item.comments}</Text>
+                    <View style={{ flexDirection: 'row' }}>
+                        <ChatText size={15} />
+                        <Text style={styles.cardStatsDetails}>{item.comments}</Text>
+                    </View>
                 </View>
             </View>
         </TouchableOpacity >
@@ -60,35 +61,32 @@ export default function Feed() {
 
     return (
         <Fragment >
-            <ApplicationProvider mapping={mapping} theme={lightTheme}>
-                <FirebaseProvider value={Firebase}>
-                    <FlatList
-                        style={styles.container}
-                        data={DATA}
-                        renderItem={renderItem}
-                        keyExtractor={DATA.id}
-                        maxLength={8}
-                        refreshControl={
-                            <RefreshControl
-                                refreshing={refreshing}
-                                onRefresh={onRefresh}
-                            />
-                        }
-                    />
-                    <TouchableOpacity style={styles.floatingBtn}
-                        onPress={() => navigation.navigate('AddPost')}
-                    >
-                        <Image
-                            style={{ width: 30, height: 30, resizeMode: 'contain' }}
-                            source={require('../assets/icons/plus.png')}
+            <FirebaseProvider value={Firebase}>
+                <FlatList
+                    style={styles.container}
+                    data={DATA}
+                    renderItem={renderItem}
+                    keyExtractor={DATA.id}
+                    maxLength={8}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={onRefresh}
                         />
-                    </TouchableOpacity>
-                </FirebaseProvider>
-            </ApplicationProvider>
+                    }
+                />
+                <TouchableOpacity style={styles.floatingBtn}
+                    onPress={() => navigation.navigate('AddPost')}
+                >
+                    <Image
+                        style={{ width: 30, height: 30, resizeMode: 'contain' }}
+                        source={require('../assets/icons/plus.png')}
+                    />
+                </TouchableOpacity>
+            </FirebaseProvider>
         </Fragment >
     )
 }
-
 
 
 // Refresh Control 
@@ -101,7 +99,7 @@ const wait = (timeout) => {
 const DATA = [
     {
         id: 1,
-        postTitle: 'aespa',
+        postTitle: 'aespa⭐️viet',
         avatarURI:
             'https://images.unsplash.com/photo-1559526323-cb2f2fe2591b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80',
         imageURI:
@@ -128,7 +126,7 @@ const DATA = [
     },
     {
         id: 3,
-        postTitle: 'BTS 방탄소년단',
+        postTitle: 'tree0192',
         avatarURI:
             'https://media.istockphoto.com/photos/portrait-of-a-young-asian-woman-wearing-street-fashion-picture-id1304661616',
         // imageURI:
@@ -141,7 +139,7 @@ const DATA = [
     },
     {
         id: 4,
-        postTitle: 'BTS 방탄소년단',
+        postTitle: 'BTS-Malaysia',
         avatarURI:
             'https://media.istockphoto.com/photos/portrait-of-a-young-asian-woman-wearing-street-fashion-picture-id1304661616',
         imageURI:
@@ -154,7 +152,7 @@ const DATA = [
     },
     {
         id: 5,
-        postTitle: 'BTS 방탄소년단',
+        postTitle: 'once_USA',
         avatarURI:
             'https://media.istockphoto.com/photos/portrait-of-a-young-asian-woman-wearing-street-fashion-picture-id1304661616',
         imageURI:

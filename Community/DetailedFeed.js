@@ -3,6 +3,7 @@ import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View, RefreshCon
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CommentInput from '../Components/CommentInput';
+import { Avatar } from 'react-native-elements';
 // import RefreshControl from '../Components/RefreshControl';
 
 export default function DetailedFeed() {
@@ -44,6 +45,7 @@ export default function DetailedFeed() {
             ),
         });
     }, [navigation])
+
     return (
         // <ApplicationProvider {...eva} theme={eva.light}>
         <KeyboardAwareScrollView
@@ -61,6 +63,12 @@ export default function DetailedFeed() {
                             onPress={() => navigation.push('Home')}
                             style={{ flexDirection: 'row' }}
                         >
+                            <Avatar
+                                rounded
+                                // source={{ uri: item.avatarURI }}
+                                source={{ uri: param.avatarURI }}
+                                containerStyle={styles.cardAvatar}
+                            />
                             <Text style={styles.cardTitle}>
                                 {param.postTitle}
                             </Text>
@@ -119,6 +127,10 @@ const styles = StyleSheet.create({
         // alignSelf: 'center',
         borderRadius: 13,
         resizeMode: 'cover'
+    },
+    cardAvatar: {
+        marginRight: 10,
+        marginLeft: 20
     },
     cardHeader: {
         paddingTop: 10,

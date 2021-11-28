@@ -8,6 +8,7 @@ export default function RegisterScreen({ navigation }) {
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
     const [imageURL, setImageURL] = useState('')
+
     const register = () => {
         auth.createUserWithEmailAndPassword(email, password)
             .then((userCredential) => {
@@ -25,6 +26,7 @@ export default function RegisterScreen({ navigation }) {
             })
             .catch(error => alert(error.message))
     }
+
     return (
         <View>
             <Input

@@ -1,13 +1,14 @@
 import { useNavigation } from '@react-navigation/core';
+import { AirplaneTakeoff, Cake, MusicNote, Television, VideoCamera } from 'phosphor-react-native';
 import React, { Component } from 'react';
 import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 
-export function RootFunction() {
-    const navigation = useNavigation() // extract navigation prop here 
+// export function RootFunction() {
+//     const navigation = useNavigation() // extract navigation prop here 
 
-    return <Calendar navigation={navigation} /> //pass to your component.
-}
+//     return <Calendar navigation={navigation} /> //pass to your component.
+// }
 export default class Calendar extends Component {
     state = {
         items: {
@@ -101,10 +102,29 @@ export default class Calendar extends Component {
                 style={[styles.item, { height: item.height }]}
                 onPress={() => null}
             >
-                <Text>{item.name}</Text>
+                <Text style={{ fontWeight: '800' }}>{item.name}</Text>
                 <Text>Event starts: {item.start}</Text>
-                <Text>On air: </Text>
+                <View style={{ flexDirection: 'row' }}>
+                    <AirplaneTakeoff />
+                    <Text>World Tour / International Schedules</Text>
+                </View>
+                <View style={{ flexDirection: 'row' }}>
+                    <Cake />
+                    <Text>Birthday / Anniversaries </Text>
+                </View>
 
+                <View style={{ flexDirection: 'row' }}>
+                    <MusicNote />
+                    <Text>Release</Text>
+                </View>
+                <View style={{ flexDirection: 'row' }}>
+                    <Television />
+                    <Text>TV Schedule</Text>
+                </View>
+                <View style={{ flexDirection: 'row' }}>
+                    <VideoCamera />
+                    <Text>Movie / TV Show</Text>
+                </View>
             </TouchableOpacity>
         );
     }
@@ -112,7 +132,7 @@ export default class Calendar extends Component {
     renderEmptyDate() {
         return (
             <View style={styles.emptyDate}>
-                <Button title='Add schedule'
+                <Button title='Add schedule / anniversary / events'
                     style={{ backgroundColor: 'pink', width: '50', height: '30' }} />
             </View>
         );
