@@ -4,7 +4,11 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CommentInput from '../Components/CommentInput';
 import { Avatar } from 'react-native-elements';
+import { CommunityData } from '../data/CommunityData';
 // import RefreshControl from '../Components/RefreshControl';
+import { POSTS } from '../data/posts'
+import Post from '../Components/Post';
+
 
 export default function DetailedFeed() {
     const { param } = useRoute().params
@@ -87,6 +91,9 @@ export default function DetailedFeed() {
                     <View>
                     </View>
                     <CommentInput />
+                    <Text>
+
+                    </Text>
                 </View>
             </View>
         </KeyboardAwareScrollView>
@@ -94,11 +101,25 @@ export default function DetailedFeed() {
     )
 }
 
+// <View>
+// {POSTS.map((post, index) => {
+//     <Post post={post} key={index} />
+// })}
+// </View>
 
 // Refresh Control 
 const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
 }
+
+// Comment section 
+// const CommentSection = ({ param }) => {
+//     return (
+//         <Text>
+//             {param.commentsSection.length > 1 ? param.commentsSection[0].comment : 'comment'}
+//         </Text>
+//     )
+// }
 
 
 // dimensions

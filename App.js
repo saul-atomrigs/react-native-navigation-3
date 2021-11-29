@@ -1,5 +1,4 @@
 import React, { useLayoutEffect, useState } from 'react';
-// import AsyncStorage from '@react-native-community/async-storage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -22,6 +21,7 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import AddSchedule from './Calendar/AddSchedule';
 import { HandsClapping, ChatsCircle, CalendarCheck, Fingerprint, Compass, } from 'phosphor-react-native';
 import ShareComponent from './Components/ShareComponent';
+// import Asyncawait from './Asyncawait';
 export default function App() {
   // Stack Navigator
   return (
@@ -63,98 +63,12 @@ function HomeTabNavigation() {
   );
 }
 // Home Screen ✅
-function HomeScreen({ navigation }) {
-  const tabBarHeight = useBottomTabBarHeight();
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      // header button left
-      headerTitleAlign: 'left',
-      title: 'KPOP',
-      // header button right
-      headerRight: () => (
-        <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Home')}
-          >
-            <Image
-              style={headerRightButtons}
-              source={require('./assets/icons/logo.png')}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Settings')}
-          >
-            <Image
-              style={headerRightButtons}
-              source={require('./assets/icons/dots-nine.png')}
-            />
-          </TouchableOpacity>
-        </View>
-      ),
-    });
-  }, [navigation])
+function HomeScreen() {
   return (
     // body
-    <ScrollView>
-      <View style={home}>
-        <TouchableOpacity style={{ margin: 10 }} onPress={() => navigation.push('RadarOriginal')}>
-          <View>
-            <Image
-              source={require('./assets/001.jpg')}
-              style={wrap}
-            />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={{ margin: 10, }} onPress={() => navigation.push('News')}>
-          <View>
-            <Image
-              source={require('./assets/002.jpeg')}
-              style={wrap}
-            />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={{ margin: 10, }} onPress={() => navigation.push('News')}>
-          <View>
-            <Image
-              source={require('./assets/002.jpeg')}
-              style={wrap}
-            />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={{ margin: 10 }} onPress={() => navigation.push('News')}>
-          <View>
-            <Image
-              source={require('./assets/001.jpg')}
-              style={wrap}
-            />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={{ margin: 10 }} onPress={() => navigation.push('News')}>
-          <View>
-            <Image
-              source={require('./assets/001.jpg')}
-              style={wrap}
-            />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={{ margin: 10 }} onPress={() => navigation.push('News')}>
-          <View>
-            <Image
-              source={require('./assets/001.jpg')}
-              style={wrap}
-            />
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity style={{ margin: 10 }} onPress={() => navigation.push('News')}>
-          <View>
-            <Image
-              source={require('./assets/001.jpg')}
-              style={wrap}
-            />
-          </View>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+    <>
+      {/* <Asyncawait /> */}
+    </>
   );
 }
 // // Community Screen ✅✅
@@ -399,6 +313,7 @@ function Settings({ navigation }) {
     <View style={center}>
       <Text>Settings!</Text>
       <Text onPress={() => navigation.navigate('Chat')}>Suggest</Text>
+      <Theme />
     </View>
   )
 }
