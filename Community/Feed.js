@@ -19,39 +19,41 @@ export default function Feed() {
         param: item,
       })}>
       <Divider />
-      <View style={styles.card}>
-        <View style={styles.cardHeader}>
-          <TouchableOpacity
-            onPress={() => navigation.push('Home')}
-            style={{ flexDirection: 'row' }}
-          >
-            <Avatar
-              rounded
-              source={{ uri: item.avatarURI }}
-              containerStyle={styles.cardAvatar}
-            />
-            <Text style={styles.cardTitle}>
-              {item.postTitle}
-            </Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.cardContent}>
+      <View style={styles.post}>
+        <View style={styles.content}>
           <Icon style={{ marginRight: 5, marginTop: 5 }} name="ellipse" size={8} color="hotpink" />
-          <Text style={styles.cardText}>
+          <Text style={styles.text}>
             {item.randomText.length > 90 ? item.randomText.substring(0, 90) + '...' : item.randomText}
           </Text>
         </View>
-        <View style={styles.cardStats}>
-          <Text style={[styles.cardStatsDetails, { fontWeight: '600' }]}>{item.views} Views</Text>
-          <View style={{ flexDirection: 'row' }}>
-            <Heart size={15} color='red' />
-            <Text style={styles.cardStatsDetails}>{item.likes}</Text>
-          </View>
-          <View style={{ flexDirection: 'row' }}>
-            <ChatText size={15} color='gray' />
-            <Text style={styles.cardStatsDetails}>{item.comments}</Text>
+
+        <View style={styles.postFooter}>
+          <TouchableOpacity
+            onPress={() => navigation.push('Home')}
+            style={{ flexDirection: 'row', marginLeft: 20 }}
+          >
+            {/* <Avatar
+              rounded
+              source={{ uri: item.avatarURI }}
+              containerStyle={styles.postAvatar}
+            /> */}
+            <Text style={styles.author}>
+              {item.postTitle}
+            </Text>
+          </TouchableOpacity>
+          <View style={styles.stat}>
+            <Text style={[styles.statDetails, { fontWeight: '600' }]}>{item.views} Views</Text>
+            <View style={{ flexDirection: 'row' }}>
+              <Heart size={15} color='red' />
+              <Text style={styles.statDetails}>{item.likes}</Text>
+            </View>
+            <View style={{ flexDirection: 'row' }}>
+              <ChatText size={15} color='gray' />
+              <Text style={styles.statDetails}>{item.comments}</Text>
+            </View>
           </View>
         </View>
+
       </View>
     </TouchableOpacity >
   )
@@ -65,37 +67,6 @@ export default function Feed() {
 
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-  console.log(data);
-
-  // const customData = require("../data/Community.json");
-
-  //     useEffect(() => {
-  //         fetch("../data/Community.json")
-  //             .then((response) => response.json())
-  //             .then((json) => setData(json))
-  //             .catch((error) => console.error(error))
-  //             .finally(() => setLoading(false));
-  //     }, []);
-
-  //     return (
-  //         <View style={{ flex: 1, padding: 24 }}>
-  //             {isLoading ? <Text>Loading...</Text> :
-  //                 (<View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between' }}>
-  //                     <Text style={{ fontSize: 18, color: 'green', textAlign: 'center' }}>{data.postTitle}</Text>
-  //                     <Text style={{ fontSize: 14, color: 'green', textAlign: 'center', paddingBottom: 10 }}>Articles:</Text>
-  //                     <FlatList
-  //                         data={data.views}
-  //                         keyExtractor={({ id }, index) => id}
-  //                         renderItem={({ item }) => (
-  //                             <Text>{item.id + '. ' + item.postTitle}</Text>
-  //                         )}
-  //                     />
-  //                 </View>
-  //                 )}
-  //         </View>
-  //     );
-  // }
-
 
   return (
     <Fragment >
@@ -225,63 +196,66 @@ const wait = (timeout) => {
 //  Styling 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#eee',
-    marginBottom: 80,
+    // flex: 1,
+    // backgroundColor: '#eee',
+    // marginBottom: 80,
   },
-  card: {
-    marginTop: 8,
+  post: {
+    marginTop: 12,
     backgroundColor: '#fff'
   },
-  cardImage: {
-    width: '90%',
-    height: 300,
-    alignSelf: 'center',
-    borderRadius: 13,
+  postImage: {
+    // width: '90%',
+    // height: 300,
+    // alignSelf: 'center',
+    // borderRadius: 13,
   },
-  cardHeader: {
-    paddingTop: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start'
+  author: {
+    // marginTop: 5,
+    // marginBottom: 10,
+    marginLeft: 12,
   },
-  cardTitle: {
-    marginTop: 5,
+  postAvatar: {
+    // marginRight: 10,
+    // marginLeft: 20
   },
-  cardAvatar: {
-    marginRight: 10,
-    marginLeft: 20
-  },
-  cardContent: {
-    marginLeft: 20,
-    marginRight: 20,
-    marginTop: 10,
-    marginBottom: 10,
+  content: {
+    marginHorizontal: 20,
+    marginVertical: 10,
     color: 'gray',
     flexDirection: 'row',
   },
-  cardText: {
+  text: {
     fontSize: 16,
     color: "#02007F"
   },
-  cardStats: {
+  postFooter: {
+    marginVertical: 10,
+    flexDirection: 'row',
+    // paddingTop: 10,
+    // flexDirection: 'row',
+    // alignItems: 'center',
+    // justifyContent: 'flex-start'
+  },
+  stat: {
     flexDirection: 'row',
     marginLeft: 5,
     marginRight: 5,
-    marginTop: 5,
+    // marginTop: 5,
+    flex: 1,
     justifyContent: 'flex-end'
   },
-  cardStatsDetails: {
+  statDetails: {
     marginRight: 12,
     marginLeft: 5,
-    marginBottom: 10,
+    // marginBottom: 10,
     fontSize: 12,
     fontWeight: '600',
   },
   actionButtonIcon: {
-    fontSize: 20,
-    height: 22,
-    color: 'white',
+    // fontSize: 20,
+    // height: 22,
+    // color: 'white',
   },
   floatingBtn: {
     borderWidth: 1,

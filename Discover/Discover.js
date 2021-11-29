@@ -94,14 +94,14 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 10,
         paddingBottom: 2,
-        fontSize: 15,
+        fontSize: 23,
         fontWeight: 'bold',
         backgroundColor: '#eee',
     },
     item: {
         marginHorizontal: 40,
         padding: 10,
-        fontSize: 25,
+        fontSize: 19,
         height: 50,
     },
     input: {

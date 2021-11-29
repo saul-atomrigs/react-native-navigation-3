@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Switch } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function App() {
+export default function Theme() {
 
   const [isEnabled, setIsEnabled] = useState(false);
 

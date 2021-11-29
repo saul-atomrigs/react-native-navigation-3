@@ -19,7 +19,7 @@ import Translate from './Discover/Translate';
 import AddPost from './Community/AddPost';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import AddSchedule from './Calendar/AddSchedule';
-import { HandsClapping, ChatsCircle, CalendarCheck, Fingerprint, Compass, } from 'phosphor-react-native';
+import { HandsClapping, ChatsCircle, CalendarPlus, Fingerprint, Compass, } from 'phosphor-react-native';
 import ShareComponent from './Components/ShareComponent';
 // import Asyncawait from './Asyncawait';
 export default function App() {
@@ -54,10 +54,10 @@ export default function App() {
 function HomeTabNavigation() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
+      <Tab.Screen name="Calendar" component={Calendar} />
       <Tab.Screen name="Community" component={Social} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' } }} />
       {/* <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} /> */}
       <Tab.Screen name="Discover" component={Discover} />
-      <Tab.Screen name="Calendar" component={Calendar} />
       <Tab.Screen name="Me" component={Me} />
     </Tab.Navigator>
   );
@@ -196,6 +196,14 @@ function Social({ navigation }) {
           >
             <Image
               style={headerRightButtons}
+              source={require('./assets/icons/search.png')}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Home')}
+          >
+            <Image
+              style={headerRightButtons}
               source={require('./assets/icons/logo.png')}
             />
           </TouchableOpacity>
@@ -311,9 +319,7 @@ function NewsPage() {
 function Settings({ navigation }) {
   return (
     <View style={center}>
-      <Text>Settings!</Text>
-      <Text onPress={() => navigation.navigate('Chat')}>Suggest</Text>
-      <Theme />
+      <Text>Notification!</Text>
     </View>
   )
 }
@@ -491,7 +497,7 @@ const screenOptions = ({ route }) => ({
     if (route.name === 'Community') {
       iconSource = focused ? <ChatsCircle weight='fill' size={30} /> : <ChatsCircle weight='duotone' size={25} />
     } else if (route.name === 'Calendar') {
-      iconSource = focused ? <CalendarCheck weight='fill' size={30} /> : <CalendarCheck weight='duotone' size={25} />
+      iconSource = focused ? <CalendarPlus weight='fill' size={30} /> : <CalendarPlus weight='duotone' size={25} />
     } else if (route.name === 'Me') {
       iconSource = focused ? <Fingerprint weight='fill' size={30} /> : <Fingerprint weight='duotone' size={25} />
     } else if (route.name === 'Discover') {

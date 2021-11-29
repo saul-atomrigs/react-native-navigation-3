@@ -5,15 +5,18 @@ export const POSTS = [
         imageURI: '',
         user: USER[0].user,
         likes: 839,
-        caption: 'caption 011',
+        caption: 'MAMA 2021 Predictions Tournament',
         profilePicture: USER[0].image,
         comments: [
             {
                 user: 'theqazman',
                 comment: '안녕하세요',
-            }
+            },
+            {
+                user: 'noosjdf',
+                comment: '안녕하세요22222',
+            },
         ]
-
     },
     {
         imageURI: '',
