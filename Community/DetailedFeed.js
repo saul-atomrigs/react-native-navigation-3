@@ -90,10 +90,8 @@ export default function DetailedFeed() {
           </View>
           <View>
           </View>
+          <Post />
           <CommentInput />
-          <Text>
-            <Post />
-          </Text>
         </View>
       </View>
     </KeyboardAwareScrollView>
