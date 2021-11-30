@@ -36,7 +36,7 @@ export default class Calendar extends Component {
           // testID={testIDs.agenda.CONTAINER} //agenda 
           items={this.state.items}
           // items={monthData}
-          loadItemsForMonth={this.loadItems.bind(this)}
+          // loadItemsForMonth={this.loadItems.bind(this)}
           // selected={'2021-11-26'}
           renderItem={this.renderItem.bind(this)}
           renderEmptyDate={this.renderEmptyDate.bind(this)}
@@ -74,31 +74,31 @@ export default class Calendar extends Component {
     );
   }
 
-  loadItems(day) {
-    setTimeout(() => {
-      for (let i = -15; i < 85; i++) {
-        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-        const strTime = this.timeToString(time);
-        if (!this.state.items[strTime]) {
-          this.state.items[strTime] = [];
-          const numItems = Math.floor(Math.random() * 3 + 1);
-          for (let j = 0; j < numItems; j++) {
-            this.state.items[strTime].push({
-              name: 'Item for ' + strTime + ' #' + j,
-              height: Math.max(50, Math.floor(Math.random() * 150))
-            });
-          }
-        }
-      }
-      const newItems = {};
-      Object.keys(this.state.items).forEach(key => {
-        newItems[key] = this.state.items[key];
-      });
-      this.setState({
-        items: newItems
-      });
-    }, 1000);
-  }
+  // loadItems(day) {
+  //   setTimeout(() => {
+  //     for (let i = -15; i < 85; i++) {
+  //       const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+  //       const strTime = this.timeToString(time);
+  //       if (!this.state.items[strTime]) {
+  //         this.state.items[strTime] = [];
+  //         const numItems = Math.floor(Math.random() * 3 + 1);
+  //         for (let j = 0; j < numItems; j++) {
+  //           this.state.items[strTime].push({
+  //             name: 'Item for ' + strTime + ' #' + j,
+  //             height: Math.max(50, Math.floor(Math.random() * 150))
+  //           });
+  //         }
+  //       }
+  //     }
+  //     const newItems = {};
+  //     Object.keys(this.state.items).forEach(key => {
+  //       newItems[key] = this.state.items[key];
+  //     });
+  //     this.setState({
+  //       items: newItems
+  //     });
+  //   }, 1000);
+  // }
 
   renderItem(item) {
     return (
@@ -107,7 +107,7 @@ export default class Calendar extends Component {
         onPress={() => null}
       >
         <Text style={{ fontWeight: '800' }}>{item.name}</Text>
-        <Text>Event starts: {item.start}</Text>
+        {/* <Text>Event starts: {item.start}</Text> */}
         <View style={{ flexDirection: 'row' }}>
           <AirplaneTakeoff />
           <Text>World Tour / International Schedules</Text>
@@ -116,7 +116,6 @@ export default class Calendar extends Component {
           <Cake />
           <Text>Birthday / Anniversaries </Text>
         </View>
-
         <View style={{ flexDirection: 'row' }}>
           <MusicNote />
           <Text>Release</Text>
