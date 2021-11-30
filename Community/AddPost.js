@@ -101,19 +101,20 @@ import CommentInput from '../Components/CommentInput'
 
 
 export default function AddPost() {
-    return (
-        <KeyboardAwareScrollView>
-            <View style={container}>
-                <Text>Ask questions to the KPOP community!</Text>
-                <CommentInput />
-            </View>
-        </KeyboardAwareScrollView>
-    )
+  return (
+    <KeyboardAwareScrollView>
+      <View style={container}>
+        <Text>Question</Text>
+        <Text>Recommended</Text>
+        <CommentInput />
+      </View>
+    </KeyboardAwareScrollView>
+  )
 }
 
 const container = {
-    flexDirection: 'column',
-    flex: 1,
-    backgroundColor: '#fff',
-    marginTop: 5
+  flexDirection: 'column',
+  flex: 1,
+  backgroundColor: '#fff',
+  marginTop: 5
 }

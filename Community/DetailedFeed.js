@@ -3,7 +3,7 @@ import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View, RefreshCon
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CommentInput from '../Components/CommentInput';
-import { Avatar } from 'react-native-elements';
+import { Avatar, Divider } from 'react-native-elements';
 import { CommunityData } from '../data/CommunityData';
 // import RefreshControl from '../Components/RefreshControl';
 import { POSTS } from '../data/posts'
@@ -83,13 +83,13 @@ export default function DetailedFeed() {
             {/* <Image source={{ uri: param.imageURI }} style={styles.cardImage} /> */}
             <Text style={{ fontWeight: '500', marginVertical: 20 }}>{param.randomText}</Text>
           </View>
+          <Divider style={{ marginBottomm: 5 }} />
           <View style={styles.cardStats}>
             <Text style={styles.cardStatsDetails}>{param.views} Views</Text>
             <Text style={styles.cardStatsDetails}>{param.likes} Likes</Text>
             <Text style={styles.cardStatsDetails}>{param.comments} Comments</Text>
           </View>
-          <View>
-          </View>
+          <Divider />
           <Post />
           <CommentInput />
         </View>
@@ -160,13 +160,9 @@ const styles = StyleSheet.create({
   cardTitle: {
     marginTop: 5,
   },
-  cardAvatar: {
-    marginRight: 10,
-    marginLeft: 20
-  },
   cardContent: {
     marginLeft: 20,
-    marginRight: 20,
+    // marginRight: 20,
     marginTop: 15,
     marginBottom: 10,
     paddingVertical: 5,

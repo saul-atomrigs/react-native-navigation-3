@@ -1,3 +1,5 @@
+import { USER } from './users'
+
 export const CommunityData = [
   {
     id: 1,
@@ -13,7 +15,7 @@ export const CommunityData = [
     comments: '2',
     commentsSection: [
       {
-        user: 'BTS 방탄소년단',
+        user: USER[0].user,
         comment: '안녕하세요',
       },
       {

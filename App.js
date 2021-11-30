@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Button, Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Divider, Avatar } from 'react-native-elements';
 import { AppleButton } from '@invertase/react-native-apple-authentication';
-import Chat from './chat/Chat';
+import Chat from './Components/chat/Chat';
 import Feeds from './Community/Feed';
 import DetailedFeed from './Community/DetailedFeed';
 import Calendar from './Calendar/Calendar';
@@ -32,7 +32,7 @@ export default function App() {
         {/* <Stack.Screen name="News" component={News} /> */}
         <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="NewsPage" component={NewsPage} />
-        <Stack.Screen name="Settings" component={Settings} />
+        <Stack.Screen name="Notifications" component={Notifications} />
         <Stack.Screen name="Me" component={Me} />
         <Stack.Screen name="Calendar" component={Calendar} options={({ route }) => ({ title: route.params.param })} />
         <Stack.Screen name="DetailedFeed" component={DetailedFeed} options={{ title: '' }} />
@@ -56,8 +56,8 @@ function HomeTabNavigation() {
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen name="Calendar" component={Calendar} />
       <Tab.Screen name="Community" component={Social} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' } }} />
-      {/* <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} /> */}
       <Tab.Screen name="Discover" component={Discover} />
+      {/* <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} /> */}
       <Tab.Screen name="Me" component={Me} />
     </Tab.Navigator>
   );
@@ -89,7 +89,7 @@ function HomeScreen() {
 //             />
 //           </TouchableOpacity>
 //           <TouchableOpacity
-//             onPress={() => navigation.navigate('Settings')}
+//             onPress={() => navigation.navigate('Notifications')}
 //           >
 //             <Image
 //               style={headerRightButtons}
@@ -134,7 +134,7 @@ function HomeScreen() {
 //             />
 //           </TouchableOpacity>
 //           <TouchableOpacity
-//             onPress={() => navigation.navigate('Settings')}
+//             onPress={() => navigation.navigate('Notifications')}
 //           >
 //             <Image
 //               style={headerRightButtons}
@@ -208,7 +208,7 @@ function Social({ navigation }) {
             />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Settings')}
+            onPress={() => navigation.navigate('Notifications')}
           >
             <Image
               style={headerRightButtons}
@@ -315,8 +315,8 @@ function NewsPage() {
 
   )
 }
-// Settings screen  
-function Settings({ navigation }) {
+// Notifications screen  
+function Notifications({ navigation }) {
   return (
     <View style={center}>
       <Text>Notification!</Text>
@@ -340,7 +340,7 @@ function DetailedDiscover({ navigation }) {
             />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Settings')}
+            onPress={() => navigation.navigate('Notifications')}
           >
             <Image
               style={headerRightButtons}
@@ -405,7 +405,7 @@ function Me({ navigation }) {
             />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Settings')}
+            onPress={() => navigation.navigate('Notifications')}
           >
             <Image
               style={headerRightButtons}

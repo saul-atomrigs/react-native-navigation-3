@@ -1,8 +1,9 @@
-import { useNavigation } from '@react-navigation/core';
-import { AirplaneTakeoff, Cake, MusicNote, Television, VideoCamera } from 'phosphor-react-native';
-import React, { Component } from 'react';
+import React from 'react';
+import { AirplaneTakeoff, Cake, MusicNote, Plus, Television, VideoCamera } from 'phosphor-react-native';
 import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
+import { useNavigation } from '@react-navigation/native';
+
 
 // export function RootFunction() {
 //     const navigation = useNavigation() // extract navigation prop here 
@@ -10,19 +11,40 @@ import { Agenda } from 'react-native-calendars';
 //     return <Calendar navigation={navigation} /> //pass to your component.
 // }
 export default function Calendar() {
+  const navigation = useNavigation()
   const items = {
-    "2021-11-27": [
-      { name: "TWICE", start: "18:45:00", end: "2021-11-29 19:45" }
+    "2021-12-03": [
+      {
+        name: "TWICE",
+        // worldTour: "World Tour / International Schedules",
+        event: "World Tour / International Schedules",
+        icon: <AirplaneTakeoff />,
+      }
     ],
     // "2021-11-28": [],
-    "2021-11-29": [
-      { name: "TWICE", start: "13:45:00", end: "2021-11-29 19:45" }
-      , { name: "aespa", start: "18:45:00", end: "2021-11-29 21:45" }
-      , { name: "aespa", start: "18:45:00", end: "2021-11-29 21:45" }
+    "2021-12-06": [
+      {
+        name: "aespa",
+        event: 'tv show on MBC',
+        icon: <VideoCamera />,
+      },
+      {
+        name: "BTS",
+        event: 'new release',
+        icon: <MusicNote />,
+      }
     ],
     "2021-11-30": [
-      { name: "TWICE", start: "13:45:00", end: "2021-11-29 19:45" }
-      , { name: "aespa", start: "18:45:00", end: "2021-11-29 21:45" }
+      {
+        name: "aespa",
+        event: 'tv show on MBC',
+        icon: <Television />,
+      },
+      {
+        name: "BTS",
+        event: 'Birthday',
+        icon: <Cake />,
+      }
     ],
     // "2021-12-01": [],
   }
@@ -64,11 +86,12 @@ export default function Calendar() {
         //   props.navigation.navigate('AddSchedule')
         // }}
         >
-          <Image
+          {/* <Image
             style={{ width: 20, height: 20, resizeMode: 'contain' }}
             source={require('../assets/icons/plus.png')}
-          />
-          <Text style={{ fontSize: 15, fontWeight: '700' }}>Add schedule</Text>
+          /> */}
+          <Plus color="pink" size={18} />
+          <Text style={{ fontSize: 15, fontWeight: '700', color: 'pink' }}>Add schedule</Text>
         </TouchableOpacity>
       </View>
     </ >
@@ -105,39 +128,24 @@ export default function Calendar() {
 function renderItem(item) {
   return (
     <TouchableOpacity
-      style={[styles.item, { height: item.height }]}
+      style={[styles.item, { height: item.height, marginRight: 20 }]}
       onPress={() => null}
     >
       <Text style={{ fontWeight: '800' }}>{item.name}</Text>
-      {/* <Text>Event starts: {item.start}</Text> */}
-      <View style={{ flexDirection: 'row' }}>
-        <AirplaneTakeoff />
-        <Text>World Tour / International Schedules</Text>
-      </View>
-      <View style={{ flexDirection: 'row' }}>
-        <Cake />
-        <Text>Birthday / Anniversaries </Text>
-      </View>
-      <View style={{ flexDirection: 'row' }}>
-        <MusicNote />
-        <Text>Release</Text>
-      </View>
-      <View style={{ flexDirection: 'row' }}>
-        <Television />
-        <Text>TV Schedule</Text>
-      </View>
-      <View style={{ flexDirection: 'row' }}>
-        <VideoCamera />
-        <Text>Movie / TV Show</Text>
+      <View style={{ flexDirection: 'row', }}>
+        <View>{item.icon}</View>
+        <Text style={{ marginHorizontal: 10, fontSize: 15 }}>{item.event}</Text>
       </View>
     </TouchableOpacity>
   );
 }
 
 function renderEmptyDate() {
+  // const navigation = useNavigation();
   return (
     <View style={styles.emptyDate}>
       <Button title='No schedules yet...'
+        // onPress={() => navigation.navigate('AddSchedule')}
         style={{ backgroundColor: 'pink', width: '50', height: '30' }} />
     </View>
   );
@@ -182,15 +190,15 @@ const styles = StyleSheet.create({
   floatingBtn: {
     borderWidth: 1,
     flexDirection: 'row',
-    borderColor: 'pink',
+    // borderColor: 'pink',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 150,
-    height: 50,
+    width: 140,
+    height: 40,
     position: 'absolute',
     bottom: 100,
     right: 30,
-    backgroundColor: 'pink',
+    backgroundColor: 'black',
     borderRadius: 100,
     // shadow ios:
     shadowColor: 'lightgray',

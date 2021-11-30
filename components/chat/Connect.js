@@ -5,7 +5,7 @@ import { View } from 'react-native'
 import { Avatar } from 'react-native-elements'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { GiftedChat } from 'react-native-gifted-chat'
-import { auth, db } from '../firebase'
+import { auth, db } from '../../firebase'
 
 
 export default function Connect({ navigation }) {
