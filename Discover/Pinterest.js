@@ -37,7 +37,7 @@ export default function Pinterest() {
     return (
         <WebView
             source={{ uri: 'https://www.pinterest.co.kr/search/pins/?q=twice&rs=typed&term_meta[]=twice%7Ctyped' }}
-            style={{ marginTop: 20 }}
+            style={{ marginTop: 5 }}
         />
     );
 }

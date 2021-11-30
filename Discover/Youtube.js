@@ -37,7 +37,7 @@ export default function Twitter() {
     return (
         <WebView
             source={{ uri: 'https://www.youtube.com/watch?v=ORAdcQNyNTs' }}
-            style={{ marginTop: 20 }}
+            style={{ marginTop: 5 }}
         />
     );
 }

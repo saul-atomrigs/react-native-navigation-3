@@ -37,7 +37,7 @@ export default function Tiktok() {
     return (
         <WebView
             source={{ uri: 'https://www.tiktok.com/@bts_official_bighit' }}
-            style={{ marginTop: 20 }}
+            style={{ marginTop: 5 }}
         />
     );
 }

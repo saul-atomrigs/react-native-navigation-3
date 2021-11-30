@@ -1,8 +1,9 @@
 import React from 'react';
-import { AirplaneTakeoff, Cake, MusicNote, Plus, Television, VideoCamera } from 'phosphor-react-native';
+import { AirplaneTakeoff, Cake, HandsClapping, MusicNote, Plus, Star, Television, VideoCamera } from 'phosphor-react-native';
 import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import { useNavigation } from '@react-navigation/native';
+import { Divider } from 'react-native-elements';
 
 
 // export function RootFunction() {
@@ -17,7 +18,7 @@ export default function Calendar() {
       {
         name: "TWICE",
         // worldTour: "World Tour / International Schedules",
-        event: "World Tour / International Schedules",
+        event: "World Tour",
         icon: <AirplaneTakeoff />,
       }
     ],
@@ -35,6 +36,30 @@ export default function Calendar() {
       }
     ],
     "2021-11-30": [
+      {
+        name: "aespa",
+        event: 'tv show on MBC',
+        icon: <Television />,
+      },
+      {
+        name: "BTS",
+        event: 'Birthday',
+        icon: <Cake />,
+      }
+    ],
+    "2021-12-04": [
+      {
+        name: "aespa",
+        event: 'tv show on MBC',
+        icon: <Television />,
+      },
+      {
+        name: "BTS",
+        event: 'Birthday',
+        icon: <Cake />,
+      }
+    ],
+    "2021-12-09": [
       {
         name: "aespa",
         event: 'tv show on MBC',
@@ -134,7 +159,12 @@ function renderItem(item) {
       <Text style={{ fontWeight: '800' }}>{item.name}</Text>
       <View style={{ flexDirection: 'row', }}>
         <View>{item.icon}</View>
-        <Text style={{ marginHorizontal: 10, fontSize: 15 }}>{item.event}</Text>
+        <Text style={{ marginHorizontal: 10, fontSize: 18 }}>{item.event}</Text>
+      </View>
+      <Divider style={{ marginVertical: 5 }} />
+      <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+        {/* <HandsClapping /> */}
+        <Star />
       </View>
     </TouchableOpacity>
   );

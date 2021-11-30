@@ -37,7 +37,7 @@ export default function Twitter() {
     return (
         <WebView
             source={{ uri: 'https://twitter.com/G_I_DLE' }}
-            style={{ marginTop: 20 }}
+            style={{ marginTop: 5 }}
         />
     );
 }

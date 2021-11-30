@@ -44,11 +44,11 @@ export default function Feed() {
           <View style={styles.stat}>
             <Text style={[styles.statDetails, { fontWeight: '600' }]}>{item.views} Views</Text>
             <View style={{ flexDirection: 'row' }}>
-              <Heart size={15} color='red' />
+              <Heart size={18} color='red' />
               <Text style={styles.statDetails}>{item.likes}</Text>
             </View>
             <View style={{ flexDirection: 'row' }}>
-              <ChatText size={15} color='gray' />
+              <ChatText size={18} color='gray' />
               <Text style={styles.statDetails}>{item.comments}</Text>
             </View>
           </View>
@@ -94,7 +94,7 @@ export default function Feed() {
                         source={require('../assets/icons/plus.png')}
                     /> */}
           <Plus color="pink" size={18} />
-          <Text style={{ fontSize: 15, fontWeight: '500', color: 'pink' }}>Post</Text>
+          <Text style={{ fontSize: 16, fontWeight: '500', color: 'pink' }}>Post</Text>
 
         </TouchableOpacity>
       </FirebaseProvider>

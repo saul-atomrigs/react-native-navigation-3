@@ -1,9 +1,6 @@
 import React, { useLayoutEffect } from 'react';
 import { SectionList, StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Dimensions, RefreshControl } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-// import * as eva from '@eva-design/eva';
-import { ApplicationProvider } from '@ui-kitten/components';
-import AutocompleteField from '../Components/Autocomplete';
 
 export default function Discover() {
     const navigation = useNavigation();
@@ -55,9 +52,7 @@ export default function Discover() {
                 renderItem={({ item }) => <Text onPress={() => navigation.push('DetailedDiscover', {
                     itemId: 86,
                     param: item,
-                    // uri: 'https://cdn-icons-png.flaticon.com/512/5463/5463680.png',
                     uri: 'https://oncejapan.com/static/twice/fanclub/top/202110/ph_main_sp_202110_6847c8fbd1cc0651e0527f575dbf5b4f.jpg',
-                    title: schedules,
                 })} style={styles.item}>{item}</Text>}
                 keyExtractor={(item, index) => index}
                 style={styles.list}

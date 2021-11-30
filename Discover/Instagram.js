@@ -37,7 +37,7 @@ export default function Instagram() {
     return (
         <WebView
             source={{ uri: 'https://www.instagram.com/bts.bighitofficial/?hl=ko' }}
-            style={{ marginTop: 20 }}
+            style={{ marginTop: 5 }}
         />
     );
 }

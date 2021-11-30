@@ -5,9 +5,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import CommentInput from '../Components/CommentInput';
 import { Avatar, Divider } from 'react-native-elements';
 import { CommunityData } from '../data/CommunityData';
-// import RefreshControl from '../Components/RefreshControl';
-import { POSTS } from '../data/posts'
 import Post from '../Components/Post';
+import { Heart } from 'phosphor-react-native';
 
 
 export default function DetailedFeed() {
@@ -85,9 +84,10 @@ export default function DetailedFeed() {
           </View>
           <Divider style={{ marginBottomm: 5 }} />
           <View style={styles.cardStats}>
-            <Text style={styles.cardStatsDetails}>{param.views} Views</Text>
-            <Text style={styles.cardStatsDetails}>{param.likes} Likes</Text>
-            <Text style={styles.cardStatsDetails}>{param.comments} Comments</Text>
+            {/* <Text style={styles.cardStatsDetails}>{param.views} Views</Text> */}
+            {/* <Text style={styles.cardStatsDetails}>{param.comments} Comments</Text> */}
+            <Text style={styles.cardStatsDetails}>{param.likes} </Text>
+            <Heart />
           </View>
           <Divider />
           <Post />
@@ -171,13 +171,13 @@ const styles = StyleSheet.create({
   cardStats: {
     flexDirection: 'row',
     marginLeft: 5,
+    marginRight: 20,
     marginTop: 5,
     justifyContent: 'flex-end'
   },
   cardStatsDetails: {
-    marginRight: 20,
     marginBottom: 10,
-    fontSize: 12,
+    fontSize: 18,
   },
   actionButtonIcon: {
     fontSize: 20,
