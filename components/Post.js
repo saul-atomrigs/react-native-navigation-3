@@ -1,10 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, Image, Text, View } from 'react-native'
 import { POSTS } from '../data/posts'
 import { CommunityData } from '../data/CommunityData'
 import { Avatar } from 'react-native-elements'
-
+import { firebase, db } from '../firebase'
 export default function Post({ post }) {
+  const handleLike = post => {
+    const currentLikeStatus = !post.likes_by_users.includes(
+      firebase.auth().currentUser.email
+    )
+
+    db.collection('users')
+      .doc(post.owner_email)
+      .update({
+        likes_by_users: currentLikeStatus
+          ? firebase.firestore.FieldValue.arrayUnion(firebase.auth().currentUser.email)
+          : firebase.firestore.FieldValue.arrayRemove(firebase.auth().currentUser.email)
+      })
+  }
+
+  // useEffect(() => {
+  //   db.collectionGroup('posts').onSnapshot(snapshot => {
+  //     console.log(snapshot).docs.map(doc => doc.data())
+  //   })
+  // }, [])
+
   return (
     <>
       <View style={{ marginRight: 10 }}>
@@ -12,7 +32,8 @@ export default function Post({ post }) {
           <View key={index} >
             {post.comments.map((comment, index) => (
               <View key={index} style={{ flexDirection: 'row', marginHorizontal: 5, marginVertical: 5 }}>
-                <Avatar rounded source={{ uri: post.profilePicture }} />
+                {/* <Avatar rounded source={{ uri: post.profilePicture }} /> */}
+                <Avatar rounded source={{ uri: comment.profilePicture }} />
                 <Text style={{ fontWeight: '800', marginLeft: 10, marginTop: 5 }}>{comment.user}</Text>
                 <Text style={{ marginLeft: 5, marginTop: 5, marginRight: 20 }}>{comment.comment}</Text>
               </View>

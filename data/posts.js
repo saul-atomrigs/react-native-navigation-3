@@ -9,12 +9,12 @@ export const POSTS = [
     profilePicture: USER[0].image,
     comments: [
       {
-        user: 'user1',
+        user: USER[0].user,
         profilePicture: USER[0].image,
         comment: `comment1 caption: 'MAMA 2021 Predictions Tournament',`,
       },
       {
-        user: 'user2',
+        user: USER[1].user,
         profilePicture: USER[1].image,
         comment: 'comment2',
       },
@@ -22,13 +22,14 @@ export const POSTS = [
   },
   {
     imageURI: '',
-    user: USER[1].user,
+    user: USER[0].user,
     likes: 342,
     caption: 'caption 011',
-    profilePicture: USER[1].image,
+    profilePicture: USER[0].image,
     comments: [
       {
-        user: 'user3',
+        user: USER[0].user,
+        profilePicture: USER[0].image,
         comment: 'comment3',
       }
     ]

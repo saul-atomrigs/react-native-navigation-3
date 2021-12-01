@@ -6,7 +6,7 @@ import CommentInput from '../Components/CommentInput';
 import { Avatar, Divider } from 'react-native-elements';
 import { CommunityData } from '../data/CommunityData';
 import Post from '../Components/Post';
-import { Heart } from 'phosphor-react-native';
+import { Heart, UserCircle } from 'phosphor-react-native';
 
 
 export default function DetailedFeed() {
@@ -68,8 +68,10 @@ export default function DetailedFeed() {
             >
               <Avatar
                 rounded
-                // source={{ uri: item.avatarURI }}
-                source={{ uri: param.avatarURI }}
+                // TODO: unknown avatar if not logged in 
+                // source={{ uri: isLogIn ? param.avatarURI : placeholderImage }}
+                source={require('../assets/icons/user-placeholder.png')}
+                // source={{ uri: param.avatarURI }}
                 containerStyle={styles.cardAvatar}
               />
               <Text style={styles.cardTitle}>
@@ -120,6 +122,7 @@ const wait = (timeout) => {
 // }
 
 
+// const placeholderImage = 'https://www.placecage.com/c/200/200'
 // dimensions
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;

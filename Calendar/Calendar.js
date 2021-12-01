@@ -164,7 +164,7 @@ function renderItem(item) {
       <Divider style={{ marginVertical: 5 }} />
       <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
         {/* <HandsClapping /> */}
-        <Star />
+        <Star color='pink' />
       </View>
     </TouchableOpacity>
   );

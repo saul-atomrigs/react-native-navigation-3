@@ -35,7 +35,7 @@ export default function LoginScreen({ navigation }) {
                 value={email}
                 onChengeText={(text) => setEmail(text)}
             />
-            <ChatScreen />
+            {/* <ChatScreen /> */}
             <Input
                 placeholder="Enter your password"
                 label="Password"
@@ -50,3 +50,14 @@ export default function LoginScreen({ navigation }) {
         </View>
     );
 }
+
+
+// alternative: 
+// const onLogin = async(email, password) => {
+//     try{
+//         await firebase.auth().signInWithEmailAndPassword(email, password) {
+//             console.log('success', email)
+//         } catch (error) {
+//             alert(error.message)
+//     }
+// }

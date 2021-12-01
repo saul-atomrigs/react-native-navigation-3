@@ -21,6 +21,8 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import AddSchedule from './Calendar/AddSchedule';
 import { HandsClapping, ChatsCircle, CalendarPlus, Fingerprint, Compass, } from 'phosphor-react-native';
 import ShareComponent from './Components/ShareComponent';
+import { Search } from './Components/Search';
+import LoginScreen from './screens/LoginScreen';
 // import Asyncawait from './Asyncawait';
 export default function App() {
   // Stack Navigator
@@ -46,6 +48,8 @@ export default function App() {
         <Stack.Screen name="Discover" component={Discover} options={{ title: '' }} />
         <Stack.Screen name="DetailedDiscover" component={DetailedDiscover} options={{ title: '' }} />
         <Stack.Screen name="AddSchedule" component={AddSchedule} options={{ title: '' }} />
+        <Stack.Screen name="Search" component={Search} options={{ title: '' }} />
+        <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ title: '' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -54,8 +58,8 @@ export default function App() {
 function HomeTabNavigation() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
-      <Tab.Screen name="Calendar" component={Calendar} />
       <Tab.Screen name="Community" component={Social} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' } }} />
+      <Tab.Screen name="Calendar" component={Calendar} />
       <Tab.Screen name="Discover" component={Discover} />
       {/* <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} /> */}
       <Tab.Screen name="Me" component={Me} />
@@ -192,7 +196,7 @@ function Social({ navigation }) {
       headerRight: () => (
         <View style={{ flexDirection: 'row' }}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => navigation.navigate('Search')}
           >
             <Image
               style={headerRightButtons}
@@ -438,6 +442,8 @@ function Me({ navigation }) {
         <HandsClapping />
         <Text>5 Claps received</Text>
       </View>
+      {/* <LoginScreen /> */}
+      {/* <Button title="Login" onPress={() => navigation.navigate('LoginScreen')} /> */}
       <ShareComponent />
     </View>
   )
@@ -574,7 +580,7 @@ const button = {
   justifyContent: "space-evenly",
   alignItems: "center",
   boxShadow: "0px 1px 10px 1px black",
-  backgroundColor: "#fff",
+  backgroundColor: "#555",
   overflow: "visible",
   borderRadius: 13,
   marginBottom: 10,
