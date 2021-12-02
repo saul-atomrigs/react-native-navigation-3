@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { useNavigation } from '@react-navigation/core';
 import { Divider } from 'react-native-elements'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import CommentInput from '../Components/CommentInput'
@@ -8,8 +9,9 @@ import { db } from '../firebase'
 
 
 export default function AddPost() {
+  const navigation = useNavigation()
   // MAGIC!! 
-  const [posts, setPosts] = React.useState([])
+  const [posts, setPosts] = useState([])
   useEffect(() => {
     db.collectionGroup('posts')
       .onSnapshot(snapshot => {
@@ -18,21 +20,32 @@ export default function AddPost() {
   }, [])
 
   return (
-    <View style={styles.container}>
-      <Header />
-      <PostUploader />
-      <View>
+    <SafeAreaView>
+      <ScrollView>
+        <View style={styles.container}>
+          <Header />
+          <PostUploader />
+          <View>
 
-        {posts.map((post, index) => (
-          <View key={index} >
-            <Text>{post.caption}</Text>
-            <Text>{post.imageUrl}</Text>
-            <Divider />
+            {posts.map((post, index) => (
+              <View key={index} >
+                <TouchableOpacity onPress={() => navigation.push('DetailedFeed', {
+                })} >
+                  <Text>{post.postTitle}</Text>
+                </TouchableOpacity>
+                <Text>{post.caption}</Text>
+                <Text>
+                  {/* {new Date(post.createdAt._seconds * 1000).toLocaleDateString("en-US")} */}
+                </Text>
+                <Text>{post.imageUrl}</Text>
+                <Divider />
+              </View>
+            ))}
+
           </View>
-        ))}
-
-      </View>
-    </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 

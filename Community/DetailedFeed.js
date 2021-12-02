@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useEffect } from 'react';
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View, RefreshControl } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -7,10 +7,13 @@ import { Avatar, Divider } from 'react-native-elements';
 import { CommunityData } from '../data/CommunityData';
 import Post from '../Components/Post';
 import { Heart, UserCircle } from 'phosphor-react-native';
+import { db } from '../firebase'
 
 
 export default function DetailedFeed() {
+
   const { param } = useRoute().params
+
   const navigation = useNavigation();
 
   // Refresh Control 
@@ -20,12 +23,21 @@ export default function DetailedFeed() {
     wait(2000).then(() => setRefreshing(false));
   }, []);
 
+  // get data from firebase 
+  const [posts, setPosts] = React.useState([])
+  useEffect(() => {
+    db.collectionGroup('posts')
+      .onSnapshot(snapshot => {
+        // setPosts(snapshot.docs.map(doc => doc.data()))
+        setPosts(snapshot.docs.map(doc => doc.data()))
+      })
+  }, [])
 
+
+  // header buttons 
   useLayoutEffect(() => {
     navigation.setOptions({
-      // header button left
       headerTitleAlign: 'left',
-      // header button right
       headerRight: () => (
         <View style={{ flexDirection: 'row' }}>
           <TouchableOpacity
@@ -75,14 +87,14 @@ export default function DetailedFeed() {
                 containerStyle={styles.cardAvatar}
               />
               <Text style={styles.cardTitle}>
-                {param.postTitle}
+                {param.author}
               </Text>
             </TouchableOpacity>
           </View>
           <View style={styles.cardContent}>
-            <Text style={{ fontSize: 18, fontWeight: '700' }} >{param.randomText}</Text>
+            <Text style={{ fontSize: 18, fontWeight: '700' }} >{param.postTitle}</Text>
             {/* <Image source={{ uri: param.imageURI }} style={styles.cardImage} /> */}
-            <Text style={{ fontWeight: '500', marginVertical: 20 }}>{param.randomText}</Text>
+            <Text style={{ fontWeight: '500', marginVertical: 20 }}>{param.postTitle}</Text>
           </View>
           <Divider style={{ marginBottomm: 5 }} />
           <View style={styles.cardStats}>
@@ -93,6 +105,16 @@ export default function DetailedFeed() {
           </View>
           <Divider />
           <Post />
+          <View>
+            {posts.map((post, index) => (
+              <View key={index} >
+                <Text>{post.postTitle}</Text>
+                <Text>{post.caption}</Text>
+                {/* <Text>{post.imageUrl}</Text> */}
+                <Divider />
+              </View>
+            ))}
+          </View>
           <CommentInput />
         </View>
       </View>

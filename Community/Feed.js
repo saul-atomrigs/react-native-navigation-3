@@ -1,62 +1,69 @@
 import React, { Component, Fragment, useLayoutEffect, useState, useEffect } from 'react'
 import { Text, Image, View, TouchableOpacity, StyleSheet, Button, FlatList, RefreshControl } from 'react-native'
-import { Avatar } from 'react-native-elements'
 import { Divider } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/core';
 import Firebase, { FirebaseProvider } from '../src/utils'
-import AddPost from './AddPost';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Heart, ChatText, Plus } from "phosphor-react-native";
 import { CommunityData } from '../data/CommunityData'
+// import AddPost from './AddPost';
 // import { Post } from '../data/posts'
+import { db } from '../firebase'
 
 
-export default function Feed() {
+export default function Feed({ item }) {
   const navigation = useNavigation();
+
+  // MAGIC!! 
+  const [posts, setPosts] = useState([])
+  useEffect(() => {
+    db.collectionGroup('posts')
+      .onSnapshot(snapshot => {
+        setPosts(snapshot.docs.map(doc => doc.data()))
+      })
+  }, [])
+
   const renderItem = ({ item }) => (
-    <TouchableOpacity
-      onPress={() => navigation.push('DetailedFeed', {
-        param: item,
-      })}>
-      <Divider />
-      <View style={styles.post}>
-        <View style={styles.content}>
-          <Icon style={{ marginRight: 5, marginTop: 5 }} name="ellipse" size={8} color="hotpink" />
-          <Text style={styles.text}>
-            {item.postTitle.length > 90 ? item.postTitle.substring(0, 90) + '...' : item.postTitle}
-          </Text>
-        </View>
-        <View style={styles.postFooter}>
-          <TouchableOpacity
-            onPress={() => navigation.push('Home')}
-            style={{ flexDirection: 'row', marginLeft: 20 }}
-          >
-            {/* <Avatar
-              rounded
-              source={{ uri: item.avatarURI }}
-              containerStyle={styles.postAvatar}
-            /> */}
-            <Text style={styles.author}>
-              {item.author}
+    <>
+
+      <TouchableOpacity
+        onPress={() => navigation.push('DetailedFeed', {
+          param: item,
+        })}>
+        <Divider />
+        <View style={styles.post}>
+          <View style={styles.content}>
+            <Icon style={{ marginRight: 5, marginTop: 5 }} name="ellipse" size={8} color="hotpink" />
+            <Text style={styles.text}>
+              {/* {item.postTitle.length > 90 ? item.postTitle.substring(0, 90) + '...' : item.postTitle} */}
+              {item.postTitle.length > 90 ? item.postTitle.substring(0, 90) + '...' : item.postTitle}
             </Text>
-          </TouchableOpacity>
-          <View style={styles.stat}>
-            <Text style={[styles.statDetails, { fontWeight: '600' }]}>{item.views} Views</Text>
-            <View style={{ flexDirection: 'row' }}>
-              <Heart size={18} color='red' />
-              <Text style={styles.statDetails}>{item.likes}</Text>
-            </View>
-            <View style={{ flexDirection: 'row' }}>
-              <ChatText size={18} color='gray' />
-              <Text style={styles.statDetails}>{item.comments}</Text>
+          </View>
+          <View style={styles.postFooter}>
+            <TouchableOpacity
+              onPress={() => navigation.push('Home')}
+              style={{ flexDirection: 'row', marginLeft: 20 }}
+            >
+              <Text style={styles.author}>
+                {item.author}
+              </Text>
+            </TouchableOpacity>
+            <View style={styles.stat}>
+              <Text style={[styles.statDetails, { fontWeight: '600' }]}>{item.views} Views</Text>
+              <View style={{ flexDirection: 'row' }}>
+                <Heart size={18} color='red' />
+                <Text style={styles.statDetails}>{item.likes}</Text>
+              </View>
+              <View style={{ flexDirection: 'row' }}>
+                <ChatText size={18} color='gray' />
+                <Text style={styles.statDetails}>{item.comments}</Text>
+              </View>
             </View>
           </View>
         </View>
-
-      </View>
-    </TouchableOpacity >
+      </TouchableOpacity >
+    </>
   )
-
   // Refresh Control 
   const [refreshing, setRefreshing] = React.useState(false);
   const onRefresh = React.useCallback(() => {
@@ -72,6 +79,7 @@ export default function Feed() {
       <FirebaseProvider value={Firebase}>
         <FlatList
           style={styles.container}
+          // data={CommunityData}
           data={CommunityData}
           // data={DATA}
           renderItem={renderItem}
@@ -98,8 +106,10 @@ export default function Feed() {
         </TouchableOpacity>
       </FirebaseProvider>
     </Fragment >
+
   )
 }
+
 
 // Refresh Control 
 const wait = (timeout) => {
@@ -110,7 +120,7 @@ const wait = (timeout) => {
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
-    // backgroundColor: '#eee',
+    // backgroundColor: '#fff',
     marginBottom: 80,
   },
   post: {
