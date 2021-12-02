@@ -17,12 +17,12 @@ import Tiktok from './Discover/Tiktok';
 import Youtube from './Discover/Youtube';
 import Translate from './Discover/Translate';
 import AddPost from './Community/AddPost';
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import AddSchedule from './Calendar/AddSchedule';
 import { HandsClapping, ChatsCircle, CalendarPlus, Fingerprint, Compass, } from 'phosphor-react-native';
 import ShareComponent from './Components/ShareComponent';
 import { Search } from './Components/Search';
 import LoginScreen from './screens/LoginScreen';
+import Connect from './Components/chat/Connect'
 // import Asyncawait from './Asyncawait';
 export default function App() {
   // Stack Navigator
@@ -50,6 +50,7 @@ export default function App() {
         <Stack.Screen name="AddSchedule" component={AddSchedule} options={{ title: '' }} />
         <Stack.Screen name="Search" component={Search} options={{ title: '' }} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ title: '' }} />
+        <Stack.Screen name="Connect" component={Connect} options={{ title: '' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -438,6 +439,7 @@ function Me({ navigation }) {
       <Text>My posts</Text>
       <Text>My Comments</Text>
       <Text>Stats</Text>
+      <Button title='connect' onPress={() => navigation.push('Connect')} />
       <View style={{ flexDirection: 'row' }}>
         <HandsClapping />
         <Text>5 Claps received</Text>

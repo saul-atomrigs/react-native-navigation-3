@@ -23,10 +23,9 @@ export default function Feed() {
         <View style={styles.content}>
           <Icon style={{ marginRight: 5, marginTop: 5 }} name="ellipse" size={8} color="hotpink" />
           <Text style={styles.text}>
-            {item.randomText.length > 90 ? item.randomText.substring(0, 90) + '...' : item.randomText}
+            {item.postTitle.length > 90 ? item.postTitle.substring(0, 90) + '...' : item.postTitle}
           </Text>
         </View>
-
         <View style={styles.postFooter}>
           <TouchableOpacity
             onPress={() => navigation.push('Home')}
@@ -38,7 +37,7 @@ export default function Feed() {
               containerStyle={styles.postAvatar}
             /> */}
             <Text style={styles.author}>
-              {item.postTitle}
+              {item.author}
             </Text>
           </TouchableOpacity>
           <View style={styles.stat}>

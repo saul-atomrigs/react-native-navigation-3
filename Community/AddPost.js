@@ -1,120 +1,129 @@
-import React, { Component } from 'react'
-import { Text, Image, View } from 'react-native'
+import React, { useEffect } from 'react'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Divider } from 'react-native-elements'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import CommentInput from '../Components/CommentInput'
-// import ImagePicker from 'react-native-image-picker'
-// import { withFirebaseHOC } from '../src/utils/FirebaseContext'
-
-
-// class AddPost extends Component {
-//     state = { image: null, title: '', description: '' }
-
-//     onChangeTitle = title => {
-//         this.setState({ title })
-//     }
-//     onChangeDescription = description => {
-//         this.setState({ description })
-//     }
-
-//     onSubmit = async () => {
-//         try {
-//             const post = {
-//                 photo: this.state.image,
-//                 title: this.state.title,
-//                 description: this.state.description
-//             }
-//             this.props.firebase.uploadPost(post)
-
-//             this.setState({
-//                 image: null,
-//                 title: '',
-//                 description: ''
-//             })
-//         } catch (e) {
-//             console.error(e)
-//         }
-//     }
-
-//     selectImage = () => {
-//         const options = {
-//             noData: true
-//         }
-//         ImagePicker.launchImageLibrary(options, response => {
-//             if (response.didCancel) {
-//                 console.log('User cancelled image picker')
-//             } else if (response.error) {
-//                 console.log('ImagePicker Error: ', response.error)
-//             } else if (response.customButton) {
-//                 console.log('User tapped custom button: ', response.customButton)
-//             } else {
-//                 const source = { uri: response.uri }
-//                 console.log(source)
-//                 this.setState({
-//                     image: source
-//                 })
-//             }
-//         })
-//     }
-
-//     render() {
-//         return (
-//             <View style={{ backgroundColor: '#fff', marginTop: 5 }}>
-//                 <View>
-//                     {this.state.image ? (
-//                         <Image
-//                             source={this.state.image}
-//                             style={{ width: '100%', height: 300 }}
-//                         />
-//                     ) : (
-//                         <Button
-//                             onPress={this.selectImage}
-//                             style={{ backgroundColor: '#eee' }}
-//                             color='#000'
-//                         >
-//                             Add an image
-//                         </Button>
-//                     )}
-//                 </View>
-//                 <View style={{ marginTop: 5, alignItems: 'center' }}>
-//                     <Input
-//                         placeholder='title...'
-//                         style={{ margin: 5 }}
-//                         value={this.state.title}
-//                         onChangeText={title => this.onChangeTitle(title)}
-//                     />
-//                     <Input
-//                         placeholder='description...'
-//                         style={{ margin: 5 }}
-//                         value={this.state.description}
-//                         onChangeText={description => this.onChangeDescription(description)}
-//                     />
-//                     <Button style={{ backgroundColor: '#eee' }} onPress={this.onSubmit}>
-//                         Add post
-//                     </Button>
-//                 </View>
-//             </View>
-//         )
-//     }
-// }
-
-// export default withFirebaseHOC(AddPost)
+import PostUploader from '../Components/PostUploader'
+import { db } from '../firebase'
 
 
 export default function AddPost() {
+  // MAGIC!! 
+  const [posts, setPosts] = React.useState([])
+  useEffect(() => {
+    db.collectionGroup('posts')
+      .onSnapshot(snapshot => {
+        setPosts(snapshot.docs.map(doc => doc.data()))
+      })
+  }, [])
+
   return (
-    <KeyboardAwareScrollView>
-      <View style={container}>
-        <Text>Question</Text>
-        <Text>Recommended</Text>
-        <CommentInput />
+    <View style={styles.container}>
+      <Header />
+      <PostUploader />
+      <View>
+
+        {posts.map((post, index) => (
+          <View key={index} >
+            <Text>{post.caption}</Text>
+            <Text>{post.imageUrl}</Text>
+            <Divider />
+          </View>
+        ))}
+
       </View>
-    </KeyboardAwareScrollView>
+    </View>
   )
 }
 
-const container = {
-  flexDirection: 'column',
-  flex: 1,
-  backgroundColor: '#fff',
-  marginTop: 5
-}
+const Header = () => (
+  <KeyboardAwareScrollView>
+    <View style={styles.headerContainer}>
+      <TouchableOpacity>
+        <Image
+          source={require('../assets/icons/user-placeholder.png')}
+          style={{ width: 30, height: 30, marginLeft: 10 }}
+        />
+      </TouchableOpacity>
+      <Text style={styles.headerText}>new post</Text>
+    </View>
+  </KeyboardAwareScrollView>
+)
+
+const styles = StyleSheet.create({
+  container: {
+    marginHorizontal: 20,
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  headerText: {
+    color: '#555',
+    fontWeight: '700',
+    fontSize: 20,
+  },
+})
+
+
+
+
+// export default function AddPost() {
+//   // MAGIC!! 
+//   const [posts, setPosts] = React.useState([])
+//   useEffect(() => {
+//     db.collectionGroup('posts')
+//       .onSnapshot(snapshot => {
+//         setPosts(snapshot.docs.map(doc => doc.data()))
+//       })
+//   }, [])
+
+//   return (
+//     <View style={styles.container}>
+//       <Header />
+//       <PostUploader />
+//       <View>
+
+//         {posts.map((post, index) => (
+//           <View key={index} >
+//             <Text>{post.caption}</Text>
+//             <Text>{post.imageUrl}</Text>
+//             <Divider />
+//           </View>
+//         ))}
+
+//       </View>
+//     </View>
+//   )
+// }
+
+// const Header = () => (
+//   <KeyboardAwareScrollView>
+//     <View style={styles.headerContainer}>
+//       <TouchableOpacity>
+//         <Image
+//           source={require('../assets/icons/user-placeholder.png')}
+//           style={{ width: 30, height: 30, marginLeft: 10 }}
+//         />
+//       </TouchableOpacity>
+//       <Text style={styles.headerText}>new post</Text>
+//     </View>
+//   </KeyboardAwareScrollView>
+// )
+
+// const styles = StyleSheet.create({
+//   container: {
+//     marginHorizontal: 20,
+//   },
+//   headerContainer: {
+//     flexDirection: 'row',
+//     justifyContent: 'space-between',
+//     alignItems: 'center',
+//   },
+//   headerText: {
+//     color: '#555',
+//     fontWeight: '700',
+//     fontSize: 20,
+//   },
+// })

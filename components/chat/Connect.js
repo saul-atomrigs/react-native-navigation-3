@@ -7,8 +7,9 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { GiftedChat } from 'react-native-gifted-chat'
 import { auth, db } from '../../firebase'
 
-
 export default function Connect({ navigation }) {
+    const [messages, setMessages] = useState([]);
+
     const signOut = () => {
         firebase.auth().signOut().then(() => {
             // sign out successful
@@ -16,18 +17,20 @@ export default function Connect({ navigation }) {
             // sign out failed
         })
     }
-    const [messages, setMessages] = useState([]);
 
     useLayoutEffect(() => {
-        const unsubscribe = db.collection('chats').orderBy('createdAt', 'desc').onSnapshot(snapshot => {
-            setMessages(snapshot.docs.map(doc => ({
-                _id: doc.data()._id,
-                createdAt: doc.data().createdAt.toDate(),
-                text: doc.data().text,
-                user: doc.data().user,
-            }))
-            )
-        })
+        const unsubscribe = db
+            .collection('chats')
+            .orderBy('createdAt', 'desc')
+            .onSnapshot(snapshot => {
+                setMessages(snapshot.docs.map(doc => ({
+                    _id: doc.data()._id,
+                    createdAt: doc.data().createdAt.toDate(),
+                    text: doc.data().text,
+                    user: doc.data().user,
+                }))
+                )
+            })
         navigation.setOptions(() => {
             headerLeft: () => (
                 <View>
@@ -49,6 +52,7 @@ export default function Connect({ navigation }) {
             unsubscribe()
         }
     }, [])
+
     const onSend = useCallback((messages = []) => {
         setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
         const {
@@ -71,9 +75,13 @@ export default function Connect({ navigation }) {
             showAvatarForEveryMessage={true}
             onSend={messages => onSend(messages)}
             user={{
-                _id: auth?.currentUser?.email,
-                name: auth?.currentUser?.displayName,
-                avatar: auth?.currentUser?.photoURL,
+                // _id: auth?.currentUser?.email,
+                _id: 'test',
+                // name: auth?.currentUser?.displayName,
+                name: 'test',
+                // avatar: auth?.currentUser?.photoURL,
+                avatar: 'https://i.imgur.com/7k12W4H.png',
+
             }}
         />
 
