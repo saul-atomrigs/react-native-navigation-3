@@ -1,142 +1,86 @@
-import React, { useEffect, useState } from 'react'
-import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { useNavigation } from '@react-navigation/core';
-import { Divider } from 'react-native-elements'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import CommentInput from '../Components/CommentInput'
-import PostUploader from '../Components/PostUploader'
-import { db } from '../firebase'
+import React, { useState, useEffect, useFocusEffect, useCallback } from 'react';
+import { ScrollView, StyleSheet, Text, View, TextInput, Button, KeyboardAvoidingView } from 'react-native';
 
+import Amplify from 'aws-amplify'
+import config from '../src/aws-exports'
+import { API, graphqlOperation } from 'aws-amplify'
+import { createPost, updatePost, deletePost } from '../src/graphql/mutationsO'
+import { listPosts } from '../src/graphql/queriesO'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function AddPost() {
-  const navigation = useNavigation()
-  // MAGIC!! 
+Amplify.configure(config)
+
+const initialStatePost = { title: '' }
+
+export default function App() {
+
+  const [formStatePosts, setFormStatePosts] = useState(initialStatePost)
   const [posts, setPosts] = useState([])
+
   useEffect(() => {
-    db.collectionGroup('posts')
-      .onSnapshot(snapshot => {
-        setPosts(snapshot.docs.map(doc => doc.data()))
-      })
+    fetchPosts()
   }, [])
 
+  function setInputPosts(key, value) {
+    setFormStatePosts({ ...formStatePosts, [key]: value })
+  }
+
+  // FETCH posts
+  async function fetchPosts() {
+    try {
+      const postData = await API.graphql(graphqlOperation(listPosts));
+      setPosts(postData.data.listPosts.items)
+    } catch (err) {
+      console.log(err, 'error fetching todos');
+    }
+  }
+
+  // CREATE post
+  async function addPost() {
+    try {
+      const post = { ...formStatePosts }
+      setPosts([...posts, post])
+      setFormStatePosts(initialStatePost)
+      await API.graphql(graphqlOperation(createPost, { input: post }))
+    } catch (err) {
+      console.log('error creating todo', err)
+    }
+  }
+
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <View style={styles.container}>
-          <Header />
-          <PostUploader />
-          <View>
+    <SafeAreaView style={styles.container}>
+      {/* <View style={styles.container}> */}
+      <KeyboardAvoidingView>
+        <TextInput
+          onChangeText={val => setInputPosts('title', val)}
+          value={formStatePosts.title}
+          style={styles.input}
+          placeholder="Post title"
+        />
+        <Button title="Add Post" onPress={addPost} />
 
-            {posts.map((post, index) => (
-              <View key={index} >
-                <TouchableOpacity onPress={() => navigation.push('DetailedFeed', {
-                })} >
-                  <Text>{post.postTitle}</Text>
-                </TouchableOpacity>
-                <Text>{post.caption}</Text>
-                <Text>
-                  {/* {new Date(post.createdAt._seconds * 1000).toLocaleDateString("en-US")} */}
-                </Text>
-                <Text>{post.imageUrl}</Text>
-                <Divider />
+        <ScrollView>
+          {
+            posts.map((post, index) => (
+              // <View key={post.id} style={styles.post} >
+              <View key={post.id ? post.id : index} style={styles.post} >
+                <Text> {post.title} </Text>
+                {/* <Text> {index} </Text> */}
+                <Text> {post.content} </Text>
               </View>
-            ))}
-
-          </View>
-        </View>
-      </ScrollView>
+            ))
+          }
+        </ScrollView>
+      </KeyboardAvoidingView>
+      {/* </View> */}
     </SafeAreaView>
-  )
+  );
 }
 
-const Header = () => (
-  <KeyboardAwareScrollView>
-    <View style={styles.headerContainer}>
-      <TouchableOpacity>
-        <Image
-          source={require('../assets/icons/user-placeholder.png')}
-          style={{ width: 30, height: 30, marginLeft: 10 }}
-        />
-      </TouchableOpacity>
-      <Text style={styles.headerText}>new post</Text>
-    </View>
-  </KeyboardAwareScrollView>
-)
-
 const styles = StyleSheet.create({
-  container: {
-    marginHorizontal: 20,
-  },
-  headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  headerText: {
-    color: '#555',
-    fontWeight: '700',
-    fontSize: 20,
-  },
-})
-
-
-
-
-// export default function AddPost() {
-//   // MAGIC!! 
-//   const [posts, setPosts] = React.useState([])
-//   useEffect(() => {
-//     db.collectionGroup('posts')
-//       .onSnapshot(snapshot => {
-//         setPosts(snapshot.docs.map(doc => doc.data()))
-//       })
-//   }, [])
-
-//   return (
-//     <View style={styles.container}>
-//       <Header />
-//       <PostUploader />
-//       <View>
-
-//         {posts.map((post, index) => (
-//           <View key={index} >
-//             <Text>{post.caption}</Text>
-//             <Text>{post.imageUrl}</Text>
-//             <Divider />
-//           </View>
-//         ))}
-
-//       </View>
-//     </View>
-//   )
-// }
-
-// const Header = () => (
-//   <KeyboardAwareScrollView>
-//     <View style={styles.headerContainer}>
-//       <TouchableOpacity>
-//         <Image
-//           source={require('../assets/icons/user-placeholder.png')}
-//           style={{ width: 30, height: 30, marginLeft: 10 }}
-//         />
-//       </TouchableOpacity>
-//       <Text style={styles.headerText}>new post</Text>
-//     </View>
-//   </KeyboardAwareScrollView>
-// )
-
-// const styles = StyleSheet.create({
-//   container: {
-//     marginHorizontal: 20,
-//   },
-//   headerContainer: {
-//     flexDirection: 'row',
-//     justifyContent: 'space-between',
-//     alignItems: 'center',
-//   },
-//   headerText: {
-//     color: '#555',
-//     fontWeight: '700',
-//     fontSize: 20,
-//   },
-// })
+  container: { flex: 1, justifyContent: 'center', padding: 20 },
+  todo: { marginBottom: 15 },
+  post: { marginBottom: 15 },
+  input: { height: 50, backgroundColor: '#eee', marginBottom: 10, padding: 8 },
+  todoName: { fontSize: 18 }
+});

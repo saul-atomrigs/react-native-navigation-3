@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-dailykpopserver-dev-95513-authRole",
+      "UnauthRoleArn": "arn:aws:iam::481597250567:role/amplify-dailykpopserver-dev-95513-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::481597250567:role/amplify-dailykpopserver-dev-95513-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-dailykpopserver-dev-95513-deployment",
+      "UnauthRoleName": "amplify-dailykpopserver-dev-95513-unauthRole",
+      "StackName": "amplify-dailykpopserver-dev-95513",
+      "StackId": "arn:aws:cloudformation:us-east-2:481597250567:stack/amplify-dailykpopserver-dev-95513/06f7a1c0-5566-11ec-8804-0680981426c4",
+      "AmplifyAppId": "d34qiggl4uhd7d"
+    }
+  }
+}

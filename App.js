@@ -1,8 +1,8 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState, useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Button, Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Button, Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { Divider, Avatar } from 'react-native-elements';
 import { AppleButton } from '@invertase/react-native-apple-authentication';
 import Chat from './Components/chat/Chat';
@@ -24,6 +24,13 @@ import { Search } from './Components/Search';
 import LoginScreen from './screens/LoginScreen';
 import Connect from './Components/chat/Connect'
 // import Asyncawait from './Asyncawait';
+import Amplify from 'aws-amplify'
+import { API, graphqlOperation } from 'aws-amplify'
+import config from './src/aws-exports'
+import { createPost, updatePost, deletePost } from './src/graphql/mutationsO'
+import { listPosts } from './src/graphql/queriesO'
+
+Amplify.configure(config)
 export default function App() {
   // Stack Navigator
   return (
@@ -62,18 +69,113 @@ function HomeTabNavigation() {
       <Tab.Screen name="Community" component={Social} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' } }} />
       <Tab.Screen name="Calendar" component={Calendar} />
       <Tab.Screen name="Discover" component={Discover} />
-      {/* <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} /> */}
+      <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} />
       <Tab.Screen name="Me" component={Me} />
     </Tab.Navigator>
   );
 }
+const initialStatePost = { title: '' }
 // Home Screen ✅
 function HomeScreen() {
+  const [formStatePosts, setFormStatePosts] = useState(initialStatePost)
+  // const [formStateComments, setFormStateComments] = useState(initialStateComment)
+  const [posts, setPosts] = useState([])
+  // const [comments, setComments] = useState([])
+
+  useEffect(() => {
+    fetchPosts()
+    // fetchComments()
+    // fetchTodos()
+  }, [])
+
+  function setInputPosts(key, value) {
+    setFormStatePosts({ ...formStatePosts, [key]: value })
+  }
+  // function setInputComments(key, value) {
+  //   setFormStateComments({ ...formStateComments, [key]: value })
+  // }
+
+  // FETCH posts
+  async function fetchPosts() {
+    try {
+      const postData = await API.graphql(graphqlOperation(listPosts));
+      // setPosts(postData.data.listPosts.items)
+      setPosts(postData.data.listPosts.items)
+    } catch (err) {
+      console.log(err, 'fetching 에러!');
+    }
+  }
+
+  // CREATE post
+  async function addPost() {
+    try {
+      const post = { ...formStatePosts }
+      setPosts([...posts, post])
+      setFormStatePosts(initialStatePost)
+      await API.graphql(graphqlOperation(createPost, { input: post }))
+    } catch (err) {
+      console.log('creating 에러!', err)
+    }
+  }
+
+  // // FETCH comments
+  // async function fetchComments() {
+  //   try {
+  //     const postComment = await API.graphql(graphqlOperation(listComments));
+  //     setComments(postComment.data.listComments.items)
+  //   } catch (err) {
+  //     console.log(err, 'error fetching todos');
+  //   }
+  // }
+
+  // // CREATE comments
+  // async function addComment() {
+  //   try {
+  //     const comment = { ...formStateComments }
+  //     setComments([...comments, comment])
+  //     setFormStateComments(initialStateComments)
+  //     await API.graphql(graphqlOperation(createComment, { input: comment }))
+  //   } catch (err) {
+  //     console.log('error creating todo', err)
+  //   }
+  // }
+
   return (
-    // body
-    <>
-      {/* <Asyncawait /> */}
-    </>
+    <View style={styles.container}>
+
+      <TextInput
+        onChangeText={val => setInputPosts('title', val)}
+        value={formStatePosts.title}
+        style={styles.input}
+        placeholder="Post title"
+      />
+      <TextInput
+        onChangeText={val => setInputPosts('comment', val)}
+        value={formStatePosts.comment}
+        style={styles.input}
+        placeholder="content"
+      />
+      <Button title="Add Post" onPress={addPost} />
+      {/* <Button title="Add Comment" onPress={addComment} /> */}
+
+      {
+        posts.map((post, index) => (
+          <View key={post.id} style={styles.post} >
+            <Text> {post.title} </Text>
+            {/* <Text> {post.id} </Text> */}
+            {/* <Text> {post.content} </Text> */}
+          </View>
+        ))
+      }
+      {/* {
+        comments.map((comment, { nextToken }) => (
+          <View key={comment.id} style={styles.post} >
+            <Text> {comment.id} </Text>
+            <Text> {comment.comments} </Text>
+          </View>
+        ))
+      } */}
+    </View>
   );
 }
 // // Community Screen ✅✅
@@ -699,3 +801,11 @@ const newsArticleCommentInput = {
   backgroundColor: '#000',
 
 }
+
+const styles = StyleSheet.create({
+  container: { flex: 1, justifyContent: 'center', padding: 20 },
+  todo: { marginBottom: 15 },
+  post: { marginBottom: 15 },
+  input: { height: 50, backgroundColor: '#eee', marginBottom: 10, padding: 8 },
+  todoName: { fontSize: 18 }
+});

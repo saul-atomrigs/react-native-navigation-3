@@ -7,7 +7,7 @@
 //     View,
 //     Keyboard,
 // } from 'react-native';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-community/async-storage';
 
 // // const STORAGE_KEY = '@save_age'
 

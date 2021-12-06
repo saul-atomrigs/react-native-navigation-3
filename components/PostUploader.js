@@ -54,7 +54,6 @@ export default function PostUploader({ navigation }) {
         comments: [],
       })
     // .then(() => navigation.goBack())
-
     return unsubscribe
   }
 

@@ -9,19 +9,21 @@ import { CommunityData } from '../data/CommunityData'
 // import AddPost from './AddPost';
 // import { Post } from '../data/posts'
 import { db } from '../firebase'
-
+import Amplify from 'aws-amplify';
+import config from '../src/aws-exports'
+Amplify.configure(config)
 
 export default function Feed({ item }) {
   const navigation = useNavigation();
 
   // MAGIC!! 
-  const [posts, setPosts] = useState([])
-  useEffect(() => {
-    db.collectionGroup('posts')
-      .onSnapshot(snapshot => {
-        setPosts(snapshot.docs.map(doc => doc.data()))
-      })
-  }, [])
+  // const [posts, setPosts] = useState([])
+  // useEffect(() => {
+  //   db.collectionGroup('posts')
+  //     .onSnapshot(snapshot => {
+  //       setPosts(snapshot.docs.map(doc => doc.data()))
+  //     })
+  // }, [])
 
   const renderItem = ({ item }) => (
     <>
@@ -71,40 +73,40 @@ export default function Feed({ item }) {
     wait(2000).then(() => setRefreshing(false));
   }, []);
 
-  const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
+  // const [isLoading, setLoading] = useState(true);
+  // const [data, setData] = useState([]);
 
   return (
     <Fragment >
-      <FirebaseProvider value={Firebase}>
-        <FlatList
-          style={styles.container}
-          // data={CommunityData}
-          data={CommunityData}
-          // data={DATA}
-          renderItem={renderItem}
-          keyExtractor={CommunityData.id}
-          // keyExtractor={DATA.id}
-          maxLength={8}
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-            />
-          }
-        />
-        <TouchableOpacity style={styles.floatingBtn}
-          onPress={() => navigation.navigate('AddPost')}
-        >
-          {/* <Image
+      {/* <FirebaseProvider value={Firebase}> */}
+      <FlatList
+        style={styles.container}
+        // data={CommunityData}
+        data={CommunityData}
+        // data={DATA}
+        renderItem={renderItem}
+        keyExtractor={CommunityData.id}
+        // keyExtractor={DATA.id}
+        maxLength={8}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
+      />
+      <TouchableOpacity style={styles.floatingBtn}
+        onPress={() => navigation.navigate('AddPost')}
+      >
+        {/* <Image
                         style={{ width: 20, height: 20, resizeMode: 'contain' }}
                         source={require('../assets/icons/plus.png')}
                     /> */}
-          <Plus color="pink" size={18} />
-          <Text style={{ fontSize: 16, fontWeight: '500', color: 'pink' }}>Post</Text>
+        <Plus color="pink" size={18} />
+        <Text style={{ fontSize: 16, fontWeight: '500', color: 'pink' }}>Post</Text>
 
-        </TouchableOpacity>
-      </FirebaseProvider>
+      </TouchableOpacity>
+      {/* </FirebaseProvider> */}
     </Fragment >
 
   )
