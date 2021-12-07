@@ -7,7 +7,6 @@ import { Avatar, Divider } from 'react-native-elements';
 import { CommunityData } from '../data/CommunityData';
 import Post from '../Components/Post';
 import { Heart, UserCircle } from 'phosphor-react-native';
-import { db } from '../firebase'
 
 
 export default function DetailedFeed() {
@@ -22,17 +21,6 @@ export default function DetailedFeed() {
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
   }, []);
-
-  // get data from firebase 
-  const [posts, setPosts] = React.useState([])
-  useEffect(() => {
-    db.collectionGroup('posts')
-      .onSnapshot(snapshot => {
-        // setPosts(snapshot.docs.map(doc => doc.data()))
-        setPosts(snapshot.docs.map(doc => doc.data()))
-      })
-  }, [])
-
 
   // header buttons 
   useLayoutEffect(() => {
@@ -87,12 +75,14 @@ export default function DetailedFeed() {
                 containerStyle={styles.cardAvatar}
               />
               <Text style={styles.cardTitle}>
-                {param.author}
+                {/* {param.author} */}
+                {param.id}
               </Text>
             </TouchableOpacity>
           </View>
           <View style={styles.cardContent}>
-            <Text style={{ fontSize: 18, fontWeight: '700' }} >{param.postTitle}</Text>
+            {/* <Text style={{ fontSize: 18, fontWeight: '700' }} >{param.postTitle}</Text> */}
+            <Text style={{ fontSize: 18, fontWeight: '700' }} >{param.title}</Text>
             {/* <Image source={{ uri: param.imageURI }} style={styles.cardImage} /> */}
             <Text style={{ fontWeight: '500', marginVertical: 20 }}>{param.postTitle}</Text>
           </View>
@@ -105,20 +95,11 @@ export default function DetailedFeed() {
           </View>
           <Divider />
           <Post />
-          <View>
-            {posts.map((post, index) => (
-              <View key={index} >
-                <Text>{post.postTitle}</Text>
-                <Text>{post.caption}</Text>
-                {/* <Text>{post.imageUrl}</Text> */}
-                <Divider />
-              </View>
-            ))}
-          </View>
+
           <CommentInput />
         </View>
-      </View>
-    </KeyboardAwareScrollView>
+      </View >
+    </KeyboardAwareScrollView >
     // </ApplicationProvider >
   )
 }

@@ -1,20 +1,34 @@
 import React, { Component, Fragment, useLayoutEffect, useState, useEffect } from 'react'
-import { Text, Image, View, TouchableOpacity, StyleSheet, Button, FlatList, RefreshControl } from 'react-native'
+import { Text, Image, View, TouchableOpacity, StyleSheet, Button, FlatList, RefreshControl, ScrollView } from 'react-native'
 import { Divider } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/core';
-import Firebase, { FirebaseProvider } from '../src/utils'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Heart, ChatText, Plus } from "phosphor-react-native";
-import { CommunityData } from '../data/CommunityData'
 // import AddPost from './AddPost';
 // import { Post } from '../data/posts'
-import { db } from '../firebase'
-import Amplify from 'aws-amplify';
+import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
+import { API, graphqlOperation } from 'aws-amplify'
+import { createPost, updatePost, deletePost } from '../src/graphql/mutationsO'
+import { listPosts } from '../src/graphql/queriesO'
 Amplify.configure(config)
 
 export default function Feed({ item }) {
   const navigation = useNavigation();
+  const [posts, setPosts] = useState([])
+
+  useEffect(() => {
+    fetchPosts()
+  }, [])
+  // FETCH posts
+  async function fetchPosts() {
+    try {
+      const postData = await API.graphql(graphqlOperation(listPosts));
+      setPosts(postData.data.listPosts.items)
+    } catch (err) {
+      console.log(err, 'fetching 에러!!');
+    }
+  }
 
   // MAGIC!! 
   // const [posts, setPosts] = useState([])
@@ -77,8 +91,58 @@ export default function Feed({ item }) {
   // const [data, setData] = useState([]);
 
   return (
-    <Fragment >
+    <ScrollView>
       {/* <FirebaseProvider value={Firebase}> */}
+      <View>
+        {
+          posts
+            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            .map((post, index) => (
+              <View key={post.id} style={styles.post} >
+                {/* <Text> {post.title} </Text>
+            <Text> {post.id} </Text>
+            <Text> {post.id} </Text> */}
+                {/* <Text> {post.content} </Text> */}
+
+                <View style={styles.post}>
+                  <View style={styles.content}>
+                    <Icon style={{ marginRight: 5, marginTop: 5 }} name="ellipse" size={8} color="hotpink" />
+                    <Text style={styles.text}>
+                      {/* {item.postTitle.length > 90 ? item.postTitle.substring(0, 90) + '...' : item.postTitle} */}
+                      {/* {item.postTitle.length > 90 ? item.postTitle.substring(0, 90) + '...' : item.postTitle} */}
+                      <Text> {post.title} </Text>
+
+                    </Text>
+                  </View>
+                  <View style={styles.postFooter}>
+                    <TouchableOpacity
+                      onPress={() => navigation.push('DetailedFeed', { param: post })}
+                      style={{ flexDirection: 'row', marginLeft: 20 }}
+                    >
+                      <Text style={styles.author}>
+                        {/* {item.author} */}
+                        {post.id}
+                      </Text>
+                    </TouchableOpacity>
+                    <View style={styles.stat}>
+                      {/* <Text style={[styles.statDetails, { fontWeight: '600' }]}>{item.views} Views</Text> */}
+                      <View style={{ flexDirection: 'row' }}>
+                        <Heart size={18} color='red' />
+                        {/* <Text style={styles.statDetails}>{item.likes}</Text> */}
+                      </View>
+                      <View style={{ flexDirection: 'row' }}>
+                        <ChatText size={18} color='gray' />
+                        {/* <Text style={styles.statDetails}>{item.comments}</Text> */}
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            ))
+        }
+      </View>
+
+      {/* 
       <FlatList
         style={styles.container}
         // data={CommunityData}
@@ -94,20 +158,17 @@ export default function Feed({ item }) {
             onRefresh={onRefresh}
           />
         }
-      />
-      <TouchableOpacity style={styles.floatingBtn}
-        onPress={() => navigation.navigate('AddPost')}
-      >
-        {/* <Image
-                        style={{ width: 20, height: 20, resizeMode: 'contain' }}
-                        source={require('../assets/icons/plus.png')}
-                    /> */}
-        <Plus color="pink" size={18} />
-        <Text style={{ fontSize: 16, fontWeight: '500', color: 'pink' }}>Post</Text>
-
-      </TouchableOpacity>
+      /> */}
+      <View>
+        <TouchableOpacity style={styles.floatingBtn}
+          onPress={() => navigation.navigate('AddPost')}
+        >
+          <Plus color="pink" size={18} />
+          <Text style={{ fontSize: 16, fontWeight: '500', color: 'pink' }}>Post</Text>
+        </TouchableOpacity>
+      </View>
       {/* </FirebaseProvider> */}
-    </Fragment >
+    </ScrollView>
 
   )
 }

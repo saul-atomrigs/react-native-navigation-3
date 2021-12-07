@@ -84,17 +84,17 @@ export const listPosts = /* GraphQL */ `
         blog {
           id
           name
-          # createdAt
-          # updatedAt
+          createdAt
+          updatedAt
         }
         comments {
           nextToken
         }
-        # createdAt
-        # updatedAt
+        createdAt
+        updatedAt
         blogPostsId
       }
-      nextToken
+      # nextToken
     }
   }
 `;
