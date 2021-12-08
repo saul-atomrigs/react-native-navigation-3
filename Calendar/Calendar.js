@@ -6,47 +6,9 @@ import { useNavigation } from '@react-navigation/native';
 import { Divider } from 'react-native-elements';
 
 
-// export function RootFunction() {
-//     const navigation = useNavigation() // extract navigation prop here 
-
-//     return <Calendar navigation={navigation} /> //pass to your component.
-// }
 export default function Calendar() {
   const navigation = useNavigation()
   const items = {
-    "2021-12-03": [
-      {
-        name: "TWICE",
-        // worldTour: "World Tour / International Schedules",
-        event: "World Tour",
-        icon: <AirplaneTakeoff />,
-      }
-    ],
-    // "2021-11-28": [],
-    "2021-12-06": [
-      {
-        name: "aespa",
-        event: 'tv show on MBC',
-        icon: <VideoCamera />,
-      },
-      {
-        name: "BTS",
-        event: 'new release',
-        icon: <MusicNote />,
-      }
-    ],
-    "2021-11-30": [
-      {
-        name: "aespa",
-        event: 'tv show on MBC',
-        icon: <Television />,
-      },
-      {
-        name: "BTS",
-        event: 'Birthday',
-        icon: <Cake />,
-      }
-    ],
     "2021-12-04": [
       {
         name: "aespa",
@@ -71,7 +33,6 @@ export default function Calendar() {
         icon: <Cake />,
       }
     ],
-    // "2021-12-01": [],
   }
   // const monthData = props.monthData
   return (
@@ -103,22 +64,15 @@ export default function Calendar() {
         style={styles.container}
         hideExtraDays={false}
       />
-      <View style={styles.floatingBtn}>
-        <TouchableOpacity
-          style={{ flexDirection: 'row' }}
-          onPress={() => navigation.navigate('AddSchedule')}
-        // onPress={() => {
-        //   props.navigation.navigate('AddSchedule')
-        // }}
-        >
-          {/* <Image
-            style={{ width: 20, height: 20, resizeMode: 'contain' }}
-            source={require('../assets/icons/plus.png')}
-          /> */}
-          <Plus color="pink" size={18} />
+      <TouchableOpacity
+        style={{ flexDirection: 'row' }}
+        onPress={() => navigation.navigate('AddSchedule')}
+      >
+        <View style={styles.floatingBtn}>
+          <Plus color="pink" size={20} />
           <Text style={{ fontSize: 15, fontWeight: '700', color: 'pink' }}>Add schedule</Text>
-        </TouchableOpacity>
-      </View>
+        </View>
+      </TouchableOpacity>
     </ >
   );
 }

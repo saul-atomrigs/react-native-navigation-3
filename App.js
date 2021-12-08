@@ -24,13 +24,7 @@ import { Search } from './Components/Search';
 import LoginScreen from './screens/LoginScreen';
 import Connect from './Components/chat/Connect'
 // import Asyncawait from './Asyncawait';
-import Amplify from 'aws-amplify'
-import { API, graphqlOperation } from 'aws-amplify'
-import config from './src/aws-exports'
-import { createPost, updatePost, deletePost } from './src/graphql/mutationsO'
-import { listPosts } from './src/graphql/queriesO'
 
-Amplify.configure(config)
 export default function App() {
   // Stack Navigator
   return (
@@ -66,8 +60,8 @@ export default function App() {
 function HomeTabNavigation() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
-      <Tab.Screen name="Community" component={Social} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' } }} />
       <Tab.Screen name="Calendar" component={Calendar} />
+      <Tab.Screen name="Community" component={Social} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' } }} />
       <Tab.Screen name="Discover" component={Discover} />
       {/* <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} /> */}
       <Tab.Screen name="Me" component={Me} />

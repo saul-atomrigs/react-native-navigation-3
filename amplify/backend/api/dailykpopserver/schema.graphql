@@ -23,3 +23,9 @@ type Comment @model {
  post: Post @belongsTo
  content: String!
 }
+
+type Calendar @model {
+ id: ID!
+ event: String!
+ date: AWSDateTime!
+}

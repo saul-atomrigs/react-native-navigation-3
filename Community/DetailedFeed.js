@@ -74,15 +74,11 @@ export default function DetailedFeed() {
                 // source={{ uri: param.avatarURI }}
                 containerStyle={styles.cardAvatar}
               />
-              <Text style={styles.cardTitle}>
-                {/* {param.author} */}
-                {param.id}
-              </Text>
+              <Text style={{ fontSize: 18, fontWeight: '700' }} >{param.title}</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.cardContent}>
             {/* <Text style={{ fontSize: 18, fontWeight: '700' }} >{param.postTitle}</Text> */}
-            <Text style={{ fontSize: 18, fontWeight: '700' }} >{param.title}</Text>
             {/* <Image source={{ uri: param.imageURI }} style={styles.cardImage} /> */}
             <Text style={{ fontWeight: '500', marginVertical: 20 }}>{param.postTitle}</Text>
           </View>

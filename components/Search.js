@@ -1,7 +1,6 @@
 // Render Prop
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup'
 import { Button, Text, TextInput, View, StyleSheet } from 'react-native';
 import SignupForm from '../screens/SignupForm';
 import PostUploader from './PostUploader';
