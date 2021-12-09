@@ -11,6 +11,7 @@ import config from '../src/aws-exports'
 import { API, graphqlOperation } from 'aws-amplify'
 import { createPost, updatePost, deletePost } from '../src/graphql/mutationsO'
 import { listPosts } from '../src/graphql/queriesO'
+import { onCreatePost } from '../src/graphql/subscriptions'
 Amplify.configure(config)
 
 export default function Feed({ item }) {
@@ -20,6 +21,18 @@ export default function Feed({ item }) {
 
   useEffect(() => {
     fetchPosts()
+
+    // const subscription = API.graphql(graphqlOperation(onCreatePost))
+    //   .subscribe({
+    //     next: (value) => {
+    //       const post = value.data.onCreatePost
+    //       console.log('real time')
+    //       if (post.owner === 'admin') {
+    //         fetchPosts()
+    //       }
+    //     }
+    //   })
+    // return () => { subscription.unsubscribe() }
   }, [])
   // FETCH posts
   async function fetchPosts() {

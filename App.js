@@ -60,8 +60,8 @@ export default function App() {
 function HomeTabNavigation() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
-      <Tab.Screen name="Calendar" component={Calendar} />
       <Tab.Screen name="Community" component={Social} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' } }} />
+      <Tab.Screen name="Calendar" component={Calendar} />
       <Tab.Screen name="Discover" component={Discover} />
       {/* <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} /> */}
       <Tab.Screen name="Me" component={Me} />
@@ -71,117 +71,6 @@ function HomeTabNavigation() {
 // Home Screen ✅
 function HomeScreen() {
 }
-// // Community Screen ✅✅
-// function Community({ navigation }) {
-//   useLayoutEffect(() => {
-//     navigation.setOptions({
-//       // header button left
-//       headerTitleAlign: 'left',
-//       // header button right
-//       headerRight: () => (
-//         <View style={{ flexDirection: 'row' }}>
-//           <TouchableOpacity
-//             onPress={() => navigation.navigate('Home')}
-//           >
-//             <Image
-//               style={headerRightButtons}
-//               source={require('./assets/icons/logo.png')}
-//             />
-//           </TouchableOpacity>
-//           <TouchableOpacity
-//             onPress={() => navigation.navigate('Notifications')}
-//           >
-//             <Image
-//               style={headerRightButtons}
-//               source={require('./assets/icons/dots-nine.png')}
-//             />
-//           </TouchableOpacity>
-//         </View>
-//       ),
-//     });
-//   }, [navigation]);
-//   return (
-//     // body
-//     <View style={center}>
-//       <ScrollView style={communityStyle} showsVerticalScrollIndicator={false} >
-//         <CommunityHeader />
-//         <View>
-//           <CommunityBlock />
-//           <CommunityBlock />
-//           <CommunityBlock />
-//         </View>
-//       </ScrollView >
-//     </View>
-//   );
-// }
-// // KPOP News ✅✅✅✅
-// function News({ navigation }) {
-//   const [count, setCount] = useState(0);
-//   // header buttons
-//   useLayoutEffect(() => {
-//     navigation.setOptions({
-//       // header button left
-//       headerTitleAlign: 'left',
-//       // header button right
-//       headerRight: () => (
-//         <View style={{ flexDirection: 'row' }}>
-//           <TouchableOpacity
-//             onPress={() => navigation.navigate('Home')}
-//           >
-//             <Image
-//               style={headerRightButtons}
-//               source={require('./assets/icons/logo.png')}
-//             />
-//           </TouchableOpacity>
-//           <TouchableOpacity
-//             onPress={() => navigation.navigate('Notifications')}
-//           >
-//             <Image
-//               style={headerRightButtons}
-//               source={require('./assets/icons/dots-nine.png')}
-//             />
-//           </TouchableOpacity>
-//         </View>
-//       ),
-//     });
-//   }, [navigation, count]);
-//   return (
-//     <View>
-//       <ScrollView style={articleStyle} showsVerticalScrollIndicator={false} >
-//         <NewsHeader />
-//         <ScrollView horizontal={true} style={articleSelectArtist}>
-//           <View style={button}>
-//             <Button title="BTS" color='#000' onPress={() => navigation.navigate('Register')} />
-//           </View>
-//           <View style={button}>
-//             <Button title="Twice" onPress={() => navigation.push('Calendar')} />
-//           </View>
-//           <View style={button}>
-//             <Button title="aespa" onPress={() => navigation.push('News')} />
-//           </View>
-//           <View style={button}>
-//             <Button title="BTS" onPress={() => navigation.navigate('Register')} />
-//           </View>
-//           <View style={button}>
-//             <Button title="Twice" onPress={() => navigation.push('Calendar')} />
-//           </View>
-//           <View style={button}>
-//             <Button title="aespa" onPress={() => navigation.push('News')} />
-//           </View>
-//         </ScrollView >
-//         <View>
-//           <ArticleBlock />
-//           <ArticleBlock />
-//           <ArticleBlock />
-//         </View>
-//         <Button
-//           title='home'
-//           onPress={() => navigation.push('HomeTabNavigation')}
-//         />
-//       </ScrollView >
-//     </View>
-//   );
-// }
 //  Social Commmunity Screen 
 function Social({ navigation }) {
   useLayoutEffect(() => {
@@ -225,15 +114,7 @@ function Social({ navigation }) {
     </>
   )
 }
-// Community components 
-// function CommunityHeader() {
-//   return (
-//     <View>
-//       <Text style={headerTitle}>Community</Text>
-//       <Text style={headerSubtitle}>Discover Latest News Today</Text>
-//     </View>
-//   )
-// }
+
 function CommunityBlock() {
   const navigation = useNavigation();
   return (
@@ -253,17 +134,7 @@ function CommunityBlock() {
     </TouchableOpacity>
   )
 }
-// // News components 
-// const text1 = 'Lorem Ipsum is simply dummy text of the printing. lorem ipsum..'
-// const text2 = 'CL will perform at the 2021 102.7 KIIS FM Jingle Ball Village in Los Angeles on December 3'
-// function NewsHeader() {
-//   return (
-//     <View>
-//       <Text style={headerTitle}>Today</Text>
-//       <Text style={headerSubtitle}>Discover Latest News Today</Text>
-//     </View>
-//   )
-// }
+
 const ArticleImage = (props) => (
   <View>
     <Image
@@ -458,43 +329,6 @@ const HEIGHT = Dimensions.get('window').height;
 
 // tab bar icon
 const screenOptions = ({ route }) => ({
-  // tabBarIcon: ({ focused, color, size }) => {
-  //   let iconName;
-  //   if (route.name === 'Home') {
-  //     iconName = focused ? 'ios-planet' : 'ios-planet-outline';
-  //   } else if (route.name === 'Community') {
-  //     iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
-  //   } else if (route.name === 'Calendar') {
-  //     iconName = focused ? 'today' : 'today-outline';
-  //   } else if (route.name === 'News') {
-  //     iconName = focused ? 'grid' : 'grid-outline';
-  //   } else if (route.name === 'Chat') {
-  //     iconName = focused ? 'star' : 'star-outline';
-  //   } else if (route.name === 'Me') {
-  //     iconName = focused ? 'finger-print' : 'finger-print-outline';
-  //   } else if (route.name === 'Discover') {
-  //     iconName = focused ? 'Discover' : 'Discover-outline';
-  //   }
-  //   // return <Ionicons name={iconName} size={size} color={color} />;
-  //   return <Ionicons name={iconName} size={size} color={color} />;
-  // },
-  // TODO:
-  // tabBarIcon: ({ focused, color, size }) => {
-  //   let iconSource
-  //   if (route.name === 'Community') {
-  //     iconSource = focused ? require('./assets/icons/chats-circle.png') : require('./assets/icons/megaphone.png')
-  //   } else if (route.name === 'Discover') {
-  //     iconSource = focused ? require('./assets/icons/Discover-icon.png') : require('./assets/icons/megaphone.png')
-
-  //   }
-  //   return (
-  //     <Image
-  //       // source={require('./assets/icons/calendar-check.png')}
-  //       source={iconSource}
-  //       style={{ width: 30, height: 30 }}
-  //     />
-  //   )
-  // },
   tabBarIcon: ({ focused, color, size }) => {
     let iconSource
     if (route.name === 'Community') {

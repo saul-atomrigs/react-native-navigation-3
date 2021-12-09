@@ -10,6 +10,11 @@
       "StackName": "amplify-dailykpopserver-dev-95513",
       "StackId": "arn:aws:cloudformation:us-east-2:481597250567:stack/amplify-dailykpopserver-dev-95513/06f7a1c0-5566-11ec-8804-0680981426c4",
       "AmplifyAppId": "d34qiggl4uhd7d"
+    },
+    "categories": {
+      "auth": {
+        "dailykpopserverd0964ef5": {}
+      }
     }
   }
 }

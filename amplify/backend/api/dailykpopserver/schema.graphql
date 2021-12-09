@@ -20,12 +20,48 @@ type Post @model {
 
 type Comment @model {
  id: ID!
- post: Post @belongsTo
+ #  postId: ID!
+ postID: ID! @index(name: "byPost", sortKeyFields: ["content"])
+ post: Post @belongsTo(fields: ["postID"])
  content: String!
+ createdAt: AWSDateTime! #important to keep it to have filter with keys
+ updatedAt: AWSDateTime! #important to keep it to have filter with keys
 }
 
-type Calendar @model {
- id: ID!
- event: String!
- date: AWSDateTime!
-}
+# type ChatMessage @model {
+#  id: ID!
+#  senderUserSub: String
+#  receiverUserSub: String
+#  messageText: String
+#  messageImageFilename: String
+#  dateSent: String!
+# }
+
+# type Picture @model {
+#  id: ID!
+#  name: String!
+#  username: String!
+#  file: S3Object
+# }
+
+# type S3Object {
+#  bucket: String!
+#  region: String!
+#  key: String!
+#  uri: String!
+# }
+
+# type Like @model {
+#  id: ID!
+#  userId: String!
+#  username: String!
+#  picture: Picture @connection(name: "PictureLikes")
+# }
+
+# type Picture @model {
+#  id: ID!
+#  userId: String!
+#  username: String!
+#  file: S3Object
+#  likes: [Like] @connection(name: "PictureLikes")
+# }

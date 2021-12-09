@@ -1,5 +1,5 @@
-import React, { useLayoutEffect, useEffect } from 'react';
-import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View, RefreshControl } from 'react-native';
+import React, { useState, useCallback, useLayoutEffect, useEffect } from 'react';
+import { ScrollView, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View, RefreshControl, TextInput } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CommentInput from '../Components/CommentInput';
@@ -8,6 +8,12 @@ import { CommunityData } from '../data/CommunityData';
 import Post from '../Components/Post';
 import { Heart, UserCircle } from 'phosphor-react-native';
 
+import Amplify from 'aws-amplify'
+import config from '../src/aws-exports'
+import { API, graphqlOperation } from 'aws-amplify'
+import { createComment, updateComment, deleteComment, createPost2, createCommentOnPost } from '../src/graphql/mutationsO'
+import { getComment, listComments } from '../src/graphql/queriesO'
+Amplify.configure(config)
 
 export default function DetailedFeed() {
 
@@ -16,8 +22,8 @@ export default function DetailedFeed() {
   const navigation = useNavigation();
 
   // Refresh Control 
-  const [refreshing, setRefreshing] = React.useState(false);
-  const onRefresh = React.useCallback(() => {
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = useCallback(() => {
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
   }, []);
@@ -49,8 +55,43 @@ export default function DetailedFeed() {
     });
   }, [navigation])
 
+  // Add Comment
+  const initialStateComment = { content: '' }
+
+  const [formStateComments, setFormStateComments] = useState(initialStateComment)
+  const [comments, setComments] = useState([])
+
+  useEffect(() => {
+    fetchComments()
+  }, [])
+  async function addComment() {
+    try {
+      const comment = { ...formStateComments }
+      setComments([...comments, comment])
+      setFormStateComments(initialStateComment)
+      await API.graphql(graphqlOperation(createComment, { input: comment }))
+    } catch (err) {
+      console.log('error creating 에러!!', err)
+    }
+  }
+  // FETCH comments
+  async function fetchComments() {
+    try {
+      const commentData = await API.graphql(graphqlOperation(
+        // listComments
+        listComments, { filter: { postCommentsId: { eq: param.id } } }
+      ));
+      setComments(commentData.data.listComments.items)
+    } catch (err) {
+      console.log(err, 'error fetching 에러!!!');
+    }
+  }
+
+  function setInputComments(key, value) {
+    setFormStateComments({ ...formStateComments, [key]: value })
+  }
+
   return (
-    // <ApplicationProvider {...eva} theme={eva.light}>
     <KeyboardAwareScrollView
       refreshControl={
         <RefreshControl
@@ -70,17 +111,17 @@ export default function DetailedFeed() {
                 rounded
                 // TODO: unknown avatar if not logged in 
                 // source={{ uri: isLogIn ? param.avatarURI : placeholderImage }}
-                source={require('../assets/icons/user-placeholder.png')}
                 // source={{ uri: param.avatarURI }}
+                source={require('../assets/icons/user-placeholder.png')}
                 containerStyle={styles.cardAvatar}
               />
               <Text style={{ fontSize: 18, fontWeight: '700' }} >{param.title}</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.cardContent}>
-            {/* <Text style={{ fontSize: 18, fontWeight: '700' }} >{param.postTitle}</Text> */}
             {/* <Image source={{ uri: param.imageURI }} style={styles.cardImage} /> */}
-            <Text style={{ fontWeight: '500', marginVertical: 20 }}>{param.postTitle}</Text>
+            {/* <Text style={{ fontWeight: '500', marginVertical: 20 }}>{param.postTitle}</Text> */}
+            <Text style={{ fontWeight: '500', marginVertical: 20 }}>{param.id}</Text>
           </View>
           <Divider style={{ marginBottomm: 5 }} />
           <View style={styles.cardStats}>
@@ -91,20 +132,41 @@ export default function DetailedFeed() {
           </View>
           <Divider />
           <Post />
-
           <CommentInput />
+
+          <ScrollView>
+            {
+              comments
+                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).reverse()
+                .map((comment, index) => (
+                  <View key={comment.id ? comment.id : index} style={styles.comment} >
+                    <Text> {comment.content} </Text>
+                    {/* <Text> {comment.id} </Text> */}
+                    {/* <Text> {param.id === comment.postCommentsId ? comment.content : null} </Text> */}
+                    {/* <Text> {comment.createdAt.substring(0, 10)} </Text> */}
+                    {/* <Text> {comment.createdAt} </Text> */}
+                  </View>
+                ))
+            }
+          </ScrollView>
+          <View style={styles.textInputContainer}>
+            <TextInput
+              onChangeText={val => setInputComments('content', val)}
+              value={formStateComments.content}
+              style={styles.textInput}
+              placeholder="Write a comment..."
+            />
+            <TouchableOpacity onPress={addComment}>
+              <Image source={require('../assets/icons/megaphone.png')} style={{ width: 30, height: 30 }} />
+            </TouchableOpacity>
+          </View>
+
         </View>
       </View >
     </KeyboardAwareScrollView >
-    // </ApplicationProvider >
   )
 }
 
-// <View>
-// {POSTS.map((post, index) => {
-//     <Post post={post} key={index} />
-// })}
-// </View>
 
 // Refresh Control 
 const wait = (timeout) => {
@@ -121,7 +183,6 @@ const wait = (timeout) => {
 // }
 
 
-// const placeholderImage = 'https://www.placecage.com/c/200/200'
 // dimensions
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
@@ -186,18 +247,24 @@ const styles = StyleSheet.create({
     height: 22,
     color: 'white',
   },
-  textInput: {
-    position: 'absolute',
-    height: HEIGHT * 0.05,
-    width: WIDTH * 0.9,
-    flex: 1,
-    justifyContent: 'center',
-    marginHorizontal: 20,
-    marginVertical: 10,
+  textInputContainer: {
+    marginTop: "auto",
     borderWidth: 1,
-    borderRadius: 13,
-    backgroundColor: '#fff',
-    padding: 13,
+    borderColor: "skyblue",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 20,
+    paddingHorizontal: 5,
+    flexDirection: 'row',
+  },
+  textInput: {
+    marginHorizontal: 5,
+    width: "90%",
+    fontSize: 15,
+    color: '#000',
+    borderRadius: 10,
+    backgroundColor: "#eee",
+    padding: 10,
   },
   newsArticleCommentInput: {
     height: 40,

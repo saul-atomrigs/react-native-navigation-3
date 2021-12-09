@@ -58,6 +58,7 @@ export const getPost = /* GraphQL */ `
       comments {
         items {
           id
+          postID
           content
           createdAt
           updatedAt
@@ -102,6 +103,7 @@ export const getComment = /* GraphQL */ `
   query GetComment($id: ID!) {
     getComment(id: $id) {
       id
+      postID
       post {
         id
         title
@@ -134,6 +136,7 @@ export const listComments = /* GraphQL */ `
     listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        postID
         post {
           id
           title

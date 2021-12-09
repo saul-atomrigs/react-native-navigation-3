@@ -7,13 +7,13 @@ import config from '../src/aws-exports'
 import { API, graphqlOperation } from 'aws-amplify'
 import { createPost, updatePost, deletePost } from '../src/graphql/mutationsO'
 import { listPosts, listPostsByDate } from '../src/graphql/queriesO'
-
 Amplify.configure(config)
-
-const initialStatePost = { title: '' }
+// import { v4 as uuid } from 'uuid'
+// const CLIENT_ID = uuid()
 
 export default function AddPost() {
 
+  const initialStatePost = { title: '' }
   const [formStatePosts, setFormStatePosts] = useState(initialStatePost)
   const [posts, setPosts] = useState([])
 
@@ -27,7 +27,10 @@ export default function AddPost() {
       const post = { ...formStatePosts }
       setPosts([...posts, post])
       setFormStatePosts(initialStatePost)
-      await API.graphql(graphqlOperation(createPost, { input: post }))
+      // await API.graphql(graphqlOperation(createPost, { input: post }))
+      // ✅ Refresh after submitting:
+      const result = await API.graphql(graphqlOperation(createPost, { input: post }))
+      setPosts([...posts, result.data.createPost])
     } catch (err) {
       console.log('error creating 에러!!', err)
     }
@@ -36,10 +39,7 @@ export default function AddPost() {
   async function fetchPosts() {
     try {
       const postData = await API.graphql(graphqlOperation(listPosts));
-      // const postDataByDate = postData.sort('createdAt')
-      // const postData = await API.graphql(graphqlOperation(recordsByDateCreated, { status: 'unused', limit: 10 }));
       setPosts(postData.data.listPosts.items)
-      // setPosts(postDataByDate.data.listPosts.items)
     } catch (err) {
       console.log(err, 'error fetching 에러!!!');
     }
@@ -65,8 +65,6 @@ export default function AddPost() {
             posts
               .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).reverse()
               .map((post, index) => (
-                // posts.map((post, index) => (
-                // <View key={post.id} style={styles.post} >
                 <View key={post.id ? post.id : index} style={styles.post} >
                   <Text> {post.title} </Text>
                   <Text> {post.createdAt} </Text>

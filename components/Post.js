@@ -4,6 +4,15 @@ import { POSTS } from '../data/posts'
 import { CommunityData } from '../data/CommunityData'
 import { Avatar } from 'react-native-elements'
 import { firebase, db } from '../firebase'
+
+import Amplify from 'aws-amplify'
+import config from '../src/aws-exports'
+import { API, graphqlOperation } from 'aws-amplify'
+import { createComment, updateComment, deleteComment } from '../src/graphql/mutationsO'
+import { getComment, listComments } from '../src/graphql/queriesO'
+Amplify.configure(config)
+
+
 export default function Post({ post }) {
   const handleLike = post => {
     const currentLikeStatus = !post.likes_by_users.includes(

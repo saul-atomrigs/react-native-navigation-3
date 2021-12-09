@@ -150,3 +150,24 @@ export const listComments = /* GraphQL */ `
     }
   }
 `;
+
+// export default listPictures = /* GraphQL */ `
+// query ListPictures($filter: ModelPictureFilterInput, $limit: Int, $nextToken: String) {
+//   listPictures(filter: $filter, limit: $limit, nextToken: $nextToken) {
+//     items {
+//       id
+//       userId
+//       username
+//     }
+//     likes {
+//       items {
+//         id
+//         userId
+//         username
+//       }
+//       nextToken
+//     }
+// }
+// nextToken
+// }
+// `

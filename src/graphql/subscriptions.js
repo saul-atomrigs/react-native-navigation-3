@@ -78,6 +78,7 @@ export const onCreatePost = /* GraphQL */ `
       comments {
         items {
           id
+          postID
           content
           createdAt
           updatedAt
@@ -108,6 +109,7 @@ export const onUpdatePost = /* GraphQL */ `
       comments {
         items {
           id
+          postID
           content
           createdAt
           updatedAt
@@ -138,6 +140,7 @@ export const onDeletePost = /* GraphQL */ `
       comments {
         items {
           id
+          postID
           content
           createdAt
           updatedAt
@@ -155,6 +158,7 @@ export const onCreateComment = /* GraphQL */ `
   subscription OnCreateComment {
     onCreateComment {
       id
+      postID
       post {
         id
         title
@@ -182,6 +186,7 @@ export const onUpdateComment = /* GraphQL */ `
   subscription OnUpdateComment {
     onUpdateComment {
       id
+      postID
       post {
         id
         title
@@ -209,6 +214,7 @@ export const onDeleteComment = /* GraphQL */ `
   subscription OnDeleteComment {
     onDeleteComment {
       id
+      postID
       post {
         id
         title
