@@ -1,6 +1,5 @@
-import React, { Component, Fragment, useLayoutEffect, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Text, Image, View, TouchableOpacity, StyleSheet, Button, FlatList, RefreshControl, ScrollView } from 'react-native'
-import { Divider } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/core';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Heart, ChatText, Plus } from "phosphor-react-native";

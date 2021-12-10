@@ -80,7 +80,7 @@ export default function DetailedFeed() {
       setComments([...comments, result.data.createComment])
       console.log('🚀 create comment 성공')
     } catch (err) {
-      console.log('error creating 에러!!', err)
+      console.log('creating 에러!!', err)
     }
   }
   // FETCH comments
@@ -92,7 +92,7 @@ export default function DetailedFeed() {
       ));
       setComments(commentData.data.listComments.items)
     } catch (err) {
-      console.log(err, 'error fetching 에러!!!');
+      console.log(err, 'fetching 에러!!!');
     }
   }
 
