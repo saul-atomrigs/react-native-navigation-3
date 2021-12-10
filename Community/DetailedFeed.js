@@ -2,17 +2,14 @@ import React, { useState, useCallback, useLayoutEffect, useEffect } from 'react'
 import { ScrollView, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View, RefreshControl, TextInput } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import CommentInput from '../Components/CommentInput';
 import { Avatar, Divider } from 'react-native-elements';
-import { CommunityData } from '../data/CommunityData';
-import Post from '../Components/Post';
 import { Heart, UserCircle } from 'phosphor-react-native';
 
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
 import { API, graphqlOperation } from 'aws-amplify'
-import { createComment, updateComment, deleteComment, createPost2, createCommentOnPost } from '../src/graphql/mutationsO'
-import { getComment, listComments } from '../src/graphql/queriesO'
+import { createComment, updateComment, deleteComment } from '../src/graphql/mutations'
+import { listComments } from '../src/graphql/queries'
 Amplify.configure(config)
 
 export default function DetailedFeed() {
@@ -55,21 +52,33 @@ export default function DetailedFeed() {
     });
   }, [navigation])
 
-  // Add Comment
+  // ADD COMMENT
   const initialStateComment = { content: '' }
-
   const [formStateComments, setFormStateComments] = useState(initialStateComment)
   const [comments, setComments] = useState([])
 
   useEffect(() => {
     fetchComments()
   }, [])
+
+  // CREATE Comment
   async function addComment() {
     try {
       const comment = { ...formStateComments }
       setComments([...comments, comment])
       setFormStateComments(initialStateComment)
-      await API.graphql(graphqlOperation(createComment, { input: comment }))
+      // ✅ Refresh after submitting:
+      const result = await API.graphql(graphqlOperation(
+        createComment,
+        {
+          // input: comment,
+          input: {
+            content: formStateComments.content,
+            postCommentsId: param.id
+          }
+        }))
+      setComments([...comments, result.data.createComment])
+      console.log('🚀 create comment 성공')
     } catch (err) {
       console.log('error creating 에러!!', err)
     }
@@ -131,8 +140,6 @@ export default function DetailedFeed() {
             <Heart />
           </View>
           <Divider />
-          <Post />
-          <CommentInput />
 
           <ScrollView>
             {
@@ -141,10 +148,14 @@ export default function DetailedFeed() {
                 .map((comment, index) => (
                   <View key={comment.id ? comment.id : index} style={styles.comment} >
                     <Text> {comment.content} </Text>
-                    {/* <Text> {comment.id} </Text> */}
+                    {/* <Text> id: {comment.id} </Text> */}
+                    {/* <Text> postCommentsId: {comment.postCommentsId} </Text> */}
+                    {/* <Text> {comment.createdAt} </Text> */}
+                    {/* <Text> {comment.post.title} </Text> */}
+                    {/* <Text> {comment.post.id} </Text> */}
+                    {/* <Text> {param.id} </Text> */}
                     {/* <Text> {param.id === comment.postCommentsId ? comment.content : null} </Text> */}
                     {/* <Text> {comment.createdAt.substring(0, 10)} </Text> */}
-                    {/* <Text> {comment.createdAt} </Text> */}
                   </View>
                 ))
             }
@@ -154,13 +165,13 @@ export default function DetailedFeed() {
               onChangeText={val => setInputComments('content', val)}
               value={formStateComments.content}
               style={styles.textInput}
+              multiline
               placeholder="Write a comment..."
             />
             <TouchableOpacity onPress={addComment}>
               <Image source={require('../assets/icons/megaphone.png')} style={{ width: 30, height: 30 }} />
             </TouchableOpacity>
           </View>
-
         </View>
       </View >
     </KeyboardAwareScrollView >
@@ -220,9 +231,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start'
   },
-  cardTitle: {
-    marginTop: 5,
-  },
   cardContent: {
     marginLeft: 20,
     // marginRight: 20,
@@ -241,11 +249,6 @@ const styles = StyleSheet.create({
   cardStatsDetails: {
     marginBottom: 10,
     fontSize: 18,
-  },
-  actionButtonIcon: {
-    fontSize: 20,
-    height: 22,
-    color: 'white',
   },
   textInputContainer: {
     marginTop: "auto",
@@ -266,14 +269,4 @@ const styles = StyleSheet.create({
     backgroundColor: "#eee",
     padding: 10,
   },
-  newsArticleCommentInput: {
-    height: 40,
-    marginBottom: 20,
-    marginLeft: 20,
-    marginRight: 20,
-    borderWidth: 1,
-    borderRadius: 13,
-    backgroundColor: '#fff',
-    padding: 10,
-  }
 })

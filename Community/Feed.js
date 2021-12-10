@@ -9,8 +9,8 @@ import { Heart, ChatText, Plus } from "phosphor-react-native";
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
 import { API, graphqlOperation } from 'aws-amplify'
-import { createPost, updatePost, deletePost } from '../src/graphql/mutationsO'
-import { listPosts } from '../src/graphql/queriesO'
+import { createPost, updatePost, deletePost } from '../src/graphql/mutations'
+import { listPosts } from '../src/graphql/queries'
 import { onCreatePost } from '../src/graphql/subscriptions'
 Amplify.configure(config)
 
@@ -21,19 +21,8 @@ export default function Feed({ item }) {
 
   useEffect(() => {
     fetchPosts()
-
-    // const subscription = API.graphql(graphqlOperation(onCreatePost))
-    //   .subscribe({
-    //     next: (value) => {
-    //       const post = value.data.onCreatePost
-    //       console.log('real time')
-    //       if (post.owner === 'admin') {
-    //         fetchPosts()
-    //       }
-    //     }
-    //   })
-    // return () => { subscription.unsubscribe() }
   }, [])
+
   // FETCH posts
   async function fetchPosts() {
     try {
@@ -195,20 +184,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
     backgroundColor: '#fff'
   },
-  postImage: {
-    // width: '90%',
-    // height: 300,
-    // alignSelf: 'center',
-    // borderRadius: 13,
-  },
   author: {
     // marginTop: 5,
     // marginBottom: 10,
     marginLeft: 12,
-  },
-  postAvatar: {
-    // marginRight: 10,
-    // marginLeft: 20
   },
   content: {
     marginHorizontal: 20,
@@ -242,11 +221,6 @@ const styles = StyleSheet.create({
     // marginBottom: 10,
     fontSize: 12,
     fontWeight: '600',
-  },
-  actionButtonIcon: {
-    // fontSize: 20,
-    // height: 22,
-    // color: 'white',
   },
   floatingBtn: {
     borderWidth: 1,

@@ -58,11 +58,10 @@ export const getPost = /* GraphQL */ `
       comments {
         items {
           id
-          postID
+          postCommentsId
           content
           createdAt
           updatedAt
-          postCommentsId
         }
         nextToken
       }
@@ -103,7 +102,7 @@ export const getComment = /* GraphQL */ `
   query GetComment($id: ID!) {
     getComment(id: $id) {
       id
-      postID
+      postCommentsId
       post {
         id
         title
@@ -123,7 +122,6 @@ export const getComment = /* GraphQL */ `
       content
       createdAt
       updatedAt
-      postCommentsId
     }
   }
 `;
@@ -136,7 +134,7 @@ export const listComments = /* GraphQL */ `
     listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        postID
+        postCommentsId
         post {
           id
           title
@@ -147,7 +145,6 @@ export const listComments = /* GraphQL */ `
         content
         createdAt
         updatedAt
-        postCommentsId
       }
       nextToken
     }

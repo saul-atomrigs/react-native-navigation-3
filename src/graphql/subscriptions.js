@@ -78,11 +78,10 @@ export const onCreatePost = /* GraphQL */ `
       comments {
         items {
           id
-          postID
+          postCommentsId
           content
           createdAt
           updatedAt
-          postCommentsId
         }
         nextToken
       }
@@ -109,11 +108,10 @@ export const onUpdatePost = /* GraphQL */ `
       comments {
         items {
           id
-          postID
+          postCommentsId
           content
           createdAt
           updatedAt
-          postCommentsId
         }
         nextToken
       }
@@ -140,11 +138,10 @@ export const onDeletePost = /* GraphQL */ `
       comments {
         items {
           id
-          postID
+          postCommentsId
           content
           createdAt
           updatedAt
-          postCommentsId
         }
         nextToken
       }
@@ -158,7 +155,7 @@ export const onCreateComment = /* GraphQL */ `
   subscription OnCreateComment {
     onCreateComment {
       id
-      postID
+      postCommentsId
       post {
         id
         title
@@ -178,7 +175,6 @@ export const onCreateComment = /* GraphQL */ `
       content
       createdAt
       updatedAt
-      postCommentsId
     }
   }
 `;
@@ -186,7 +182,7 @@ export const onUpdateComment = /* GraphQL */ `
   subscription OnUpdateComment {
     onUpdateComment {
       id
-      postID
+      postCommentsId
       post {
         id
         title
@@ -206,7 +202,6 @@ export const onUpdateComment = /* GraphQL */ `
       content
       createdAt
       updatedAt
-      postCommentsId
     }
   }
 `;
@@ -214,7 +209,7 @@ export const onDeleteComment = /* GraphQL */ `
   subscription OnDeleteComment {
     onDeleteComment {
       id
-      postID
+      postCommentsId
       post {
         id
         title
@@ -234,7 +229,6 @@ export const onDeleteComment = /* GraphQL */ `
       content
       createdAt
       updatedAt
-      postCommentsId
     }
   }
 `;

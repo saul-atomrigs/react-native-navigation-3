@@ -12,7 +12,9 @@ type Blog @model {
 type Post @model {
  id: ID!
  title: String!
+ #  content: String!
  blog: Blog @belongsTo
+ #  comments: [Comment] @hasMany(indexName: "byPost", fields: ["id"])
  comments: [Comment] @hasMany
  createdAt: AWSDateTime! #important to keep it to have filter with keys
  updatedAt: AWSDateTime! #important to keep it to have filter with keys
@@ -20,13 +22,18 @@ type Post @model {
 
 type Comment @model {
  id: ID!
- #  postId: ID!
- postID: ID! @index(name: "byPost", sortKeyFields: ["content"])
- post: Post @belongsTo(fields: ["postID"])
+ postCommentsId: ID
+ # postID: ID @index(name: "byPost", sortKeyFields: ["content"])
+ post: Post @belongsTo
  content: String!
  createdAt: AWSDateTime! #important to keep it to have filter with keys
  updatedAt: AWSDateTime! #important to keep it to have filter with keys
 }
+
+# type Subscription {
+#  onCommentByPostId(postCommentsId: ID!): Comment
+#   @aws_subscribe(mutations: ["createComment"])
+# }
 
 # type ChatMessage @model {
 #  id: ID!

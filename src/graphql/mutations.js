@@ -90,11 +90,10 @@ export const createPost = /* GraphQL */ `
       comments {
         items {
           id
-          postID
+          postCommentsId
           content
           createdAt
           updatedAt
-          postCommentsId
         }
         nextToken
       }
@@ -124,11 +123,10 @@ export const updatePost = /* GraphQL */ `
       comments {
         items {
           id
-          postID
+          postCommentsId
           content
           createdAt
           updatedAt
-          postCommentsId
         }
         nextToken
       }
@@ -158,11 +156,10 @@ export const deletePost = /* GraphQL */ `
       comments {
         items {
           id
-          postID
+          postCommentsId
           content
           createdAt
           updatedAt
-          postCommentsId
         }
         nextToken
       }
@@ -179,7 +176,7 @@ export const createComment = /* GraphQL */ `
   ) {
     createComment(input: $input, condition: $condition) {
       id
-      postID
+      postCommentsId
       post {
         id
         title
@@ -199,7 +196,6 @@ export const createComment = /* GraphQL */ `
       content
       createdAt
       updatedAt
-      postCommentsId
     }
   }
 `;
@@ -210,7 +206,7 @@ export const updateComment = /* GraphQL */ `
   ) {
     updateComment(input: $input, condition: $condition) {
       id
-      postID
+      postCommentsId
       post {
         id
         title
@@ -230,7 +226,6 @@ export const updateComment = /* GraphQL */ `
       content
       createdAt
       updatedAt
-      postCommentsId
     }
   }
 `;
@@ -241,7 +236,7 @@ export const deleteComment = /* GraphQL */ `
   ) {
     deleteComment(input: $input, condition: $condition) {
       id
-      postID
+      postCommentsId
       post {
         id
         title
@@ -261,7 +256,6 @@ export const deleteComment = /* GraphQL */ `
       content
       createdAt
       updatedAt
-      postCommentsId
     }
   }
 `;

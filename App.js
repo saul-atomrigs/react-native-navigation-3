@@ -23,7 +23,6 @@ import ShareComponent from './Components/ShareComponent';
 import { Search } from './Components/Search';
 import LoginScreen from './screens/LoginScreen';
 import Connect from './Components/chat/Connect'
-// import Asyncawait from './Asyncawait';
 
 export default function App() {
   // Stack Navigator
@@ -69,8 +68,8 @@ function HomeTabNavigation() {
   );
 }
 // Home Screen ✅
-function HomeScreen() {
-}
+// function HomeScreen() {
+
 //  Social Commmunity Screen 
 function Social({ navigation }) {
   useLayoutEffect(() => {
@@ -112,26 +111,6 @@ function Social({ navigation }) {
     <>
       <Feeds />
     </>
-  )
-}
-
-function CommunityBlock() {
-  const navigation = useNavigation();
-  return (
-    <TouchableOpacity onPress={() => navigation.push('NewsPage')}>
-      <View style={communityList}>
-        <View style={communityTextView}>
-          <Text style={communityArtist}>Twice</Text>
-          <Text style={communityTitle}>Title</Text>
-          <Text style={communitySummary}>{text2}</Text>
-          <Divider style={{ margin: 7 }} />
-          <View style={communityStats}>
-            <Text style={communityStatsDetails}>3 Likes</Text>
-            <Text style={communityStatsDetails}>2 Comments</Text>
-          </View>
-        </View>
-      </View>
-    </TouchableOpacity>
   )
 }
 
@@ -530,9 +509,19 @@ const newsArticleCommentInput = {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', padding: 20 },
+  container: { flex: 1, flexDirection: 'row', justifyContent: 'center', padding: 20, backgroundColor: '#fff' },
   todo: { marginBottom: 15 },
   post: { marginBottom: 15 },
   input: { height: 50, backgroundColor: '#eee', marginBottom: 10, padding: 8 },
-  todoName: { fontSize: 18 }
+  todoName: { fontSize: 18 },
+  textInput: {
+    marginHorizontal: 5,
+    bottom: 80,
+    width: "90%",
+    fontSize: 15,
+    color: '#000',
+    borderRadius: 10,
+    backgroundColor: "#eee",
+    padding: 10,
+  },
 });

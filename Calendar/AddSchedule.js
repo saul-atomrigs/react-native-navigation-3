@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { listSchedules } from '../src/graphql/queriesO'
+import { listSchedules } from '../src/graphql/queries'
 
 
 export default function AddSchedule() {

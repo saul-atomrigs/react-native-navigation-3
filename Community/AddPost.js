@@ -5,8 +5,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
 import { API, graphqlOperation } from 'aws-amplify'
-import { createPost, updatePost, deletePost } from '../src/graphql/mutationsO'
-import { listPosts, listPostsByDate } from '../src/graphql/queriesO'
+import { createPost, updatePost, deletePost } from '../src/graphql/mutations'
+import { listPosts } from '../src/graphql/queries'
 Amplify.configure(config)
 // import { v4 as uuid } from 'uuid'
 // const CLIENT_ID = uuid()
@@ -27,10 +27,10 @@ export default function AddPost() {
       const post = { ...formStatePosts }
       setPosts([...posts, post])
       setFormStatePosts(initialStatePost)
-      // await API.graphql(graphqlOperation(createPost, { input: post }))
       // ✅ Refresh after submitting:
       const result = await API.graphql(graphqlOperation(createPost, { input: post }))
       setPosts([...posts, result.data.createPost])
+      console.log('🚀 createPost: ', result)
     } catch (err) {
       console.log('error creating 에러!!', err)
     }
