@@ -83,6 +83,7 @@ export default function DetailedFeed() {
       console.log('creating 에러!!', err)
     }
   }
+  let commentsCount = ''
   // FETCH comments
   async function fetchComments() {
     try {
@@ -91,10 +92,13 @@ export default function DetailedFeed() {
         listComments, { filter: { postCommentsId: { eq: param.id } } }
       ));
       setComments(commentData.data.listComments.items)
+      const commentsCount = commentData.data.listComments.items.length
+      console.log('number of comments: ', commentsCount)
     } catch (err) {
       console.log(err, 'fetching 에러!!!');
     }
   }
+  commentsCount = comments.length
 
   function setInputComments(key, value) {
     setFormStateComments({ ...formStateComments, [key]: value })
@@ -159,6 +163,8 @@ export default function DetailedFeed() {
                   </View>
                 ))
             }
+            <Text> Comments count: {commentsCount}</Text>
+            {/* <Text> {test + test2} </Text> */}
           </ScrollView>
           <View style={styles.textInputContainer}>
             <TextInput
