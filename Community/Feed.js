@@ -3,17 +3,17 @@ import { Text, Image, View, TouchableOpacity, StyleSheet, Button, FlatList, Refr
 import { useNavigation } from '@react-navigation/core';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Heart, ChatText, Plus } from "phosphor-react-native";
-// import AddPost from './AddPost';
-// import { Post } from '../data/posts'
+
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
 import { API, graphqlOperation } from 'aws-amplify'
 import { createPost, updatePost, deletePost } from '../src/graphql/mutations'
-import { listPosts } from '../src/graphql/queries'
+import { listPosts, listComments } from '../src/graphql/queries'
 import { onCreatePost } from '../src/graphql/subscriptions'
 Amplify.configure(config)
 
-export default function Feed({ item }) {
+// export default function Feed({ item }) {
+export default function Feed(props) {
   const navigation = useNavigation();
 
   const [posts, setPosts] = useState([])
@@ -68,7 +68,6 @@ export default function Feed({ item }) {
                           {/* {item.postTitle.length > 90 ? item.postTitle.substring(0, 90) + '...' : item.postTitle} */}
                           {/* {item.postTitle.length > 90 ? item.postTitle.substring(0, 90) + '...' : item.postTitle} */}
                           <Text> {post.title} </Text>
-
                         </Text>
                       </View>
                       <View style={styles.postFooter}>
@@ -85,6 +84,11 @@ export default function Feed({ item }) {
                           <View style={{ flexDirection: 'row' }}>
                             <ChatText size={18} color='gray' />
                             {/* <Text style={styles.statDetails}>{item.comments}</Text> */}
+                            <Text> total comment: {
+                              // API.graphql(graphqlOperation(
+                              // listComments, { filter: { postCommentsId: { eq: comment.id } } }
+                              // )).data.listComments.items.length
+                            } </Text>
                           </View>
                         </View>
                       </View>

@@ -150,3 +150,78 @@ export const listComments = /* GraphQL */ `
     }
   }
 `;
+export const getCalendar = /* GraphQL */ `
+  query GetCalendar($id: ID!) {
+    getCalendar(id: $id) {
+      id
+      name
+      events {
+        items {
+          id
+          name
+          artist
+          date
+          createdAt
+          updatedAt
+          calendarEventsId
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listCalendars = /* GraphQL */ `
+  query ListCalendars(
+    $filter: ModelCalendarFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCalendars(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        events {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getEvent = /* GraphQL */ `
+  query GetEvent($id: ID!) {
+    getEvent(id: $id) {
+      id
+      name
+      artist
+      date
+      createdAt
+      updatedAt
+      calendarEventsId
+    }
+  }
+`;
+export const listEvents = /* GraphQL */ `
+  query ListEvents(
+    $filter: ModelEventFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listEvents(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        artist
+        date
+        createdAt
+        updatedAt
+        calendarEventsId
+      }
+      nextToken
+    }
+  }
+`;

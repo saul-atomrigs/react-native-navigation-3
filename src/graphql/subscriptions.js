@@ -232,3 +232,108 @@ export const onDeleteComment = /* GraphQL */ `
     }
   }
 `;
+export const onCreateCalendar = /* GraphQL */ `
+  subscription OnCreateCalendar {
+    onCreateCalendar {
+      id
+      name
+      events {
+        items {
+          id
+          name
+          artist
+          date
+          createdAt
+          updatedAt
+          calendarEventsId
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateCalendar = /* GraphQL */ `
+  subscription OnUpdateCalendar {
+    onUpdateCalendar {
+      id
+      name
+      events {
+        items {
+          id
+          name
+          artist
+          date
+          createdAt
+          updatedAt
+          calendarEventsId
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteCalendar = /* GraphQL */ `
+  subscription OnDeleteCalendar {
+    onDeleteCalendar {
+      id
+      name
+      events {
+        items {
+          id
+          name
+          artist
+          date
+          createdAt
+          updatedAt
+          calendarEventsId
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateEvent = /* GraphQL */ `
+  subscription OnCreateEvent {
+    onCreateEvent {
+      id
+      name
+      artist
+      date
+      createdAt
+      updatedAt
+      calendarEventsId
+    }
+  }
+`;
+export const onUpdateEvent = /* GraphQL */ `
+  subscription OnUpdateEvent {
+    onUpdateEvent {
+      id
+      name
+      artist
+      date
+      createdAt
+      updatedAt
+      calendarEventsId
+    }
+  }
+`;
+export const onDeleteEvent = /* GraphQL */ `
+  subscription OnDeleteEvent {
+    onDeleteEvent {
+      id
+      name
+      artist
+      date
+      createdAt
+      updatedAt
+      calendarEventsId
+    }
+  }
+`;

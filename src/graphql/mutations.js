@@ -259,3 +259,126 @@ export const deleteComment = /* GraphQL */ `
     }
   }
 `;
+export const createCalendar = /* GraphQL */ `
+  mutation CreateCalendar(
+    $input: CreateCalendarInput!
+    $condition: ModelCalendarConditionInput
+  ) {
+    createCalendar(input: $input, condition: $condition) {
+      id
+      name
+      events {
+        items {
+          id
+          name
+          artist
+          date
+          createdAt
+          updatedAt
+          calendarEventsId
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateCalendar = /* GraphQL */ `
+  mutation UpdateCalendar(
+    $input: UpdateCalendarInput!
+    $condition: ModelCalendarConditionInput
+  ) {
+    updateCalendar(input: $input, condition: $condition) {
+      id
+      name
+      events {
+        items {
+          id
+          name
+          artist
+          date
+          createdAt
+          updatedAt
+          calendarEventsId
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteCalendar = /* GraphQL */ `
+  mutation DeleteCalendar(
+    $input: DeleteCalendarInput!
+    $condition: ModelCalendarConditionInput
+  ) {
+    deleteCalendar(input: $input, condition: $condition) {
+      id
+      name
+      events {
+        items {
+          id
+          name
+          artist
+          date
+          createdAt
+          updatedAt
+          calendarEventsId
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createEvent = /* GraphQL */ `
+  mutation CreateEvent(
+    $input: CreateEventInput!
+    $condition: ModelEventConditionInput
+  ) {
+    createEvent(input: $input, condition: $condition) {
+      id
+      name
+      artist
+      date
+      createdAt
+      updatedAt
+      calendarEventsId
+    }
+  }
+`;
+export const updateEvent = /* GraphQL */ `
+  mutation UpdateEvent(
+    $input: UpdateEventInput!
+    $condition: ModelEventConditionInput
+  ) {
+    updateEvent(input: $input, condition: $condition) {
+      id
+      name
+      artist
+      date
+      createdAt
+      updatedAt
+      calendarEventsId
+    }
+  }
+`;
+export const deleteEvent = /* GraphQL */ `
+  mutation DeleteEvent(
+    $input: DeleteEventInput!
+    $condition: ModelEventConditionInput
+  ) {
+    deleteEvent(input: $input, condition: $condition) {
+      id
+      name
+      artist
+      date
+      createdAt
+      updatedAt
+      calendarEventsId
+    }
+  }
+`;

@@ -3,6 +3,7 @@
 input AMPLIFY {
  globalAuthRule: AuthRule = { allow: public }
 }
+
 type Blog @model {
  id: ID!
  name: String!
@@ -28,6 +29,19 @@ type Comment @model {
  content: String!
  createdAt: AWSDateTime! #important to keep it to have filter with keys
  updatedAt: AWSDateTime! #important to keep it to have filter with keys
+}
+
+type Calendar @model {
+ id: ID!
+ name: String!
+ events: [Event] @hasMany
+}
+
+type Event @model {
+ id: ID!
+ name: String!
+ artist: String!
+ date: AWSDateTime!
 }
 
 # type Subscription {

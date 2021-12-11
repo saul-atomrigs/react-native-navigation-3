@@ -18,6 +18,7 @@ import Youtube from './Discover/Youtube';
 import Translate from './Discover/Translate';
 import AddPost from './Community/AddPost';
 import AddSchedule from './Calendar/AddSchedule';
+import DetailedSchedule from './Calendar/DetailedSchedule';
 import { HandsClapping, ChatsCircle, CalendarPlus, Fingerprint, Compass, } from 'phosphor-react-native';
 import ShareComponent from './Components/ShareComponent';
 import { Search } from './Components/Search';
@@ -37,6 +38,7 @@ export default function App() {
         <Stack.Screen name="Notifications" component={Notifications} />
         <Stack.Screen name="Me" component={Me} />
         <Stack.Screen name="Calendar" component={Calendar} options={({ route }) => ({ title: route.params.param })} />
+        <Stack.Screen name="DetailedSchedule" component={DetailedSchedule} options={({ route }) => ({ title: route.params.param })} />
         <Stack.Screen name="DetailedFeed" component={DetailedFeed} options={{ title: '' }} />
         <Stack.Screen name="Youtube" component={Youtube} options={{ title: '' }} />
         <Stack.Screen name="Tiktok" component={Tiktok} options={{ title: '' }} />
@@ -59,8 +61,8 @@ export default function App() {
 function HomeTabNavigation() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
-      <Tab.Screen name="Community" component={Social} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' } }} />
       <Tab.Screen name="Calendar" component={Calendar} />
+      <Tab.Screen name="Community" component={Social} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' } }} />
       <Tab.Screen name="Discover" component={Discover} />
       {/* <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} /> */}
       <Tab.Screen name="Me" component={Me} />

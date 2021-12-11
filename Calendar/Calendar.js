@@ -8,27 +8,49 @@ import { Divider } from 'react-native-elements';
 
 export default function Calendar() {
   const navigation = useNavigation()
+
+  function renderItem(item) {
+    return (
+      <TouchableOpacity
+        style={[styles.item, { height: item.height, marginRight: 20 }]}
+        // onPress={() => navigation.push('DetailedSchedule', { param: item })}
+        onPress={() => null}
+      >
+        <Text style={styles.artist}>{item.artist}</Text>
+        <View style={styles.eventContainer}>
+          <View>{item.icon}</View>
+          <Text style={styles.event}>{item.event}</Text>
+        </View>
+        <Divider style={styles.divider} />
+        <View style={styles.stats}>
+          {/* <HandsClapping /> */}
+          <Star color='pink' />
+        </View>
+      </TouchableOpacity>
+    );
+  }
+
   const items = {
-    "2021-12-04": [
+    "2021-12-12": [
       {
-        name: "aespa",
+        artist: "aespa",
         event: 'tv show on MBC',
         icon: <Television />,
       },
       {
-        name: "BTS",
+        artist: "BTS",
         event: 'Birthday',
         icon: <Cake />,
       }
     ],
-    "2021-12-09": [
+    "2021-12-13": [
       {
-        name: "aespa",
+        artist: "aespa",
         event: 'tv show on MBC',
         icon: <Television />,
       },
       {
-        name: "BTS",
+        artist: "BTS",
         event: 'Birthday',
         icon: <Cake />,
       }
@@ -88,7 +110,7 @@ export default function Calendar() {
 //         const numItems = Math.floor(Math.random() * 3 + 1);
 //         for (let j = 0; j < numItems; j++) {
 //           items[strTime].push({
-//             name: 'Item for ' + strTime + ' #' + j,
+//             artist: 'Item for ' + strTime + ' #' + j,
 //             height: Math.max(50, Math.floor(Math.random() * 150))
 //           });
 //         }
@@ -104,25 +126,6 @@ export default function Calendar() {
 //   }, 1000);
 // }
 
-function renderItem(item) {
-  return (
-    <TouchableOpacity
-      style={[styles.item, { height: item.height, marginRight: 20 }]}
-      onPress={() => null}
-    >
-      <Text style={{ fontWeight: '800' }}>{item.name}</Text>
-      <View style={{ flexDirection: 'row', }}>
-        <View>{item.icon}</View>
-        <Text style={{ marginHorizontal: 10, fontSize: 18 }}>{item.event}</Text>
-      </View>
-      <Divider style={{ marginVertical: 5 }} />
-      <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-        {/* <HandsClapping /> */}
-        <Star color='pink' />
-      </View>
-    </TouchableOpacity>
-  );
-}
 
 function renderEmptyDate() {
   // const navigation = useNavigation();
@@ -144,7 +147,7 @@ function renderEmptyData() {
 }
 
 function rowHasChanged(r1, r2) {
-  return r1.name !== r2.name;
+  return r1.artist !== r2.artist;
 }
 
 function timeToString(time) {
@@ -166,6 +169,11 @@ const styles = StyleSheet.create({
     // marginRight: 10,
     marginTop: 10
   },
+  artist: { fontWeight: '800' },
+  eventContainer: { flexDirection: 'row', },
+  event: { marginHorizontal: 10, fontSize: 18 },
+  divider: { marginVertical: 5 },
+  stats: { flexDirection: 'row', justifyContent: 'flex-end' },
   emptyDate: {
     height: 15,
     flex: 1,

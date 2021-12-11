@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, TextInput, Text } from 'react-native'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { listSchedules } from '../src/graphql/queries'
 
 
 export default function AddSchedule() {
-    const placeholder = "When is it happening?";
-
     const [datePickerVisible, setDatePickerVisibility] = useState(false);
     const [text, onChangeText] = useState("");
 
@@ -30,19 +28,55 @@ export default function AddSchedule() {
                 <TextInput
                     pointerEvents="none"
                     style={styles.textInput}
-                    placeholder={placeholder}
+                    placeholder="1. When is it happening?"
                     placeholderTextColor='#666'
                     underlineColorAndroid="transparent"
                     editable={false}
                     value={text}
                 />
                 <DateTimePickerModal
-                    headerTextIOS={placeholder}
+                    headerTextIOS="1. When is it happening?"
                     isVisible={datePickerVisible}
                     mode="date"
                     onConfirm={handleConfirm}
                     onCancel={hideDatePicker}
                 />
+            </TouchableOpacity>
+            <TouchableOpacity>
+                <TextInput
+                    placeholder="2. Which artist?"
+                    style={styles.textInput}
+                    placeholderTextColor='#666'
+                    autoCompleteType="off"
+                    autoCorrect={false}
+                />
+            </TouchableOpacity>
+            <TouchableOpacity>
+                <TextInput
+                    placeholder="3. What's the event?"
+                    style={styles.textInput}
+                    placeholderTextColor='#666'
+                    autoCompleteType="off"
+                    autoCorrect={false}
+                />
+            </TouchableOpacity>
+            <TouchableOpacity>
+                <TextInput
+                    placeholderTextColor='#666'
+                    placeholder="4. Add details (optional)"
+                    style={[styles.textInput,]}
+                    multiline
+                    numberOfLines={4}
+                />
+            </TouchableOpacity>
+            {/* submit button */}
+            <TouchableOpacity
+                style={{ flexDirection: 'row' }}
+                onPress={() => navigation.navigate('AddSchedule')}
+            >
+                <View style={styles.floatingBtn}>
+                    <Text style={{ fontSize: 15, fontWeight: '700', color: 'pink' }}>Add schedule</Text>
+                </View>
             </TouchableOpacity>
         </View>
     );
@@ -81,7 +115,8 @@ Number.prototype.zf = function (len) { return this.toString().zf(len); };
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        paddingVertical: 50,
+        justifyContent: 'flex-start',
         alignItems: 'center',
         backgroundColor: 'white',
     },
@@ -90,10 +125,34 @@ const styles = StyleSheet.create({
         color: '#000000',
         height: 50,
         width: 300,
-        borderColor: '#000000',
+        borderColor: '#666',
         borderWidth: 1,
-        borderRadius: 12,
-        padding: 10
+        borderRadius: 13,
+        padding: 10,
+        marginBottom: 30,
+    },
+    floatingBtn: {
+        // borderWidth: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 140,
+        height: 40,
+        position: 'relative',
+        // bottom: 100,
+        // right: 30,
+        backgroundColor: 'black',
+        borderRadius: 100,
+        // shadow ios:
+        shadowColor: 'lightgray',
+        shadowOffset: {
+            width: 5,
+            height: 5,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+        // shadow android: 
+        elevation: 0.8,
     }
 })
 // export default function AddSchedule() {

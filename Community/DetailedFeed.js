@@ -145,6 +145,7 @@ export default function DetailedFeed() {
           </View>
           <Divider />
 
+          <Text> Total comments: {commentsCount}</Text>
           <ScrollView>
             {
               comments
@@ -163,7 +164,6 @@ export default function DetailedFeed() {
                   </View>
                 ))
             }
-            <Text> Comments count: {commentsCount}</Text>
             {/* <Text> {test + test2} </Text> */}
           </ScrollView>
           <View style={styles.textInputContainer}>
