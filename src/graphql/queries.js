@@ -158,7 +158,7 @@ export const getCalendar = /* GraphQL */ `
       events {
         items {
           id
-          name
+          event
           artist
           date
           createdAt
@@ -196,7 +196,7 @@ export const getEvent = /* GraphQL */ `
   query GetEvent($id: ID!) {
     getEvent(id: $id) {
       id
-      name
+      event
       artist
       date
       createdAt
@@ -214,7 +214,7 @@ export const listEvents = /* GraphQL */ `
     listEvents(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        name
+        event
         artist
         date
         createdAt

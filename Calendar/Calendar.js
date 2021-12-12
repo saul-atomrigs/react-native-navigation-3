@@ -1,6 +1,6 @@
 import React from 'react';
-import { AirplaneTakeoff, Cake, HandsClapping, MusicNote, Plus, Star, Television, VideoCamera } from 'phosphor-react-native';
 import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { AirplaneTakeoff, Cake, HandsClapping, MusicNote, Plus, Star, Television, VideoCamera } from 'phosphor-react-native';
 import { Agenda } from 'react-native-calendars';
 import { useNavigation } from '@react-navigation/native';
 import { Divider } from 'react-native-elements';
@@ -12,7 +12,7 @@ export default function Calendar() {
   function renderItem(item) {
     return (
       <TouchableOpacity
-        style={[styles.item, { height: item.height, marginRight: 20 }]}
+        style={styles.item}
         // onPress={() => navigation.push('DetailedSchedule', { param: item })}
         onPress={() => null}
       >
@@ -56,16 +56,13 @@ export default function Calendar() {
       }
     ],
   }
-  // const monthData = props.monthData
   return (
     <>
       <Agenda
-        // testID={testIDs.agenda.CONTAINER} //agenda 
         items={items}
         dayLoading={false}
         // items={monthData}
         // loadItemsForMonth={loadItems}
-        // selected={'2021-11-26'}
         renderItem={renderItem}
         // renderEmptyDate={renderEmptyDate}
         renderEmptyData={renderEmptyDate}
@@ -92,7 +89,7 @@ export default function Calendar() {
       >
         <View style={styles.floatingBtn}>
           <Plus color="pink" size={20} />
-          <Text style={{ fontSize: 15, fontWeight: '700', color: 'pink' }}>Add schedule</Text>
+          <Text style={{ fontSize: 15, fontWeight: '700', color: 'pink', textDecorationLine: 'underline' }}>Add schedule</Text>
         </View>
       </TouchableOpacity>
     </ >
@@ -167,7 +164,8 @@ const styles = StyleSheet.create({
     borderRadius: 13,
     padding: 10,
     // marginRight: 10,
-    marginTop: 10
+    marginTop: 10,
+    marginRight: 20,
   },
   artist: { fontWeight: '800' },
   eventContainer: { flexDirection: 'row', },

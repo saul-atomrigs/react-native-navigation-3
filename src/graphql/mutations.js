@@ -270,7 +270,7 @@ export const createCalendar = /* GraphQL */ `
       events {
         items {
           id
-          name
+          event
           artist
           date
           createdAt
@@ -295,7 +295,7 @@ export const updateCalendar = /* GraphQL */ `
       events {
         items {
           id
-          name
+          event
           artist
           date
           createdAt
@@ -320,7 +320,7 @@ export const deleteCalendar = /* GraphQL */ `
       events {
         items {
           id
-          name
+          event
           artist
           date
           createdAt
@@ -341,7 +341,7 @@ export const createEvent = /* GraphQL */ `
   ) {
     createEvent(input: $input, condition: $condition) {
       id
-      name
+      event
       artist
       date
       createdAt
@@ -357,7 +357,7 @@ export const updateEvent = /* GraphQL */ `
   ) {
     updateEvent(input: $input, condition: $condition) {
       id
-      name
+      event
       artist
       date
       createdAt
@@ -373,7 +373,7 @@ export const deleteEvent = /* GraphQL */ `
   ) {
     deleteEvent(input: $input, condition: $condition) {
       id
-      name
+      event
       artist
       date
       createdAt

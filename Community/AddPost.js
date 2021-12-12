@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useFocusEffect, useCallback } from 'react';
-import { ScrollView, StyleSheet, Text, View, TextInput, Button, KeyboardAvoidingView } from 'react-native';
+import { TouchableOpacity, ScrollView, StyleSheet, Text, View, TextInput, Button, KeyboardAvoidingView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Amplify from 'aws-amplify'
@@ -58,29 +58,64 @@ export default function AddPost() {
           style={styles.input}
           placeholder="Post title"
         />
-        <Button title="Add Post" onPress={addPost} />
-
-        <ScrollView>
-          {
-            posts
-              .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).reverse()
-              .map((post, index) => (
-                <View key={post.id ? post.id : index} style={styles.post} >
-                  <Text> {post.title} </Text>
-                  <Text> {post.createdAt} </Text>
-                </View>
-              ))
-          }
-        </ScrollView>
+        <TouchableOpacity
+          style={{ flexDirection: 'row' }}
+          onPress={addPost}
+        >
+          <View style={styles.floatingBtn}>
+            <Text style={{ fontSize: 15, fontWeight: '700', color: 'pink', textDecorationLine: 'underline' }}>Upload</Text>
+          </View>
+        </TouchableOpacity>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', padding: 20 },
+  container: {
+    flex: 1,
+    paddingVertical: 50,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
   todo: { marginBottom: 15 },
   post: { marginBottom: 15 },
-  input: { height: 50, backgroundColor: '#eee', marginBottom: 10, padding: 8 },
-  todoName: { fontSize: 18 }
+  // input: { height: 50, backgroundColor: '#eee', marginBottom: 10, padding: 8 },
+  input: {
+    fontSize: 16,
+    color: '#000000',
+    height: 50,
+    width: 300,
+    borderColor: '#e6e6e6',
+    backgroundColor: '#eee',
+    borderWidth: 1,
+    borderRadius: 13,
+    padding: 10,
+    marginBottom: 30,
+  },
+  todoName: { fontSize: 18 },
+  floatingBtn: {
+    // borderWidth: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 140,
+    height: 40,
+    position: 'relative',
+    // bottom: 100,
+    // right: 30,
+    backgroundColor: 'black',
+    borderRadius: 100,
+    // shadow ios:
+    shadowColor: 'lightgray',
+    shadowOffset: {
+      width: 5,
+      height: 5,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 5,
+    // shadow android: 
+    elevation: 0.8,
+  }
 });

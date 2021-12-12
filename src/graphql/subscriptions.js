@@ -240,7 +240,7 @@ export const onCreateCalendar = /* GraphQL */ `
       events {
         items {
           id
-          name
+          event
           artist
           date
           createdAt
@@ -262,7 +262,7 @@ export const onUpdateCalendar = /* GraphQL */ `
       events {
         items {
           id
-          name
+          event
           artist
           date
           createdAt
@@ -284,7 +284,7 @@ export const onDeleteCalendar = /* GraphQL */ `
       events {
         items {
           id
-          name
+          event
           artist
           date
           createdAt
@@ -302,7 +302,7 @@ export const onCreateEvent = /* GraphQL */ `
   subscription OnCreateEvent {
     onCreateEvent {
       id
-      name
+      event
       artist
       date
       createdAt
@@ -315,7 +315,7 @@ export const onUpdateEvent = /* GraphQL */ `
   subscription OnUpdateEvent {
     onUpdateEvent {
       id
-      name
+      event
       artist
       date
       createdAt
@@ -328,7 +328,7 @@ export const onDeleteEvent = /* GraphQL */ `
   subscription OnDeleteEvent {
     onDeleteEvent {
       id
-      name
+      event
       artist
       date
       createdAt

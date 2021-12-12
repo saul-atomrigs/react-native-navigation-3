@@ -3,7 +3,7 @@ import { ScrollView, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Avatar, Divider } from 'react-native-elements';
-import { Heart, UserCircle } from 'phosphor-react-native';
+import { CheckCircle, Heart, Megaphone, UserCircle } from 'phosphor-react-native';
 
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
@@ -105,15 +105,15 @@ export default function DetailedFeed() {
   }
 
   return (
-    <KeyboardAwareScrollView
-      refreshControl={
-        <RefreshControl
-          refreshing={refreshing}
-          onRefresh={onRefresh}
-        />
-      }
-    >
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <KeyboardAwareScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
+      >
         <View style={styles.card}>
           <View style={styles.cardHeader}>
             <TouchableOpacity
@@ -141,31 +141,32 @@ export default function DetailedFeed() {
             {/* <Text style={styles.cardStatsDetails}>{param.views} Views</Text> */}
             {/* <Text style={styles.cardStatsDetails}>{param.comments} Comments</Text> */}
             <Text style={styles.cardStatsDetails}>{param.likes} </Text>
-            <Heart />
+            <Heart size={30} weight='fill' color='red' />
           </View>
           <Divider />
-
-          <Text> Total comments: {commentsCount}</Text>
-          <ScrollView>
-            {
-              comments
-                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).reverse()
-                .map((comment, index) => (
-                  <View key={comment.id ? comment.id : index} style={styles.comment} >
-                    <Text> {comment.content} </Text>
-                    {/* <Text> id: {comment.id} </Text> */}
-                    {/* <Text> postCommentsId: {comment.postCommentsId} </Text> */}
-                    {/* <Text> {comment.createdAt} </Text> */}
-                    {/* <Text> {comment.post.title} </Text> */}
-                    {/* <Text> {comment.post.id} </Text> */}
-                    {/* <Text> {param.id} </Text> */}
-                    {/* <Text> {param.id === comment.postCommentsId ? comment.content : null} </Text> */}
-                    {/* <Text> {comment.createdAt.substring(0, 10)} </Text> */}
-                  </View>
-                ))
-            }
-            {/* <Text> {test + test2} </Text> */}
-          </ScrollView>
+          <View style={styles.commentsContainer}>
+            <Text> Total comments: {commentsCount}</Text>
+            <ScrollView>
+              {
+                comments
+                  .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).reverse()
+                  .map((comment, index) => (
+                    <View key={comment.id ? comment.id : index} style={styles.comment} >
+                      <Text> {comment.content} </Text>
+                      {/* <Text> id: {comment.id} </Text> */}
+                      {/* <Text> postCommentsId: {comment.postCommentsId} </Text> */}
+                      {/* <Text> {comment.createdAt} </Text> */}
+                      {/* <Text> {comment.post.title} </Text> */}
+                      {/* <Text> {comment.post.id} </Text> */}
+                      {/* <Text> {param.id} </Text> */}
+                      {/* <Text> {param.id === comment.postCommentsId ? comment.content : null} </Text> */}
+                      {/* <Text> {comment.createdAt.substring(0, 10)} </Text> */}
+                    </View>
+                  ))
+              }
+              {/* <Text> {test + test2} </Text> */}
+            </ScrollView>
+          </View>
           <View style={styles.textInputContainer}>
             <TextInput
               onChangeText={val => setInputComments('content', val)}
@@ -175,12 +176,13 @@ export default function DetailedFeed() {
               placeholder="Write a comment..."
             />
             <TouchableOpacity onPress={addComment}>
-              <Image source={require('../assets/icons/megaphone.png')} style={{ width: 30, height: 30 }} />
+              {/* <Image source={require('../assets/icons/megaphone.png')} style={{ width: 30, height: 30 }} /> */}
+              <CheckCircle size={30} />
             </TouchableOpacity>
           </View>
         </View>
-      </View >
-    </KeyboardAwareScrollView >
+      </KeyboardAwareScrollView >
+    </View >
   )
 }
 
@@ -212,13 +214,15 @@ const headerRightButtons = {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     backgroundColor: '#fff',
-    flex: 5,
   },
   card: {
     marginTop: 10,
     backgroundColor: '#fff',
-    flex: 5,
+    // flex: 5,
   },
   cardImage: {
     width: WIDTH * 0.9,
@@ -238,7 +242,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start'
   },
   cardContent: {
-    marginLeft: 20,
+    marginHorizontal: 20,
     // marginRight: 20,
     marginTop: 15,
     marginBottom: 10,
@@ -247,8 +251,8 @@ const styles = StyleSheet.create({
   },
   cardStats: {
     flexDirection: 'row',
-    marginLeft: 5,
-    marginRight: 20,
+    // marginLeft: 5,
+    marginHorizontal: 20,
     marginTop: 5,
     justifyContent: 'flex-end'
   },
@@ -256,10 +260,17 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 18,
   },
+  commentsContainer: {
+    marginHorizontal: 20,
+  },
+  comment: {
+    marginTop: 10,
+  },
   textInputContainer: {
+    marginHorizontal: 20,
     marginTop: "auto",
-    borderWidth: 1,
-    borderColor: "skyblue",
+    // borderWidth: 1,
+    // borderColor: "skyblue",
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: 20,

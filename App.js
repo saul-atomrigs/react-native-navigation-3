@@ -19,6 +19,8 @@ import Translate from './Discover/Translate';
 import AddPost from './Community/AddPost';
 import AddSchedule from './Calendar/AddSchedule';
 import DetailedSchedule from './Calendar/DetailedSchedule';
+import DetailedDiscover from './Discover/DetailedDiscover';
+import Me from './Me/Me';
 import { HandsClapping, ChatsCircle, CalendarPlus, Fingerprint, Compass, } from 'phosphor-react-native';
 import ShareComponent from './Components/ShareComponent';
 import { Search } from './Components/Search';
@@ -64,7 +66,7 @@ function HomeTabNavigation() {
       <Tab.Screen name="Calendar" component={Calendar} />
       <Tab.Screen name="Community" component={Social} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' } }} />
       <Tab.Screen name="Discover" component={Discover} />
-      {/* <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} /> */}
+      {/* <Tab.Screen name="Korean" component={Korean} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} /> */}
       <Tab.Screen name="Me" component={Me} />
     </Tab.Navigator>
   );
@@ -175,128 +177,128 @@ function Notifications({ navigation }) {
     </View>
   )
 }
-function DetailedDiscover({ navigation }) {
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      // header button left
-      headerTitleAlign: 'left',
-      // header button right
-      headerRight: () => (
-        <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Home')}
-          >
-            <Image
-              style={headerRightButtons}
-              source={require('./assets/icons/logo.png')}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Notifications')}
-          >
-            <Image
-              style={headerRightButtons}
-              source={require('./assets/icons/dots-nine.png')}
-            />
-          </TouchableOpacity>
-        </View>
-      ),
-    });
-  }, [navigation])
-  return (
-    // <SafeAreaView>
-    // <TouchableOpacity style={center}>
-    <>
-      <View style={{
-        flexDirection: 'row',
-        // flex: 1,
-        // marginTop: 5,
-        justifyContent: 'space-evenly',
-        // backgroundColor: '#fff',
-      }}>
-        <Text
-          onPress={() => navigation.push('Twitter')}
-          style={{ marginTop: 15, fontSize: 15, }}
-        >Twitter</Text>
-        <Text
-          onPress={() => navigation.push('Youtube')}
-          style={{ marginTop: 15, fontSize: 15, }}
-        >Youtube</Text>
-        <Text
-          onPress={() => navigation.push('Instagram')}
-          style={{ marginTop: 15, fontSize: 15, }}
-        >Instagram</Text>
-        <Text
-          onPress={() => navigation.push('Tiktok')}
-          style={{ marginTop: 15, fontSize: 15, }}
-        >Tiktok</Text>
-        <Text
-          onPress={() => navigation.push('Pinterest')}
-          style={{ marginTop: 15, fontSize: 15, }}
-        >Pinterest</Text>
-      </View>
-      <Twitter />
-    </>
-    // </TouchableOpacity>
-  )
-}
-function Me({ navigation }) {
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      // header button left
-      headerTitleAlign: 'left',
-      // header button right
-      headerRight: () => (
-        <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Home')}
-          >
-            <Image
-              style={headerRightButtons}
-              source={require('./assets/icons/logo.png')}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Notifications')}
-          >
-            <Image
-              style={headerRightButtons}
-              source={require('./assets/icons/dots-nine.png')}
-            />
-          </TouchableOpacity>
-        </View>
-      ),
-    });
-  }, [navigation])
-  return (
-    <View style={center}>
-      <Avatar
-        rounded
-        size="large"
-        icon={{ name: 'user', type: 'font-awesome', color: '#000' }}
-        onPress={() => console.log("user!")}
-        // activeOpacity={0.7}
-        containerStyle={{ marginLeft: 20, marginTop: 5 }}
-      >
-        {/* <Avatar.Accessory {...accessoryProps} /> */}
-      </Avatar>
-      <Text>profile picture</Text>
-      <Text>username</Text>
-      <Text>My Fandom List</Text>
-      <Text>My posts</Text>
-      <Text>My Comments</Text>
-      <Text>Stats</Text>
-      <Button title='connect' onPress={() => navigation.push('Connect')} />
-      <View style={{ flexDirection: 'row' }}>
-        <HandsClapping />
-        <Text>5 Claps received</Text>
-      </View>
-      {/* <LoginScreen /> */}
-      {/* <Button title="Login" onPress={() => navigation.navigate('LoginScreen')} /> */}
-      <ShareComponent />
-    </View>
-  )
-}
+// function DetailedDiscover({ navigation }) {
+//   useLayoutEffect(() => {
+//     navigation.setOptions({
+//       // header button left
+//       headerTitleAlign: 'left',
+//       // header button right
+//       headerRight: () => (
+//         <View style={{ flexDirection: 'row' }}>
+//           <TouchableOpacity
+//             onPress={() => navigation.navigate('Home')}
+//           >
+//             <Image
+//               style={headerRightButtons}
+//               source={require('./assets/icons/logo.png')}
+//             />
+//           </TouchableOpacity>
+//           <TouchableOpacity
+//             onPress={() => navigation.navigate('Notifications')}
+//           >
+//             <Image
+//               style={headerRightButtons}
+//               source={require('./assets/icons/dots-nine.png')}
+//             />
+//           </TouchableOpacity>
+//         </View>
+//       ),
+//     });
+//   }, [navigation])
+//   return (
+//     // <SafeAreaView>
+//     // <TouchableOpacity style={center}>
+//     <>
+//       <View style={{
+//         flexDirection: 'row',
+//         // flex: 1,
+//         // marginTop: 5,
+//         justifyContent: 'space-evenly',
+//         // backgroundColor: '#fff',
+//       }}>
+//         <Text
+//           onPress={() => navigation.push('Twitter')}
+//           style={{ marginTop: 15, fontSize: 15, }}
+//         >Twitter</Text>
+//         <Text
+//           onPress={() => navigation.push('Youtube')}
+//           style={{ marginTop: 15, fontSize: 15, }}
+//         >Youtube</Text>
+//         <Text
+//           onPress={() => navigation.push('Instagram')}
+//           style={{ marginTop: 15, fontSize: 15, }}
+//         >Instagram</Text>
+//         <Text
+//           onPress={() => navigation.push('Tiktok')}
+//           style={{ marginTop: 15, fontSize: 15, }}
+//         >Tiktok</Text>
+//         <Text
+//           onPress={() => navigation.push('Pinterest')}
+//           style={{ marginTop: 15, fontSize: 15, }}
+//         >Pinterest</Text>
+//       </View>
+//       <Twitter />
+//     </>
+//     // </TouchableOpacity>
+//   )
+// }
+// function Me({ navigation }) {
+//   useLayoutEffect(() => {
+//     navigation.setOptions({
+//       // header button left
+//       headerTitleAlign: 'left',
+//       // header button right
+//       headerRight: () => (
+//         <View style={{ flexDirection: 'row' }}>
+//           <TouchableOpacity
+//             onPress={() => navigation.navigate('Home')}
+//           >
+//             <Image
+//               style={headerRightButtons}
+//               source={require('./assets/icons/logo.png')}
+//             />
+//           </TouchableOpacity>
+//           <TouchableOpacity
+//             onPress={() => navigation.navigate('Notifications')}
+//           >
+//             <Image
+//               style={headerRightButtons}
+//               source={require('./assets/icons/dots-nine.png')}
+//             />
+//           </TouchableOpacity>
+//         </View>
+//       ),
+//     });
+//   }, [navigation])
+//   return (
+//     <View style={center}>
+//       <Avatar
+//         rounded
+//         size="large"
+//         icon={{ name: 'user', type: 'font-awesome', color: '#000' }}
+//         onPress={() => console.log("user!")}
+//         // activeOpacity={0.7}
+//         containerStyle={{ marginLeft: 20, marginTop: 5 }}
+//       >
+//         {/* <Avatar.Accessory {...accessoryProps} /> */}
+//       </Avatar>
+//       <Text>profile picture</Text>
+//       <Text>username</Text>
+//       <Text>My Fandom List</Text>
+//       <Text>My posts</Text>
+//       <Text>My Comments</Text>
+//       <Text>Stats</Text>
+//       <Button title='connect' onPress={() => navigation.push('Connect')} />
+//       <View style={{ flexDirection: 'row' }}>
+//         <HandsClapping />
+//         <Text>5 Claps received</Text>
+//       </View>
+//       {/* <LoginScreen /> */}
+//       {/* <Button title="Login" onPress={() => navigation.navigate('LoginScreen')} /> */}
+//       <ShareComponent />
+//     </View>
+//   )
+// }
 
 // react navigation
 const Tab = createBottomTabNavigator();

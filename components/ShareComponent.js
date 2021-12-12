@@ -1,5 +1,5 @@
 import React from 'react';
-import { Share, View, Button } from 'react-native';
+import { Share, View, Text } from 'react-native';
 
 const ShareComponent = () => {
     const onShare = async () => {
@@ -22,8 +22,8 @@ const ShareComponent = () => {
         }
     };
     return (
-        <View style={{ marginTop: 50 }}>
-            <Button onPress={onShare} title="Share this app" />
+        <View>
+            <Text onPress={onShare}>Share dailyKPOP to the world</Text>
         </View>
     );
 };

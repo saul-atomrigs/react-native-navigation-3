@@ -39,9 +39,9 @@ type Calendar @model {
 
 type Event @model {
  id: ID!
- name: String!
+ event: String!
  artist: String!
- date: AWSDateTime!
+ date: String!
 }
 
 # type Subscription {
