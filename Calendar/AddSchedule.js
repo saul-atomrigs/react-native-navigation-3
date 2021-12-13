@@ -18,31 +18,35 @@ export default function AddSchedule() {
     event: ''
   }
   const [values, setValues] = useState(initialValues);
+
   const [items, setItems] = useState([]);
+
 
   // DATE PICKER 
   const [datePickerVisible, setDatePickerVisibility] = useState(false);
-  const [visible, setVisible] = useState(false);
-  // const [date, setDate] = useState('');
   const [text, onChangeText] = useState('');
+  // const [date, setDate] = useState('');
+
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
+
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
   };
+
   const handleConfirm = (text) => {
     hideDatePicker();
-    // for Android problem
-    // setVisible(false);
     onChangeText(text.format("yyyy-MM-dd"))
     // setDate(date.format("yyyy-MM-dd"))
   };
+
 
   // update and keep track of our input fields every time they change
   function handleInputChange(key, value) {
     setValues({ ...values, [key]: value })
   }
+
 
   // CREATE ITEM 
   async function addItem() {
