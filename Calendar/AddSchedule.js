@@ -13,7 +13,8 @@ export default function AddSchedule() {
   // DATE PICKER 
   const [datePickerVisible, setDatePickerVisibility] = useState(false);
   const [visible, setVisible] = useState(false);
-  const [date, setDate] = useState('');
+  // const [date, setDate] = useState('');
+  const [date, onChangeText] = useState('');
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
@@ -24,8 +25,8 @@ export default function AddSchedule() {
     hideDatePicker();
     // for Android problem
     setVisible(false);
-    // onChangeText(date.format("yyyy-MM-dd"))
-    setDate(date.format("yyyy-MM-dd"))
+    onChangeText(date.format("yyyy-MM-dd"))
+    // setDate(date.format("yyyy-MM-dd"))
   };
 
   // const [formItem, setFormItem] = useState(initialValues)
@@ -40,38 +41,14 @@ export default function AddSchedule() {
   }
   const [values, setValues] = useState(initialValues);
 
+  // update and keep track of our input fields every time they change
   function handleInputChange(key, value) {
-    // setItem({ ...item, [key]: value })
     setValues({ ...values, [key]: value })
   }
-
-  // // CREATE Date
-  // async function addDate() {
-  //   try {
-  //     const date = { ...formDate }
-  //     setItem([...item, date])
-  //     const result = await API.graphql(graphqlOperation(
-  //       createEvent,
-  //       {
-  //         input: date
-  //       }
-  //     ))
-  //     setDate([...item, result.data.createEvent])
-  //     console.log('🚀 date created: ', result.data.createEvent)
-  //   } catch (e) {
-  //     console.log('error: ', e)
-  //   }
-  // }
-
 
   // CREATE ITEM 
   async function addItem() {
     try {
-      // const = { ...formEvent }
-      // setItem([...item, event])
-      // setFormEvent([...item, event])
-      // setValues([...item, values.date, values.artist, values.event])
-
       const items = { ...values }
       setValues([...item, items])
       const result = await API.graphql(graphqlOperation(
@@ -84,36 +61,20 @@ export default function AddSchedule() {
           }
         }
       ))
-      setDate([...item, result.data.createEvent])
+      // setValues([...item, result.data.createEvent])
       console.log('🚀 date created: ', result.data.createEvent)
     } catch (e) {
       console.log(e, '에러!!: ')
     }
   }
 
-  function setInputDates(name, value) {
-    // setDate({ ...formDate, [key]: value })
-    setValues({ ...values, [name]: value })
-  }
-
-  // update and keep track of our input fields every time they change
-  function setInputItems(key, value) {
-    setItem({ ...item, [key]: value })
-  }
-
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={showDatePicker}>
+        {/* Date input field */}
         <TextInput
-          // value={text}
-          // value={formItem.date}
           value={date}
-          onChangeText={date => handleInputChange('date', moment(date).format('YYYY-MM-DD'))}
-          // onChangeText={value => setInputDates({ date }, value)}
-          // onChangeText={value => setInputItems('date', value)}
-          // onChangeText={handleInputChange}
-          // onChangeText={value => handleInputChange('date', value)}
-          // name="date"
+          onChangeText={value => handleInputChange('date', value)}
           pointerEvents="none"
           style={styles.textInput}
           placeholder="1. When is it happening?"
@@ -130,14 +91,11 @@ export default function AddSchedule() {
           display="inline" // ios 14.0 new styling
         />
       </TouchableOpacity>
+      {/* Artist input field */}
       <TouchableOpacity>
         <TextInput
-          // value={formArtists.artist}
-          // value={formItem.artist}
           value={values.artist}
           onChangeText={value => handleInputChange('artist', value)}
-          // onChangeText={value => setInputItems('artist', value)}
-          // onChangeText={val => setInputArtists('artist', val)}
           // onChangeText={handleInputChange}
           name="artist"
           placeholder="2. Which artist?"
@@ -147,15 +105,12 @@ export default function AddSchedule() {
           autoCorrect={false}
         />
       </TouchableOpacity>
+      {/* Event input field */}
       <TouchableOpacity>
         <TextInput
-          // value={formEvent.event}
-          // value={formItem.event}
           value={values.event}
           onChangeText={value => handleInputChange('event', value)}
           // onChangeText={value => setInputItems('event', value)}
-          // onChangeText={val => setInputEvents('event', val)}
-          // onChangeText={handleInputChange}
           name="event"
           placeholder="3. What's the event?"
           style={styles.textInput}
