@@ -24,22 +24,19 @@ export default function AddSchedule() {
   const handleConfirm = (date) => {
     hideDatePicker();
     // for Android problem
-    setVisible(false);
+    // setVisible(false);
     onChangeText(date.format("yyyy-MM-dd"))
     // setDate(date.format("yyyy-MM-dd"))
   };
 
-  // const [formItem, setFormItem] = useState(initialValues)
-  // const [item, setItem] = useState([]);
-  const [item, setItem] = useState('');
-
   const initialValues = {
-    // date: '',
-    date: moment().format('YYYY-MM-DD'),
+    date: '',
+    // date: moment().format('YYYY-MM-DD'),
     artist: '',
     event: ''
   }
   const [values, setValues] = useState(initialValues);
+  const [items, setItems] = useState([]);
 
   // update and keep track of our input fields every time they change
   function handleInputChange(key, value) {
@@ -49,20 +46,25 @@ export default function AddSchedule() {
   // CREATE ITEM 
   async function addItem() {
     try {
-      const items = { ...values }
-      setValues([...item, items])
+      const item = { ...values }
+      // setValues([...item, items])
+      setItems([...items, item])
+      setValues(initialValues)
+      // setValues([...items, item])
       const result = await API.graphql(graphqlOperation(
         createEvent,
         {
-          input: {
-            date: values.date,
-            artist: values.artist,
-            event: values.event
-          }
+          // input: {
+          //   date: values.date,
+          //   artist: values.artist,
+          //   event: values.event
+          // }
+          input: item
         }
       ))
       // setValues([...item, result.data.createEvent])
-      console.log('🚀 date created: ', result.data.createEvent)
+      const final = result.data.createEvent
+      console.log('🚀 date created: ', final.date, final.artist, final.event)
     } catch (e) {
       console.log(e, '에러!!: ')
     }
@@ -73,7 +75,8 @@ export default function AddSchedule() {
       <TouchableOpacity onPress={showDatePicker}>
         {/* Date input field */}
         <TextInput
-          value={date}
+          value={values.date}
+          // value={date}
           onChangeText={value => handleInputChange('date', value)}
           pointerEvents="none"
           style={styles.textInput}
