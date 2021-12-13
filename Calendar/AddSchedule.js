@@ -10,33 +10,34 @@ import { createEvent, updatePost, deletePost } from '../src/graphql/mutations'
 Amplify.configure(config)
 
 export default function AddSchedule() {
+
+  const initialValues = {
+    // date: moment().format('YYYY-MM-DD'),
+    date: '',
+    artist: '',
+    event: ''
+  }
+  const [values, setValues] = useState(initialValues);
+  const [items, setItems] = useState([]);
+
   // DATE PICKER 
   const [datePickerVisible, setDatePickerVisibility] = useState(false);
   const [visible, setVisible] = useState(false);
   // const [date, setDate] = useState('');
-  const [date, onChangeText] = useState('');
+  const [text, onChangeText] = useState('');
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
   };
-  const handleConfirm = (date) => {
+  const handleConfirm = (text) => {
     hideDatePicker();
     // for Android problem
     // setVisible(false);
-    onChangeText(date.format("yyyy-MM-dd"))
+    onChangeText(text.format("yyyy-MM-dd"))
     // setDate(date.format("yyyy-MM-dd"))
   };
-
-  const initialValues = {
-    date: '',
-    // date: moment().format('YYYY-MM-DD'),
-    artist: '',
-    event: ''
-  }
-  const [values, setValues] = useState(initialValues);
-  const [items, setItems] = useState([]);
 
   // update and keep track of our input fields every time they change
   function handleInputChange(key, value) {
@@ -47,10 +48,8 @@ export default function AddSchedule() {
   async function addItem() {
     try {
       const item = { ...values }
-      // setValues([...item, items])
       setItems([...items, item])
       setValues(initialValues)
-      // setValues([...items, item])
       const result = await API.graphql(graphqlOperation(
         createEvent,
         {
@@ -62,8 +61,8 @@ export default function AddSchedule() {
           input: item
         }
       ))
-      // setValues([...item, result.data.createEvent])
       const final = result.data.createEvent
+      setValues([...items, final])
       console.log('🚀 date created: ', final.date, final.artist, final.event)
     } catch (e) {
       console.log(e, '에러!!: ')
@@ -76,8 +75,10 @@ export default function AddSchedule() {
         {/* Date input field */}
         <TextInput
           value={values.date}
-          // value={date}
+          // value={text}
           onChangeText={value => handleInputChange('date', value)}
+          // onChangeText={value => handleConfirm('date', value)}
+          name="date"
           pointerEvents="none"
           style={styles.textInput}
           placeholder="1. When is it happening?"
