@@ -20,6 +20,13 @@ export default function Feed(props) {
 
   useEffect(() => {
     fetchPosts()
+
+    // TODO: reload after goBack (navigation)
+    //   const willFocusSubscription = props.navigation.addListener('focus', () => {
+    //     fetchData();
+    // });
+    // return willFocusSubscription;
+
   }, [])
 
   // FETCH posts

@@ -135,22 +135,22 @@ function renderEmptyDate() {
   );
 }
 
-function renderEmptyData() {
-  return (
-    <View style={styles.emptyDate}>
-      <Text>No schedules yet...</Text>
-    </View>
-  );
-}
+// function renderEmptyData() {
+//   return (
+//     <View style={styles.emptyDate}>
+//       <Text>No schedules yet...</Text>
+//     </View>
+//   );
+// }
 
 function rowHasChanged(r1, r2) {
   return r1.artist !== r2.artist;
 }
 
-function timeToString(time) {
-  const date = new Date(time);
-  return date.toISOString().split('T')[0];
-}
+// function timeToString(time) {
+//   const date = new Date(time);
+//   return date.toISOString().split('T')[0];
+// }
 
 
 // styling 

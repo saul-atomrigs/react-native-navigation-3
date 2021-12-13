@@ -28,7 +28,12 @@ export default function AddPost() {
       setPosts([...posts, post])
       setFormStatePosts(initialStatePost)
       // ✅ Refresh after submitting:
-      const result = await API.graphql(graphqlOperation(createPost, { input: post }))
+      const result = await API.graphql(graphqlOperation(
+        createPost,
+        {
+          input: post
+        }
+      ))
       setPosts([...posts, result.data.createPost])
       console.log('🚀 createPost: ', result)
     } catch (err) {
@@ -53,17 +58,16 @@ export default function AddPost() {
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView>
         <TextInput
-          onChangeText={val => setInputPosts('title', val)}
           value={formStatePosts.title}
+          onChangeText={val => setInputPosts('title', val)}
           style={styles.input}
           placeholder="Post title"
         />
         <TouchableOpacity
-          style={{ flexDirection: 'row' }}
           onPress={addPost}
         >
           <View style={styles.floatingBtn}>
-            <Text style={{ fontSize: 15, fontWeight: '700', color: 'pink', textDecorationLine: 'underline' }}>Upload</Text>
+            <Text style={styles.floatingBtnText}>Upload</Text>
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>
@@ -81,7 +85,6 @@ const styles = StyleSheet.create({
   },
   todo: { marginBottom: 15 },
   post: { marginBottom: 15 },
-  // input: { height: 50, backgroundColor: '#eee', marginBottom: 10, padding: 8 },
   input: {
     fontSize: 16,
     color: '#000000',
@@ -94,17 +97,16 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 30,
   },
-  todoName: { fontSize: 18 },
+  todoName: {
+    fontSize: 18
+  },
   floatingBtn: {
-    // borderWidth: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     width: 140,
     height: 40,
     position: 'relative',
-    // bottom: 100,
-    // right: 30,
     backgroundColor: 'black',
     borderRadius: 100,
     // shadow ios:
@@ -117,5 +119,8 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     // shadow android: 
     elevation: 0.8,
+  },
+  floatingBtnText: {
+    fontSize: 15, fontWeight: '700', color: 'pink', textDecorationLine: 'underline'
   }
 });

@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, TouchableOpacity, TextInput, Text } from 'react-native'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import moment from 'moment';
 
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
 import { API, graphqlOperation } from 'aws-amplify'
 import { createEvent, updatePost, deletePost } from '../src/graphql/mutations'
-import { listPosts } from '../src/graphql/queries'
 Amplify.configure(config)
 
 export default function AddSchedule() {
   // DATE PICKER 
   const [datePickerVisible, setDatePickerVisibility] = useState(false);
-  const [isVisible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
   const [date, setDate] = useState('');
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -28,35 +28,77 @@ export default function AddSchedule() {
     setDate(date.format("yyyy-MM-dd"))
   };
 
-  // CREATE SCHEDULE
-  const [event, setEvent] = useState('');
-  const [artist, setArtist] = useState('');
+  // const [formItem, setFormItem] = useState(initialValues)
+  // const [item, setItem] = useState([]);
+  const [item, setItem] = useState('');
 
-  const [item, setItem] = useState([]);
+  const initialValues = {
+    // date: '',
+    date: moment().format('YYYY-MM-DD'),
+    artist: '',
+    event: ''
+  }
+  const [values, setValues] = useState(initialValues);
 
-  async function addDate() {
+  function handleInputChange(key, value) {
+    // setItem({ ...item, [key]: value })
+    setValues({ ...values, [key]: value })
+  }
+
+  // // CREATE Date
+  // async function addDate() {
+  //   try {
+  //     const date = { ...formDate }
+  //     setItem([...item, date])
+  //     const result = await API.graphql(graphqlOperation(
+  //       createEvent,
+  //       {
+  //         input: date
+  //       }
+  //     ))
+  //     setDate([...item, result.data.createEvent])
+  //     console.log('🚀 date created: ', result.data.createEvent)
+  //   } catch (e) {
+  //     console.log('error: ', e)
+  //   }
+  // }
+
+
+  // CREATE ITEM 
+  async function addItem() {
     try {
-      const date = { ...date }
-      setItem([...item, date])
+      // const = { ...formEvent }
+      // setItem([...item, event])
+      // setFormEvent([...item, event])
+      // setValues([...item, values.date, values.artist, values.event])
+
+      const items = { ...values }
+      setValues([...item, items])
       const result = await API.graphql(graphqlOperation(
         createEvent,
         {
           input: {
-            date: { date },
-            artist: "artist",
-            event: "event"
+            date: values.date,
+            artist: values.artist,
+            event: values.event
           }
         }
       ))
-      setDate([...event, result.data.createEvent])
-      console.log('🚀 date created: ', result.data.createEvent.date)
+      setDate([...item, result.data.createEvent])
+      console.log('🚀 date created: ', result.data.createEvent)
     } catch (e) {
-      console.log('error: ', e)
+      console.log(e, '에러!!: ')
     }
   }
 
-  function setInputDates(key, value) {
-    setDate({ ...date, [key]: value })
+  function setInputDates(name, value) {
+    // setDate({ ...formDate, [key]: value })
+    setValues({ ...values, [name]: value })
+  }
+
+  // update and keep track of our input fields every time they change
+  function setInputItems(key, value) {
+    setItem({ ...item, [key]: value })
   }
 
   return (
@@ -64,8 +106,14 @@ export default function AddSchedule() {
       <TouchableOpacity onPress={showDatePicker}>
         <TextInput
           // value={text}
+          // value={formItem.date}
           value={date}
-          onChangeText={val => setInputDates({ date }, val)}
+          onChangeText={date => handleInputChange('date', moment(date).format('YYYY-MM-DD'))}
+          // onChangeText={value => setInputDates({ date }, value)}
+          // onChangeText={value => setInputItems('date', value)}
+          // onChangeText={handleInputChange}
+          // onChangeText={value => handleInputChange('date', value)}
+          // name="date"
           pointerEvents="none"
           style={styles.textInput}
           placeholder="1. When is it happening?"
@@ -84,6 +132,14 @@ export default function AddSchedule() {
       </TouchableOpacity>
       <TouchableOpacity>
         <TextInput
+          // value={formArtists.artist}
+          // value={formItem.artist}
+          value={values.artist}
+          onChangeText={value => handleInputChange('artist', value)}
+          // onChangeText={value => setInputItems('artist', value)}
+          // onChangeText={val => setInputArtists('artist', val)}
+          // onChangeText={handleInputChange}
+          name="artist"
           placeholder="2. Which artist?"
           style={styles.textInput}
           placeholderTextColor='#666'
@@ -93,6 +149,14 @@ export default function AddSchedule() {
       </TouchableOpacity>
       <TouchableOpacity>
         <TextInput
+          // value={formEvent.event}
+          // value={formItem.event}
+          value={values.event}
+          onChangeText={value => handleInputChange('event', value)}
+          // onChangeText={value => setInputItems('event', value)}
+          // onChangeText={val => setInputEvents('event', val)}
+          // onChangeText={handleInputChange}
+          name="event"
           placeholder="3. What's the event?"
           style={styles.textInput}
           placeholderTextColor='#666'
@@ -100,24 +164,17 @@ export default function AddSchedule() {
           autoCorrect={false}
         />
       </TouchableOpacity>
-      <TouchableOpacity>
-        <TextInput
-          placeholderTextColor='#666'
-          placeholder="4. Add details (optional)"
-          style={[styles.textInput,]}
-          multiline
-          numberOfLines={4}
-        />
-      </TouchableOpacity>
+
       {/* submit button */}
       <TouchableOpacity
         style={{ flexDirection: 'row' }}
-        onPress={addDate}
+        onPress={addItem}
       >
         <View style={styles.floatingBtn}>
-          <Text style={styles.floatingBtnText}>Add schedule</Text>
+          <Text style={styles.floatingBtnText}>Add item</Text>
         </View>
       </TouchableOpacity>
+
     </View>
   );
 }
@@ -192,5 +249,10 @@ const styles = StyleSheet.create({
     // shadow android: 
     elevation: 0.8,
   },
-  floatingBtnText: { fontSize: 15, fontWeight: '700', color: 'pink', textDecorationLine: 'underline' },
+  floatingBtnText: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: 'pink',
+    textDecorationLine: 'underline'
+  },
 })
