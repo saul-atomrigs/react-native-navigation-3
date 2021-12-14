@@ -9,17 +9,17 @@ import { Divider } from 'react-native-elements';
 export default function Calendar() {
   const navigation = useNavigation()
 
-  function renderItem(item) {
+  function renderItem(props) {
     return (
       <TouchableOpacity
         style={styles.item}
         // onPress={() => navigation.push('DetailedSchedule', { param: item })}
         onPress={() => null}
       >
-        <Text style={styles.artist}>{item.artist}</Text>
+        <Text style={styles.artist}>{props.artist}</Text>
         <View style={styles.eventContainer}>
-          <View>{item.icon}</View>
-          <Text style={styles.event}>{item.event}</Text>
+          <View>{props.icon}</View>
+          <Text style={styles.event}>{props.event}</Text>
         </View>
         <Divider style={styles.divider} />
         <View style={styles.stats}>
@@ -31,19 +31,7 @@ export default function Calendar() {
   }
 
   const items = {
-    "2021-12-12": [
-      {
-        artist: "aespa",
-        event: 'tv show on MBC',
-        icon: <Television />,
-      },
-      {
-        artist: "BTS",
-        event: 'Birthday',
-        icon: <Cake />,
-      }
-    ],
-    "2021-12-13": [
+    "2021-12-15": [
       {
         artist: "aespa",
         event: 'tv show on MBC',
@@ -70,10 +58,10 @@ export default function Calendar() {
         showClosingKnob={true}
         markingType={'custom'}
         theme={{
-          textDayFontWeight: '900',
-          textMonthFontWeight: '900',
-          todayButtonFontWeight: '900',
-          textDayHeaderFontWeight: '700',
+          textDayFontWeight: '500',
+          textMonthFontWeight: '500',
+          todayButtonFontWeight: '500',
+          textDayHeaderFontWeight: '500',
           calendarBackground: '#fff',
           agendaKnobColor: 'gray',
           'stylesheet.calendar.header': {
@@ -89,7 +77,7 @@ export default function Calendar() {
       >
         <View style={styles.floatingBtn}>
           <Plus color="pink" size={20} />
-          <Text style={{ fontSize: 15, fontWeight: '700', color: 'pink', textDecorationLine: 'underline' }}>Add schedule</Text>
+          <Text style={styles.floatingBtnText}>Add schedule</Text>
         </View>
       </TouchableOpacity>
     </ >
@@ -200,5 +188,6 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     // shadow android: 
     elevation: 0.8,
-  }
+  },
+  floatingBtnText: { fontSize: 15, fontWeight: '700', color: 'pink', textDecorationLine: 'underline' }
 });
