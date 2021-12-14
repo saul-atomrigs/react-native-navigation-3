@@ -38,6 +38,7 @@ export default function AddSchedule() {
   const handleConfirm = (text) => {
     hideDatePicker();
     onChangeText(text.format("yyyy-MM-dd"))
+    console.log(values.date)
     // setDate(date.format("yyyy-MM-dd"))
   };
 
@@ -57,17 +58,18 @@ export default function AddSchedule() {
       const result = await API.graphql(graphqlOperation(
         createEvent,
         {
-          // input: {
-          //   date: values.date,
-          //   artist: values.artist,
-          //   event: values.event
-          // }
-          input: item
+          input: {
+            // date: values.date,
+            date: text,
+            artist: values.artist,
+            event: values.event
+          }
+          // input: item
         }
       ))
       const final = result.data.createEvent
       setValues([...items, final])
-      console.log('🚀 date created: ', final.date, final.artist, final.event)
+      console.log('🚀 date created: ', final, final.date, final.artist, final.event)
     } catch (e) {
       console.log(e, '에러!!: ')
     }
@@ -76,10 +78,11 @@ export default function AddSchedule() {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={showDatePicker}>
+        {/* <Text>{text}</Text> */}
         {/* Date input field */}
         <TextInput
-          value={values.date}
-          // value={text}
+          // value={values.date}
+          value={text}
           onChangeText={value => handleInputChange('date', value)}
           // onChangeText={value => handleConfirm('date', value)}
           name="date"
