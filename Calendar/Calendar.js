@@ -1,10 +1,15 @@
-import React from 'react';
-import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { AirplaneTakeoff, Cake, HandsClapping, MusicNote, Plus, Star, Television, VideoCamera } from 'phosphor-react-native';
 import { Agenda } from 'react-native-calendars';
 import { useNavigation } from '@react-navigation/native';
 import { Divider } from 'react-native-elements';
 
+import Amplify from 'aws-amplify'
+import config from '../src/aws-exports'
+import { API, graphqlOperation } from 'aws-amplify'
+import { listEvents, listDates } from '../src/graphql/queries'
+Amplify.configure(config)
 
 export default function Calendar() {
   const navigation = useNavigation()
@@ -13,8 +18,7 @@ export default function Calendar() {
     return (
       <TouchableOpacity
         style={styles.item}
-        // onPress={() => navigation.push('DetailedSchedule', { param: item })}
-        onPress={() => null}
+        onPress={() => navigation.push('DetailedSchedule')}
       >
         <Text style={styles.artist}>{props.artist}</Text>
         <View style={styles.eventContainer}>
@@ -30,29 +34,59 @@ export default function Calendar() {
     );
   }
 
-  const items = {
-    "2021-12-15": [
-      {
-        artist: "aespa",
-        event: 'tv show on MBC',
-        icon: <Television />,
-      },
-      {
-        artist: "BTS",
-        event: 'Birthday',
-        icon: <Cake />,
-      }
-    ],
+  const [items, setItems] = useState([])
+
+  // FETCH item:
+  useEffect(() => {
+    fetchItems()
+  }, [])
+  async function fetchItems() {
+    try {
+      const itemData = await API.graphql(graphqlOperation(listEvents));
+      setItems(itemData.data.listEvents.items)
+    } catch (err) {
+      console.log(err, 'fetching 에러!!');
+    }
   }
+
+  let itemsReduced = items.reduce(function (acc, curr) {
+    acc[curr['date'].toUpperCase()] = [{
+      artist: curr.artist,
+      event: curr.event,
+      icon: <Television />,
+    }]
+    return acc;
+  }, {})
+
+  // const dummyData = {
+  //   "2021-12-15": [
+  //     {
+  //       artist: "aespa",
+  //       event: 'tv show on MBC',
+  //       icon: <Television />,
+  //     },
+  //     {
+  //       artist: "BTS",
+  //       event: 'Birthday',
+  //       icon: <Cake />,
+  //     },
+  //   ],
+
+  //   "2021-12-16": [
+  //     {
+  //       artist: "ive",
+  //       event: 'tv show on MBC',
+  //       icon: <Television />,
+  //     },
+  //   ]
+  // }
+
   return (
     <>
       <Agenda
-        items={items}
+        items={itemsReduced}
         dayLoading={false}
-        // items={monthData}
-        // loadItemsForMonth={loadItems}
         renderItem={renderItem}
-        // renderEmptyDate={renderEmptyDate}
         renderEmptyData={renderEmptyDate}
         rowHasChanged={rowHasChanged}
         showClosingKnob={true}
@@ -84,62 +118,18 @@ export default function Calendar() {
   );
 }
 
-
-// loadItems(day) {
-//   setTimeout(() => {
-//     for (let i = -15; i < 85; i++) {
-//       const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-//       const strTime = timeToString(time);
-//       if (!items[strTime]) {
-//         items[strTime] = [];
-//         const numItems = Math.floor(Math.random() * 3 + 1);
-//         for (let j = 0; j < numItems; j++) {
-//           items[strTime].push({
-//             artist: 'Item for ' + strTime + ' #' + j,
-//             height: Math.max(50, Math.floor(Math.random() * 150))
-//           });
-//         }
-//       }
-//     }
-//     const newItems = {};
-//     Object.keys(items).forEach(key => {
-//       newItems[key] = items[key];
-//     });
-//     setState({
-//       items: newItems
-//     });
-//   }, 1000);
-// }
-
-
 function renderEmptyDate() {
-  // const navigation = useNavigation();
   return (
     <View style={styles.emptyDate}>
       <Button title='No schedules yet...'
-        // onPress={() => navigation.navigate('AddSchedule')}
         style={{ backgroundColor: 'pink', width: '50', height: '30' }} />
     </View>
   );
 }
 
-// function renderEmptyData() {
-//   return (
-//     <View style={styles.emptyDate}>
-//       <Text>No schedules yet...</Text>
-//     </View>
-//   );
-// }
-
 function rowHasChanged(r1, r2) {
   return r1.artist !== r2.artist;
 }
-
-// function timeToString(time) {
-//   const date = new Date(time);
-//   return date.toISOString().split('T')[0];
-// }
-
 
 // styling 
 const styles = StyleSheet.create({
@@ -155,11 +145,22 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginRight: 20,
   },
-  artist: { fontWeight: '800' },
-  eventContainer: { flexDirection: 'row', },
-  event: { marginHorizontal: 10, fontSize: 18 },
-  divider: { marginVertical: 5 },
-  stats: { flexDirection: 'row', justifyContent: 'flex-end' },
+  artist: {
+    fontWeight: '800'
+  },
+  eventContainer: {
+    flexDirection: 'row',
+  },
+  event: {
+    marginHorizontal: 10, fontSize: 18
+  },
+  divider: {
+    marginVertical: 5
+  },
+  stats: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end'
+  },
   emptyDate: {
     height: 15,
     flex: 1,
@@ -189,5 +190,10 @@ const styles = StyleSheet.create({
     // shadow android: 
     elevation: 0.8,
   },
-  floatingBtnText: { fontSize: 15, fontWeight: '700', color: 'pink', textDecorationLine: 'underline' }
+  floatingBtnText: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: 'pink',
+    textDecorationLine: 'underline'
+  }
 });

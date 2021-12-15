@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useState, useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Button, Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { Divider, Avatar } from 'react-native-elements';
@@ -30,7 +30,7 @@ import Connect from './Components/chat/Connect'
 export default function App() {
   // Stack Navigator
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={MyTheme}>
       <Stack.Navigator screenOptions={{ headerBackTitleVisible: false }}>
         <Stack.Screen name="HomeTabNavigation" component={HomeTabNavigation} options={{ headerShown: false }} />
         {/* <Stack.Screen name="Community" component={Community} /> */}
@@ -366,6 +366,15 @@ function FacebookSignIn() {
   );
 }
 
+//
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#000',
+    // background: '#fff'
+  },
+};
 
 // styling and parameters(options)
 const headerRightButtons = {
