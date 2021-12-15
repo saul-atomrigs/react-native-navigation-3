@@ -5,11 +5,13 @@ import Twitter from './Twitter';
 import Instagram from './Instagram';
 
 export default function DetailedDiscover({ navigation }) {
+
+  // HEADER BUTTONS 
   useLayoutEffect(() => {
     navigation.setOptions({
-      // header button left
+      // LEFT 
       headerTitleAlign: 'left',
-      // header button right
+      // RIGHT
       headerRight: () => (
         <View style={{ flexDirection: 'row' }}>
           <TouchableOpacity
@@ -32,9 +34,8 @@ export default function DetailedDiscover({ navigation }) {
       ),
     });
   }, [navigation])
+
   return (
-    // <SafeAreaView>
-    // <TouchableOpacity style={center}>
     <View style={styles.tabBar}>
       <TouchableHighlight
         style={[styles.socialIcon, { backgroundColor: '#1D9BF0' }]}
@@ -67,11 +68,6 @@ export default function DetailedDiscover({ navigation }) {
         <Text style={styles.socialText}>Pinterest</Text>
       </TouchableHighlight>
       {/* <Twitter /> */}
-      {/* <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={styles.linearGradient}>
-        <Text style={styles.buttonText}>
-          Sign in with Facebook
-        </Text>
-      </LinearGradient> */}
     </View>
   )
 }
@@ -104,18 +100,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#fff',
   },
-  // linearGradient: {
-  //   flex: 1,
-  //   paddingLeft: 15,
-  //   paddingRight: 15,
-  //   borderRadius: 5
-  // },
-  // buttonText: {
-  //   fontSize: 18,
-  //   fontFamily: 'Gill Sans',
-  //   textAlign: 'center',
-  //   margin: 10,
-  //   color: '#ffffff',
-  //   backgroundColor: 'transparent',
-  // },
 })
