@@ -114,7 +114,11 @@ const screenOptions = ({ route }) => ({
   tabBarActiveTintColor: 'black',
   tabBarInactiveTintColor: 'gray',
   tabBarActiveBackgroundColor: '#eaf1f8',
-  tabBarItemStyle: { borderRadius: 5, paddingBottom: 5, paddingTop: 5 },
+  tabBarItemStyle: {
+    borderRadius: 5,
+    paddingBottom: 5,
+    paddingTop: 5
+  },
   tabBarStyle: { position: 'absolute' }
 })
 

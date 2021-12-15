@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useLayoutEffect } from 'react';
 import { SectionList, StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Dimensions, RefreshControl } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { Fire, Flame } from 'phosphor-react-native';
 
 export default function Discover() {
   const navigation = useNavigation();
@@ -53,6 +54,7 @@ export default function Discover() {
           onPress={() => navigation.push(
             'DetailedDiscover',
             { param: item }
+            // { param: item.artist }
           )}>
           {item} </Text>}
         keyExtractor={(item, index) => index}
@@ -72,17 +74,34 @@ export default function Discover() {
 
 const dummyData = [
   {
-    header: 'TRENDING ARTISTS',
+    header: 'TRENDING',
     data: [
-      'BTS (방탄소년단)',
-      'BLACKPINK (블랙핑크)',
-      'TWICE (트와이스)'
+      // {
+      //   BLACKPINK: [
+      //     { artist: 'BLACKPINK' },
+      //     { twtRoute: 'IVE_twt' },
+      //     { ytRoute: 'ive' },
+      //     { instaRoute: 'bts.bighitofficial' },
+      //     { tiktokRoute: '@bts_official_bighit' },
+      //     { pinRoute: 'ive' },
+      //   ],
+      // },
+      'BTS',
+      'aespa',
+      'BLACKPINK',
+      'Kep1er',
+      'TWICE'
     ]
   },
+
   {
-    header: 'NEW RELEASES / DEBUTS',
+    header: 'NEW RELEASES',
+    // <>
+    //   <Flame />
+    //   <Text> NEW RELEASES / DEBUTS </Text>
+    // </>,
     data: [
-      'IVE (아이브)',
+      'IVE',
     ]
   },
   {
@@ -92,6 +111,8 @@ const dummyData = [
     ]
   }
 ]
+
+console.log(dummyData[0].data[0]) //BTS
 
 
 // REFRESH CONTROL  
@@ -109,13 +130,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   sectionHeader: {
-    paddingTop: 2,
+    paddingVertical: 2,
+    paddingHorizontal: 20,
     paddingLeft: 20,
     paddingRight: 10,
     paddingBottom: 2,
     fontSize: 23,
     fontWeight: 'bold',
     backgroundColor: '#eee',
+  },
+  headerIcon: {
+    marginLeft: 20,
+    borderWidth: 1
   },
   item: {
     marginHorizontal: 40,

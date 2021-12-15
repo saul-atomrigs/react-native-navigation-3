@@ -18,14 +18,14 @@ export default function DetailedFeed() {
 
   const navigation = useNavigation();
 
-  // Refresh Control 
+  // REFRESH CONTROL
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
   }, []);
 
-  // header buttons 
+  // HEADER BUTTONS 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitleAlign: 'left',
@@ -186,8 +186,7 @@ export default function DetailedFeed() {
   )
 }
 
-
-// Refresh Control 
+// REFRESH CONTROL
 const wait = (timeout) => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 }
@@ -202,7 +201,6 @@ const wait = (timeout) => {
 // }
 
 
-// dimensions
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
