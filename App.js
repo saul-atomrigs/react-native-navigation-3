@@ -63,6 +63,7 @@ export default function App() {
 function HomeTabNavigation() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
+      <Tab.Screen name="Discover" component={Discover} />
       <Tab.Screen name="Calendar" component={Calendar} />
       <Tab.Screen name="Community" component={Social}
         options={{
@@ -71,7 +72,6 @@ function HomeTabNavigation() {
           // 올때마다 리로드
           // unmountOnBlur: Platform.OS === 'ios' ? false : true,
         }} />
-      <Tab.Screen name="Discover" component={Discover} />
       {/* <Tab.Screen name="Korean" component={Korean} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} /> */}
       <Tab.Screen name="Me" component={Me} />
     </Tab.Navigator>

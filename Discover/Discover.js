@@ -1,23 +1,24 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useState, useCallback, useLayoutEffect } from 'react';
 import { SectionList, StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Dimensions, RefreshControl } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 export default function Discover() {
   const navigation = useNavigation();
 
-  // Refresh Control 
-  const [refreshing, setRefreshing] = React.useState(false);
-  const onRefresh = React.useCallback(() => {
+  // REFRESH CONTROL
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = useCallback(() => {
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
   }, []);
 
+  // HEADER BUTTONS
   useLayoutEffect(() => {
     navigation.setOptions({
-      // header button left
+      // LEFT
       headerTitleAlign: 'left',
       title: 'Discover',
-      // header button right
+      // RIGHT
       headerRight: () => (
         <View style={{ flexDirection: 'row' }}>
           <TouchableOpacity
@@ -42,18 +43,18 @@ export default function Discover() {
   }, [navigation])
 
   return (
-    // <ApplicationProvider {...eva} theme={eva.light}>
     <View style={styles.container}
     >
-      {/* <AutocompleteField /> */}
       <SectionList
-        sections={realData}
-        renderSectionHeader={({ section }) => <Text style={styles.sectionHeader}>{section.title}</Text>}
-        renderItem={({ item }) => <Text onPress={() => navigation.push('DetailedDiscover', {
-          itemId: 86,
-          param: item,
-          uri: 'https://oncejapan.com/static/twice/fanclub/top/202110/ph_main_sp_202110_6847c8fbd1cc0651e0527f575dbf5b4f.jpg',
-        })} style={styles.item}>{item}</Text>}
+        sections={dummyData}
+        renderSectionHeader={({ section }) => <Text style={styles.sectionHeader}>
+          {section.title} </Text>}
+        renderItem={({ item }) => <Text style={styles.item}
+          onPress={() => navigation.push(
+            'DetailedDiscover',
+            { param: item }
+          )}>
+          {item} </Text>}
         keyExtractor={(item, index) => index}
         style={styles.list}
         indicatorStyle='black'
@@ -65,18 +66,41 @@ export default function Discover() {
         }
       />
     </View>
-    // </ApplicationProvider>
   );
 }
 
 
-// Refresh Control 
+const dummyData = [
+  {
+    title: 'TRENDING ARTISTS',
+    data: [
+      'BTS (방탄소년단)',
+      'BLACKPINK (블랙핑크)',
+      'TWICE (트와이스)'
+    ]
+  },
+  {
+    title: 'NEW RELEASES / DEBUTS',
+    data: [
+      'IVE (아이브)',
+    ]
+  },
+  {
+    title: 'POPULAR FANDOMS',
+    data: [
+      'Register your fandom'
+    ]
+  }
+]
+
+
+// REFRESH CONTROL  
 const wait = (timeout) => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 }
 
 
-// styling 
+// STYLES 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -120,27 +144,6 @@ const headerRightButtons = {
   marginRight: WIDTH * 0.05,
 }
 
-const realData = [
-  {
-    title: 'TRENDING ARTISTS',
-    data: [
-      'BTS (방탄소년단)',
-      'BLACKPINK (블랙핑크)',
-      'TWICE (트와이스)'
-    ]
-  },
-  {
-    title: 'NEW RELEASES / DEBUTS',
-    data: [
-      'IVE (아이브)',
-    ]
-  },
-  {
-    title: 'POPULAR FANDOMS',
-    data: [
-      'Register your fandom'
-    ]
-  }
 
   // { title: 'A', data: ['AB6IX', 'aespa', 'Ailee', 'AKMU', 'Apink', 'APRIL', 'ASTRO', 'ATEEZ'] },
   // { title: 'B', data: ['B1A4', 'B.A.P', 'Blackpink', 'Brave Girls', 'BTOB'] },
@@ -168,4 +171,3 @@ const realData = [
   // { title: 'X', data: [] },
   // { title: 'Y', data: [] },
   // { title: 'Z', data: ['zo'] },
-]

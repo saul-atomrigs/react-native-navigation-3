@@ -121,7 +121,7 @@ export default function Calendar() {
 function renderEmptyDate() {
   return (
     <View style={styles.emptyDate}>
-      <Button title='No schedules yet...'
+      <Button title='Nothing for this date yet...'
         style={{ backgroundColor: 'pink', width: '50', height: '30' }} />
     </View>
   );
