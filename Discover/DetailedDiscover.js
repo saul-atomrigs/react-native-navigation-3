@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useEffect } from 'react'
-import { TouchableHighlight, Dimensions, Button, StyleSheet, Text, View, TouchableOpacity, Image, } from 'react-native'
+import { Dimensions, Button, StyleSheet, Text, View, TouchableOpacity, Image, } from 'react-native'
 import { WebView } from 'react-native-webview';
 
 // import LinearGradient from 'react-native-linear-gradient' // import LinearGradient
@@ -41,40 +41,39 @@ export default function DetailedDiscover({ navigation }) {
   return (
     <>
       <View style={styles.tabBar}>
-        <TouchableHighlight
+        <TouchableOpacity
           style={[styles.socialIcon, { backgroundColor: '#1D9BF0' }]}
           onPress={() => navigation.push('Twitter')}
         >
           <Text style={styles.socialText}>Twitter</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
+        </TouchableOpacity>
+        <TouchableOpacity
           style={[styles.socialIcon, { backgroundColor: '#FF0000' }]}
           onPress={() => navigation.push('Youtube')}
         >
           <Text style={styles.socialText}>Youtube</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
+        </TouchableOpacity>
+        <TouchableOpacity
           style={[styles.socialIcon, { backgroundColor: '#8a3ab9' }]}
           onPress={() => navigation.push('Instagram')}
         >
           <Text style={styles.socialText}>Instagram</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
+        </TouchableOpacity>
+        <TouchableOpacity
           style={[styles.socialIcon, { backgroundColor: '#000' }]}
           onPress={() => navigation.push('Tiktok')}
         >
           <Text style={styles.socialText}>Tiktok</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
+        </TouchableOpacity>
+        <TouchableOpacity
           style={[styles.socialIcon, { backgroundColor: '#E60023' }]}
           onPress={() => navigation.push('Pinterest')}
         >
           <Text style={styles.socialText}>Pinterest</Text>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>
       {/* <Twitter /> */}
       <WebView
-        // source={{ uri: 'https://twitter.com/IVE_twt' }}
         source={{ uri: `https://twitter.com/${twtRoute}` }}
       />
     </>

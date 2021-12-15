@@ -3,7 +3,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Button, Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, StyleSheet } from 'react-native';
-import { Divider, Avatar } from 'react-native-elements';
 import { AppleButton } from '@invertase/react-native-apple-authentication';
 import Chat from './Components/chat/Chat';
 import Feeds from './Community/Feed';
@@ -22,7 +21,6 @@ import DetailedSchedule from './Calendar/DetailedSchedule';
 import DetailedDiscover from './Discover/DetailedDiscover';
 import Me from './Me/Me';
 import { HandsClapping, ChatsCircle, CalendarPlus, Fingerprint, Compass, } from 'phosphor-react-native';
-import ShareComponent from './Components/ShareComponent';
 import { Search } from './Components/Search';
 import LoginScreen from './screens/LoginScreen';
 import Connect from './Components/chat/Connect'
@@ -75,49 +73,6 @@ function HomeTabNavigation() {
     </Tab.Navigator>
   );
 }
-//  Social Commmunity Screen 
-// function Social({ navigation }) {
-//   useLayoutEffect(() => {
-//     navigation.setOptions({
-//       // header button left
-//       headerTitleAlign: 'left',
-//       // header button right
-//       headerRight: () => (
-//         <View style={{ flexDirection: 'row' }}>
-//           <TouchableOpacity
-//             onPress={() => navigation.navigate('Search')}
-//           >
-//             <Image
-//               style={headerRightButtons}
-//               source={require('./assets/icons/search.png')}
-//             />
-//           </TouchableOpacity>
-//           <TouchableOpacity
-//             onPress={() => navigation.navigate('Home')}
-//           >
-//             <Image
-//               style={headerRightButtons}
-//               source={require('./assets/icons/logo.png')}
-//             />
-//           </TouchableOpacity>
-//           <TouchableOpacity
-//             onPress={() => navigation.navigate('Notifications')}
-//           >
-//             <Image
-//               style={headerRightButtons}
-//               source={require('./assets/icons/dots-nine.png')}
-//             />
-//           </TouchableOpacity>
-//         </View>
-//       ),
-//     });
-//   }, [navigation])
-//   return (
-//     <>
-//       <Feeds />
-//     </>
-//   )
-// }
 // NOTIFICATION COMPOENT  
 function Notifications({ navigation }) {
   return (
@@ -206,21 +161,3 @@ const center = {
   justifyContent: 'center',
   alignItems: 'center',
 }
-
-// const styles = StyleSheet.create({
-//   container: { flex: 1, flexDirection: 'row', justifyContent: 'center', padding: 20, backgroundColor: '#fff' },
-//   todo: { marginBottom: 15 },
-//   post: { marginBottom: 15 },
-//   input: { height: 50, backgroundColor: '#eee', marginBottom: 10, padding: 8 },
-//   todoName: { fontSize: 18 },
-//   textInput: {
-//     marginHorizontal: 5,
-//     bottom: 80,
-//     width: "90%",
-//     fontSize: 15,
-//     color: '#000',
-//     borderRadius: 10,
-//     backgroundColor: "#eee",
-//     padding: 10,
-//   },
-// });
