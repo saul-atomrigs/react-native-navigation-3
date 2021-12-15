@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Text, Image, View, TouchableOpacity, StyleSheet, Button, FlatList, RefreshControl, ScrollView } from 'react-native'
+import React, { useState, useEffect, useLayoutEffect } from 'react'
+import { Dimensions, Text, Image, View, TouchableOpacity, StyleSheet, Button, FlatList, RefreshControl, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/core';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Heart, ChatText, Plus } from "phosphor-react-native";
@@ -46,6 +46,34 @@ export default function Feed(props) {
     wait(2000).then(() => setRefreshing(false));
   }, []);
 
+  // HEADER BUTTONS
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      // LEFT 
+      headerTitleAlign: 'left',
+      // RIGHT
+      headerRight: () => (
+        <View style={{ flexDirection: 'row' }}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Home')}
+          >
+            <Image
+              style={styles.headerRightButtons}
+              source={require('../assets/icons/logo.png')}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Notifications')}
+          >
+            <Image
+              style={styles.headerRightButtons}
+              source={require('../assets/icons/dots-nine.png')}
+            />
+          </TouchableOpacity>
+        </View>
+      ),
+    });
+  }, [navigation])
 
   return (
     <>
@@ -184,7 +212,15 @@ const wait = (timeout) => {
 
 
 //  Styling 
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
+
 const styles = StyleSheet.create({
+  headerRightButtons: {
+    width: WIDTH * 0.08,
+    height: HEIGHT * 0.03,
+    marginRight: WIDTH * 0.05,
+  },
   container: {
     // flex: 1,
     // backgroundColor: '#fff',

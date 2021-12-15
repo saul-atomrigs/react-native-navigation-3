@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
+import { Dimensions, Image, Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { AirplaneTakeoff, Cake, HandsClapping, MusicNote, Plus, Star, Television, VideoCamera } from 'phosphor-react-native';
 import { Agenda } from 'react-native-calendars';
 import { useNavigation } from '@react-navigation/native';
@@ -81,6 +81,35 @@ export default function Calendar() {
   //   ]
   // }
 
+  // HEADER BUTTONS 
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      // LEFT 
+      headerTitleAlign: 'left',
+      // RIGHT
+      headerRight: () => (
+        <View style={{ flexDirection: 'row' }}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Home')}
+          >
+            <Image
+              style={styles.headerRightButtons}
+              source={require('../assets/icons/logo.png')}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Notifications')}
+          >
+            <Image
+              style={styles.headerRightButtons}
+              source={require('../assets/icons/dots-nine.png')}
+            />
+          </TouchableOpacity>
+        </View>
+      ),
+    });
+  }, [navigation])
+
   return (
     <>
       <Agenda
@@ -132,7 +161,15 @@ function rowHasChanged(r1, r2) {
 }
 
 // styling 
+const WIDTH = Dimensions.get('window').width;
+const HEIGHT = Dimensions.get('window').height;
+
 const styles = StyleSheet.create({
+  headerRightButtons: {
+    width: WIDTH * 0.08,
+    height: HEIGHT * 0.03,
+    marginRight: WIDTH * 0.05,
+  },
   container: {
     marginBottom: 80,
   },

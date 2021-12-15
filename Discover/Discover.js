@@ -48,7 +48,7 @@ export default function Discover() {
       <SectionList
         sections={dummyData}
         renderSectionHeader={({ section }) => <Text style={styles.sectionHeader}>
-          {section.title} </Text>}
+          {section.header} </Text>}
         renderItem={({ item }) => <Text style={styles.item}
           onPress={() => navigation.push(
             'DetailedDiscover',
@@ -72,7 +72,7 @@ export default function Discover() {
 
 const dummyData = [
   {
-    title: 'TRENDING ARTISTS',
+    header: 'TRENDING ARTISTS',
     data: [
       'BTS (방탄소년단)',
       'BLACKPINK (블랙핑크)',
@@ -80,13 +80,13 @@ const dummyData = [
     ]
   },
   {
-    title: 'NEW RELEASES / DEBUTS',
+    header: 'NEW RELEASES / DEBUTS',
     data: [
       'IVE (아이브)',
     ]
   },
   {
-    title: 'POPULAR FANDOMS',
+    header: 'POPULAR FANDOMS',
     data: [
       'Register your fandom'
     ]
