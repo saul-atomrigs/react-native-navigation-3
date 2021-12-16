@@ -4,7 +4,7 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Button, Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { AppleButton } from '@invertase/react-native-apple-authentication';
-import Chat from './Components/chat/Chat';
+import Chat from './Components/chat/Chat2';
 import Feeds from './Community/Feed';
 import DetailedFeed from './Community/DetailedFeed';
 import Calendar from './Calendar/Calendar';

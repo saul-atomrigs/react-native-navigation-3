@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useFocusEffect, useCallback } from 'react';
-import { TouchableOpacity, ScrollView, StyleSheet, Text, View, TextInput, Button, KeyboardAvoidingView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { TouchableOpacity, StyleSheet, Text, View, TextInput, KeyboardAvoidingView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
 import { API, graphqlOperation } from 'aws-amplify'
-import { createPost, updatePost, deletePost } from '../src/graphql/mutations'
+import { createPost, } from '../src/graphql/mutations'
 import { listPosts } from '../src/graphql/queries'
 Amplify.configure(config)
 // import { v4 as uuid } from 'uuid'
@@ -61,7 +61,9 @@ export default function AddPost() {
           value={formStatePosts.title}
           onChangeText={val => setInputPosts('title', val)}
           style={styles.input}
-          placeholder="Post title"
+          placeholder="Write a post"
+          placeholderTextColor={'#777'}
+          multiline
         />
         <TouchableOpacity
           onPress={addPost}
@@ -78,7 +80,7 @@ export default function AddPost() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 50,
+    // paddingVertical: 50,
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: 'white',
@@ -88,7 +90,7 @@ const styles = StyleSheet.create({
   input: {
     fontSize: 16,
     color: '#000000',
-    height: 50,
+    height: 250,
     width: 300,
     borderColor: '#e6e6e6',
     backgroundColor: '#eee',
@@ -104,7 +106,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 140,
+    width: 300,
     height: 40,
     position: 'relative',
     backgroundColor: 'black',

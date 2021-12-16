@@ -12,8 +12,7 @@ import { listPosts, listComments } from '../src/graphql/queries'
 import { onCreatePost } from '../src/graphql/subscriptions'
 Amplify.configure(config)
 
-// export default function Feed({ item }) {
-export default function Feed(props) {
+export default function Feed() {
   const navigation = useNavigation();
 
   const [posts, setPosts] = useState([])
@@ -29,7 +28,7 @@ export default function Feed(props) {
 
   }, [])
 
-  // FETCH posts
+  // FETCH POSTS 
   async function fetchPosts() {
     try {
       const postData = await API.graphql(graphqlOperation(listPosts));
@@ -39,7 +38,7 @@ export default function Feed(props) {
     }
   }
 
-  // Refresh Control 
+  // REFRESH CONTROL 
   const [refreshing, setRefreshing] = React.useState(false);
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -63,14 +62,17 @@ export default function Feed(props) {
             posts
               .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
               .map((post, index) => (
-                <TouchableOpacity
-                  onPress={() => navigation.push('DetailedFeed', { param: post })}
+                <View
+                  // key={post.id ? post.id : index}
+                  key={index}
+                  style={styles.post}
                 >
-                  <View key={post.id} style={styles.post} >
-                    {/* <Text> {post.title} </Text>
-                      <Text> {post.id} </Text>
-                       <Text> {post.id} </Text> */}
-                    {/* <Text> {post.content} </Text> */}
+                  <TouchableOpacity
+                    onPress={() => navigation.push(
+                      'DetailedFeed',
+                      { param: post }
+                    )}
+                  >
 
                     <View style={styles.post}>
                       <View style={styles.content}>
@@ -104,8 +106,8 @@ export default function Feed(props) {
                         </View>
                       </View>
                     </View>
-                  </View>
-                </TouchableOpacity>
+                  </TouchableOpacity>
+                </View>
               ))
           }
         </View>
@@ -139,7 +141,7 @@ export default function Feed(props) {
 }
 
 
-// Refresh Control 
+// REFRESH CONTROL
 const wait = (timeout) => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 }
@@ -174,7 +176,7 @@ export const Header = ({ navigation }) => {
 }
 
 
-//  Styling 
+//  STYLES 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
