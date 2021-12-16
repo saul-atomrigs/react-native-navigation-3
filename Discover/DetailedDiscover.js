@@ -1,12 +1,8 @@
-import React, { useState, useCallback, useLayoutEffect, useEffect } from 'react';
-import { Dimensions, Button, StyleSheet, Text, View, TouchableOpacity, Image, } from 'react-native'
+import React, { useLayoutEffect } from 'react';
 import { useRoute } from '@react-navigation/native';
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { WebView } from 'react-native-webview';
-
-// import LinearGradient from 'react-native-linear-gradient' // import LinearGradient
-import Twitter from './Twitter';
-import Instagram from './Instagram';
-import { SafeAreaView } from 'react-native-safe-area-context';
+// import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 export default function DetailedDiscover({ navigation }) {
 
@@ -21,100 +17,78 @@ export default function DetailedDiscover({ navigation }) {
   }, [navigation])
 
   //ROUTES VARIABLES
-  // const twtQuery = param
-  // const ytQuery = param
-  // const igQuery = param
-  // const tikQuery = param
-  // const pinQuery = param
-
-  const twtQuery = 'https://twitter.com/search?q=%23' + param + '&src=typed_query&f=live'
+  const twtQuery = 'https://twitter.com/search?q=' + param + `&src=typed_query`
   const ytQuery = 'https://www.youtube.com/results?search_query=' + param
   const igQuery = 'https://www.instagram.com/explore/tags/' + param
   const tikQuery = 'https://www.tiktok.com/search/?keyword=' + param
   const pinQuery = 'https://www.pinterest.com/search/pins/?q=' + param
-  const queries = [twtQuery, ytQuery, igQuery, tikQuery, pinQuery]
-
-  const [query, setQuery] = useState(param)
-
-  console.log(param)
-
-
-
-  function someEvent() {
-    setQuery(queries[0])
-  }
 
   return (
     <>
-      <Text>hello</Text>
-      <Text> {param} </Text>
-      <WebView
-        style={styles.webView}
-        source={
-          { uri: queries[1] }
-          // { uri: `https://twitter.com/search?q=${twtQuery}&src=typed_query` },
-          // { uri: `https://www.instagram.com/${igQuery}/?hl=en` },
-          // { uri: `https://youtube.com/results?search_query=${ytQuery}` },
-          // { uri: `https://www.pinterest.co.kr/search/pins/?q=${pinQuery}&rs=typed&term_meta[]=${pinQuery}%7Ctyped` },
-          // { uri: `https://www.tiktok.com/${tikQuery}` }
-        }
-      />
-      {/* <SafeAreaView> */}
       <View style={styles.tabBar}>
         <TouchableOpacity
           style={[styles.socialIcon, { backgroundColor: '#1D9BF0' }]}
-          onPress={() => navigation.push('Twitter')}
+          onPress={() => navigation.push(
+            'Twitter',
+            { param: { twtQuery } }
+          )}
         >
           <Text style={styles.socialText}>Twitter</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.socialIcon, { backgroundColor: '#FF0000' }]}
-          // onPress={() => navigation.push('Youtube')}
-          onPress={() => someEvent()}
+          onPress={() => navigation.push(
+            'Youtube',
+            { param: { ytQuery } }
+          )}
         >
           <Text style={styles.socialText}>Youtube</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.socialIcon, { backgroundColor: '#8a3ab9' }]}
-          onPress={() => navigation.push('Instagram')}
+          onPress={() => navigation.push(
+            'Instagram',
+            { param: { igQuery } }
+          )}
         >
           <Text style={styles.socialText}>Instagram</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.socialIcon, { backgroundColor: '#000' }]}
-          onPress={() => navigation.push('Tiktok')}
+          onPress={() => navigation.push(
+            'Tiktok',
+            { param: { tikQuery } }
+          )}
         >
           <Text style={styles.socialText}>Tiktok</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.socialIcon, { backgroundColor: '#E60023' }]}
-          onPress={() => navigation.push('Pinterest')}
+          onPress={() => navigation.push(
+            'Pinterest',
+            { param: { pinQuery } }
+          )}
         >
           <Text style={styles.socialText}>Pinterest</Text>
         </TouchableOpacity>
       </View>
-      {/* <Twitter /> */}
-      {/* </SafeAreaView> */}
-    </>
 
-  )
-}
-
-export function mapQueries(query) {
-  queries.map(query => {
-    return (
       <WebView
-        key={query}
-        source={{ uri: query }}
-        style={{ marginTop: 0, marginBottom: 0, height: Dimensions.get('window').height - 100 }}
+        source={{ uri: ytQuery }}
       />
-    )
-  })
+
+    </>
+  )
 }
 
 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
+const center = {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+}
 
 const styles = StyleSheet.create({
   headerRightButtons: {
@@ -123,15 +97,12 @@ const styles = StyleSheet.create({
     marginRight: WIDTH * 0.05,
   },
   webView: {
-    // borderWidth: 1,
     height: HEIGHT * 0.3,
   },
   tabBar: {
     flexDirection: 'row',
     paddingVertical: 20,
     justifyContent: 'space-evenly',
-    // backgroundColor: '#fff',
-    // marginBottom: 20,
     borderWidth: 0.2,
 
   },

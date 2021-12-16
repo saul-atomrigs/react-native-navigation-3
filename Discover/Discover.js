@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useLayoutEffect } from 'react';
 import { SectionList, StyleSheet, Text, View, TouchableOpacity, Image, ScrollView, Dimensions, RefreshControl } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Fire, Flame } from 'phosphor-react-native';
 
 export default function Discover() {
   const navigation = useNavigation();
@@ -48,15 +47,20 @@ export default function Discover() {
     >
       <SectionList
         sections={dummyData}
+
         renderSectionHeader={({ section }) => <Text style={styles.sectionHeader}>
           {section.header} </Text>}
-        renderItem={({ item }) => <Text style={styles.item}
-          onPress={() => navigation.push(
-            'DetailedDiscover',
-            { param: item }
-            // { param: item.artist }
-          )}>
-          {item} </Text>}
+
+        renderItem={({ item }) =>
+          <Text
+            style={styles.item}
+            onPress={() => navigation.push(
+              'DetailedDiscover',
+              { param: item }
+            )}>
+            {item}
+          </Text>}
+
         keyExtractor={(item, index) => index}
         style={styles.list}
         indicatorStyle='black'
@@ -76,43 +80,27 @@ const dummyData = [
   {
     header: 'TRENDING',
     data: [
-      // {
-      //   BLACKPINK: [
-      //     { artist: 'BLACKPINK' },
-      //     { twtRoute: 'IVE_twt' },
-      //     { ytRoute: 'ive' },
-      //     { instaRoute: 'bts.bighitofficial' },
-      //     { tiktokRoute: '@bts_official_bighit' },
-      //     { pinRoute: 'ive' },
-      //   ],
-      // },
       'BTS',
       'aespa',
       'BLACKPINK',
-      'Kep1er',
       'TWICE'
     ]
   },
 
   {
     header: 'NEW RELEASES',
-    // <>
-    //   <Flame />
-    //   <Text> NEW RELEASES / DEBUTS </Text>
-    // </>,
     data: [
+      'Kep1er',
       'IVE',
     ]
   },
-  {
-    header: 'POPULAR FANDOMS',
-    data: [
-      'Register your fandom'
-    ]
-  }
+  // {
+  //   header: 'POPULAR FANDOMS',
+  //   data: [
+  //     'Register your fandom'
+  //   ]
+  // }
 ]
-
-console.log(dummyData[0].data[0]) //BTS
 
 
 // REFRESH CONTROL  
@@ -137,7 +125,6 @@ const styles = StyleSheet.create({
     paddingBottom: 2,
     fontSize: 23,
     fontWeight: 'bold',
-    backgroundColor: '#eee',
   },
   headerIcon: {
     marginLeft: 20,

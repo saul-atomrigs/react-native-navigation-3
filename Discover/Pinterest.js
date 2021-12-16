@@ -1,10 +1,12 @@
 import React, { useLayoutEffect } from 'react'
-import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, View, TouchableOpacity, Image, Dimensions } from 'react-native'
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { StyleSheet, View, TouchableOpacity, Image, Dimensions,SafeAreaView } from 'react-native'
 import { WebView } from 'react-native-webview';
 
 export default function Pinterest() {
     const navigation = useNavigation();
+    const { param } = useRoute().params
+
     useLayoutEffect(() => {
         navigation.setOptions({
             // header button left
@@ -35,10 +37,12 @@ export default function Pinterest() {
         });
     }, [navigation])
     return (
+    <SafeAreaView style={{ flex: 1 }}>
+
         <WebView
-            source={{ uri: 'https://www.pinterest.co.kr/search/pins/?q=twice&rs=typed&term_meta[]=twice%7Ctyped' }}
-            style={{ marginTop: 5 }}
+            source={{ uri: param.pinQuery }}
         />
+    </SafeAreaView>
     );
 }
 

@@ -1,48 +1,26 @@
-import React, { useLayoutEffect } from 'react'
-import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, View, TouchableOpacity, Image, Dimensions } from 'react-native'
+import React, { useLayoutEffect } from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { Dimensions, SafeAreaView, StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
-import DetailedDiscover from './DetailedDiscover';
+
 
 export default function Twitter() {
   const navigation = useNavigation();
+  const { param } = useRoute().params
+
   useLayoutEffect(() => {
     navigation.setOptions({
-      // header button left
+      // LEFT 
       headerTitleAlign: 'left',
-      // header button right
-      headerRight: () => (
-        <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Home')}
-          >
-            <Image
-              style={headerRightButtons}
-
-              source={require('../assets/icons/logo.png')}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Settings')}
-          >
-            <Image
-              style={headerRightButtons}
-
-              source={require('../assets/icons/dots-nine.png')}
-            />
-          </TouchableOpacity>
-        </View>
-      ),
     });
   }, [navigation])
   return (
-    <>
-      {/* <DetailedDiscover /> */}
+    <SafeAreaView style={{ flex: 1 }}>
+
       <WebView
-        source={{ uri: 'https://twitter.com/IVE_twt' }}
-        style={{ marginTop: 5 }}
+        source={{ uri: param.twtQuery }}
       />
-    </>
+    </SafeAreaView>
   );
 }
 

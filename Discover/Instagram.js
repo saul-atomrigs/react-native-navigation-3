@@ -1,10 +1,12 @@
 import React, { useLayoutEffect } from 'react'
-import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, View, TouchableOpacity, Image, Dimensions } from 'react-native'
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { StyleSheet, View, TouchableOpacity, Image, Dimensions, SafeAreaView } from 'react-native'
 import { WebView } from 'react-native-webview';
 
 export default function Instagram() {
     const navigation = useNavigation();
+    const { param } = useRoute().params
+
     useLayoutEffect(() => {
         navigation.setOptions({
             // header button left
@@ -35,10 +37,11 @@ export default function Instagram() {
         });
     }, [navigation])
     return (
-        <WebView
-            source={{ uri: 'https://www.instagram.com/bts.bighitofficial/?hl=ko' }}
-            style={{ marginTop: 5 }}
-        />
+        <SafeAreaView style={{ flex: 1 }}>
+            <WebView
+                source={{ uri: param.igQuery }}
+            />
+        </SafeAreaView>
     );
 }
 
