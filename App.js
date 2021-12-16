@@ -1,6 +1,6 @@
-import React, { useLayoutEffect, useState, useEffect } from 'react';
+import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer, DefaultTheme, useNavigation } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Button, Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { AppleButton } from '@invertase/react-native-apple-authentication';
@@ -35,19 +35,19 @@ export default function App() {
         <Stack.Screen name="DetailedSchedule" component={DetailedSchedule} options={({ route }) => ({ title: route.params.param })} />
         <Stack.Screen name="AddSchedule" component={AddSchedule} options={{ title: '' }} />
         <Stack.Screen name="Community" component={Feeds} options={{ title: 'Community' }} />
+        <Stack.Screen name="DetailedFeed" component={DetailedFeed} options={{ title: '' }} />
+        <Stack.Screen name="AddPost" component={AddPost} options={{ title: '' }} />
         <Stack.Screen name="Discover" component={Discover} options={{ title: '' }} />
         <Stack.Screen name="DetailedDiscover" component={DetailedDiscover} options={{ title: '' }} />
-        <Stack.Screen name="AddPost" component={AddPost} options={{ title: '' }} />
-        <Stack.Screen name="Chat" component={Chat} />
-        <Stack.Screen name="Notifications" component={Notifications} />
-        <Stack.Screen name="Me" component={Me} />
-        <Stack.Screen name="DetailedFeed" component={DetailedFeed} options={{ title: '' }} />
         <Stack.Screen name="Youtube" component={Youtube} options={{ title: '' }} />
         <Stack.Screen name="Tiktok" component={Tiktok} options={{ title: '' }} />
         <Stack.Screen name="Instagram" component={Instagram} options={{ title: '' }} />
         <Stack.Screen name="Pinterest" component={Pinterest} options={{ title: '' }} />
         <Stack.Screen name="Twitter" component={Twitter} options={{ title: '' }} />
         <Stack.Screen name="Translate" component={Translate} options={{ title: '' }} />
+        <Stack.Screen name="Me" component={Me} />
+        <Stack.Screen name="Chat" component={Chat} />
+        <Stack.Screen name="Notifications" component={Notifications} />
         <Stack.Screen name="Search" component={Search} options={{ title: '' }} />
         <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ title: '' }} />
         <Stack.Screen name="Connect" component={Connect} options={{ title: '' }} />
@@ -61,15 +61,9 @@ function HomeTabNavigation() {
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen name="Discover" component={Discover} />
       <Tab.Screen name="Calendar" component={Calendar} />
-      <Tab.Screen name="Community" component={Feeds}
-        options={{
-          tabBarBadge: 'new',
-          tabBarBadgeStyle: { backgroundColor: 'pink' },
-          // 올때마다 리로드
-          // unmountOnBlur: Platform.OS === 'ios' ? false : true,
-        }} />
-      {/* <Tab.Screen name="Korean" component={Korean} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} /> */}
+      <Tab.Screen name="Community" component={Feeds} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' }, }} />
       <Tab.Screen name="Me" component={Me} />
+      {/* <Tab.Screen name="Korean" component={Korean} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} /> */}
     </Tab.Navigator>
   );
 }

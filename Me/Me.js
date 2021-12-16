@@ -4,32 +4,10 @@ import ShareComponent from '../Components/ShareComponent';
 import { UserCirclePlus, HandsClapping } from 'phosphor-react-native';
 
 export default function Me({ navigation }) {
+
+  // HEADER BUTTONS
   useLayoutEffect(() => {
-    navigation.setOptions({
-      // header button left
-      headerTitleAlign: 'left',
-      // header button right
-      headerRight: () => (
-        <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Home')}
-          >
-            <Image
-              style={styles.headerRightButtons}
-              source={require('../assets/icons/logo.png')}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Notifications')}
-          >
-            <Image
-              style={styles.headerRightButtons}
-              source={require('../assets/icons/dots-nine.png')}
-            />
-          </TouchableOpacity>
-        </View>
-      ),
-    });
+    Header({ navigation })
   }, [navigation])
   return (
     <>
@@ -37,7 +15,7 @@ export default function Me({ navigation }) {
         <TouchableOpacity style={styles.userIcon}>
           <UserCirclePlus size={50} color='#666' />
         </TouchableOpacity>
-        <Text>username</Text>
+        <Text>@ username</Text>
       </View>
       <View style={styles.activityContainer}>
         <Text>My Fandom List</Text>
@@ -48,13 +26,42 @@ export default function Me({ navigation }) {
           <HandsClapping />
           <Text>5 Claps received</Text>
         </View>
-        <Text onPress={() => navigation.push('Connect')}>Feedback (suggest any idea)</Text>
+        <Text onPress={() => navigation.push('Chat')}>Feedback (suggest any idea)</Text>
         <ShareComponent />
         {/* <LoginScreen /> */}
         {/* <Button title="Login" onPress={() => navigation.navigate('LoginScreen')} /> */}
       </View>
     </>
   )
+}
+
+// HEADER BUTTONS 
+const Header = ({ navigation }) => {
+  navigation.setOptions({
+    // LEFT 
+    headerTitleAlign: 'left',
+    // RIGHT
+    headerRight: () => (
+      <View style={{ flexDirection: 'row' }}>
+        {/* <TouchableOpacity
+          onPress={() => navigation.navigate('Home')}
+        >
+          <Image
+            style={styles.headerRightButtons}
+            source={require('../assets/icons/logo.png')}
+          />
+        </TouchableOpacity> */}
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Notifications')}
+        >
+          <Image
+            style={styles.headerRightButtons}
+            source={require('../assets/icons/dots-nine.png')}
+          />
+        </TouchableOpacity>
+      </View>
+    ),
+  });
 }
 
 const WIDTH = Dimensions.get('window').width;

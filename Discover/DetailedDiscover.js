@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from 'react';
 import { useRoute } from '@react-navigation/native';
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { WebView } from 'react-native-webview';
 // import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
@@ -8,12 +8,9 @@ export default function DetailedDiscover({ navigation }) {
 
   const { param } = useRoute().params
 
-  // HEADER BUTTONS 
+  // HEADER BUTTONS
   useLayoutEffect(() => {
-    navigation.setOptions({
-      // LEFT 
-      headerTitleAlign: 'left',
-    });
+    Header({ navigation })
   }, [navigation])
 
   //ROUTES VARIABLES
@@ -82,6 +79,36 @@ export default function DetailedDiscover({ navigation }) {
 }
 
 
+// HEADER BUTTONS
+export const Header = ({ navigation }) => {
+  navigation.setOptions({
+    // LEFT
+    headerTitleAlign: 'left',
+    // RIGHT
+    headerRight: () => (
+      <View style={{ flexDirection: 'row' }}>
+        {/* <TouchableOpacity
+          onPress={() => navigation.navigate('Home')}
+        >
+          <Image
+            style={headerRightButtons}
+            source={require('../assets/icons/logo.png')}
+          />
+        </TouchableOpacity> */}
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Notifications')}
+        >
+          <Image
+            style={styles.headerRightButtons}
+            source={require('../assets/icons/dots-nine.png')}
+          />
+        </TouchableOpacity>
+      </View>
+    ),
+  });
+}
+
+
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 const center = {
@@ -101,13 +128,13 @@ const styles = StyleSheet.create({
   },
   tabBar: {
     flexDirection: 'row',
-    paddingVertical: 20,
+    paddingVertical: 15,
     justifyContent: 'space-evenly',
     borderWidth: 0.2,
 
   },
   socialIcon: {
-    marginBottom: 15,
+    // marginBottom: 15,
     padding: 8,
     borderRadius: 20,
   },

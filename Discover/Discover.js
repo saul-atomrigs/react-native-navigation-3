@@ -14,33 +14,9 @@ export default function Discover() {
 
   // HEADER BUTTONS
   useLayoutEffect(() => {
-    navigation.setOptions({
-      // LEFT
-      headerTitleAlign: 'left',
-      title: 'Discover',
-      // RIGHT
-      headerRight: () => (
-        <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Home')}
-          >
-            <Image
-              style={headerRightButtons}
-              source={require('../assets/icons/logo.png')}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Settings')}
-          >
-            <Image
-              style={headerRightButtons}
-              source={require('../assets/icons/dots-nine.png')}
-            />
-          </TouchableOpacity>
-        </View>
-      ),
-    });
+    Header({ navigation })
   }, [navigation])
+
 
   return (
     <View style={styles.container}
@@ -83,7 +59,13 @@ const dummyData = [
       'BTS',
       'aespa',
       'BLACKPINK',
-      'TWICE'
+      'TWICE',
+      'EXO',
+      'JENNIE',
+      'NCT 127',
+      'Stray Kids',
+      'ITZY',
+      'TXT',
     ]
   },
 
@@ -92,6 +74,7 @@ const dummyData = [
     data: [
       'Kep1er',
       'IVE',
+
     ]
   },
   // {
@@ -101,6 +84,37 @@ const dummyData = [
   //   ]
   // }
 ]
+
+// HEADER BUTTONS
+export const Header = ({ navigation }) => {
+  navigation.setOptions({
+    // LEFT
+    headerTitleAlign: 'left',
+    title: 'Discover',
+    // RIGHT
+    headerRight: () => (
+      <View style={{ flexDirection: 'row' }}>
+        {/* <TouchableOpacity
+          onPress={() => navigation.navigate('Home')}
+        >
+          <Image
+            style={headerRightButtons}
+            source={require('../assets/icons/logo.png')}
+          />
+        </TouchableOpacity> */}
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Notifications')}
+        >
+          <Image
+            style={headerRightButtons}
+            source={require('../assets/icons/dots-nine.png')}
+          />
+        </TouchableOpacity>
+      </View>
+    ),
+  });
+}
+
 
 
 // REFRESH CONTROL  
@@ -125,6 +139,7 @@ const styles = StyleSheet.create({
     paddingBottom: 2,
     fontSize: 23,
     fontWeight: 'bold',
+    backgroundColor: '#f5f5f5',
   },
   headerIcon: {
     marginLeft: 20,

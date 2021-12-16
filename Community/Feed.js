@@ -48,31 +48,7 @@ export default function Feed(props) {
 
   // HEADER BUTTONS
   useLayoutEffect(() => {
-    navigation.setOptions({
-      // LEFT 
-      headerTitleAlign: 'left',
-      // RIGHT
-      headerRight: () => (
-        <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Home')}
-          >
-            <Image
-              style={styles.headerRightButtons}
-              source={require('../assets/icons/logo.png')}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Notifications')}
-          >
-            <Image
-              style={styles.headerRightButtons}
-              source={require('../assets/icons/dots-nine.png')}
-            />
-          </TouchableOpacity>
-        </View>
-      ),
-    });
+    Header({ navigation })
   }, [navigation])
 
   return (
@@ -168,47 +144,34 @@ const wait = (timeout) => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 }
 
-
-// const renderItem = ({ item }) => (
-//   <>
-//     <TouchableOpacity
-//       onPress={() => navigation.push('DetailedFeed', {
-//         param: item,
-//       })}>
-//       <Divider />
-//       <View style={styles.post}>
-//         <View style={styles.content}>
-//           <Icon style={{ marginRight: 5, marginTop: 5 }} name="ellipse" size={8} color="hotpink" />
-//           <Text style={styles.text}>
-//             {/* {item.postTitle.length > 90 ? item.postTitle.substring(0, 90) + '...' : item.postTitle} */}
-//             {item.postTitle.length > 90 ? item.postTitle.substring(0, 90) + '...' : item.postTitle}
-//           </Text>
-//         </View>
-//         <View style={styles.postFooter}>
-//           <TouchableOpacity
-//             onPress={() => navigation.push('Home')}
-//             style={{ flexDirection: 'row', marginLeft: 20 }}
-//           >
-//             <Text style={styles.author}>
-//               {item.author}
-//             </Text>
-//           </TouchableOpacity>
-//           <View style={styles.stat}>
-//             <Text style={[styles.statDetails, { fontWeight: '600' }]}>{item.views} Views</Text>
-//             <View style={{ flexDirection: 'row' }}>
-//               <Heart size={18} color='red' />
-//               <Text style={styles.statDetails}>{item.likes}</Text>
-//             </View>
-//             <View style={{ flexDirection: 'row' }}>
-//               <ChatText size={18} color='gray' />
-//               <Text style={styles.statDetails}>{item.comments}</Text>
-//             </View>
-//           </View>
-//         </View>
-//       </View>
-//     </TouchableOpacity >
-//   </>
-// )
+// HEADER BUTTONS
+export const Header = ({ navigation }) => {
+  navigation.setOptions({
+    // LEFT
+    headerTitleAlign: 'left',
+    // RIGHT
+    headerRight: () => (
+      <View style={{ flexDirection: 'row' }}>
+        {/* <TouchableOpacity
+          onPress={() => navigation.navigate('Home')}
+        >
+          <Image
+            style={headerRightButtons}
+            source={require('../assets/icons/logo.png')}
+          />
+        </TouchableOpacity> */}
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Notifications')}
+        >
+          <Image
+            style={styles.headerRightButtons}
+            source={require('../assets/icons/dots-nine.png')}
+          />
+        </TouchableOpacity>
+      </View>
+    ),
+  });
+}
 
 
 //  Styling 

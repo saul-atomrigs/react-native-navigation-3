@@ -8,7 +8,7 @@ import { Divider } from 'react-native-elements';
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
 import { API, graphqlOperation } from 'aws-amplify'
-import { listEvents, listDates } from '../src/graphql/queries'
+import { listEvents } from '../src/graphql/queries'
 Amplify.configure(config)
 
 export default function Calendar() {
@@ -18,7 +18,10 @@ export default function Calendar() {
     return (
       <TouchableOpacity
         style={styles.item}
-        onPress={() => navigation.push('DetailedSchedule')}
+      // onPress={() => navigation.push(
+      //   'DetailedSchedule',
+      //   { param: props }
+      // )}
       >
         <Text style={styles.artist}>{props.artist}</Text>
         <View style={styles.eventContainer}>
@@ -30,7 +33,7 @@ export default function Calendar() {
           {/* <HandsClapping /> */}
           <Star color='pink' />
         </View>
-      </TouchableOpacity>
+      </TouchableOpacity >
     );
   }
 
@@ -81,34 +84,11 @@ export default function Calendar() {
   //   ]
   // }
 
-  // HEADER BUTTONS 
+  // HEADER BUTTONS
   useLayoutEffect(() => {
-    navigation.setOptions({
-      // LEFT 
-      headerTitleAlign: 'left',
-      // RIGHT
-      headerRight: () => (
-        <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Home')}
-          >
-            <Image
-              style={styles.headerRightButtons}
-              source={require('../assets/icons/logo.png')}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Notifications')}
-          >
-            <Image
-              style={styles.headerRightButtons}
-              source={require('../assets/icons/dots-nine.png')}
-            />
-          </TouchableOpacity>
-        </View>
-      ),
-    });
+    Header({ navigation })
   }, [navigation])
+
 
   return (
     <>
@@ -160,6 +140,35 @@ function rowHasChanged(r1, r2) {
   return r1.artist !== r2.artist;
 }
 
+// HEADER BUTTONS
+export const Header = ({ navigation }) => {
+  navigation.setOptions({
+    // LEFT
+    headerTitleAlign: 'left',
+    // RIGHT
+    headerRight: () => (
+      <View style={{ flexDirection: 'row' }}>
+        {/* <TouchableOpacity
+          onPress={() => navigation.navigate('Home')}
+        >
+          <Image
+            style={headerRightButtons}
+            source={require('../assets/icons/logo.png')}
+          />
+        </TouchableOpacity> */}
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Notifications')}
+        >
+          <Image
+            style={styles.headerRightButtons}
+            source={require('../assets/icons/dots-nine.png')}
+          />
+        </TouchableOpacity>
+      </View>
+    ),
+  });
+}
+
 // styling 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
@@ -178,7 +187,6 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 13,
     padding: 10,
-    // marginRight: 10,
     marginTop: 10,
     marginRight: 20,
   },
@@ -206,7 +214,6 @@ const styles = StyleSheet.create({
   floatingBtn: {
     borderWidth: 1,
     flexDirection: 'row',
-    // borderColor: 'pink',
     alignItems: 'center',
     justifyContent: 'center',
     width: 140,

@@ -27,29 +27,7 @@ export default function DetailedFeed() {
 
   // HEADER BUTTONS 
   useLayoutEffect(() => {
-    navigation.setOptions({
-      headerTitleAlign: 'left',
-      headerRight: () => (
-        <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Home')}
-          >
-            <Image
-              style={headerRightButtons}
-              source={require('../assets/icons/logo.png')}
-            />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Settings')}
-          >
-            <Image
-              style={headerRightButtons}
-              source={require('../assets/icons/dots-nine.png')}
-            />
-          </TouchableOpacity>
-        </View>
-      ),
-    });
+    Header({ navigation })
   }, [navigation])
 
   // ADD COMMENT
@@ -191,15 +169,34 @@ const wait = (timeout) => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 }
 
-// Comment section 
-// const CommentSection = ({ param }) => {
-//     return (
-//         <Text>
-//             {param.commentsSection.length > 1 ? param.commentsSection[0].comment : 'comment'}
-//         </Text>
-//     )
-// }
-
+// HEADER BUTTONS
+export const Header = ({ navigation }) => {
+  navigation.setOptions({
+    // LEFT
+    headerTitleAlign: 'left',
+    // RIGHT
+    headerRight: () => (
+      <View style={{ flexDirection: 'row' }}>
+        {/* <TouchableOpacity
+          onPress={() => navigation.navigate('Home')}
+        >
+          <Image
+            style={headerRightButtons}
+            source={require('../assets/icons/logo.png')}
+          />
+        </TouchableOpacity> */}
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Notifications')}
+        >
+          <Image
+            style={styles.headerRightButtons}
+            source={require('../assets/icons/dots-nine.png')}
+          />
+        </TouchableOpacity>
+      </View>
+    ),
+  });
+}
 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
@@ -211,6 +208,11 @@ const headerRightButtons = {
 }
 
 const styles = StyleSheet.create({
+  headerRightButtons: {
+    width: WIDTH * 0.08,
+    height: HEIGHT * 0.03,
+    // marginRight: WIDTH * 0.05,
+  },
   container: {
     flex: 1,
     justifyContent: 'flex-start',
