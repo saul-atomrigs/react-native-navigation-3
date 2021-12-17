@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
-import { Dimensions, Image, Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Image, Button, StyleSheet, Text, TouchableOpacity, View, SafeAreaView } from 'react-native';
 import { AirplaneTakeoff, Cake, HandsClapping, MusicNote, Plus, Star, Television, VideoCamera } from 'phosphor-react-native';
 import { Agenda } from 'react-native-calendars';
 import { useNavigation } from '@react-navigation/native';
@@ -11,8 +11,18 @@ import { API, graphqlOperation } from 'aws-amplify'
 import { listEvents } from '../src/graphql/queries'
 Amplify.configure(config)
 
-export default function Calendar() {
+export default function Calendar(props) {
   const navigation = useNavigation()
+
+  // RERENDER AFTER SUBMIT (GOBACK)
+  useEffect(() => {
+    fetchItems();
+    const willFocusSubscription = props.navigation.addListener('focus', () => {
+      fetchItems();
+    });
+
+    return willFocusSubscription;
+  }, []);
 
   function renderItem(props) {
     return (
@@ -108,37 +118,38 @@ export default function Calendar() {
           calendarBackground: '#fff',
           agendaKnobColor: 'gray',
           'stylesheet.calendar.header': {
-            marginBottom: 80,
+            // marginBottom: 80,
           },
         }}
         style={styles.container}
         hideExtraDays={false}
       />
-      <TouchableOpacity
-        style={{ flexDirection: 'row' }}
-        onPress={() => navigation.navigate('AddSchedule')}
-      >
-        <View style={styles.floatingBtn}>
-          <Plus color="pink" size={20} />
-          <Text style={styles.floatingBtnText}>Add schedule</Text>
-        </View>
-      </TouchableOpacity>
-    </ >
+
+      <View style={styles.floatingBtnContainer}>
+        <TouchableOpacity
+          style={{ flexDirection: 'row' }}
+          onPress={() => navigation.navigate('AddSchedule')}
+        >
+          <View style={styles.floatingBtn}>
+            <Plus color="pink" weight='bold' size={20} />
+            <Text style={styles.floatingBtnText}>Add schedule</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    </>
   );
 }
 
 function renderEmptyDate() {
   return (
     <View style={styles.emptyDate}>
-      <Button title='Nothing for this date yet...'
-        style={{ backgroundColor: 'pink', width: '50', height: '30' }} />
+      <Button title='Nothing for this date yet...' />
     </View>
   );
 }
 
-function rowHasChanged(r1, r2) {
-  return r1.artist !== r2.artist;
-}
+// RERENDERING AGENDA AFTER SUBMIT
+rowHasChanged = (r1, r2) => r1 !== r2;
 
 // HEADER BUTTONS
 export const Header = ({ navigation }) => {
@@ -180,7 +191,7 @@ const styles = StyleSheet.create({
     marginRight: WIDTH * 0.05,
   },
   container: {
-    marginBottom: 80,
+    // marginBottom: 80,
   },
   item: {
     backgroundColor: '#fff',
@@ -211,16 +222,20 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 30
   },
+  floatingBtnContainer: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   floatingBtn: {
     borderWidth: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 140,
+    width: 200,
     height: 40,
-    position: 'absolute',
+    position: 'relative',
     bottom: 100,
-    right: 30,
+    // right: 30,
     backgroundColor: 'black',
     borderRadius: 100,
     // shadow ios:

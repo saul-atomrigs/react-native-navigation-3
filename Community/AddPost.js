@@ -11,7 +11,7 @@ Amplify.configure(config)
 // import { v4 as uuid } from 'uuid'
 // const CLIENT_ID = uuid()
 
-export default function AddPost() {
+export default function AddPost({ navigation }) {
 
   const initialStatePost = { title: '' }
   const [formStatePosts, setFormStatePosts] = useState(initialStatePost)
@@ -27,7 +27,7 @@ export default function AddPost() {
       const post = { ...formStatePosts }
       setPosts([...posts, post])
       setFormStatePosts(initialStatePost)
-      // ✅ Refresh after submitting:
+      // ✅ REFRESH AFTER SUBMIT:
       const result = await API.graphql(graphqlOperation(
         createPost,
         {
@@ -54,6 +54,15 @@ export default function AddPost() {
     setFormStatePosts({ ...formStatePosts, [key]: value })
   }
 
+  function goBack() {
+    navigation.goBack()
+  }
+
+  function forceUpdate() {
+    fetchPosts()
+  }
+
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView>
@@ -66,7 +75,12 @@ export default function AddPost() {
           multiline
         />
         <TouchableOpacity
-          onPress={addPost}
+          // onPress={addPost}
+          onPress={() => {
+            addPost()
+            goBack()
+            forceUpdate()
+          }}
         >
           <View style={styles.floatingBtn}>
             <Text style={styles.floatingBtnText}>Upload</Text>

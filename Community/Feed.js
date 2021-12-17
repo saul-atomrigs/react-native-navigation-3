@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react'
-import { Dimensions, Text, Image, View, TouchableOpacity, StyleSheet, Button, FlatList, RefreshControl, ScrollView } from 'react-native'
+import { Dimensions, Text, Image, View, TouchableOpacity, StyleSheet, RefreshControl, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/core';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useIsFocused } from '@react-navigation/native'
 import { Heart, ChatText, Plus } from "phosphor-react-native";
 
 import Amplify from 'aws-amplify'
@@ -12,21 +13,20 @@ import { listPosts, listComments } from '../src/graphql/queries'
 import { onCreatePost } from '../src/graphql/subscriptions'
 Amplify.configure(config)
 
-export default function Feed() {
+export default function Feed(props) {
   const navigation = useNavigation();
 
   const [posts, setPosts] = useState([])
 
+  // RERENDER AFTER SUBMIT (GOBACK)
   useEffect(() => {
-    fetchPosts()
+    fetchPosts();
+    const willFocusSubscription = props.navigation.addListener('focus', () => {
+      fetchPosts();
+    });
 
-    // TODO: reload after goBack (navigation)
-    //   const willFocusSubscription = props.navigation.addListener('focus', () => {
-    //     fetchData();
-    // });
-    // return willFocusSubscription;
-
-  }, [])
+    return willFocusSubscription;
+  }, []);
 
   // FETCH POSTS 
   async function fetchPosts() {
@@ -49,6 +49,13 @@ export default function Feed() {
   useLayoutEffect(() => {
     Header({ navigation })
   }, [navigation])
+
+  // MEMORY LEAK WARNING PREVENTION 
+  useEffect(() => {
+    return () => {
+      setPosts([])
+    }
+  }, [])
 
   return (
     <>
@@ -73,19 +80,16 @@ export default function Feed() {
                       { param: post }
                     )}
                   >
-
                     <View style={styles.post}>
                       <View style={styles.content}>
-                        <Icon style={{ marginRight: 5, marginTop: 5 }} name="ellipse" size={8} color="hotpink" />
+                        <Icon style={styles.dot} name="ellipse" size={8} color="hotpink" />
                         <Text style={styles.text}>
-                          {/* {item.postTitle.length > 90 ? item.postTitle.substring(0, 90) + '...' : item.postTitle} */}
                           {/* {item.postTitle.length > 90 ? item.postTitle.substring(0, 90) + '...' : item.postTitle} */}
                           <Text> {post.title} </Text>
                         </Text>
                       </View>
                       <View style={styles.postFooter}>
-                        <Text style={styles.author}>
-                          {/* {item.author} */}
+                        <Text style={styles.createdAt}>
                           {post.createdAt.substring(0, 10)}
                         </Text>
                         <View style={styles.stat}>
@@ -97,11 +101,7 @@ export default function Feed() {
                           <View style={{ flexDirection: 'row' }}>
                             <ChatText size={18} color='gray' />
                             {/* <Text style={styles.statDetails}>{item.comments}</Text> */}
-                            <Text> total comment: {
-                              // API.graphql(graphqlOperation(
-                              // listComments, { filter: { postCommentsId: { eq: comment.id } } }
-                              // )).data.listComments.items.length
-                            } </Text>
+                            <Text> total comment: {post.comments.length} </Text>
                           </View>
                         </View>
                       </View>
@@ -130,12 +130,14 @@ export default function Feed() {
         }
       /> */}
       </ScrollView>
-      <TouchableOpacity style={styles.floatingBtn}
-        onPress={() => navigation.navigate('AddPost')}
-      >
-        <Plus color="pink" size={20} />
-        <Text style={{ fontSize: 16, fontWeight: '700', color: 'pink', textDecorationLine: 'underline' }}>Post</Text>
-      </TouchableOpacity>
+      <View style={styles.floatingBtnContainer}>
+        <TouchableOpacity style={styles.floatingBtn}
+          onPress={() => navigation.navigate('AddPost')}
+        >
+          <Plus color="pink" weight='bold' size={20} />
+          <Text style={styles.floatingBtnText}>Post</Text>
+        </TouchableOpacity>
+      </View>
     </>
   )
 }
@@ -195,7 +197,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     backgroundColor: '#fff'
   },
-  author: {
+  dot: { marginRight: 5, marginTop: 5 },
+  createdAt: {
     // marginTop: 5,
     // marginBottom: 10,
     marginLeft: 12,
@@ -233,17 +236,20 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
   },
+  floatingBtnContainer: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   floatingBtn: {
-    borderWidth: 1,
     flexDirection: 'row',
     // borderColor: 'hotpink',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 100,
+    width: 200,
     height: 40,
-    position: 'absolute',
+    position: 'relative',
     bottom: 100,
-    right: 30,
+    // right: 30,
     backgroundColor: 'black',
     borderRadius: 100,
     // shadow ios:
@@ -256,5 +262,11 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     // shadow android: 
     elevation: 0.8,
+  },
+  floatingBtnText: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: 'pink',
+    textDecorationLine: 'underline'
   },
 })

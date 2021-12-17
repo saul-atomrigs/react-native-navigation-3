@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, StyleSheet, TouchableOpacity, TextInput, Text } from 'react-native'
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import moment from 'moment';
 
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
@@ -9,10 +8,9 @@ import { API, graphqlOperation } from 'aws-amplify'
 import { createEvent, updatePost, deletePost } from '../src/graphql/mutations'
 Amplify.configure(config)
 
-export default function AddSchedule() {
+export default function AddSchedule({ navigation }) {
 
   const initialValues = {
-    // date: moment().format('YYYY-MM-DD'),
     date: '',
     artist: '',
     event: ''
@@ -25,7 +23,6 @@ export default function AddSchedule() {
   // DATE PICKER 
   const [datePickerVisible, setDatePickerVisibility] = useState(false);
   const [text, onChangeText] = useState('');
-  // const [date, setDate] = useState('');
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -39,11 +36,10 @@ export default function AddSchedule() {
     hideDatePicker();
     onChangeText(text.format("yyyy-MM-dd"))
     console.log(values.date)
-    // setDate(date.format("yyyy-MM-dd"))
   };
 
 
-  // update and keep track of our input fields every time they change
+  // UPDATE INPUT FIELDS EVERY TIME THEY CHANGE
   function handleInputChange(key, value) {
     setValues({ ...values, [key]: value })
   }
@@ -74,6 +70,21 @@ export default function AddSchedule() {
       console.log(e, '에러!!: ')
     }
   }
+
+  function goBack() {
+    navigation.goBack()
+  }
+
+  function forceUpdate() {
+    setItems([...items])
+  }
+
+  // MEMORY LEAK WARNING PREVENTION 
+  useEffect(() => {
+    return () => {
+      setItems([])
+    }
+  }, [])
 
   return (
     <View style={styles.container}>
@@ -134,7 +145,11 @@ export default function AddSchedule() {
       {/* submit button */}
       <TouchableOpacity
         style={{ flexDirection: 'row' }}
-        onPress={addItem}
+        onPress={() => {
+          addItem();
+          goBack();
+          forceUpdate()
+        }}
       >
         <View style={styles.floatingBtn}>
           <Text style={styles.floatingBtnText}>Add item</Text>

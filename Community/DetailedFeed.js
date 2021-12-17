@@ -39,13 +39,13 @@ export default function DetailedFeed() {
     fetchComments()
   }, [])
 
-  // CREATE Comment
+  // CREATE COMMENT 
   async function addComment() {
     try {
       const comment = { ...formStateComments }
       setComments([...comments, comment])
       setFormStateComments(initialStateComment)
-      // ✅ Refresh after submitting:
+      // ✅ REFRESH AFTER SUBMIT:
       const result = await API.graphql(graphqlOperation(
         createComment,
         {
@@ -62,7 +62,7 @@ export default function DetailedFeed() {
     }
   }
   let commentsCount = ''
-  // FETCH comments
+  // FETCH COMMENTS
   async function fetchComments() {
     try {
       const commentData = await API.graphql(graphqlOperation(
@@ -83,17 +83,18 @@ export default function DetailedFeed() {
   }
 
   return (
-    <View style={styles.container}>
-      <KeyboardAwareScrollView
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />
-        }
-      >
+    <KeyboardAwareScrollView
+      style={{ flex: 1 }}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />
+      }
+    >
+      <View style={styles.container}>
         <View style={styles.card}>
-          <View style={styles.cardHeader}>
+          <View style={styles.header}>
             <TouchableOpacity
               onPress={() => navigation.push('Home')}
               style={{ flexDirection: 'row' }}
@@ -104,26 +105,23 @@ export default function DetailedFeed() {
                 // source={{ uri: isLogIn ? param.avatarURI : placeholderImage }}
                 // source={{ uri: param.avatarURI }}
                 source={require('../assets/icons/user-placeholder.png')}
-                containerStyle={styles.cardAvatar}
+                containerStyle={styles.avatar}
               />
               <Text style={{ fontSize: 18, fontWeight: '700' }} >{param.title}</Text>
             </TouchableOpacity>
           </View>
-          <View style={styles.cardContent}>
-            {/* <Image source={{ uri: param.imageURI }} style={styles.cardImage} /> */}
-            {/* <Text style={{ fontWeight: '500', marginVertical: 20 }}>{param.postTitle}</Text> */}
-            <Text style={{ fontWeight: '500', marginVertical: 20 }}>{param.id}</Text>
+          <View style={styles.content}>
+            <Text style={styles.contentText}>{param.title}</Text>
           </View>
           <Divider style={{ marginBottomm: 5 }} />
-          <View style={styles.cardStats}>
-            {/* <Text style={styles.cardStatsDetails}>{param.views} Views</Text> */}
-            {/* <Text style={styles.cardStatsDetails}>{param.comments} Comments</Text> */}
-            <Text style={styles.cardStatsDetails}>{param.likes} </Text>
-            <Heart size={30} weight='fill' color='red' />
+          <View style={styles.stats}>
+            {/* <Text style={styles.statDetails}>{param.views} Views</Text> */}
+            <Text style={styles.statDetails}>{param.likes} </Text>
+            <Heart size={30} weight='regular' color='red' />
           </View>
           <Divider />
           <View style={styles.commentsContainer}>
-            <Text> Total comments: {commentsCount}</Text>
+            <Text style={styles.commentsCounter}> {commentsCount} Comments </Text>
             <ScrollView>
               {
                 comments
@@ -131,14 +129,8 @@ export default function DetailedFeed() {
                   .map((comment, index) => (
                     <View key={comment.id ? comment.id : index} style={styles.comment} >
                       <Text> {comment.content} </Text>
-                      {/* <Text> id: {comment.id} </Text> */}
-                      {/* <Text> postCommentsId: {comment.postCommentsId} </Text> */}
-                      {/* <Text> {comment.createdAt} </Text> */}
-                      {/* <Text> {comment.post.title} </Text> */}
-                      {/* <Text> {comment.post.id} </Text> */}
-                      {/* <Text> {param.id} </Text> */}
-                      {/* <Text> {param.id === comment.postCommentsId ? comment.content : null} </Text> */}
-                      {/* <Text> {comment.createdAt.substring(0, 10)} </Text> */}
+                      <Text> {comment.createdAt.substring(0, 10)} </Text>
+                      <Divider />
                     </View>
                   ))
               }
@@ -152,6 +144,7 @@ export default function DetailedFeed() {
               style={styles.textInput}
               multiline
               placeholder="Write a comment..."
+              placeholderTextColor={'#777'}
             />
             <TouchableOpacity onPress={addComment}>
               {/* <Image source={require('../assets/icons/megaphone.png')} style={{ width: 30, height: 30 }} /> */}
@@ -159,8 +152,8 @@ export default function DetailedFeed() {
             </TouchableOpacity>
           </View>
         </View>
-      </KeyboardAwareScrollView >
-    </View >
+      </View >
+    </KeyboardAwareScrollView >
   )
 }
 
@@ -224,24 +217,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     // flex: 5,
   },
-  cardImage: {
-    width: WIDTH * 0.9,
-    height: HEIGHT * 0.3,
-    // alignSelf: 'center',
-    borderRadius: 13,
-    resizeMode: 'cover'
-  },
-  cardAvatar: {
+  avatar: {
     marginRight: 10,
     marginLeft: 20
   },
-  cardHeader: {
+  header: {
     paddingTop: 10,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start'
   },
-  cardContent: {
+  content: {
     marginHorizontal: 20,
     // marginRight: 20,
     marginTop: 15,
@@ -249,22 +235,28 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     color: '#fff',
   },
-  cardStats: {
+  contentText: {
+    fontWeight: '500',
+    marginVertical: 20
+  },
+  stats: {
     flexDirection: 'row',
-    // marginLeft: 5,
     marginHorizontal: 20,
     marginTop: 5,
     justifyContent: 'flex-end'
   },
-  cardStatsDetails: {
+  statDetails: {
     marginBottom: 10,
     fontSize: 18,
   },
   commentsContainer: {
     marginHorizontal: 20,
   },
+  commentsCounter: {
+    fontWeight: '700',
+  },
   comment: {
-    marginTop: 10,
+    marginVertical: 10,
   },
   textInputContainer: {
     marginHorizontal: 20,
