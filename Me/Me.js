@@ -12,21 +12,25 @@ export default function Me({ navigation }) {
   return (
     <>
       <View style={styles.userInfoContainer}>
-        <TouchableOpacity style={styles.userIcon}>
+        <TouchableOpacity
+          style={styles.userIcon}
+          onPress={() => navigation.navigate('Profile')}
+        >
           <UserCirclePlus size={50} color='#666' />
         </TouchableOpacity>
         <Text>@ username</Text>
+        <Text onPress={() => navigation.navigate('Login')}>Login</Text>
+        <Text onPress={() => navigation.navigate('Register')}>Register</Text>
       </View>
       <View style={styles.activityContainer}>
-        <Text>My Fandom List</Text>
-        <Text>My posts</Text>
-        <Text>My Comments</Text>
-        <Text>Stats</Text>
+        <Text style={styles.text}>My Fandoms</Text>
+        <Text style={styles.text}>My Posts</Text>
+        <Text style={styles.text}>My Comments</Text>
         <View style={{ flexDirection: 'row' }}>
-          <HandsClapping />
-          <Text>5 Claps received</Text>
+          {/* <HandsClapping /> */}
+          {/* <Text>5 Claps received</Text> */}
         </View>
-        <Text onPress={() => navigation.push('Chat')}>Feedback (suggest any idea)</Text>
+        <Text style={styles.text} onPress={() => navigation.push('Chat')}>Feedback (suggest any idea)</Text>
         <ShareComponent />
         {/* <LoginScreen /> */}
         {/* <Button title="Login" onPress={() => navigation.navigate('LoginScreen')} /> */}
@@ -87,7 +91,12 @@ const ShareComponent = () => {
   };
   return (
     <View>
-      <Text onPress={onShare}>Share dailyKPOP to the world</Text>
+      <Text
+        style={styles.text}
+        onPress={onShare}
+      >
+        Share dailyKPOP to the world
+      </Text>
     </View>
   );
 };
@@ -105,7 +114,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'center',
-    // borderWidth: 1,
     backgroundColor: '#fff',
   },
   userIcon: {
@@ -122,4 +130,12 @@ const styles = StyleSheet.create({
     marginBottom: 80,
     backgroundColor: '#fff',
   },
+  textContainer: {
+
+  },
+  text: {
+    // borderWidth: 1,
+    fontSize: 18,
+    marginVertical: 20,
+  }
 })

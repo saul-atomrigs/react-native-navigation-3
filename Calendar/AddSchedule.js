@@ -125,33 +125,29 @@ export default function AddSchedule({ navigation }) {
         />
       </TouchableOpacity>
       {/* Artist input field */}
-      <TouchableOpacity>
-        <TextInput
-          value={values.artist}
-          onChangeText={value => handleInputChange('artist', value)}
-          // onChangeText={handleInputChange}
-          name="artist"
-          placeholder="2. Which artist?"
-          style={styles.textInput}
-          placeholderTextColor='#666'
-          autoCompleteType="off"
-          autoCorrect={false}
-        />
-      </TouchableOpacity>
+      <TextInput
+        value={values.artist}
+        onChangeText={value => handleInputChange('artist', value)}
+        // onChangeText={handleInputChange}
+        name="artist"
+        placeholder="2. Which artist?"
+        style={styles.textInput}
+        placeholderTextColor='#666'
+        autoCompleteType="off"
+        autoCorrect={false}
+      />
       {/* Event input field */}
-      <TouchableOpacity>
-        <TextInput
-          value={values.event}
-          onChangeText={value => handleInputChange('event', value)}
-          // onChangeText={value => setInputItems('event', value)}
-          name="event"
-          placeholder="3. What's the event?"
-          style={styles.textInput}
-          placeholderTextColor='#666'
-          autoCompleteType="off"
-          autoCorrect={false}
-        />
-      </TouchableOpacity>
+      <TextInput
+        value={values.event}
+        onChangeText={value => handleInputChange('event', value)}
+        // onChangeText={value => setInputItems('event', value)}
+        name="event"
+        placeholder="3. What's the event?"
+        style={styles.textInput}
+        placeholderTextColor='#666'
+        autoCompleteType="off"
+        autoCorrect={false}
+      />
 
       {/* submit button */}
       <TouchableOpacity

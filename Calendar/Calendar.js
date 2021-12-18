@@ -138,8 +138,8 @@ export default function Calendar(props) {
           onPress={() => navigation.navigate('AddSchedule')}
         >
           <View style={styles.floatingBtn}>
-            <Plus color="pink" weight='bold' size={20} />
-            <Text style={styles.floatingBtnText}>Add schedule</Text>
+            <Plus color="white1" weight='bold' size={20} />
+            <Text style={styles.floatingBtnText}>Add Event</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -257,9 +257,9 @@ const styles = StyleSheet.create({
     elevation: 0.8,
   },
   floatingBtnText: {
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: '700',
-    color: 'pink',
+    color: '#fff',
     textDecorationLine: 'underline'
   }
 });

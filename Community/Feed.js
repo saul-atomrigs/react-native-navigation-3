@@ -134,7 +134,7 @@ export default function Feed(props) {
         <TouchableOpacity style={styles.floatingBtn}
           onPress={() => navigation.navigate('AddPost')}
         >
-          <Plus color="pink" weight='bold' size={20} />
+          <Plus color="white" weight='bold' size={20} />
           <Text style={styles.floatingBtnText}>Post</Text>
         </TouchableOpacity>
       </View>
@@ -264,9 +264,9 @@ const styles = StyleSheet.create({
     elevation: 0.8,
   },
   floatingBtnText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '700',
-    color: 'pink',
-    textDecorationLine: 'underline'
+    color: '#fff',
+    // textDecorationLine: 'underline'
   },
 })

@@ -24,7 +24,8 @@ import { HandsClapping, ChatsCircle, CalendarPlus, Fingerprint, Compass, } from 
 // import { Search } from './Components/Search';
 import Connect from './Components/chat/Connect'
 // import Auth from './Auth/Auth';
-import LoginScreen from './Auth/LoginScreen';
+import Login from './Auth/Login';
+import Register from './Auth/Register';
 
 // STACK NAVIGATOR
 export default function App() {
@@ -50,7 +51,8 @@ export default function App() {
         <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="Notifications" component={Notifications} />
         {/* <Stack.Screen name="Search" component={Search} options={{ title: '' }} /> */}
-        <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ title: '' }} />
+        <Stack.Screen name="Register" component={Register} options={{ title: '' }} />
+        <Stack.Screen name="Login" component={Login} options={{ title: '' }} />
         {/* <Stack.Screen name="Auth" component={Auth} options={{ title: '' }} /> */}
         <Stack.Screen name="Connect" component={Connect} options={{ title: '' }} />
       </Stack.Navigator>
@@ -65,7 +67,7 @@ function HomeTabNavigation() {
       <Tab.Screen name="Calendar" component={Calendar} />
       <Tab.Screen name="Discover" component={Discover} />
       <Tab.Screen name="Community" component={Feeds} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' }, }} />
-      {/* <Tab.Screen name="LoginScreen" component={LoginScreen} /> */}
+      {/* <Tab.Screen name="Login" component={Login} /> */}
       {/* <Tab.Screen name="Auth" component={Auth} /> */}
       {/* <Tab.Screen name="Korean" component={Korean} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} /> */}
     </Tab.Navigator>
@@ -75,7 +77,7 @@ function HomeTabNavigation() {
 function Notifications({ navigation }) {
   return (
     <View style={center}>
-      <Text>Notification!</Text>
+      <Login />
     </View>
   )
 }
@@ -162,4 +164,5 @@ const center = {
   flex: 1,
   justifyContent: 'center',
   alignItems: 'center',
+  backgroundColor: '#fff',
 }
