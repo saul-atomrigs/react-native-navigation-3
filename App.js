@@ -4,7 +4,7 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Button, Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { AppleButton } from '@invertase/react-native-apple-authentication';
-import Chat from './Components/chat/Chat2';
+import Chat from './Components/chat/Chat';
 import Feeds from './Community/Feed';
 import DetailedFeed from './Community/DetailedFeed';
 import Calendar from './Calendar/Calendar';
@@ -21,9 +21,10 @@ import DetailedSchedule from './Calendar/DetailedSchedule';
 import DetailedDiscover from './Discover/DetailedDiscover';
 import Me from './Me/Me';
 import { HandsClapping, ChatsCircle, CalendarPlus, Fingerprint, Compass, } from 'phosphor-react-native';
-import { Search } from './Components/Search';
-import LoginScreen from './screens/LoginScreen';
+// import { Search } from './Components/Search';
 import Connect from './Components/chat/Connect'
+// import Auth from './Auth/Auth';
+import LoginScreen from './Auth/LoginScreen';
 
 // STACK NAVIGATOR
 export default function App() {
@@ -48,8 +49,9 @@ export default function App() {
         <Stack.Screen name="Me" component={Me} />
         <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="Notifications" component={Notifications} />
-        <Stack.Screen name="Search" component={Search} options={{ title: '' }} />
+        {/* <Stack.Screen name="Search" component={Search} options={{ title: '' }} /> */}
         <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ title: '' }} />
+        {/* <Stack.Screen name="Auth" component={Auth} options={{ title: '' }} /> */}
         <Stack.Screen name="Connect" component={Connect} options={{ title: '' }} />
       </Stack.Navigator>
     </NavigationContainer>
@@ -59,10 +61,12 @@ export default function App() {
 function HomeTabNavigation() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
+      <Tab.Screen name="Me" component={Me} />
       <Tab.Screen name="Calendar" component={Calendar} />
       <Tab.Screen name="Discover" component={Discover} />
       <Tab.Screen name="Community" component={Feeds} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' }, }} />
-      <Tab.Screen name="Me" component={Me} />
+      {/* <Tab.Screen name="LoginScreen" component={LoginScreen} /> */}
+      {/* <Tab.Screen name="Auth" component={Auth} /> */}
       {/* <Tab.Screen name="Korean" component={Korean} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} /> */}
     </Tab.Navigator>
   );

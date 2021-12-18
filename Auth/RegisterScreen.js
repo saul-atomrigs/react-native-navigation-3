@@ -12,7 +12,7 @@ export default function RegisterScreen({ navigation }) {
     const register = () => {
         auth.createUserWithEmailAndPassword(email, password)
             .then((userCredential) => {
-                // signed in 
+                // SIGNED IN 
                 userCredential.user.updateProfile({
                     displayName: name,
                     photoURL: imageURL ? imageURL :

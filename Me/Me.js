@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from 'react'
-import { Dimensions, Button, StyleSheet, Text, View, TouchableOpacity, Image, } from 'react-native'
-import ShareComponent from '../Components/ShareComponent';
+import { Dimensions, Button, StyleSheet, Text, View, TouchableOpacity, Image, Share } from 'react-native'
+// import ShareComponent from '../Components/ShareComponent';
 import { UserCirclePlus, HandsClapping } from 'phosphor-react-native';
 
 export default function Me({ navigation }) {
@@ -63,6 +63,34 @@ const Header = ({ navigation }) => {
     ),
   });
 }
+
+// SHARE BUTTON
+const ShareComponent = () => {
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message:
+          'Share dailyKPOP ❤️🌏',
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+  return (
+    <View>
+      <Text onPress={onShare}>Share dailyKPOP to the world</Text>
+    </View>
+  );
+};
 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
