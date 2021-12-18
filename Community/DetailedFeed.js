@@ -129,7 +129,7 @@ export default function DetailedFeed() {
                   .map((comment, index) => (
                     <View key={comment.id ? comment.id : index} style={styles.comment} >
                       <Text> {comment.content} </Text>
-                      <Text> {comment.createdAt.substring(0, 10)} </Text>
+                      {/* <Text> {comment.createdAt.substring(0, 10)} </Text> */}
                       <Divider />
                     </View>
                   ))
@@ -146,7 +146,10 @@ export default function DetailedFeed() {
               placeholder="Write a comment..."
               placeholderTextColor={'#777'}
             />
-            <TouchableOpacity onPress={addComment}>
+            <TouchableOpacity onPress={
+              addComment
+
+            }>
               {/* <Image source={require('../assets/icons/megaphone.png')} style={{ width: 30, height: 30 }} /> */}
               <CheckCircle size={30} />
             </TouchableOpacity>

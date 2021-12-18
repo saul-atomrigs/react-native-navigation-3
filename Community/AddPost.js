@@ -8,8 +8,6 @@ import { API, graphqlOperation } from 'aws-amplify'
 import { createPost, } from '../src/graphql/mutations'
 import { listPosts } from '../src/graphql/queries'
 Amplify.configure(config)
-// import { v4 as uuid } from 'uuid'
-// const CLIENT_ID = uuid()
 
 export default function AddPost({ navigation }) {
 
@@ -21,7 +19,7 @@ export default function AddPost({ navigation }) {
     fetchPosts()
   }, [])
 
-  // CREATE post
+  // CREATE POST
   async function addPost() {
     try {
       const post = { ...formStatePosts }
@@ -40,7 +38,7 @@ export default function AddPost({ navigation }) {
       console.log('error creating 에러!!', err)
     }
   }
-  // FETCH posts
+  // FETCH POSTS
   async function fetchPosts() {
     try {
       const postData = await API.graphql(graphqlOperation(listPosts));
@@ -137,6 +135,9 @@ const styles = StyleSheet.create({
     elevation: 0.8,
   },
   floatingBtnText: {
-    fontSize: 15, fontWeight: '700', color: 'pink', textDecorationLine: 'underline'
+    fontSize: 15,
+    fontWeight: '700',
+    color: 'pink',
+    textDecorationLine: 'underline'
   }
 });

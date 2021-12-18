@@ -62,14 +62,21 @@ export default function Calendar(props) {
     }
   }
 
-  let itemsReduced = items.reduce(function (acc, curr) {
-    acc[curr['date'].toUpperCase()] = [{
-      artist: curr.artist,
-      event: curr.event,
-      icon: <Television />,
-    }]
-    return acc;
-  }, {})
+  // let itemsReduced = items.reduce(function (acc, curr) {
+  //   acc[curr['date'].toUpperCase()] = [{
+  //     artist: curr.artist,
+  //     event: curr.event,
+  //     // icon: <Television />,
+  //   }]
+  //   return acc;
+  // }, {})
+
+  // GROUP MULTIPLE SCHEDULES ON THE SAME DAY & CONVERT TO CALENDAR TYPE OBJECT
+  let itemsReduced = items.reduce(function (r, a) {
+    r[a.date] = r[a.date] || [];
+    r[a.date].push(a)
+    return r;
+  }, Object.create(null))
 
   // const dummyData = {
   //   "2021-12-15": [

@@ -6,6 +6,7 @@ import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
 import { API, graphqlOperation } from 'aws-amplify'
 import { createEvent, updatePost, deletePost } from '../src/graphql/mutations'
+import { listEvents } from '../src/graphql/queries'
 Amplify.configure(config)
 
 export default function AddSchedule({ navigation }) {
@@ -71,12 +72,22 @@ export default function AddSchedule({ navigation }) {
     }
   }
 
+  // GO BACK
   function goBack() {
     navigation.goBack()
   }
 
+  // UPDATE ITEMS
+  async function fetchItems() {
+    try {
+      const itemData = await API.graphql(graphqlOperation(listEvents));
+      setItems(itemData.data.listEvents.items)
+    } catch (err) {
+      console.log(err, 'fetching 에러!!');
+    }
+  }
   function forceUpdate() {
-    setItems([...items])
+    fetchItems()
   }
 
   // MEMORY LEAK WARNING PREVENTION 
@@ -148,7 +159,7 @@ export default function AddSchedule({ navigation }) {
         onPress={() => {
           addItem();
           goBack();
-          forceUpdate()
+          forceUpdate();
         }}
       >
         <View style={styles.floatingBtn}>
