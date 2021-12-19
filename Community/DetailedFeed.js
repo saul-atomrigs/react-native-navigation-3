@@ -199,14 +199,14 @@ const HEIGHT = Dimensions.get('window').height;
 
 const headerRightButtons = {
   width: WIDTH * 0.08,
-  height: HEIGHT * 0.03,
+  height: HEIGHT * 0.04,
   marginRight: WIDTH * 0.03,
 }
 
 const styles = StyleSheet.create({
   headerRightButtons: {
     width: WIDTH * 0.08,
-    height: HEIGHT * 0.03,
+    height: HEIGHT * 0.04,
     // marginRight: WIDTH * 0.05,
   },
   container: {

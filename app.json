@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "react-native-navigation-3",
-    "slug": "react-native-navigation-3",
+    "name": "dailykpop",
+    "slug": "dailykpop",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icons/icon.png",
     "splash": {
-      "image": "./assets/icons/splash.png",
+      "image": "./assets/icons/splash2.jpg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,17 +17,33 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "app.dailykpop",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icons/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "app.dailykpop",
+      "versionCode": 1
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "config": {
+        "firebase": {
+          "apiKey": "AIzaSyB2RIWy_yejQZC7Ir-G_-Uyn5h1BQ6zmuY",
+          "authDomain": "chat-app-399d2.firebaseapp.com",
+          "projectId": "chat-app-399d2",
+          "storageBucket": "chat-app-399d2.appspot.com",
+          "messagingSenderId": "452397277148",
+          "appId": "1:452397277148:web:79ad3b89672e59ffeab919",
+          "measurementId": "G-VFBCCSNJC9"
+        }
+      }
     },
       "userInterfaceStyle": "automatic"
+      
   }
 }

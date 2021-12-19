@@ -26,6 +26,9 @@ import Connect from './Components/chat/Connect'
 // import Auth from './Auth/Auth';
 import Login from './Auth/Login';
 import Register from './Auth/Register';
+import GoogleAuth2 from './Auth/GoogleAuth2';
+import Apple2 from './Auth/Apple2';
+
 
 // STACK NAVIGATOR
 export default function App() {
@@ -55,6 +58,8 @@ export default function App() {
         <Stack.Screen name="Login" component={Login} options={{ title: '' }} />
         {/* <Stack.Screen name="Auth" component={Auth} options={{ title: '' }} /> */}
         <Stack.Screen name="Connect" component={Connect} options={{ title: '' }} />
+        <Stack.Screen name="GoogleAuth2" component={GoogleAuth2} options={{ title: '' }} />
+        <Stack.Screen name="Apple2" component={Apple2} options={{ title: '' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -63,11 +68,13 @@ export default function App() {
 function HomeTabNavigation() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
-      <Tab.Screen name="Me" component={Me} />
+      {/* <Tab.Screen name="Login" component={Login} /> */}
+      {/* <Tab.Screen name="GoogleAuth2" component={GoogleAuth2} /> */}
+      {/* <Tab.Screen name="Apple2" component={Apple2} /> */}
       <Tab.Screen name="Calendar" component={Calendar} />
       <Tab.Screen name="Discover" component={Discover} />
       <Tab.Screen name="Community" component={Feeds} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' }, }} />
-      {/* <Tab.Screen name="Login" component={Login} /> */}
+      <Tab.Screen name="Me" component={Me} />
       {/* <Tab.Screen name="Auth" component={Auth} /> */}
       {/* <Tab.Screen name="Korean" component={Korean} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} /> */}
     </Tab.Navigator>
@@ -78,6 +85,7 @@ function Notifications({ navigation }) {
   return (
     <View style={center}>
       <Login />
+      {/* <AppleSignIn /> */}
     </View>
   )
 }
@@ -127,8 +135,8 @@ const screenOptions = ({ route }) => ({
 function AppleSignIn() {
   return (
     <AppleButton
-      // buttonStyle={AppleButton.Style.WHITE}
-      // buttonType={AppleButton.Type.SIGN_IN}
+      buttonStyle={AppleButton.Style.WHITE}
+      buttonType={AppleButton.Type.SIGN_IN}
       style={{
         width: 160,
         height: 45,
@@ -152,12 +160,12 @@ const MyTheme = {
   colors: {
     ...DefaultTheme.colors,
     primary: '#000',
-    // background: '#fff'
+    background: '#fff'
   },
 };
 const headerRightButtons = {
   width: WIDTH * 0.08,
-  height: HEIGHT * 0.03,
+  height: HEIGHT * 0.04,
   marginRight: WIDTH * 0.05,
 }
 const center = {

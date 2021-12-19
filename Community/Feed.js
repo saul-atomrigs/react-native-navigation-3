@@ -185,12 +185,12 @@ const HEIGHT = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   headerRightButtons: {
     width: WIDTH * 0.08,
-    height: HEIGHT * 0.03,
+    height: HEIGHT * 0.04,
     marginRight: WIDTH * 0.05,
   },
   container: {
     // flex: 1,
-    // backgroundColor: '#fff',
+    backgroundColor: '#eee',
     marginBottom: 80,
   },
   post: {

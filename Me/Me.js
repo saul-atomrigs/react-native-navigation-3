@@ -1,7 +1,8 @@
 import React, { useLayoutEffect } from 'react'
-import { Dimensions, Button, StyleSheet, Text, View, TouchableOpacity, Image, Share } from 'react-native'
+import { Dimensions, ImageBackground, StyleSheet, Text, View, TouchableOpacity, Image, Share } from 'react-native'
 // import ShareComponent from '../Components/ShareComponent';
 import { UserCirclePlus, HandsClapping } from 'phosphor-react-native';
+import styled from 'styled-components';
 
 export default function Me({ navigation }) {
 
@@ -11,21 +12,25 @@ export default function Me({ navigation }) {
   }, [navigation])
   return (
     <>
+      {/* <StyledBg> */}
+
       <View style={styles.userInfoContainer}>
         <TouchableOpacity
           style={styles.userIcon}
-          onPress={() => navigation.navigate('Profile')}
+          onPress={() => navigation.navigate('Login')}
         >
           <UserCirclePlus size={50} color='#666' />
         </TouchableOpacity>
         <Text>@ username</Text>
         <Text onPress={() => navigation.navigate('Login')}>Login</Text>
-        <Text onPress={() => navigation.navigate('Register')}>Register</Text>
+        {/* <Text onPress={() => navigation.navigate('Register')}>Register</Text> */}
       </View>
+      {/* </StyledBg> */}
+
       <View style={styles.activityContainer}>
-        <Text style={styles.text}>My Fandoms</Text>
+        {/* <Text style={styles.text}>My Fandoms</Text>
         <Text style={styles.text}>My Posts</Text>
-        <Text style={styles.text}>My Comments</Text>
+        <Text style={styles.text}>My Comments</Text> */}
         <View style={{ flexDirection: 'row' }}>
           {/* <HandsClapping /> */}
           {/* <Text>5 Claps received</Text> */}
@@ -107,23 +112,24 @@ const HEIGHT = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   headerRightButtons: {
     width: WIDTH * 0.08,
-    height: HEIGHT * 0.03,
+    height: HEIGHT * 0.04,
     marginRight: WIDTH * 0.05,
   },
   userInfoContainer: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#eee',
+    borderRadius: 13,
+    // borderWidth: 1,
   },
   userIcon: {
-    paddingTop: 50,
+    // paddingTop: 30,
   },
   activityContainer: {
-    flex: 3,
+    flex: 2,
     // justifyContent: 'space-evenly',
     alignItems: 'baseline',
-    // borderWidth: 1,
     // marginHorizontal: WIDTH * 0.05,
     padding: WIDTH * 0.05,
     marginTop: HEIGHT * 0.01,
@@ -139,3 +145,9 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   }
 })
+
+// const StyledBg = styled.ImageBackground`
+//   background-image: linear-gradient(90deg, rgba(200,0,0,.5) 50%, transparent 50%),
+// linear-gradient(rgba(200,0,0,.5) 50%, transparent 50%);
+//   background-size:50px 50px;
+//   `

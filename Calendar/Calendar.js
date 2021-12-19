@@ -41,7 +41,7 @@ export default function Calendar(props) {
         <Divider style={styles.divider} />
         <View style={styles.stats}>
           {/* <HandsClapping /> */}
-          <Star color='pink' />
+          <Star color='gray' />
         </View>
       </TouchableOpacity >
     );
@@ -194,7 +194,7 @@ const HEIGHT = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   headerRightButtons: {
     width: WIDTH * 0.08,
-    height: HEIGHT * 0.03,
+    height: HEIGHT * 0.04,
     marginRight: WIDTH * 0.05,
   },
   container: {
