@@ -28,40 +28,44 @@ import Login from './Auth/Login';
 import Register from './Auth/Register';
 import GoogleAuth2 from './Auth/GoogleAuth2';
 import Apple2 from './Auth/Apple2';
+import AppContainer from './Components/components/AppContainer';
 
 
 // STACK NAVIGATOR
 export default function App() {
   return (
-    <NavigationContainer theme={MyTheme}>
-      <Stack.Navigator screenOptions={{ headerBackTitleVisible: false }}>
-        <Stack.Screen name="HomeTabNavigation" component={HomeTabNavigation} options={{ headerShown: false }} />
-        <Stack.Screen name="Calendar" component={Calendar} options={({ route }) => ({ title: route.params.param })} />
-        <Stack.Screen name="DetailedSchedule" component={DetailedSchedule} options={({ route }) => ({ title: route.params.param })} />
-        <Stack.Screen name="AddSchedule" component={AddSchedule} options={{ title: '' }} />
-        <Stack.Screen name="Community" component={Feeds} options={{ title: 'Community' }} />
-        <Stack.Screen name="DetailedFeed" component={DetailedFeed} options={{ title: '' }} />
-        <Stack.Screen name="AddPost" component={AddPost} options={{ title: '' }} />
-        <Stack.Screen name="Discover" component={Discover} options={{ title: '' }} />
-        <Stack.Screen name="DetailedDiscover" component={DetailedDiscover} options={{ title: '' }} />
-        <Stack.Screen name="Youtube" component={Youtube} options={{ title: '' }} />
-        <Stack.Screen name="Tiktok" component={Tiktok} options={{ title: '' }} />
-        <Stack.Screen name="Instagram" component={Instagram} options={{ title: '' }} />
-        <Stack.Screen name="Pinterest" component={Pinterest} options={{ title: '' }} />
-        <Stack.Screen name="Twitter" component={Twitter} options={{ title: '' }} />
-        <Stack.Screen name="Translate" component={Translate} options={{ title: '' }} />
-        <Stack.Screen name="Me" component={Me} />
-        <Stack.Screen name="Chat" component={Chat} />
-        <Stack.Screen name="Notifications" component={Notifications} />
-        {/* <Stack.Screen name="Search" component={Search} options={{ title: '' }} /> */}
-        <Stack.Screen name="Register" component={Register} options={{ title: '' }} />
-        <Stack.Screen name="Login" component={Login} options={{ title: '' }} />
-        {/* <Stack.Screen name="Auth" component={Auth} options={{ title: '' }} /> */}
-        <Stack.Screen name="Connect" component={Connect} options={{ title: '' }} />
-        <Stack.Screen name="GoogleAuth2" component={GoogleAuth2} options={{ title: '' }} />
-        <Stack.Screen name="Apple2" component={Apple2} options={{ title: '' }} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <AppContainer>
+
+      <NavigationContainer theme={MyTheme}>
+        <Stack.Navigator screenOptions={{ headerBackTitleVisible: false }}>
+          <Stack.Screen name="HomeTabNavigation" component={HomeTabNavigation} options={{ headerShown: false }} />
+          <Stack.Screen name="Calendar" component={Calendar} options={({ route }) => ({ title: route.params.param })} />
+          <Stack.Screen name="DetailedSchedule" component={DetailedSchedule} options={({ route }) => ({ title: route.params.param })} />
+          <Stack.Screen name="AddSchedule" component={AddSchedule} options={{ title: '' }} />
+          <Stack.Screen name="Community" component={Feeds} options={{ title: 'Community' }} />
+          <Stack.Screen name="DetailedFeed" component={DetailedFeed} options={{ title: '' }} />
+          <Stack.Screen name="AddPost" component={AddPost} options={{ title: '' }} />
+          <Stack.Screen name="Discover" component={Discover} options={{ title: '' }} />
+          <Stack.Screen name="DetailedDiscover" component={DetailedDiscover} options={{ title: '' }} />
+          <Stack.Screen name="Youtube" component={Youtube} options={{ title: '' }} />
+          <Stack.Screen name="Tiktok" component={Tiktok} options={{ title: '' }} />
+          <Stack.Screen name="Instagram" component={Instagram} options={{ title: '' }} />
+          <Stack.Screen name="Pinterest" component={Pinterest} options={{ title: '' }} />
+          <Stack.Screen name="Twitter" component={Twitter} options={{ title: '' }} />
+          <Stack.Screen name="Translate" component={Translate} options={{ title: '' }} />
+          <Stack.Screen name="Me" component={Me} />
+          <Stack.Screen name="Chat" component={Chat} />
+          <Stack.Screen name="Notifications" component={Notifications} />
+          {/* <Stack.Screen name="Search" component={Search} options={{ title: '' }} /> */}
+          <Stack.Screen name="Register" component={Register} options={{ title: '' }} />
+          <Stack.Screen name="Login" component={Login} options={{ title: '' }} />
+          {/* <Stack.Screen name="Auth" component={Auth} options={{ title: '' }} /> */}
+          <Stack.Screen name="Connect" component={Connect} options={{ title: '' }} />
+          <Stack.Screen name="GoogleAuth2" component={GoogleAuth2} options={{ title: '' }} />
+          <Stack.Screen name="Apple2" component={Apple2} options={{ title: '' }} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </AppContainer>
   );
 }
 // TAB = 밑에 탭 네비게이션 

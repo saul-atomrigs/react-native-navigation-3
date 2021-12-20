@@ -11,10 +11,10 @@ WebBrowser.maybeCompleteAuthSession();
 export default function GoogleAuth2() {
 
   const [request, response, promptAsync] = Google.useAuthRequest({
-    expoClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
-    iosClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
-    androidClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
-    webClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
+    expoClientId: '398637032546-3rp3jmc6u4cu0vlr335k9ml451qujm5v.apps.googleusercontent.com',
+    iosClientId: '398637032546-7t1in86b8gj9unaiojkfj3s903g6o156.apps.googleusercontent.com',
+    androidClientId: '398637032546-v65s48oe3eifkf2gheeorvq32vqn0r1b.apps.googleusercontent.com',
+    // webClientId: 'GOOGLE_GUID.apps.googleusercontent.com',
   });
 
   React.useEffect(() => {

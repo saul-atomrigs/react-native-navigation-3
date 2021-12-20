@@ -1,11 +1,9 @@
-import React, { useLayoutEffect } from 'react'
-import { Dimensions, ImageBackground, StyleSheet, Text, View, TouchableOpacity, Image, Share } from 'react-native'
+import React, { useLayoutEffect } from 'react';
+import { Dimensions, Image, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { UserCirclePlus } from 'phosphor-react-native';
 // import ShareComponent from '../Components/ShareComponent';
-import { UserCirclePlus, HandsClapping } from 'phosphor-react-native';
-import styled from 'styled-components';
 
 export default function Me({ navigation }) {
-
   // HEADER BUTTONS
   useLayoutEffect(() => {
     Header({ navigation })
@@ -30,7 +28,7 @@ export default function Me({ navigation }) {
       <View style={styles.activityContainer}>
         {/* <Text style={styles.text}>My Fandoms</Text>
         <Text style={styles.text}>My Posts</Text>
-        <Text style={styles.text}>My Comments</Text> */}
+      <Text style={styles.text}>My Comments</Text> */}
         <View style={{ flexDirection: 'row' }}>
           {/* <HandsClapping /> */}
           {/* <Text>5 Claps received</Text> */}
@@ -100,7 +98,7 @@ const ShareComponent = () => {
         style={styles.text}
         onPress={onShare}
       >
-        Share dailyKPOP to the world
+        Share dailykpop
       </Text>
     </View>
   );

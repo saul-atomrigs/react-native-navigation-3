@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import * as AppleAuthentication from 'expo-apple-authentication';
+// It does not yet support lower iOS versions, Android, or web.
 
 export default function Apple2() {
   return (
