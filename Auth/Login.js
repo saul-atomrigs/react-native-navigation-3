@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { View, Button, StyleSheet, TextInput, TouchableOpacity, Text, } from 'react-native'
 import { auth } from '../firebase'
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import Apple2 from './Apple2';
+// import { getAuth, onAuthStateChanged } from "firebase/auth";
+import AppleAuth from './AppleAuth';
 import GoogleAuth2 from './GoogleAuth2';
 import { Divider } from 'react-native-elements';
 
-// import { AppleButton } from '@invertase/react-native-apple-authentication';
-
 // import auth from '@react-native-firebase/auth';
 // import { auth } from '@react-native-firebase/auth';
-// import { appleAuth } from '@invertase/react-native-apple-authentication';
 
 export default function LoginScreen({ navigation }) {
 
@@ -38,50 +35,6 @@ export default function LoginScreen({ navigation }) {
     })
     return unsubscribe
   }, [])
-
-
-  // async function onAppleButtonPress() {
-  //   // Start the sign-in request
-  //   const appleAuthRequestResponse = await appleAuth.performRequest({
-  //     requestedOperation: appleAuth.Operation.LOGIN,
-  //     requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
-  //   });
-
-  //   // Ensure Apple returned a user identityToken
-  //   if (!appleAuthRequestResponse.identityToken) {
-  //     throw 'Apple Sign-In failed - no identify token returned';
-  //   }
-
-  //   // Create a Firebase credential from the response
-  //   const { identityToken, nonce } = appleAuthRequestResponse;
-  //   const appleCredential = auth.AppleAuthProvider.credential(identityToken, nonce);
-
-  //   // Sign the user in with the credential
-  //   return auth().signInWithCredential(appleCredential);
-  // }
-
-  // AUTHENTICATION  
-  // function AppleSignIn() {
-  //   return (
-  //     <AppleButton
-  //       buttonStyle={AppleButton.Style.WHITE}
-  //       buttonType={AppleButton.Type.SIGN_IN}
-  //       style={{
-  //         width: 160,
-  //         height: 45,
-  //       }}
-  //       onPress={() => onAppleButtonPress().then(() => console.log('Apple sign-in complete!'))}
-  //     />
-  //   );
-  // }
-  // function FacebookSignIn() {
-  //   return (
-  //     <Button
-  //       title="Facebook Sign-In"
-  //       onPress={() => onFacebookButtonPress().then(() => console.log('Signed in with Facebook!'))}
-  //     />
-  //   );
-  // }
 
 
   return (
@@ -133,7 +86,7 @@ export default function LoginScreen({ navigation }) {
 
       <Divider style={{ color: '#000' }} />
 
-      <Apple2 />
+      <AppleAuth />
 
       <GoogleAuth2 />
     </View>

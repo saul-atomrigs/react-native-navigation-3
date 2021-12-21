@@ -22,7 +22,6 @@ export default function GoogleAuth() {
       .catch(error => {
         console.log('error logInAsync');
         console.log(error);
-
       });
   }
   return (

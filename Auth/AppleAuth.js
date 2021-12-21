@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import * as AppleAuthentication from 'expo-apple-authentication';
-// It does not yet support lower iOS versions, Android, or web.
+// NO support lower iOS versions, Android, or web.
 
-export default function Apple2() {
+export default function AppleAuth() {
   return (
     <AppleAuthentication.AppleAuthenticationButton
       buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
@@ -18,7 +18,7 @@ export default function Apple2() {
               AppleAuthentication.AppleAuthenticationScope.EMAIL,
             ],
           });
-          // signed in
+          // SIGNED IN 
         } catch (e) {
           if (e.code === 'ERR_CANCELED') {
             // handle that the user canceled the sign-in flow

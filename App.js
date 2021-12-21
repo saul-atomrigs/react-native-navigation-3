@@ -1,71 +1,69 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Button, Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, StyleSheet } from 'react-native';
-import { AppleButton } from '@invertase/react-native-apple-authentication';
-import Chat from './Components/chat/Chat';
-import Feeds from './Community/Feed';
-import DetailedFeed from './Community/DetailedFeed';
-import Calendar from './Calendar/Calendar';
-import Discover from './Discover/Discover';
-import Twitter from './Discover/Twitter';
-import Pinterest from './Discover/Pinterest';
-import Instagram from './Discover/Instagram';
-import Tiktok from './Discover/Tiktok';
-import Youtube from './Discover/Youtube';
-import Translate from './Discover/Translate';
-import AddPost from './Community/AddPost';
-import AddSchedule from './Calendar/AddSchedule';
-import DetailedSchedule from './Calendar/DetailedSchedule';
-import DetailedDiscover from './Discover/DetailedDiscover';
-import Me from './Me/Me';
-import { HandsClapping, ChatsCircle, CalendarPlus, Fingerprint, Compass, } from 'phosphor-react-native';
-// import { Search } from './Components/Search';
-import Connect from './Components/chat/Connect'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import { CalendarPlus, ChatsCircle, Compass, Fingerprint } from 'phosphor-react-native';
+import AppleAuth from './Auth/AppleAuth';
+import GoogleAuth2 from './Auth/GoogleAuth2';
 // import Auth from './Auth/Auth';
 import Login from './Auth/Login';
 import Register from './Auth/Register';
-import GoogleAuth2 from './Auth/GoogleAuth2';
-import Apple2 from './Auth/Apple2';
-import AppContainer from './Components/components/AppContainer';
+import AddSchedule from './Calendar/AddSchedule';
+import Calendar from './Calendar/Calendar';
+import DetailedSchedule from './Calendar/DetailedSchedule';
+import AddPost from './Community/AddPost';
+import DetailedFeed from './Community/DetailedFeed';
+import Feeds from './Community/Feed';
+import Chat from './Components/chat/Chat';
+// import { Search } from './Components/Search';
+import Connect from './Components/chat/Connect';
+import DetailedDiscover from './Discover/DetailedDiscover';
+import Discover from './Discover/Discover';
+import Instagram from './Discover/Instagram';
+import Pinterest from './Discover/Pinterest';
+import Tiktok from './Discover/Tiktok';
+import Translate from './Discover/Translate';
+import Twitter from './Discover/Twitter';
+import Youtube from './Discover/Youtube';
+import Me from './Me/Me';
 
 
 // STACK NAVIGATOR
 export default function App() {
   return (
-    <AppContainer>
+    // <AppContainer>
 
-      <NavigationContainer theme={MyTheme}>
-        <Stack.Navigator screenOptions={{ headerBackTitleVisible: false }}>
-          <Stack.Screen name="HomeTabNavigation" component={HomeTabNavigation} options={{ headerShown: false }} />
-          <Stack.Screen name="Calendar" component={Calendar} options={({ route }) => ({ title: route.params.param })} />
-          <Stack.Screen name="DetailedSchedule" component={DetailedSchedule} options={({ route }) => ({ title: route.params.param })} />
-          <Stack.Screen name="AddSchedule" component={AddSchedule} options={{ title: '' }} />
-          <Stack.Screen name="Community" component={Feeds} options={{ title: 'Community' }} />
-          <Stack.Screen name="DetailedFeed" component={DetailedFeed} options={{ title: '' }} />
-          <Stack.Screen name="AddPost" component={AddPost} options={{ title: '' }} />
-          <Stack.Screen name="Discover" component={Discover} options={{ title: '' }} />
-          <Stack.Screen name="DetailedDiscover" component={DetailedDiscover} options={{ title: '' }} />
-          <Stack.Screen name="Youtube" component={Youtube} options={{ title: '' }} />
-          <Stack.Screen name="Tiktok" component={Tiktok} options={{ title: '' }} />
-          <Stack.Screen name="Instagram" component={Instagram} options={{ title: '' }} />
-          <Stack.Screen name="Pinterest" component={Pinterest} options={{ title: '' }} />
-          <Stack.Screen name="Twitter" component={Twitter} options={{ title: '' }} />
-          <Stack.Screen name="Translate" component={Translate} options={{ title: '' }} />
-          <Stack.Screen name="Me" component={Me} />
-          <Stack.Screen name="Chat" component={Chat} />
-          <Stack.Screen name="Notifications" component={Notifications} />
-          {/* <Stack.Screen name="Search" component={Search} options={{ title: '' }} /> */}
-          <Stack.Screen name="Register" component={Register} options={{ title: '' }} />
-          <Stack.Screen name="Login" component={Login} options={{ title: '' }} />
-          {/* <Stack.Screen name="Auth" component={Auth} options={{ title: '' }} /> */}
-          <Stack.Screen name="Connect" component={Connect} options={{ title: '' }} />
-          <Stack.Screen name="GoogleAuth2" component={GoogleAuth2} options={{ title: '' }} />
-          <Stack.Screen name="Apple2" component={Apple2} options={{ title: '' }} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </AppContainer>
+    <NavigationContainer theme={MyTheme}>
+      <Stack.Navigator screenOptions={{ headerBackTitleVisible: false }}>
+        <Stack.Screen name="HomeTabNavigation" component={HomeTabNavigation} options={{ headerShown: false }} />
+        <Stack.Screen name="Calendar" component={Calendar} options={({ route }) => ({ title: route.params.param })} />
+        <Stack.Screen name="DetailedSchedule" component={DetailedSchedule} options={({ route }) => ({ title: route.params.param })} />
+        <Stack.Screen name="AddSchedule" component={AddSchedule} options={{ title: '' }} />
+        <Stack.Screen name="Community" component={Feeds} options={{ title: 'Community' }} />
+        <Stack.Screen name="DetailedFeed" component={DetailedFeed} options={{ title: '' }} />
+        <Stack.Screen name="AddPost" component={AddPost} options={{ title: '' }} />
+        <Stack.Screen name="Discover" component={Discover} options={{ title: '' }} />
+        <Stack.Screen name="DetailedDiscover" component={DetailedDiscover} options={{ title: '' }} />
+        <Stack.Screen name="Youtube" component={Youtube} options={{ title: '' }} />
+        <Stack.Screen name="Tiktok" component={Tiktok} options={{ title: '' }} />
+        <Stack.Screen name="Instagram" component={Instagram} options={{ title: '' }} />
+        <Stack.Screen name="Pinterest" component={Pinterest} options={{ title: '' }} />
+        <Stack.Screen name="Twitter" component={Twitter} options={{ title: '' }} />
+        <Stack.Screen name="Translate" component={Translate} options={{ title: '' }} />
+        <Stack.Screen name="Me" component={Me} />
+        <Stack.Screen name="Chat" component={Chat} />
+        <Stack.Screen name="Notifications" component={Notifications} />
+        {/* <Stack.Screen name="Search" component={Search} options={{ title: '' }} /> */}
+        <Stack.Screen name="Register" component={Register} options={{ title: '' }} />
+        <Stack.Screen name="Login" component={Login} options={{ title: '' }} />
+        {/* <Stack.Screen name="Auth" component={Auth} options={{ title: '' }} /> */}
+        <Stack.Screen name="Connect" component={Connect} options={{ title: '' }} />
+        <Stack.Screen name="GoogleAuth2" component={GoogleAuth2} options={{ title: '' }} />
+        <Stack.Screen name="AppleAuth" component={AppleAuth} options={{ title: '' }} />
+      </Stack.Navigator>
+    </NavigationContainer>
+    // </AppContainer>
   );
 }
 // TAB = 밑에 탭 네비게이션 
@@ -74,7 +72,7 @@ function HomeTabNavigation() {
     <Tab.Navigator screenOptions={screenOptions}>
       {/* <Tab.Screen name="Login" component={Login} /> */}
       {/* <Tab.Screen name="GoogleAuth2" component={GoogleAuth2} /> */}
-      {/* <Tab.Screen name="Apple2" component={Apple2} /> */}
+      {/* <Tab.Screen name="AppleAuth" component={AppleAuth} /> */}
       <Tab.Screen name="Calendar" component={Calendar} />
       <Tab.Screen name="Discover" component={Discover} />
       <Tab.Screen name="Community" component={Feeds} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' }, }} />
@@ -97,11 +95,6 @@ function Notifications({ navigation }) {
 // REACT NAVIGATION 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-
-
-// SCREEN DIMENSIONS 
-const WIDTH = Dimensions.get('window').width;
-const HEIGHT = Dimensions.get('window').height;
 
 
 // TAB BAR ICONS 
@@ -135,29 +128,6 @@ const screenOptions = ({ route }) => ({
 })
 
 
-// AUTHENTICATION  
-function AppleSignIn() {
-  return (
-    <AppleButton
-      buttonStyle={AppleButton.Style.WHITE}
-      buttonType={AppleButton.Type.SIGN_IN}
-      style={{
-        width: 160,
-        height: 45,
-      }}
-      onPress={() => onAppleButtonPress().then(() => console.log('Apple sign-in complete!'))}
-    />
-  );
-}
-function FacebookSignIn() {
-  return (
-    <Button
-      title="Facebook Sign-In"
-      onPress={() => onFacebookButtonPress().then(() => console.log('Signed in with Facebook!'))}
-    />
-  );
-}
-
 // STYLES 
 const MyTheme = {
   ...DefaultTheme,
@@ -167,11 +137,6 @@ const MyTheme = {
     background: '#fff'
   },
 };
-const headerRightButtons = {
-  width: WIDTH * 0.08,
-  height: HEIGHT * 0.04,
-  marginRight: WIDTH * 0.05,
-}
 const center = {
   flex: 1,
   justifyContent: 'center',

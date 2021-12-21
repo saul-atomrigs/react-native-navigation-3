@@ -29,7 +29,7 @@
       },
       "package": "app.dailykpop",
       "versionCode": 1,
-      "googleServicesFile": "./google-services.json",
+
 "config": {
    "googleSignIn": {
       "certificateHash": "E763A475AD93CF710FB1A1807331DB84A8E24F4C"
@@ -52,5 +52,7 @@
     },
       "userInterfaceStyle": "automatic"
       
-  }
+  },
+  "scheme": "mycoolredirect"
+
 }

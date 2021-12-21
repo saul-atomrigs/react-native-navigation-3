@@ -1,10 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import { Button, View, StyleSheet } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 import { GoogleLogo } from 'phosphor-react-native';
 // import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
-
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -55,14 +54,6 @@ export default function GoogleAuth2() {
           }}
         />
       </View>
-      {/* <GoogleSigninButton
-        style={{ width: 192, height: 48 }}
-        size={GoogleSigninButton.Size.Wide}
-        color={GoogleSigninButton.Color.Dark}
-        // onPress={this._signIn}
-        onPress={() => { promptAsync() }}
-      // disabled={this.state.isSigninInProgress}
-      />; */}
     </>
   );
 }
