@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
   },
   avatar: {
     marginRight: 10,
-    marginLeft: 20
+    // marginLeft: 20
   },
   author: {
     fontSize: 18,
@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start'
   },
   content: {
-    marginHorizontal: 20,
+    // marginHorizontal: 20,
     // marginRight: 20,
     borderWidth: 1,
     marginTop: 15,
@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   commentsContainer: {
-    marginHorizontal: 20,
+    // marginHorizontal: 20,
   },
   commentsCounter: {
     fontWeight: '700',
