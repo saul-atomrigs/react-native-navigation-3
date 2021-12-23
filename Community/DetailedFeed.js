@@ -71,7 +71,8 @@ export default function DetailedFeed() {
       ));
       setComments(commentData.data.listComments.items)
       const commentsCount = commentData.data.listComments.items.length
-      console.log('number of comments: ', commentsCount)
+      // console.log('number of comments: ', commentsCount)
+      console.log('number of comments: ', param)
     } catch (err) {
       console.log(err, 'fetching 에러!!!');
     }
@@ -107,7 +108,7 @@ export default function DetailedFeed() {
                 source={require('../assets/icons/user-placeholder.png')}
                 containerStyle={styles.avatar}
               />
-              <Text style={{ fontSize: 18, fontWeight: '700' }} >{param.title}</Text>
+              <Text style={styles.author} >{param.id}</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.content}>
@@ -214,6 +215,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#fff',
+    marginHorizontal: WIDTH * 0.05,
   },
   card: {
     marginTop: 10,
@@ -224,8 +226,13 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginLeft: 20
   },
+  author: {
+    fontSize: 18,
+    fontWeight: '700'
+  },
   header: {
     paddingTop: 10,
+    borderWidth: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start'
@@ -233,6 +240,7 @@ const styles = StyleSheet.create({
   content: {
     marginHorizontal: 20,
     // marginRight: 20,
+    borderWidth: 1,
     marginTop: 15,
     marginBottom: 10,
     paddingVertical: 5,

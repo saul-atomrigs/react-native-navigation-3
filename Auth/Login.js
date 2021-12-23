@@ -4,24 +4,11 @@ import { auth } from '../firebase'
 // import { getAuth, onAuthStateChanged } from "firebase/auth";
 import AppleAuth from './AppleAuth';
 import GoogleAuth2 from './GoogleAuth2';
-import { Divider } from 'react-native-elements';
 
 // import auth from '@react-native-firebase/auth';
 // import { auth } from '@react-native-firebase/auth';
 
 export default function LoginScreen({ navigation }) {
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const signIn = () => {
-    auth.signInWithEmailAndPassword(email, password)
-      .catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        alert(errorMessage)
-      })
-  }
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
@@ -39,6 +26,33 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
+
+      {/* <LoginForm /> */}
+
+      <AppleAuth />
+
+      <GoogleAuth2 />
+    </View>
+  );
+}
+
+
+export function LoginForm() {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const signIn = () => {
+    auth.signInWithEmailAndPassword(email, password)
+      .catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        alert(errorMessage)
+      })
+  }
+
+  return (
+    <>
       <TextInput
         value={email}
         onChengeText={(text) => setEmail(text)}
@@ -62,35 +76,24 @@ export default function LoginScreen({ navigation }) {
 
       <View style={styles.btnContainer}>
         <TouchableOpacity
-          style={{ flexDirection: 'row' }}
+          style={styles.floatingBtn}
           onPress={() => { signIn }}
         >
-          <View style={styles.floatingBtn}>
-            <Text style={styles.floatingBtnText}> Sign In </Text>
-          </View>
+          <Text style={styles.floatingBtnText}> Sign In </Text>
         </TouchableOpacity>
         {/* submit button */}
         <TouchableOpacity
-          style={{ flexDirection: 'row' }}
+          style={styles.floatingBtnReverse}
           onPress={() => {
             navigation.navigate('Register')
           }}
         >
-          <View style={styles.floatingBtnReverse}>
-            <Text style={styles.floatingBtnTextReverse}> Register </Text>
-          </View>
+          <Text style={styles.floatingBtnTextReverse}> Register </Text>
         </TouchableOpacity>
-
-        {/* <AppleSignIn /> */}
       </View>
+    </>
 
-      <Divider style={{ color: '#000' }} />
-
-      <AppleAuth />
-
-      <GoogleAuth2 />
-    </View>
-  );
+  )
 }
 
 

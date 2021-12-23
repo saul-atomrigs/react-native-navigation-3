@@ -134,13 +134,11 @@ export default function Calendar(props) {
 
       <View style={styles.floatingBtnContainer}>
         <TouchableOpacity
-          style={{ flexDirection: 'row' }}
+          style={styles.floatingBtn}
           onPress={() => navigation.navigate('AddSchedule')}
         >
-          <View style={styles.floatingBtn}>
-            <Plus color="white1" weight='bold' size={20} />
-            <Text style={styles.floatingBtnText}>Add Event</Text>
-          </View>
+          <Plus color="white1" weight='bold' size={20} />
+          <Text style={styles.floatingBtnText}>Add Event</Text>
         </TouchableOpacity>
       </View>
     </>

@@ -197,7 +197,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
     backgroundColor: '#fff'
   },
-  dot: { marginRight: 5, marginTop: 5 },
+  dot: {
+    marginRight: 5,
+    marginTop: 5
+  },
   createdAt: {
     // marginTop: 5,
     // marginBottom: 10,
