@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingTop: 10,
-    borderWidth: 1,
+    // borderWidth: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start'
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
   content: {
     // marginHorizontal: 20,
     // marginRight: 20,
-    borderWidth: 1,
+    // borderWidth: 1,
     marginTop: 15,
     marginBottom: 10,
     paddingVertical: 5,
