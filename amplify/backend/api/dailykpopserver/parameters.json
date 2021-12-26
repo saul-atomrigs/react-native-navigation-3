@@ -1,5 +1,6 @@
 {
   "AppSyncApiName": "dailykpopserver",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthModeLastUpdated": "2021-12-26T02:10:10.868Z"
 }
