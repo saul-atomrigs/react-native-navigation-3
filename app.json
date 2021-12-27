@@ -37,7 +37,7 @@
 }
     },
     "web": {
-      "favicon": "./assets/favicon.png",
+      "favicon": "./assets/icons/icon.png",
       "config": {
         "firebase": {
           "apiKey": "AIzaSyB2RIWy_yejQZC7Ir-G_-Uyn5h1BQ6zmuY",
