@@ -1,20 +1,15 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-dailykpopserver-dev-95513-authRole",
-      "UnauthRoleArn": "arn:aws:iam::481597250567:role/amplify-dailykpopserver-dev-95513-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::481597250567:role/amplify-dailykpopserver-dev-95513-authRole",
+      "AuthRoleName": "amplify-dailykpop-dev-204219-authRole",
+      "UnauthRoleArn": "arn:aws:iam::481597250567:role/amplify-dailykpop-dev-204219-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::481597250567:role/amplify-dailykpop-dev-204219-authRole",
       "Region": "us-east-2",
-      "DeploymentBucketName": "amplify-dailykpopserver-dev-95513-deployment",
-      "UnauthRoleName": "amplify-dailykpopserver-dev-95513-unauthRole",
-      "StackName": "amplify-dailykpopserver-dev-95513",
-      "StackId": "arn:aws:cloudformation:us-east-2:481597250567:stack/amplify-dailykpopserver-dev-95513/06f7a1c0-5566-11ec-8804-0680981426c4",
-      "AmplifyAppId": "d34qiggl4uhd7d"
-    },
-    "categories": {
-      "auth": {
-        "dailykpopserverd0964ef5": {}
-      }
+      "DeploymentBucketName": "amplify-dailykpop-dev-204219-deployment",
+      "UnauthRoleName": "amplify-dailykpop-dev-204219-unauthRole",
+      "StackName": "amplify-dailykpop-dev-204219",
+      "StackId": "arn:aws:cloudformation:us-east-2:481597250567:stack/amplify-dailykpop-dev-204219/11cbde30-670a-11ec-94b5-069e6c6ac232",
+      "AmplifyAppId": "d2uk9qr5dyk4fs"
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "api": {
-    "dailykpopserver": {
+    "dailykpop": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {
@@ -8,42 +8,11 @@
           "defaultAuthentication": {
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 365,
-              "apiKeyExpirationDate": "2022-12-26T02:10:04.273Z",
-              "description": ""
+              "apiKeyExpirationDays": 7
             }
           },
           "additionalAuthenticationProviders": []
         }
-      }
-    }
-  },
-  "auth": {
-    "dailykpopserverd0964ef5": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [],
-      "customAuth": false,
-      "frontendAuthConfig": {
-        "socialProviders": [],
-        "usernameAttributes": [
-          "EMAIL",
-          "PHONE_NUMBER"
-        ],
-        "signupAttributes": [
-          "EMAIL"
-        ],
-        "passwordProtectionSettings": {
-          "passwordPolicyMinLength": 8,
-          "passwordPolicyCharacters": []
-        },
-        "mfaConfiguration": "OFF",
-        "mfaTypes": [
-          "SMS"
-        ],
-        "verificationMechanisms": [
-          "EMAIL"
-        ]
       }
     }
   }
