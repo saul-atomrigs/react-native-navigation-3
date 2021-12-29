@@ -94,14 +94,14 @@ export default function Feed(props) {
                         </Text>
                         <View style={styles.stat}>
                           {/* <Text style={[styles.statDetails, { fontWeight: '600' }]}>{item.views} Views</Text> */}
-                          <View style={{ flexDirection: 'row' }}>
+                          <View style={styles.statDetails}>
                             <Heart size={18} color='red' />
                             {/* <Text style={styles.statDetails}>{item.likes}</Text> */}
                           </View>
-                          <View style={{ flexDirection: 'row' }}>
+                          <View style={styles.statDetails}>
                             <ChatText size={18} color='gray' />
                             {/* <Text style={styles.statDetails}>{item.comments}</Text> */}
-                            <Text> total comment: {post.comments.length} </Text>
+                            <Text> {post.comments.length} </Text>
                           </View>
                         </View>
                       </View>
@@ -230,14 +230,16 @@ const styles = StyleSheet.create({
     marginRight: 5,
     // marginTop: 5,
     flex: 1,
+    // borderWidth: 1,
     justifyContent: 'flex-end'
   },
   statDetails: {
-    marginRight: 12,
-    marginLeft: 5,
+    marginHorizontal: 5,
+    // marginLeft: 5,
     // marginBottom: 10,
     fontSize: 12,
     fontWeight: '600',
+    flexDirection: 'row',
   },
   floatingBtnContainer: {
     justifyContent: 'center',

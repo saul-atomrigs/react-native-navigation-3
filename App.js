@@ -1,14 +1,13 @@
 import React from 'react';
+import { StatusBar } from 'expo-status-bar';
 import { View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { CalendarPlus, ChatsCircle, Compass, Fingerprint } from 'phosphor-react-native';
-import AppleAuth from './Auth/AppleAuth';
-import GoogleAuth2 from './Auth/GoogleAuth2';
-// import Auth from './Auth/Auth';
 import Login from './Auth/Login';
-import Register from './Auth/Register';
+import AppleAuth from './Auth/AppleAuth';
+import GoogleAuth4 from './Auth/GoogleAuth4';
 import AddSchedule from './Calendar/AddSchedule';
 import Calendar from './Calendar/Calendar';
 import DetailedSchedule from './Calendar/DetailedSchedule';
@@ -16,7 +15,6 @@ import AddPost from './Community/AddPost';
 import DetailedFeed from './Community/DetailedFeed';
 import Feeds from './Community/Feed';
 import Chat from './Components/chat/Chat';
-// import { Search } from './Components/Search';
 import Connect from './Components/chat/Connect';
 import DetailedDiscover from './Discover/DetailedDiscover';
 import Discover from './Discover/Discover';
@@ -35,6 +33,7 @@ export default function App() {
     // <AppContainer>
 
     <NavigationContainer theme={MyTheme}>
+      <StatusBar style='dark-content' />
       <Stack.Navigator screenOptions={{ headerBackTitleVisible: false }}>
         <Stack.Screen name="HomeTabNavigation" component={HomeTabNavigation} options={{ headerShown: false }} />
         <Stack.Screen name="Calendar" component={Calendar} options={({ route }) => ({ title: route.params.param })} />
@@ -54,12 +53,9 @@ export default function App() {
         <Stack.Screen name="Me" component={Me} />
         <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="Notifications" component={Notifications} />
-        {/* <Stack.Screen name="Search" component={Search} options={{ title: '' }} /> */}
-        <Stack.Screen name="Register" component={Register} options={{ title: '' }} />
         <Stack.Screen name="Login" component={Login} options={{ title: '' }} />
-        {/* <Stack.Screen name="Auth" component={Auth} options={{ title: '' }} /> */}
         <Stack.Screen name="Connect" component={Connect} options={{ title: '' }} />
-        <Stack.Screen name="GoogleAuth2" component={GoogleAuth2} options={{ title: '' }} />
+        <Stack.Screen name="GoogleAuth4" component={GoogleAuth4} options={{ title: '' }} />
         <Stack.Screen name="AppleAuth" component={AppleAuth} options={{ title: '' }} />
       </Stack.Navigator>
     </NavigationContainer>
@@ -71,7 +67,7 @@ function HomeTabNavigation() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       {/* <Tab.Screen name="Login" component={Login} /> */}
-      {/* <Tab.Screen name="GoogleAuth2" component={GoogleAuth2} /> */}
+      {/* <Tab.Screen name="GoogleAuth4" component={GoogleAuth4} /> */}
       {/* <Tab.Screen name="AppleAuth" component={AppleAuth} /> */}
       <Tab.Screen name="Community" component={Feeds} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' }, }} />
       <Tab.Screen name="Calendar" component={Calendar} />

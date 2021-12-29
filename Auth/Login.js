@@ -3,7 +3,8 @@ import { View, Button, StyleSheet, TextInput, TouchableOpacity, Text, } from 're
 import { auth } from '../firebase'
 // import { getAuth, onAuthStateChanged } from "firebase/auth";
 import AppleAuth from './AppleAuth';
-import GoogleAuth2 from './GoogleAuth2';
+import GoogleAuth4 from './GoogleAuth4';
+import CognitoAuth from './CognitoAuth';
 
 // import auth from '@react-native-firebase/auth';
 // import { auth } from '@react-native-firebase/auth';
@@ -31,7 +32,9 @@ export default function LoginScreen({ navigation }) {
 
       <AppleAuth />
 
-      <GoogleAuth2 />
+      <GoogleAuth4 />
+
+      <CognitoAuth />
     </View>
   );
 }
