@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useLayoutEffect, useEffect } from 'react';
+import React, { useState, useCallback, useLayoutEffect, useEffect, createContext } from 'react';
 import { ScrollView, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View, RefreshControl, TextInput } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -12,11 +12,14 @@ import { createComment, updateComment, deleteComment } from '../src/graphql/muta
 import { listComments } from '../src/graphql/queries'
 Amplify.configure(config)
 
-export default function DetailedFeed() {
+export default function DetailedFeed({ children }) {
 
   const { param } = useRoute().params
 
   const navigation = useNavigation();
+
+  // USECONTEXT
+  const [context] = useState(userObjectContext)
 
   // REFRESH CONTROL
   const [refreshing, setRefreshing] = useState(false);
@@ -114,12 +117,12 @@ export default function DetailedFeed() {
           <View style={styles.content}>
             <Text style={styles.contentText}>{param.title}</Text>
           </View>
-          <Divider style={{ marginBottomm: 5 }} />
           <View style={styles.stats}>
             {/* <Text style={styles.statDetails}>{param.views} Views</Text> */}
             <Text style={styles.statDetails}>{param.likes} </Text>
-            <Heart size={30} weight='regular' color='red' />
+            <Heart size={25} weight='regular' color='red' />
           </View>
+
           <Divider />
           <View style={styles.commentsContainer}>
             <Text style={styles.commentsCounter}> {commentsCount} Comments </Text>
@@ -131,7 +134,6 @@ export default function DetailedFeed() {
                     <View key={comment.id ? comment.id : index} style={styles.comment} >
                       <Text> {comment.content} </Text>
                       {/* <Text> {comment.createdAt.substring(0, 10)} </Text> */}
-                      <Divider />
                     </View>
                   ))
               }
@@ -149,7 +151,6 @@ export default function DetailedFeed() {
             />
             <TouchableOpacity onPress={
               addComment
-
             }>
               {/* <Image source={require('../assets/icons/megaphone.png')} style={{ width: 30, height: 30 }} /> */}
               <CheckCircle size={30} />
@@ -157,6 +158,9 @@ export default function DetailedFeed() {
           </View>
         </View>
       </View >
+
+      {/* <UserContext.Provider value={context}> {children} </UserContext.Provider> */}
+
     </KeyboardAwareScrollView >
   )
 }
@@ -194,6 +198,15 @@ export const Header = ({ navigation }) => {
     ),
   });
 }
+
+
+// CREATE CONTEXT 
+const userObjectContext = {
+  likes: "likes",
+  comments: 'comments',
+}
+export const UserContext = createContext(userObjectContext)
+
 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
@@ -261,7 +274,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   commentsContainer: {
-    // marginHorizontal: 20,
+    marginTop: 20,
   },
   commentsCounter: {
     fontWeight: '700',

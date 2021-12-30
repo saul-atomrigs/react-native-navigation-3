@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react'
+import React, { useState, useEffect, useLayoutEffect, useContext } from 'react'
 import { Dimensions, Text, Image, View, TouchableOpacity, StyleSheet, RefreshControl, ScrollView } from 'react-native'
+import { Divider } from 'react-native-elements';
+import { UserContext } from './DetailedFeed'
 import { useNavigation } from '@react-navigation/core';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useIsFocused } from '@react-navigation/native'
@@ -14,9 +16,12 @@ import { onCreatePost } from '../src/graphql/subscriptions'
 Amplify.configure(config)
 
 export default function Feed(props) {
+
   const navigation = useNavigation();
 
   const [posts, setPosts] = useState([])
+
+  const context = useContext(UserContext)
 
   // RERENDER AFTER SUBMIT (GOBACK)
   useEffect(() => {
@@ -88,6 +93,7 @@ export default function Feed(props) {
                           <Text> {post.title} </Text>
                         </Text>
                       </View>
+                      <Divider />
                       <View style={styles.postFooter}>
                         <Text style={styles.createdAt}>
                           {post.createdAt.substring(0, 10)}
@@ -96,12 +102,14 @@ export default function Feed(props) {
                           {/* <Text style={[styles.statDetails, { fontWeight: '600' }]}>{item.views} Views</Text> */}
                           <View style={styles.statDetails}>
                             <Heart size={18} color='black' />
+                            <Text> {context.likes} </Text>
                             {/* <Text style={styles.statDetails}>{item.likes}</Text> */}
                           </View>
                           <View style={styles.statDetails}>
                             <ChatText size={18} color='black' />
                             {/* <Text style={styles.statDetails}>{item.comments}</Text> */}
-                            <Text> {post.comments.length} </Text>
+                            {/* <Text> {post.comments.length} </Text> */}
+                            <Text> {context.comments} </Text>
                           </View>
                         </View>
                       </View>
@@ -111,25 +119,8 @@ export default function Feed(props) {
               ))
           }
         </View>
-
-        {/* 
-      <FlatList
-        style={styles.container}
-        // data={CommunityData}
-        data={CommunityData}
-        // data={DATA}
-        renderItem={renderItem}
-        keyExtractor={CommunityData.id}
-        // keyExtractor={DATA.id}
-        maxLength={8}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />
-        }
-      /> */}
       </ScrollView>
+
       <View style={styles.floatingBtnContainer}>
         <TouchableOpacity style={styles.floatingBtn}
           onPress={() => navigation.navigate('AddPost')}
@@ -217,7 +208,7 @@ const styles = StyleSheet.create({
     color: "#02007F"
   },
   postFooter: {
-    marginVertical: 20,
+    marginVertical: 10,
     flexDirection: 'row',
     // paddingTop: 10,
     // flexDirection: 'row',
@@ -230,10 +221,13 @@ const styles = StyleSheet.create({
     marginRight: 5,
     // marginTop: 5,
     flex: 1,
-    // borderWidth: 1,
     justifyContent: 'flex-end'
   },
   statDetails: {
+    // borderWidth: 1,
+    padding: 2,
+    backgroundColor: '#eee',
+    borderRadius: 13,
     marginHorizontal: 5,
     // marginLeft: 5,
     // marginBottom: 10,
