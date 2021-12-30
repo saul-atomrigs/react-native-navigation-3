@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { View, Button, StyleSheet, TextInput, TouchableOpacity, Text, } from 'react-native'
-import { auth } from '../firebase'
+// import { auth } from '../firebase'
 // import { getAuth, onAuthStateChanged } from "firebase/auth";
 import AppleAuth from './AppleAuth';
-import GoogleAuth4 from './GoogleAuth4';
-import CognitoAuth from './CognitoAuth';
+import GoogleAuth from './GoogleAuth';
 
 // import auth from '@react-native-firebase/auth';
 // import { auth } from '@react-native-firebase/auth';
 
 export default function LoginScreen({ navigation }) {
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      if (user) {
-        navigation.replace('Chat')
-      } else {
-        // navigation.canGoBack() &&
-        // navigation.popToTop()
-        null
-      }
-    })
-    return unsubscribe
-  }, [])
+  // FIREBASE 
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged(user => {
+  //     if (user) {
+  //       navigation.replace('Chat')
+  //     } else {
+  //       // navigation.canGoBack() &&
+  //       // navigation.popToTop()
+  //       null
+  //     }
+  //   })
+  //   return unsubscribe
+  // }, [])
 
 
   return (
@@ -32,9 +32,7 @@ export default function LoginScreen({ navigation }) {
 
       <AppleAuth />
 
-      <GoogleAuth4 />
-
-      <CognitoAuth />
+      <GoogleAuth />
     </View>
   );
 }

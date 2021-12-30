@@ -7,7 +7,7 @@ import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { CalendarPlus, ChatsCircle, Compass, Fingerprint } from 'phosphor-react-native';
 import Login from './Auth/Login';
 import AppleAuth from './Auth/AppleAuth';
-import GoogleAuth4 from './Auth/GoogleAuth4';
+import GoogleAuth from './Auth/GoogleAuth';
 import AddSchedule from './Calendar/AddSchedule';
 import Calendar from './Calendar/Calendar';
 import DetailedSchedule from './Calendar/DetailedSchedule';
@@ -55,7 +55,7 @@ export default function App() {
         <Stack.Screen name="Notifications" component={Notifications} />
         <Stack.Screen name="Login" component={Login} options={{ title: '' }} />
         <Stack.Screen name="Connect" component={Connect} options={{ title: '' }} />
-        <Stack.Screen name="GoogleAuth4" component={GoogleAuth4} options={{ title: '' }} />
+        <Stack.Screen name="GoogleAuth" component={GoogleAuth} options={{ title: '' }} />
         <Stack.Screen name="AppleAuth" component={AppleAuth} options={{ title: '' }} />
       </Stack.Navigator>
     </NavigationContainer>
@@ -67,7 +67,7 @@ function HomeTabNavigation() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       {/* <Tab.Screen name="Login" component={Login} /> */}
-      {/* <Tab.Screen name="GoogleAuth4" component={GoogleAuth4} /> */}
+      {/* <Tab.Screen name="GoogleAuth" component={GoogleAuth} /> */}
       {/* <Tab.Screen name="AppleAuth" component={AppleAuth} /> */}
       <Tab.Screen name="Community" component={Feeds} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' }, }} />
       <Tab.Screen name="Calendar" component={Calendar} />
