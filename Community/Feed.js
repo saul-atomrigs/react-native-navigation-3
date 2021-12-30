@@ -95,11 +95,11 @@ export default function Feed(props) {
                         <View style={styles.stat}>
                           {/* <Text style={[styles.statDetails, { fontWeight: '600' }]}>{item.views} Views</Text> */}
                           <View style={styles.statDetails}>
-                            <Heart size={18} color='red' />
+                            <Heart size={18} color='black' />
                             {/* <Text style={styles.statDetails}>{item.likes}</Text> */}
                           </View>
                           <View style={styles.statDetails}>
-                            <ChatText size={18} color='gray' />
+                            <ChatText size={18} color='black' />
                             {/* <Text style={styles.statDetails}>{item.comments}</Text> */}
                             <Text> {post.comments.length} </Text>
                           </View>
