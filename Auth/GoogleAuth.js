@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Button, View, StyleSheet } from 'react-native';
 import { GoogleLogo } from 'phosphor-react-native';
@@ -10,15 +10,18 @@ import * as Google from 'expo-auth-session/providers/google';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
+import { UserContext } from './UserProvider';
 
-export default function GoogleAuth2() {
+export default function GoogleAuth() {
 
   const navigation = useNavigation();
 
-  // EXPO-AUTH-SESSION: https://docs.expo.io/versions/latest/sdk/auth-session/
-  // const [request, response, promptAsync] = Google.useAuthRequest({
+  const user = useContext(UserContext);
+  console.log('유저:', user);
+
+  // EXPO-AUTH-SESSION 
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-    // CLIENT ID FROM FIREBASE
+    // CLIENT ID FROM FIREBASE:
     clientId: `634344250588-lgu10halk6fqqu366rdnommu47pekmc4.apps.googleusercontent.com`
   });
 
@@ -29,7 +32,6 @@ export default function GoogleAuth2() {
       auth.signInWithCredential(credential)
         .then(() => {
           // IF LOGGED IN
-          // navigation.navigate('Community');
           navigation.goBack();
           console.log('🚀 LOGGED IN');
         })
@@ -39,11 +41,6 @@ export default function GoogleAuth2() {
         })
     }
   }, [response])
-
-
-  // console.log('request: ', request);
-  console.log('response: ', response);
-  // console.log('promptAsync: ', promptAsync);
 
   return (
     <>
@@ -57,10 +54,13 @@ export default function GoogleAuth2() {
           }}
         />
       </View>
+      <Button title='sign out' onPress={() => firebase.auth().signOut()} />
     </>
   );
 }
 
+
+// FIREBASE V8
 const firebaseConfig = {
   apiKey: "AIzaSyCz-Wd5fT_9DNmaJp_mGBYu9NjRSgBLk3U",
   authDomain: "dailykpop-ee1e3.firebaseapp.com",
@@ -78,9 +78,11 @@ if (firebase.apps.length === 0) {
 }
 const auth = firebase.auth()
 
+
+// GOOGLE SIGN IN MODAL
 WebBrowser.maybeCompleteAuthSession();
 
-
+// STYLES
 const styles = StyleSheet.create({
   googleBtn: {
     flexDirection: 'row',

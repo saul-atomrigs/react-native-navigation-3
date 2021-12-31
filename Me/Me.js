@@ -1,6 +1,7 @@
 import React, { useLayoutEffect } from 'react';
 import { Dimensions, Image, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { UserCirclePlus } from 'phosphor-react-native';
+import UserProvider from '../Auth/UserProvider'
 // import ShareComponent from '../Components/ShareComponent';
 
 export default function Me({ navigation }) {
@@ -10,20 +11,10 @@ export default function Me({ navigation }) {
   }, [navigation])
   return (
     <>
-      {/* <StyledBg> */}
-
       <View style={styles.userInfoContainer}>
-        <TouchableOpacity
-          style={styles.userIcon}
-          onPress={() => navigation.navigate('Login')}
-        >
-          <UserCirclePlus size={50} color='#666' />
-        </TouchableOpacity>
-        <Text>@ username</Text>
-        <Text onPress={() => navigation.navigate('Login')}>Login</Text>
-        {/* <Text onPress={() => navigation.navigate('Register')}>Register</Text> */}
+        {/* <UserCirclePlus size={50} color='#666' /> */}
+        <UserProvider />
       </View>
-      {/* </StyledBg> */}
 
       <View style={styles.activityContainer}>
         {/* <Text style={styles.text}>My Fandoms</Text>

@@ -31,7 +31,6 @@ import Me from './Me/Me';
 export default function App() {
   return (
     // <AppContainer>
-
     <NavigationContainer theme={MyTheme}>
       <StatusBar style='dark-content' />
       <Stack.Navigator screenOptions={{ headerBackTitleVisible: false }}>

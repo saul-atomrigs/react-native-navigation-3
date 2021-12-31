@@ -1,34 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { View, Button, StyleSheet, TextInput, TouchableOpacity, Text, } from 'react-native'
-// import { auth } from '../firebase'
-// import { getAuth, onAuthStateChanged } from "firebase/auth";
+import React, { useState } from 'react';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import AppleAuth from './AppleAuth';
 import GoogleAuth from './GoogleAuth';
-
-// import auth from '@react-native-firebase/auth';
-// import { auth } from '@react-native-firebase/auth';
+import UserProvider from './UserProvider';
 
 export default function LoginScreen({ navigation }) {
 
-  // FIREBASE 
-  // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged(user => {
-  //     if (user) {
-  //       navigation.replace('Chat')
-  //     } else {
-  //       // navigation.canGoBack() &&
-  //       // navigation.popToTop()
-  //       null
-  //     }
-  //   })
-  //   return unsubscribe
-  // }, [])
-
-
   return (
     <View style={styles.container}>
-
-      {/* <LoginForm /> */}
+      <UserProvider />
 
       <AppleAuth />
 
@@ -36,7 +16,6 @@ export default function LoginScreen({ navigation }) {
     </View>
   );
 }
-
 
 export function LoginForm() {
 
@@ -63,7 +42,6 @@ export function LoginForm() {
         style={styles.textInput}
         label="Email"
       />
-      {/* <ChatScreen /> */}
       <TextInput
         value={password}
         onChengeText={(text) => setPassword(text)}
@@ -82,7 +60,7 @@ export function LoginForm() {
         >
           <Text style={styles.floatingBtnText}> Sign In </Text>
         </TouchableOpacity>
-        {/* submit button */}
+
         <TouchableOpacity
           style={styles.floatingBtnReverse}
           onPress={() => {
@@ -98,16 +76,7 @@ export function LoginForm() {
 }
 
 
-// alternative: 
-// const onLogin = async(email, password) => {
-//     try{
-//         await firebase.auth().signInWithEmailAndPassword(email, password) {
-//             console.log('success', email)
-//         } catch (error) {
-//             alert(error.message)
-//     }
-// }
-
+// STYLING 
 const styles = StyleSheet.create({
   container: {
     flex: 1,

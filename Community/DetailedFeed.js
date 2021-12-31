@@ -12,14 +12,14 @@ import { createComment, updateComment, deleteComment } from '../src/graphql/muta
 import { listComments } from '../src/graphql/queries'
 Amplify.configure(config)
 
+import UserProvider from '../Auth/UserProvider';
+
+
 export default function DetailedFeed({ children }) {
 
   const { param } = useRoute().params
 
   const navigation = useNavigation();
-
-  // USECONTEXT
-  const [context] = useState(userObjectContext)
 
   // COUNTER BUTTON STATE
   const [count, setCount] = useState(0)
@@ -55,7 +55,6 @@ export default function DetailedFeed({ children }) {
       const result = await API.graphql(graphqlOperation(
         createComment,
         {
-          // input: comment,
           input: {
             content: formStateComments.content,
             postCommentsId: param.id
@@ -77,7 +76,6 @@ export default function DetailedFeed({ children }) {
       ));
       setComments(commentData.data.listComments.items)
       const commentsCount = commentData.data.listComments.items.length
-      // console.log('number of comments: ', commentsCount)
       console.log('number of comments: ', param)
     } catch (err) {
       console.log(err, 'fetching 에러!!!');
@@ -106,15 +104,9 @@ export default function DetailedFeed({ children }) {
               onPress={() => navigation.push('Home')}
               style={{ flexDirection: 'row' }}
             >
-              <Avatar
-                rounded
-                // TODO: unknown avatar if not logged in 
-                // source={{ uri: isLogIn ? param.avatarURI : placeholderImage }}
-                // source={{ uri: param.avatarURI }}
-                source={require('../assets/icons/user-placeholder.png')}
-                containerStyle={styles.avatar}
-              />
-              <Text style={styles.author} >{param.id}</Text>
+              <Text style={styles.author} >
+                <UserProvider />
+              </Text>
             </TouchableOpacity>
           </View>
           <View style={styles.content}>
@@ -142,11 +134,9 @@ export default function DetailedFeed({ children }) {
                   .map((comment, index) => (
                     <View key={comment.id ? comment.id : index} style={styles.comment} >
                       <Text> {comment.content} </Text>
-                      {/* <Text> {comment.createdAt.substring(0, 10)} </Text> */}
                     </View>
                   ))
               }
-              {/* <Text> {test + test2} </Text> */}
             </ScrollView>
           </View>
           <View style={styles.textInputContainer}>
@@ -161,15 +151,11 @@ export default function DetailedFeed({ children }) {
             <TouchableOpacity onPress={
               addComment
             }>
-              {/* <Image source={require('../assets/icons/megaphone.png')} style={{ width: 30, height: 30 }} /> */}
               <CheckCircle size={30} />
             </TouchableOpacity>
           </View>
         </View>
       </View >
-
-      {/* <UserContext.Provider value={context}> {children} </UserContext.Provider> */}
-
     </KeyboardAwareScrollView >
   )
 }
@@ -260,9 +246,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start'
   },
   content: {
-    // marginHorizontal: 20,
-    // marginRight: 20,
-    // borderWidth: 1,
     marginTop: 15,
     marginBottom: 10,
     paddingVertical: 5,
@@ -290,16 +273,14 @@ const styles = StyleSheet.create({
     fontSize: 11,
   },
   comment: {
+    // borderWidth: 1,
     marginVertical: 10,
   },
   textInputContainer: {
-    marginHorizontal: 20,
     marginTop: "auto",
-    // borderWidth: 1,
-    // borderColor: "skyblue",
     justifyContent: "center",
     alignItems: "center",
-    paddingVertical: 20,
+    paddingVertical: 5,
     paddingHorizontal: 5,
     flexDirection: 'row',
   },
@@ -311,5 +292,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#eee",
     padding: 10,
+    height: 70,
   },
 })
