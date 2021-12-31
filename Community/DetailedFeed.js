@@ -21,6 +21,9 @@ export default function DetailedFeed({ children }) {
   // USECONTEXT
   const [context] = useState(userObjectContext)
 
+  // COUNTER BUTTON STATE
+  const [count, setCount] = useState(0)
+
   // REFRESH CONTROL
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
@@ -117,11 +120,17 @@ export default function DetailedFeed({ children }) {
           <View style={styles.content}>
             <Text style={styles.contentText}>{param.title}</Text>
           </View>
-          <View style={styles.stats}>
+
+          <TouchableOpacity
+            onPress={() => setCount(count + 1)}
+          >
             {/* <Text style={styles.statDetails}>{param.views} Views</Text> */}
-            <Text style={styles.statDetails}>{param.likes} </Text>
-            <Heart size={25} weight='regular' color='red' />
-          </View>
+            {/* <Text style={styles.statDetails}>{param.likes} </Text> */}
+            <View style={styles.statDetails}>
+              <Heart size={25} weight='regular' color='red' />
+              <Text style={styles.commentsCounter}> {count} likes</Text>
+            </View>
+          </TouchableOpacity>
 
           <Divider />
           <View style={styles.commentsContainer}>
@@ -264,12 +273,12 @@ const styles = StyleSheet.create({
     marginVertical: 20
   },
   stats: {
-    flexDirection: 'row',
-    marginHorizontal: 20,
-    marginTop: 5,
-    justifyContent: 'flex-end'
+    // marginTop: 5,
+    // borderWidth: 1,
+    // justifyContent: 'flex-end'
   },
   statDetails: {
+    // borderWidth: 1,
     marginBottom: 10,
     fontSize: 18,
   },
@@ -277,7 +286,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   commentsCounter: {
-    fontWeight: '700',
+    fontWeight: '400',
+    fontSize: 11,
   },
   comment: {
     marginVertical: 10,
