@@ -44,6 +44,21 @@ type Event @model {
  date: String!
 }
 
+# type Like @model {
+#  id: ID!
+#  userId: String!
+#  username: String!
+#  picture: Picture @connection(name: "PictureLikes")
+# }
+
+# type Picture @model {
+#  id: ID!
+#  userId: String!
+#  username: String!
+#  file: S3Object
+#  likes: [Like] @connection(name: "PictureLikes")
+# }
+
 # type Subscription {
 #  onCommentByPostId(postCommentsId: ID!): Comment
 #   @aws_subscribe(mutations: ["createComment"])
@@ -70,19 +85,4 @@ type Event @model {
 #  region: String!
 #  key: String!
 #  uri: String!
-# }
-
-# type Like @model {
-#  id: ID!
-#  userId: String!
-#  username: String!
-#  picture: Picture @connection(name: "PictureLikes")
-# }
-
-# type Picture @model {
-#  id: ID!
-#  userId: String!
-#  username: String!
-#  file: S3Object
-#  likes: [Like] @connection(name: "PictureLikes")
 # }
