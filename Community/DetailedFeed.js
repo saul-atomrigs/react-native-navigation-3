@@ -2,7 +2,7 @@ import React, { useState, useCallback, useLayoutEffect, useEffect, createContext
 import { ScrollView, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View, RefreshControl, TextInput } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Avatar, Divider } from 'react-native-elements';
+import { Divider } from 'react-native-elements';
 import { CheckCircle, Heart, Megaphone, UserCircle } from 'phosphor-react-native';
 
 import Amplify from 'aws-amplify'
@@ -15,7 +15,7 @@ Amplify.configure(config)
 import UserProvider from '../Auth/UserProvider';
 
 
-export default function DetailedFeed({ children }) {
+export default function DetailedFeed({ post }) {
 
   const { param } = useRoute().params
 
@@ -23,6 +23,15 @@ export default function DetailedFeed({ children }) {
 
   // COUNTER BUTTON STATE
   const [count, setCount] = useState(0)
+
+  // HANDLER FOR LIKES COUNT 
+  const handleLike = (post) => {
+    const currentLikeStatus = !post.likesByUsers.includes(
+      firebase.auth().currentUsers.email
+    )
+    // ADD OR REMOVE LIKES IN DATABASE
+
+  }
 
   // REFRESH CONTROL
   const [refreshing, setRefreshing] = useState(false);
@@ -119,7 +128,12 @@ export default function DetailedFeed({ children }) {
             {/* <Text style={styles.statDetails}>{param.views} Views</Text> */}
             {/* <Text style={styles.statDetails}>{param.likes} </Text> */}
             <View style={styles.statDetails}>
-              <Heart size={25} weight='regular' color='red' />
+              <Heart
+                size={25}
+                color='red'
+                weight='regular'
+              // weight= post.likesByUser.includes(user.id) ? 'fill' : 'regular'
+              />
               <Text style={styles.commentsCounter}> {count} likes</Text>
             </View>
           </TouchableOpacity>
