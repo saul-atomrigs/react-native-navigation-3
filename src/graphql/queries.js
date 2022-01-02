@@ -46,6 +46,17 @@ export const getPost = /* GraphQL */ `
     getPost(id: $id) {
       id
       title
+      likes {
+        items {
+          id
+          userId
+          username
+          createdAt
+          updatedAt
+          postLikesId
+        }
+        nextToken
+      }
       blog {
         id
         name
@@ -81,6 +92,16 @@ export const listPosts = /* GraphQL */ `
       items {
         id
         title
+        likes {
+          # 직접 추가함
+          items {
+            id
+            userId
+            username
+          }
+          
+          nextToken
+        }
         blog {
           id
           name
@@ -98,6 +119,63 @@ export const listPosts = /* GraphQL */ `
     }
   }
 `;
+export const getPostLike = /* GraphQL */ `
+  query GetPostLike($id: ID!) {
+    getPostLike(id: $id) {
+      id
+      userId
+      username
+      post {
+        id
+        title
+        likes {
+          nextToken
+        }
+        blog {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        blogPostsId
+      }
+      createdAt
+      updatedAt
+      postLikesId
+    }
+  }
+`;
+export const listPostLikes = /* GraphQL */ `
+  query ListPostLikes(
+    $filter: ModelPostLikeFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPostLikes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        userId
+        username
+        post {
+          id
+          title
+          createdAt
+          updatedAt
+          blogPostsId
+        }
+        createdAt
+        updatedAt
+        postLikesId
+      }
+      nextToken
+    }
+  }
+`;
 export const getComment = /* GraphQL */ `
   query GetComment($id: ID!) {
     getComment(id: $id) {
@@ -106,6 +184,9 @@ export const getComment = /* GraphQL */ `
       post {
         id
         title
+        likes {
+          nextToken
+        }
         blog {
           id
           name

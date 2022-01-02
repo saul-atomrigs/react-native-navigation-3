@@ -3,7 +3,8 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-nativ
 import AppleAuth from './AppleAuth';
 import GoogleAuth from './GoogleAuth';
 import UserProvider from './UserProvider';
-
+import { db } from '../firebase1';
+import CognitoAuth from './CognitoAuth';
 export default function LoginScreen({ navigation }) {
 
   return (
@@ -13,6 +14,8 @@ export default function LoginScreen({ navigation }) {
       <AppleAuth />
 
       <GoogleAuth />
+
+      <CognitoAuth />
     </View>
   );
 }

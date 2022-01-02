@@ -78,6 +78,17 @@ export const createPost = /* GraphQL */ `
     createPost(input: $input, condition: $condition) {
       id
       title
+      likes {
+        items {
+          id
+          userId
+          username
+          createdAt
+          updatedAt
+          postLikesId
+        }
+        nextToken
+      }
       blog {
         id
         name
@@ -111,6 +122,17 @@ export const updatePost = /* GraphQL */ `
     updatePost(input: $input, condition: $condition) {
       id
       title
+      likes {
+        items {
+          id
+          userId
+          username
+          createdAt
+          updatedAt
+          postLikesId
+        }
+        nextToken
+      }
       blog {
         id
         name
@@ -144,6 +166,17 @@ export const deletePost = /* GraphQL */ `
     deletePost(input: $input, condition: $condition) {
       id
       title
+      likes {
+        items {
+          id
+          userId
+          username
+          createdAt
+          updatedAt
+          postLikesId
+        }
+        nextToken
+      }
       blog {
         id
         name
@@ -169,6 +202,108 @@ export const deletePost = /* GraphQL */ `
     }
   }
 `;
+export const createPostLike = /* GraphQL */ `
+  mutation CreatePostLike(
+    $input: CreatePostLikeInput!
+    $condition: ModelPostLikeConditionInput
+  ) {
+    createPostLike(input: $input, condition: $condition) {
+      id
+      userId
+      username
+      post {
+        id
+        title
+        likes {
+          nextToken
+        }
+        blog {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        blogPostsId
+      }
+      createdAt
+      updatedAt
+      postLikesId
+    }
+  }
+`;
+export const updatePostLike = /* GraphQL */ `
+  mutation UpdatePostLike(
+    $input: UpdatePostLikeInput!
+    $condition: ModelPostLikeConditionInput
+  ) {
+    updatePostLike(input: $input, condition: $condition) {
+      id
+      userId
+      username
+      post {
+        id
+        title
+        likes {
+          nextToken
+        }
+        blog {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        blogPostsId
+      }
+      createdAt
+      updatedAt
+      postLikesId
+    }
+  }
+`;
+export const deletePostLike = /* GraphQL */ `
+  mutation DeletePostLike(
+    $input: DeletePostLikeInput!
+    $condition: ModelPostLikeConditionInput
+  ) {
+    deletePostLike(input: $input, condition: $condition) {
+      id
+      userId
+      username
+      post {
+        id
+        title
+        likes {
+          nextToken
+        }
+        blog {
+          id
+          name
+          createdAt
+          updatedAt
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        blogPostsId
+      }
+      createdAt
+      updatedAt
+      postLikesId
+    }
+  }
+`;
 export const createComment = /* GraphQL */ `
   mutation CreateComment(
     $input: CreateCommentInput!
@@ -180,6 +315,9 @@ export const createComment = /* GraphQL */ `
       post {
         id
         title
+        likes {
+          nextToken
+        }
         blog {
           id
           name
@@ -210,6 +348,9 @@ export const updateComment = /* GraphQL */ `
       post {
         id
         title
+        likes {
+          nextToken
+        }
         blog {
           id
           name
@@ -240,6 +381,9 @@ export const deleteComment = /* GraphQL */ `
       post {
         id
         title
+        likes {
+          nextToken
+        }
         blog {
           id
           name

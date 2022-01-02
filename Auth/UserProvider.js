@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createContext } from "react";
 import { StyleSheet, Image, Text } from "react-native";
 import firebase from 'firebase'
+import { db } from "../firebase1";
 
 export const UserContext = createContext({ user: null })
 
@@ -11,6 +12,18 @@ export default ({ props }) => {
   useEffect(() => {
     firebase.auth().onAuthStateChanged(async (user) => {
       const { photoURL, displayName, email } = user;
+
+      var uid = user.uid;
+      console.log('token : ', uid)
+
+      // AUTH => FIREBASE DB
+      db.collection('users').add({
+        uid: uid
+      })
+
+      // AUTH => AWS DB
+
+
       setUser({
         photoURL,
         displayName,

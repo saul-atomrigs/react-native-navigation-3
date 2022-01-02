@@ -8,12 +8,13 @@ import { CheckCircle, Heart, Megaphone, UserCircle } from 'phosphor-react-native
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
 import { API, graphqlOperation } from 'aws-amplify'
-import { createComment, updateComment, deleteComment } from '../src/graphql/mutations'
-import { listComments } from '../src/graphql/queries'
+import { createComment, updateComment, deleteComment, createPostLike } from '../src/graphql/mutations'
+import { listComments, listPostLikes } from '../src/graphql/queries'
 Amplify.configure(config)
 
 import UserProvider from '../Auth/UserProvider';
 
+import db from '../firebase1'
 
 export default function DetailedFeed({ post }) {
 
@@ -31,6 +32,38 @@ export default function DetailedFeed({ post }) {
     )
     // ADD OR REMOVE LIKES IN DATABASE
 
+  }
+
+  // CREATE LIKES 
+  const [formStatePosts, setFormStatePosts] = useState({ id: '' })
+  const [posts, setPosts] = useState([])
+
+  async function addPostLike() {
+    try {
+      const post = { ...formStatePosts }
+      setPosts([...posts, post])
+      setFormStatePosts({ id: '' })
+      // ✅ REFRESH AFTER SUBMIT:
+      const result = await API.graphql(graphqlOperation(
+        createPostLike,
+        {
+          input: post
+        }
+      ))
+      setPosts([...posts, result.data.createPostLike])
+      console.log('🚀 createPostLike: ', result)
+    } catch (err) {
+      console.log('error creating 에러!!', err)
+    }
+  }
+
+  // PRESS LIKE BUTTON
+  function onLikePressed() {
+    // setCount(count + 1)
+  }
+
+  function getNumberOfLikes() {
+    return (count)
   }
 
   // REFRESH CONTROL
@@ -85,7 +118,7 @@ export default function DetailedFeed({ post }) {
       ));
       setComments(commentData.data.listComments.items)
       const commentsCount = commentData.data.listComments.items.length
-      console.log('number of comments: ', param)
+      // console.log('number of comments: ', param)
     } catch (err) {
       console.log(err, 'fetching 에러!!!');
     }
@@ -114,7 +147,6 @@ export default function DetailedFeed({ post }) {
               style={{ flexDirection: 'row' }}
             >
               <Text style={styles.author} >
-                <UserProvider />
               </Text>
             </TouchableOpacity>
           </View>
@@ -123,10 +155,9 @@ export default function DetailedFeed({ post }) {
           </View>
 
           <TouchableOpacity
-            onPress={() => setCount(count + 1)}
+            onPress={onLikePressed}
           >
-            {/* <Text style={styles.statDetails}>{param.views} Views</Text> */}
-            {/* <Text style={styles.statDetails}>{param.likes} </Text> */}
+
             <View style={styles.statDetails}>
               <Heart
                 size={25}
@@ -134,7 +165,7 @@ export default function DetailedFeed({ post }) {
                 weight='regular'
               // weight= post.likesByUser.includes(user.id) ? 'fill' : 'regular'
               />
-              <Text style={styles.commentsCounter}> {count} likes</Text>
+              <Text style={styles.commentsCounter}> {count} {getNumberOfLikes} likes</Text>
             </View>
           </TouchableOpacity>
 
@@ -151,6 +182,7 @@ export default function DetailedFeed({ post }) {
                     </View>
                   ))
               }
+              <UserProvider />
             </ScrollView>
           </View>
           <View style={styles.textInputContainer}>
@@ -288,6 +320,7 @@ const styles = StyleSheet.create({
   },
   comment: {
     // borderWidth: 1,
+    // backgroundColor: '#eee',
     marginVertical: 10,
   },
   textInputContainer: {

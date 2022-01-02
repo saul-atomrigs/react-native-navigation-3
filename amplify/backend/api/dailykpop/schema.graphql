@@ -13,12 +13,24 @@ type Blog @model {
 type Post @model {
  id: ID!
  title: String!
+
+ #  userId: String!
+ #  username: String!
+ likes: [PostLike] @hasMany
+
  #  content: String!
  blog: Blog @belongsTo
  #  comments: [Comment] @hasMany(indexName: "byPost", fields: ["id"])
  comments: [Comment] @hasMany
  createdAt: AWSDateTime! #important to keep it to have filter with keys
  updatedAt: AWSDateTime! #important to keep it to have filter with keys
+}
+
+type PostLike @model {
+ id: ID!
+ userId: String!
+ username: String!
+ post: Post @belongsTo
 }
 
 type Comment @model {

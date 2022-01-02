@@ -8,7 +8,8 @@ import * as Google from 'expo-auth-session/providers/google';
 
 // FIREBASE V8.
 import firebase from 'firebase/app';
-import 'firebase/auth';
+import { db } from '../firebase1';
+import { auth } from '../firebase1';
 
 import { UserContext } from './UserProvider';
 
@@ -42,6 +43,11 @@ export default function GoogleAuth() {
     }
   }, [response])
 
+  db.collection('users').add({
+    // userId: authUser.user.uid,
+    // email: authUser.user.email
+  })
+
   return (
     <>
       <View style={styles.googleBtn}>
@@ -58,26 +64,6 @@ export default function GoogleAuth() {
     </>
   );
 }
-
-
-// FIREBASE V8
-const firebaseConfig = {
-  apiKey: "AIzaSyCz-Wd5fT_9DNmaJp_mGBYu9NjRSgBLk3U",
-  authDomain: "dailykpop-ee1e3.firebaseapp.com",
-  projectId: "dailykpop-ee1e3",
-  storageBucket: "dailykpop-ee1e3.appspot.com",
-  messagingSenderId: "634344250588",
-  appId: "1:634344250588:web:6922ef76271f0f4a58e819",
-  measurementId: "G-XNXPPVHXBC"
-}
-let app
-if (firebase.apps.length === 0) {
-  app = firebase.initializeApp(firebaseConfig)
-} else {
-  app = firebase.app()
-}
-const auth = firebase.auth()
-
 
 // GOOGLE SIGN IN MODAL
 WebBrowser.maybeCompleteAuthSession();
