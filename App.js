@@ -5,9 +5,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { CalendarPlus, ChatsCircle, Compass, Fingerprint } from 'phosphor-react-native';
+import { withAuthenticator } from 'aws-amplify-react-native'
 import Login from './Auth/Login';
 import AppleAuth from './Auth/AppleAuth';
 import GoogleAuth from './Auth/GoogleAuth';
+import CognitoAuth2 from './Auth/CognitoAuth2';
 import AddSchedule from './Calendar/AddSchedule';
 import Calendar from './Calendar/Calendar';
 import DetailedSchedule from './Calendar/DetailedSchedule';
@@ -56,11 +58,13 @@ export default function App() {
         <Stack.Screen name="Connect" component={Connect} options={{ title: '' }} />
         <Stack.Screen name="GoogleAuth" component={GoogleAuth} options={{ title: '' }} />
         <Stack.Screen name="AppleAuth" component={AppleAuth} options={{ title: '' }} />
+        <Stack.Screen name="CognitoAuth2" component={CognitoAuth2} options={{ title: '' }} />
       </Stack.Navigator>
     </NavigationContainer>
     // </AppContainer>
   );
 }
+// export default withAuthenticator(App)
 // TAB = 밑에 탭 네비게이션 
 function HomeTabNavigation() {
   return (
@@ -77,7 +81,7 @@ function HomeTabNavigation() {
 function Notifications({ navigation }) {
   return (
     <View style={center}>
-      <Login />
+      <CognitoAuth2 />
     </View>
   )
 }

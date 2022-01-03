@@ -2,6 +2,7 @@ import React, { useLayoutEffect } from 'react';
 import { Dimensions, Image, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { UserCirclePlus } from 'phosphor-react-native';
 import UserProvider from '../Auth/UserProvider'
+import CognitoAuth2 from '../Auth/CognitoAuth2'
 // import ShareComponent from '../Components/ShareComponent';
 
 export default function Me({ navigation }) {
@@ -13,7 +14,9 @@ export default function Me({ navigation }) {
     <>
       <View style={styles.userInfoContainer}>
         {/* <UserCirclePlus size={50} color='#666' /> */}
-        <UserProvider />
+        {/* <UserProvider /> */}
+        <CognitoAuth2 />
+
       </View>
 
       <View style={styles.activityContainer}>

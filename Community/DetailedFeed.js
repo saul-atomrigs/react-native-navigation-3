@@ -59,7 +59,7 @@ export default function DetailedFeed({ post }) {
 
   // PRESS LIKE BUTTON
   function onLikePressed() {
-    // setCount(count + 1)
+    setCount(count + 1)
   }
 
   function getNumberOfLikes() {
@@ -178,6 +178,8 @@ export default function DetailedFeed({ post }) {
                   .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).reverse()
                   .map((comment, index) => (
                     <View key={comment.id ? comment.id : index} style={styles.comment} >
+                      {/* <Image source={{ uri: < UserCircle /> }} style={styles.avatar} /> */}
+                      <UserCircle size={25} color='#000' />
                       <Text> {comment.content} </Text>
                     </View>
                   ))
@@ -320,7 +322,9 @@ const styles = StyleSheet.create({
   },
   comment: {
     // borderWidth: 1,
-    // backgroundColor: '#eee',
+    padding: 10,
+    borderRadius: 13,
+    backgroundColor: '#eee',
     marginVertical: 10,
   },
   textInputContainer: {
@@ -332,6 +336,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   textInput: {
+    borderWidth: 1,
     marginHorizontal: 5,
     width: "90%",
     fontSize: 15,
