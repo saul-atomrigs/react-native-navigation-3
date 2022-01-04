@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "dailykpop",
+    "name": "DailyKpop",
     "slug": "dailykpop",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icons/icon.png",
+    "icon": "./assets/icons/logo.png",
     "splash": {
       "image": "./assets/icons/splash3.png",
       "resizeMode": "contain",
@@ -19,12 +19,12 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "app.dailykpop",
-      "buildNumber": "1.0.1",
+      "buildNumber": "1.0.3",
       "usesAppleSignIn": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icons/adaptive-icon.png",
+        "foregroundImage": "./assets/icons/logo.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "app.dailykpop",
@@ -37,7 +37,7 @@
 }
     },
     "web": {
-      "favicon": "./assets/icons/icon.png",
+      "favicon": "./assets/icons/logo.png",
       "config": {
         "firebase": {
           "apiKey": "AIzaSyB2RIWy_yejQZC7Ir-G_-Uyn5h1BQ6zmuY",

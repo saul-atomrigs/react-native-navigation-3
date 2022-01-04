@@ -64,7 +64,6 @@ function App() {
       <Text>{user ? JSON.stringify(user.attributes) : ''}</Text>
       {/* <Button title="Sign Out" onPress={() => Auth.signOut()} /> */}
     </>
-
   );
 }
 

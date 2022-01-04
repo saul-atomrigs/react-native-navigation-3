@@ -4,7 +4,7 @@ import AppleAuth from './AppleAuth';
 import GoogleAuth from './GoogleAuth';
 import UserProvider from './UserProvider';
 import { db } from '../firebase1';
-import CognitoAuth2 from './CognitoAuth2';
+import CognitoAuth3 from './CognitoAuth3';
 export default function LoginScreen({ navigation }) {
 
   return (
@@ -15,7 +15,7 @@ export default function LoginScreen({ navigation }) {
 
       <GoogleAuth />
 
-      <CognitoAuth2 />
+      <CognitoAuth3 />
     </View>
   );
 }

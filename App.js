@@ -9,7 +9,7 @@ import { withAuthenticator } from 'aws-amplify-react-native'
 import Login from './Auth/Login';
 import AppleAuth from './Auth/AppleAuth';
 import GoogleAuth from './Auth/GoogleAuth';
-import CognitoAuth2 from './Auth/CognitoAuth2';
+import CognitoAuth3 from './Auth/CognitoAuth3';
 import AddSchedule from './Calendar/AddSchedule';
 import Calendar from './Calendar/Calendar';
 import DetailedSchedule from './Calendar/DetailedSchedule';
@@ -58,7 +58,7 @@ export default function App() {
         <Stack.Screen name="Connect" component={Connect} options={{ title: '' }} />
         <Stack.Screen name="GoogleAuth" component={GoogleAuth} options={{ title: '' }} />
         <Stack.Screen name="AppleAuth" component={AppleAuth} options={{ title: '' }} />
-        <Stack.Screen name="CognitoAuth2" component={CognitoAuth2} options={{ title: '' }} />
+        <Stack.Screen name="CognitoAuth3" component={CognitoAuth3} options={{ title: '' }} />
       </Stack.Navigator>
     </NavigationContainer>
     // </AppContainer>
@@ -81,7 +81,7 @@ function HomeTabNavigation() {
 function Notifications({ navigation }) {
   return (
     <View style={center}>
-      <CognitoAuth2 />
+      <CognitoAuth3 />
     </View>
   )
 }
