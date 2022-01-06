@@ -10,17 +10,18 @@ export default function CognitoAuth() {
   // Endpoint
   const discoveryDocument = {
     authorizationEndpoint:
-      'https://<YOUR DOMAIN>.auth.us-east-1.amazoncognito.com/login'
+      'https://dailykpop63b1ff97-63b1ff97-dev.auth.us-east-2.amazoncognito.com/login'
     // Your domain can be found at User Pool -> Domain Name (under App integration)
   }
   // Request
   const [request, response, promptAsync] = useAuthRequest(
     {
-      clientId: '<YOUR CLIENT ID>',
+      clientId: '6ka9girmgpanhl8pcffmtoe7fl',
       // clientID can be found at App Client Settings (Under App integration) 
       scopes: ['email', 'openid', 'aws.cognito.signin.user.admin'],
       responseType: 'code',
-      redirectUri: '<YOUR REDIRECT URI>'
+      redirectUri:
+        'https://dailykpop63b1ff97-63b1ff97-dev.auth.us-east-2.amazoncognito.com/oauth2/idpresponse/'
       // Redirect URI is the Callback URL(s) in App Client Settings (Under App integration)
     },
     discoveryDocument
@@ -36,6 +37,7 @@ export default function CognitoAuth() {
       }
       if (response.type === 'success') {
         setLoggedIn(true)
+        console.log('Successfully logged in')
       }
     }
   }, [response])

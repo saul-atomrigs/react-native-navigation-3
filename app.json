@@ -29,12 +29,12 @@
       },
       "package": "app.dailykpop",
       "versionCode": 1,
-
-"config": {
-   "googleSignIn": {
-      "certificateHash": "E763A475AD93CF710FB1A1807331DB84A8E24F4C"
-}
-}
+      
+      "config": {
+        "googleSignIn": {
+          "certificateHash": "E763A475AD93CF710FB1A1807331DB84A8E24F4C"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/icons/logo.png",
@@ -50,8 +50,8 @@
         }
       }
     },
-      "userInterfaceStyle": "automatic"
-      
-  },
-  "scheme": "dailykpop"
+    "userInterfaceStyle": "automatic",
+    
+    "scheme": "dailykpop"
+  }
 }

@@ -10,6 +10,7 @@ import Login from './Auth/Login';
 import AppleAuth from './Auth/AppleAuth';
 import GoogleAuth from './Auth/GoogleAuth';
 import CognitoAuth3 from './Auth/CognitoAuth3';
+import Welcome from './Auth/Welcome';
 import AddSchedule from './Calendar/AddSchedule';
 import Calendar from './Calendar/Calendar';
 import DetailedSchedule from './Calendar/DetailedSchedule';
@@ -59,6 +60,7 @@ export default function App() {
         <Stack.Screen name="GoogleAuth" component={GoogleAuth} options={{ title: '' }} />
         <Stack.Screen name="AppleAuth" component={AppleAuth} options={{ title: '' }} />
         <Stack.Screen name="CognitoAuth3" component={CognitoAuth3} options={{ title: '' }} />
+        <Stack.Screen name="Welcome" component={Welcome} options={{ title: '' }} />
       </Stack.Navigator>
     </NavigationContainer>
     // </AppContainer>
@@ -81,7 +83,8 @@ function HomeTabNavigation() {
 function Notifications({ navigation }) {
   return (
     <View style={center}>
-      <CognitoAuth3 />
+      <AppleAuth />
+      <GoogleAuth />
     </View>
   )
 }

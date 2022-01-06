@@ -17,7 +17,7 @@
     }
   },
   "auth": {
-    "dailykpop47723a1e": {
+    "dailykpop63b1ff97": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],

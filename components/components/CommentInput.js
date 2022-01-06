@@ -79,7 +79,7 @@
 //                     scrollEnabled={false}
 //                 />
 //                 <TouchableOpacity>
-//                     <Image source={require('../assets/icons/megaphone.png')} style={{ width: 30, height: 30 }} />
+//                     <Image source={require('../assets/icons/megaphone.png')} style={{ width: 30,, height: 30 }} />
 //                 </TouchableOpacity>
 //             </View>
 //         </SafeAreaView>

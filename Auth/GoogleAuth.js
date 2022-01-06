@@ -33,7 +33,7 @@ export default function GoogleAuth() {
       auth.signInWithCredential(credential)
         .then(() => {
           // IF LOGGED IN
-          navigation.goBack();
+          navigation.navigate('Welcome');
           console.log('🚀 LOGGED IN');
         })
         .catch(error => {

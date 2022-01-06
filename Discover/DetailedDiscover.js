@@ -119,8 +119,8 @@ const center = {
 
 const styles = StyleSheet.create({
   headerRightButtons: {
-    width: WIDTH * 0.08,
-    height: HEIGHT * 0.04,
+    width: 30,
+    height: 30,
     // marginRight: WIDTH * 0.05,
   },
   webView: {

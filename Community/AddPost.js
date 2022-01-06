@@ -73,7 +73,6 @@ export default function AddPost({ navigation }) {
           multiline
         />
         <TouchableOpacity
-          // onPress={addPost}
           onPress={() => {
             addPost()
             goBack()
@@ -103,7 +102,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#000000',
     height: 250,
-    width: 300,
+    width: 30,
     borderColor: '#e6e6e6',
     backgroundColor: '#eee',
     borderWidth: 1,
@@ -118,7 +117,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 300,
+    width: 30,
     height: 40,
     position: 'relative',
     backgroundColor: 'black',
@@ -137,7 +136,7 @@ const styles = StyleSheet.create({
   floatingBtnText: {
     fontSize: 15,
     fontWeight: '700',
-    color: 'pink',
+    color: '#fff',
     textDecorationLine: 'underline'
   }
 });

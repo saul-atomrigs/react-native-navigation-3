@@ -14,7 +14,7 @@ Amplify.configure(config)
 
 import UserProvider from '../Auth/UserProvider';
 
-import db from '../firebase1'
+// import db from '../firebase1'
 
 export default function DetailedFeed({ post }) {
 
@@ -255,15 +255,15 @@ const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
 const headerRightButtons = {
-  width: WIDTH * 0.08,
-  height: HEIGHT * 0.04,
+  width: 30,
+  height: 30,
   marginRight: WIDTH * 0.03,
 }
 
 const styles = StyleSheet.create({
   headerRightButtons: {
-    width: WIDTH * 0.08,
-    height: HEIGHT * 0.04,
+    width: 30,
+    height: 30,
     // marginRight: WIDTH * 0.05,
   },
   container: {

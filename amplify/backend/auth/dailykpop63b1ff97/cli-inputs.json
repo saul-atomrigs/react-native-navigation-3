@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "dailykpop47723a1e_identitypool_47723a1e",
+    "identityPoolName": "dailykpop63b1ff97_identitypool_63b1ff97",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "dailyk47723a1e",
-    "userPoolName": "dailykpop47723a1e_userpool_47723a1e",
+    "resourceNameTruncated": "dailyk63b1ff97",
+    "userPoolName": "dailykpop63b1ff97_userpool_63b1ff97",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -31,23 +31,38 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "dailyk47723a1e_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "dailyk63b1ff97_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "47723a1e",
-    "resourceName": "dailykpop47723a1e",
+    "sharedId": "63b1ff97",
+    "resourceName": "dailykpop63b1ff97",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "defaultSocial",
     "hostedUI": true,
-    "hostedUIDomainName": "dailykpop47723a1e-47723a1e",
+    "hostedUIDomainName": "dailykpop63b1ff97-63b1ff97",
     "authProvidersUserPool": [
       "Google",
       "SignInWithApple"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}},{\"ProviderName\":\"SignInWithApple\",\"authorize_scopes\":\"email\",\"AttributeMapping\":{\"email\":\"email\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"dailykpop://\"],\"LogoutURLs\":[\"dailykpop://\"]}",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
-    "useEnabledMfas": true
+    "useEnabledMfas": true,
+    "authRoleArn": {
+      "Fn::GetAtt": [
+        "AuthRole",
+        "Arn"
+      ]
+    },
+    "unauthRoleArn": {
+      "Fn::GetAtt": [
+        "UnauthRole",
+        "Arn"
+      ]
+    },
+    "breakCircularDependency": true,
+    "dependsOn": [],
+    "hostedUIProviderCreds": "[]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"dailykpop://\",\"exp://127.0.0.1:19000/--/\",\"dailykpop://callback/\"],\"LogoutURLs\":[\"dailykpop://callback/\",\"exp://127.0.0.1:19000/--/\",\"dailykpop://signout/\"]}"
   }
 }

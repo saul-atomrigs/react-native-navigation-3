@@ -59,7 +59,7 @@ const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
 const headerRightButtons = {
-  width: WIDTH * 0.08,
-  height: HEIGHT * 0.04,
+  width: 30,
+  height: 30,
 }
 
