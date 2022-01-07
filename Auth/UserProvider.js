@@ -3,6 +3,13 @@ import { StyleSheet, Image, Text } from "react-native";
 import firebase from 'firebase'
 import { db } from "../firebase1";
 
+import Amplify from 'aws-amplify'
+import config from '../src/aws-exports'
+import { API, graphqlOperation } from 'aws-amplify'
+import { createPost, } from '../src/graphql/mutations'
+import { listPosts } from '../src/graphql/queries'
+Amplify.configure(config)
+
 export const UserContext = createContext({ user: null })
 
 export default ({ props }) => {
@@ -18,7 +25,9 @@ export default ({ props }) => {
 
       // AUTH => FIREBASE DB
       db.collection('users').add({
-        uid: uid
+        uid: uid,
+        displayName: displayName,
+        image: photoURL,
       })
 
       // AUTH => AWS DB

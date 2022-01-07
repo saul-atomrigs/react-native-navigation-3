@@ -8,8 +8,8 @@ export default function AppleAuth() {
     <AppleAuthentication.AppleAuthenticationButton
       buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
       buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
-      cornerRadius={5}
-      style={{ width: 200, height: 45, marginTop: 100 }}
+      cornerRadius={20}
+      style={{ width: 300, height: 60, }}
       onPress={async () => {
         try {
           const credential = await AppleAuthentication.signInAsync({
@@ -19,6 +19,9 @@ export default function AppleAuth() {
             ],
           });
           // SIGNED IN 
+          console.log('🚀 SIGNED IN');
+          console.log(AppleAuthenticationFullName);
+          console.log(AppleAuthentication.AppleAuthenticationScope.FULL_NAME);
         } catch (e) {
           if (e.code === 'ERR_CANCELED') {
             // handle that the user canceled the sign-in flow

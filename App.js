@@ -7,9 +7,11 @@ import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { CalendarPlus, ChatsCircle, Compass, Fingerprint } from 'phosphor-react-native';
 import { withAuthenticator } from 'aws-amplify-react-native'
 import Login from './Auth/Login';
-import AppleAuth from './Auth/AppleAuth';
-import GoogleAuth from './Auth/GoogleAuth';
-import CognitoAuth3 from './Auth/CognitoAuth3';
+import Apple from './Auth/Apple';
+import Google from './Auth/Google';
+import AWS from './Auth/AWS';
+import AWS2 from './Auth/AWS2';
+import AWS3 from './Auth/AWS3';
 import Welcome from './Auth/Welcome';
 import AddSchedule from './Calendar/AddSchedule';
 import Calendar from './Calendar/Calendar';
@@ -57,9 +59,9 @@ export default function App() {
         <Stack.Screen name="Notifications" component={Notifications} />
         <Stack.Screen name="Login" component={Login} options={{ title: '' }} />
         <Stack.Screen name="Connect" component={Connect} options={{ title: '' }} />
-        <Stack.Screen name="GoogleAuth" component={GoogleAuth} options={{ title: '' }} />
-        <Stack.Screen name="AppleAuth" component={AppleAuth} options={{ title: '' }} />
-        <Stack.Screen name="CognitoAuth3" component={CognitoAuth3} options={{ title: '' }} />
+        <Stack.Screen name="Google" component={Google} options={{ title: '' }} />
+        <Stack.Screen name="Apple" component={Apple} options={{ title: '' }} />
+        <Stack.Screen name="AWS3" component={AWS3} options={{ title: '' }} />
         <Stack.Screen name="Welcome" component={Welcome} options={{ title: '' }} />
       </Stack.Navigator>
     </NavigationContainer>
@@ -83,8 +85,8 @@ function HomeTabNavigation() {
 function Notifications({ navigation }) {
   return (
     <View style={center}>
-      <AppleAuth />
-      <GoogleAuth />
+      <Apple />
+      <Google />
     </View>
   )
 }

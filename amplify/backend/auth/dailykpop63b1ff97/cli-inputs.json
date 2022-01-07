@@ -63,6 +63,6 @@
     "breakCircularDependency": true,
     "dependsOn": [],
     "hostedUIProviderCreds": "[]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"dailykpop://\",\"exp://127.0.0.1:19000/--/\",\"dailykpop://callback/\"],\"LogoutURLs\":[\"dailykpop://callback/\",\"exp://127.0.0.1:19000/--/\",\"dailykpop://signout/\"]}"
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"dailykpop://\",\"exp://127.0.0.1:19000/--/\",\"https://dailykpop63b1ff97-63b1ff97-dev.auth.us-east-2.amazoncognito.com/oauth2/idpresponse/\",\"https://dailykpop63b1ff97-63b1ff97-dev.auth.us-east-2.amazoncognito.com/\"],\"LogoutURLs\":[\"dailykpop://callback/\",\"exp://127.0.0.1:19000/--/\",\"dailykpop://signout/\",\"https://dailykpop63b1ff97-63b1ff97-dev.auth.us-east-2.amazoncognito.com/oauth2/idpresponse/\",\"https://dailykpop63b1ff97-63b1ff97-dev.auth.us-east-2.amazoncognito.com/\"]}"
   }
 }

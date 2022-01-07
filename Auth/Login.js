@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import AppleAuth from './AppleAuth';
-import GoogleAuth from './GoogleAuth';
+import Apple from './Apple';
+import Google from './Google';
 import UserProvider from './UserProvider';
 import { db } from '../firebase1';
-import CognitoAuth3 from './CognitoAuth3';
+import AWS3 from './AWS3';
 export default function LoginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
       <UserProvider />
 
-      <AppleAuth />
+      <Apple />
 
-      <GoogleAuth />
+      <Google />
 
-      <CognitoAuth3 />
+      <AWS3 />
     </View>
   );
 }

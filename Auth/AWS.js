@@ -2,10 +2,12 @@ import * as React from 'react'
 import * as WebBrowser from 'expo-web-browser'
 import { useAuthRequest } from 'expo-auth-session'
 import { Button, Alert } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 WebBrowser.maybeCompleteAuthSession()
 
-export default function CognitoAuth() {
+export default function AWS() {
+  const navigation = useNavigation();
   const [loggedIn, setLoggedIn] = React.useState(null)
   // Endpoint
   const discoveryDocument = {
@@ -37,6 +39,7 @@ export default function CognitoAuth() {
       }
       if (response.type === 'success') {
         setLoggedIn(true)
+        navigation.navigate('HomeTabNavigation')
         console.log('Successfully logged in')
       }
     }

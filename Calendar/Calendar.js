@@ -41,7 +41,7 @@ export default function Calendar(props) {
         <Divider style={styles.divider} />
         <View style={styles.stats}>
           {/* <HandsClapping /> */}
-          <Star color='gray' />
+          {/* <Star color='gray' /> */}
         </View>
       </TouchableOpacity >
     );

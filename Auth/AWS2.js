@@ -67,17 +67,28 @@ function App() {
   );
 }
 
+
+// STYLES
 const styles = StyleSheet.create({
   googleBtn: {
     flexDirection: 'row',
     justifyContent: 'center',
-    width: 200,
-    height: 45,
+    alignItems: 'center',
+    width: 300,
+    height: 60,
     borderRadius: 5,
     borderWidth: 1,
     marginTop: 10,
     backgroundColor: '#eee',
   },
+  googleLogo: {
+    justifyContent: 'center',
+    marginHorizontal: 5,
+  },
+  btnText: {
+    fontSize: 20,
+    fontWeight: '500',
+  }
 });
 
 export default App;

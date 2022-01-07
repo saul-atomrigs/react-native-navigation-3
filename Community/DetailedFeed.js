@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useLayoutEffect, useEffect, createContext } from 'react';
-import { ScrollView, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View, RefreshControl, TextInput } from 'react-native';
+import { ScrollView, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View, RefreshControl, TextInput, } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Divider } from 'react-native-elements';
-import { CheckCircle, Heart, Megaphone, UserCircle } from 'phosphor-react-native';
+import { CheckCircle, Heart, Megaphone, UserCircle, HandsClapping } from 'phosphor-react-native';
 
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
@@ -65,6 +65,62 @@ export default function DetailedFeed({ post }) {
   function getNumberOfLikes() {
     return (count)
   }
+
+  const LikeButton = () => {
+    const [liked, setLiked] = useState(false)
+    const [count, setCount] = useState(0)
+
+    const onLikePressed = () => {
+      setLiked(!liked)
+      setCount(count + 1)
+    }
+
+    const onDislikePressed = () => {
+      setLiked(!liked)
+      setCount(count - 1)
+    }
+
+    return (
+      <View onPress={() => setLiked((isLiked) => !isLiked)}>
+        <TouchableOpacity
+          style={styles.buttons}
+          onPress={liked ? onDislikePressed : onLikePressed}>
+          {
+            liked ? <Heart size={28} color="hotpink" weight='fill' /> : <Heart size={28} color="gray" />
+          }
+          <Text>{count}</Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
+  const ClapButton = () => {
+    const [liked, setLiked] = useState(false);
+    const [count, setCount] = useState(0);
+
+    function onLikePressed() {
+      setLiked(!liked);
+      setCount(count + 1);
+    }
+
+    function onDislikePressed() {
+      setLiked(!liked);
+      setCount(count - 1);
+    }
+
+    return (
+      <View onPress={() => setLiked((isLiked) => !isLiked)}>
+        <TouchableOpacity
+          style={styles.buttons}
+          onPress={liked ? onDislikePressed : onLikePressed}>
+          {
+            liked ? <HandsClapping size={28} color="blue" weight='fill' /> : <HandsClapping size={28} color="gray" />
+          }
+          <Text>{count}</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
   // REFRESH CONTROL
   const [refreshing, setRefreshing] = useState(false);
@@ -154,20 +210,10 @@ export default function DetailedFeed({ post }) {
             <Text style={styles.contentText}>{param.title}</Text>
           </View>
 
-          <TouchableOpacity
-            onPress={onLikePressed}
-          >
-
-            <View style={styles.statDetails}>
-              <Heart
-                size={25}
-                color='red'
-                weight='regular'
-              // weight= post.likesByUser.includes(user.id) ? 'fill' : 'regular'
-              />
-              <Text style={styles.commentsCounter}> {count} {getNumberOfLikes} likes</Text>
-            </View>
-          </TouchableOpacity>
+          <View style={styles.btnContainer}>
+            <LikeButton />
+            <ClapButton />
+          </View>
 
           <Divider />
           <View style={styles.commentsContainer}>
@@ -310,8 +356,17 @@ const styles = StyleSheet.create({
   },
   statDetails: {
     // borderWidth: 1,
-    marginBottom: 10,
-    fontSize: 18,
+    // marginBottom: 10,
+    // fontSize: 18,
+  },
+  btnContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  buttons: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 10,
   },
   commentsContainer: {
     marginTop: 20,

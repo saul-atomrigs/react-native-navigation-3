@@ -1,23 +1,41 @@
 import React, { useLayoutEffect } from 'react';
-import { Dimensions, Image, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Image, Share, StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native';
 import { UserCirclePlus } from 'phosphor-react-native';
 import UserProvider from '../Auth/UserProvider'
-import CognitoAuth2 from '../Auth/CognitoAuth2'
-// import ShareComponent from '../Components/ShareComponent';
+import AWS3 from '../Auth/AWS3'
+import AWS from '../Auth/AWS'
+import AWS2 from '../Auth/AWS2'
 
+import firebase from 'firebase';
+import Navigation from '../Auth/Navigation';
 export default function Me({ navigation }) {
   // HEADER BUTTONS
   useLayoutEffect(() => {
     Header({ navigation })
   }, [navigation])
+
+  // firebase.auth().onAuthStateChanged(function(user) {
+  //   if (user) {
+  //     // User is signed in.
+  //   } else {
+  //     // No user is signed in.
+  //   }
+  // });
+
   return (
     <>
       <View style={styles.userInfoContainer}>
-        {/* <UserCirclePlus size={50} color='#666' /> */}
-        {/* <UserProvider /> */}
-        <CognitoAuth2 />
+
+        {/* <UserProvider />
+        <Button title='sign out' onPress={() => firebase.auth().signOut()} />
+
+
+        <AWS3 /> */}
+
+        <Navigation />
 
       </View>
+
 
       <View style={styles.activityContainer}>
         {/* <Text style={styles.text}>My Fandoms</Text>
@@ -29,8 +47,9 @@ export default function Me({ navigation }) {
         </View>
         <Text style={styles.text} onPress={() => navigation.push('Chat')}>Feedback (suggest any idea)</Text>
         <ShareComponent />
-        {/* <LoginScreen /> */}
-        {/* <Button title="Login" onPress={() => navigation.navigate('LoginScreen')} /> */}
+
+        <AWS />
+
       </View>
     </>
   )
