@@ -96,13 +96,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
   },
-  todo: { marginBottom: 15 },
-  post: { marginBottom: 15 },
+  todo: {
+    marginBottom: 15
+  },
+  post: {
+    marginBottom: 15
+  },
   input: {
     fontSize: 16,
     color: '#000000',
     height: 250,
-    width: 30,
+    width: 300,
     borderColor: '#e6e6e6',
     backgroundColor: '#eee',
     borderWidth: 1,
@@ -117,7 +121,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 30,
+    width: 300,
     height: 40,
     position: 'relative',
     backgroundColor: 'black',

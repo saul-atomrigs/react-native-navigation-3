@@ -24,11 +24,11 @@ export default ({ props }) => {
       console.log('token : ', uid)
 
       // AUTH => FIREBASE DB
-      db.collection('users').add({
-        uid: uid,
-        displayName: displayName,
-        image: photoURL,
-      })
+      // db.collection('users').add({
+      //   uid: uid,
+      //   displayName: displayName,
+      //   image: photoURL,
+      // })
 
       // AUTH => AWS DB
 

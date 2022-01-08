@@ -93,13 +93,6 @@ export const listPosts = /* GraphQL */ `
         id
         title
         likes {
-          # 직접 추가함
-          items {
-            id
-            userId
-            username
-          }
-          
           nextToken
         }
         blog {

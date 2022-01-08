@@ -42,15 +42,25 @@ export default function GoogleAuth() {
     if (response?.type === 'success') {
       const { id_token } = response.params;
       const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
+      const uid = firebase.auth().currentUser.uid;
+      const displayName = firebase.auth().currentUser.displayName;
+      // ADD USER TO FIRESTORE DB
+      db.collection('users').doc(uid).set({
+        displayName: displayName,
+        uid: uid,
+      })
+      // console.log(credential)
       auth.signInWithCredential(credential)
         .then(() => {
           // IF LOGGED IN
-          navigation.navigate('Welcome');
-          console.log('🚀 LOGGED IN');
+          navigation.navigate('Nickname', { param: displayName });
+          console.log('🚀 LOGGED IN', uid);
         })
         .catch(error => {
           // IF NOT LOGGED IN
           navigation.navigate('Discover');
+          console.log(error.code)
+          console.log(error.message)
         })
     }
   }, [response])

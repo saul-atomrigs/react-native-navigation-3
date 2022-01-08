@@ -5,6 +5,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { Divider } from 'react-native-elements';
 import { CheckCircle, Heart, Megaphone, UserCircle, HandsClapping } from 'phosphor-react-native';
 
+// AWS IMPORT
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
 import { API, graphqlOperation } from 'aws-amplify'
@@ -14,16 +15,11 @@ Amplify.configure(config)
 
 import UserProvider from '../Auth/UserProvider';
 
-// import db from '../firebase1'
-
 export default function DetailedFeed({ post }) {
 
   const { param } = useRoute().params
 
   const navigation = useNavigation();
-
-  // COUNTER BUTTON STATE
-  const [count, setCount] = useState(0)
 
   // HANDLER FOR LIKES COUNT 
   const handleLike = (post) => {
@@ -32,38 +28,6 @@ export default function DetailedFeed({ post }) {
     )
     // ADD OR REMOVE LIKES IN DATABASE
 
-  }
-
-  // CREATE LIKES 
-  const [formStatePosts, setFormStatePosts] = useState({ id: '' })
-  const [posts, setPosts] = useState([])
-
-  async function addPostLike() {
-    try {
-      const post = { ...formStatePosts }
-      setPosts([...posts, post])
-      setFormStatePosts({ id: '' })
-      // ✅ REFRESH AFTER SUBMIT:
-      const result = await API.graphql(graphqlOperation(
-        createPostLike,
-        {
-          input: post
-        }
-      ))
-      setPosts([...posts, result.data.createPostLike])
-      console.log('🚀 createPostLike: ', result)
-    } catch (err) {
-      console.log('error creating 에러!!', err)
-    }
-  }
-
-  // PRESS LIKE BUTTON
-  function onLikePressed() {
-    setCount(count + 1)
-  }
-
-  function getNumberOfLikes() {
-    return (count)
   }
 
   const LikeButton = () => {
@@ -256,6 +220,7 @@ export default function DetailedFeed({ post }) {
 
 // REFRESH CONTROL
 const wait = (timeout) => {
+  fetchComments()
   return new Promise(resolve => setTimeout(resolve, timeout));
 }
 
