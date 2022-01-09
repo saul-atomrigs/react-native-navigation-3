@@ -2,8 +2,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateBlog = /* GraphQL */ `
-  subscription OnCreateBlog {
-    onCreateBlog {
+  subscription OnCreateBlog($owner: String) {
+    onCreateBlog(owner: $owner) {
       id
       name
       posts {
@@ -13,17 +13,19 @@ export const onCreateBlog = /* GraphQL */ `
           createdAt
           updatedAt
           blogPostsId
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onUpdateBlog = /* GraphQL */ `
-  subscription OnUpdateBlog {
-    onUpdateBlog {
+  subscription OnUpdateBlog($owner: String) {
+    onUpdateBlog(owner: $owner) {
       id
       name
       posts {
@@ -33,17 +35,19 @@ export const onUpdateBlog = /* GraphQL */ `
           createdAt
           updatedAt
           blogPostsId
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onDeleteBlog = /* GraphQL */ `
-  subscription OnDeleteBlog {
-    onDeleteBlog {
+  subscription OnDeleteBlog($owner: String) {
+    onDeleteBlog(owner: $owner) {
       id
       name
       posts {
@@ -53,30 +57,19 @@ export const onDeleteBlog = /* GraphQL */ `
           createdAt
           updatedAt
           blogPostsId
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onCreatePost = /* GraphQL */ `
-  subscription OnCreatePost {
-    onCreatePost {
-      id
-      title
-      likes {
-        items {
-          id
-          userId
-          username
-          createdAt
-          updatedAt
-          postLikesId
-        }
-        nextToken
-      }
+  subscription OnCreatePost($owner: String) {
+    onCreatePost(owner: $owner) {
       blog {
         id
         name
@@ -85,6 +78,23 @@ export const onCreatePost = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        owner
+      }
+      id
+      title
+      createdAt
+      updatedAt
+      likes {
+        items {
+          id
+          userId
+          username
+          createdAt
+          updatedAt
+          postLikesId
+          owner
+        }
+        nextToken
       }
       comments {
         items {
@@ -93,31 +103,18 @@ export const onCreatePost = /* GraphQL */ `
           content
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
-      createdAt
-      updatedAt
       blogPostsId
+      owner
     }
   }
 `;
 export const onUpdatePost = /* GraphQL */ `
-  subscription OnUpdatePost {
-    onUpdatePost {
-      id
-      title
-      likes {
-        items {
-          id
-          userId
-          username
-          createdAt
-          updatedAt
-          postLikesId
-        }
-        nextToken
-      }
+  subscription OnUpdatePost($owner: String) {
+    onUpdatePost(owner: $owner) {
       blog {
         id
         name
@@ -126,6 +123,23 @@ export const onUpdatePost = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        owner
+      }
+      id
+      title
+      createdAt
+      updatedAt
+      likes {
+        items {
+          id
+          userId
+          username
+          createdAt
+          updatedAt
+          postLikesId
+          owner
+        }
+        nextToken
       }
       comments {
         items {
@@ -134,31 +148,18 @@ export const onUpdatePost = /* GraphQL */ `
           content
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
-      createdAt
-      updatedAt
       blogPostsId
+      owner
     }
   }
 `;
 export const onDeletePost = /* GraphQL */ `
-  subscription OnDeletePost {
-    onDeletePost {
-      id
-      title
-      likes {
-        items {
-          id
-          userId
-          username
-          createdAt
-          updatedAt
-          postLikesId
-        }
-        nextToken
-      }
+  subscription OnDeletePost($owner: String) {
+    onDeletePost(owner: $owner) {
       blog {
         id
         name
@@ -167,6 +168,23 @@ export const onDeletePost = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        owner
+      }
+      id
+      title
+      createdAt
+      updatedAt
+      likes {
+        items {
+          id
+          userId
+          username
+          createdAt
+          updatedAt
+          postLikesId
+          owner
+        }
+        nextToken
       }
       comments {
         items {
@@ -175,201 +193,219 @@ export const onDeletePost = /* GraphQL */ `
           content
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
-      createdAt
-      updatedAt
       blogPostsId
+      owner
     }
   }
 `;
 export const onCreatePostLike = /* GraphQL */ `
-  subscription OnCreatePostLike {
-    onCreatePostLike {
-      id
-      userId
-      username
+  subscription OnCreatePostLike($owner: String) {
+    onCreatePostLike(owner: $owner) {
       post {
-        id
-        title
-        likes {
-          nextToken
-        }
         blog {
           id
           name
           createdAt
           updatedAt
+          owner
+        }
+        id
+        title
+        createdAt
+        updatedAt
+        likes {
+          nextToken
         }
         comments {
           nextToken
         }
-        createdAt
-        updatedAt
         blogPostsId
+        owner
       }
+      id
+      userId
+      username
       createdAt
       updatedAt
       postLikesId
+      owner
     }
   }
 `;
 export const onUpdatePostLike = /* GraphQL */ `
-  subscription OnUpdatePostLike {
-    onUpdatePostLike {
-      id
-      userId
-      username
+  subscription OnUpdatePostLike($owner: String) {
+    onUpdatePostLike(owner: $owner) {
       post {
-        id
-        title
-        likes {
-          nextToken
-        }
         blog {
           id
           name
           createdAt
           updatedAt
+          owner
+        }
+        id
+        title
+        createdAt
+        updatedAt
+        likes {
+          nextToken
         }
         comments {
           nextToken
         }
-        createdAt
-        updatedAt
         blogPostsId
+        owner
       }
+      id
+      userId
+      username
       createdAt
       updatedAt
       postLikesId
+      owner
     }
   }
 `;
 export const onDeletePostLike = /* GraphQL */ `
-  subscription OnDeletePostLike {
-    onDeletePostLike {
-      id
-      userId
-      username
+  subscription OnDeletePostLike($owner: String) {
+    onDeletePostLike(owner: $owner) {
       post {
-        id
-        title
-        likes {
-          nextToken
-        }
         blog {
           id
           name
           createdAt
           updatedAt
+          owner
+        }
+        id
+        title
+        createdAt
+        updatedAt
+        likes {
+          nextToken
         }
         comments {
           nextToken
         }
-        createdAt
-        updatedAt
         blogPostsId
+        owner
       }
+      id
+      userId
+      username
       createdAt
       updatedAt
       postLikesId
+      owner
     }
   }
 `;
 export const onCreateComment = /* GraphQL */ `
-  subscription OnCreateComment {
-    onCreateComment {
-      id
-      postCommentsId
+  subscription OnCreateComment($owner: String) {
+    onCreateComment(owner: $owner) {
       post {
-        id
-        title
-        likes {
-          nextToken
-        }
         blog {
           id
           name
           createdAt
           updatedAt
+          owner
+        }
+        id
+        title
+        createdAt
+        updatedAt
+        likes {
+          nextToken
         }
         comments {
           nextToken
         }
-        createdAt
-        updatedAt
         blogPostsId
+        owner
       }
+      id
+      postCommentsId
       content
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onUpdateComment = /* GraphQL */ `
-  subscription OnUpdateComment {
-    onUpdateComment {
-      id
-      postCommentsId
+  subscription OnUpdateComment($owner: String) {
+    onUpdateComment(owner: $owner) {
       post {
-        id
-        title
-        likes {
-          nextToken
-        }
         blog {
           id
           name
           createdAt
           updatedAt
+          owner
+        }
+        id
+        title
+        createdAt
+        updatedAt
+        likes {
+          nextToken
         }
         comments {
           nextToken
         }
-        createdAt
-        updatedAt
         blogPostsId
+        owner
       }
+      id
+      postCommentsId
       content
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onDeleteComment = /* GraphQL */ `
-  subscription OnDeleteComment {
-    onDeleteComment {
-      id
-      postCommentsId
+  subscription OnDeleteComment($owner: String) {
+    onDeleteComment(owner: $owner) {
       post {
-        id
-        title
-        likes {
-          nextToken
-        }
         blog {
           id
           name
           createdAt
           updatedAt
+          owner
+        }
+        id
+        title
+        createdAt
+        updatedAt
+        likes {
+          nextToken
         }
         comments {
           nextToken
         }
-        createdAt
-        updatedAt
         blogPostsId
+        owner
       }
+      id
+      postCommentsId
       content
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onCreateCalendar = /* GraphQL */ `
-  subscription OnCreateCalendar {
-    onCreateCalendar {
+  subscription OnCreateCalendar($owner: String) {
+    onCreateCalendar(owner: $owner) {
       id
       name
       events {
@@ -381,17 +417,19 @@ export const onCreateCalendar = /* GraphQL */ `
           createdAt
           updatedAt
           calendarEventsId
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onUpdateCalendar = /* GraphQL */ `
-  subscription OnUpdateCalendar {
-    onUpdateCalendar {
+  subscription OnUpdateCalendar($owner: String) {
+    onUpdateCalendar(owner: $owner) {
       id
       name
       events {
@@ -403,17 +441,19 @@ export const onUpdateCalendar = /* GraphQL */ `
           createdAt
           updatedAt
           calendarEventsId
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onDeleteCalendar = /* GraphQL */ `
-  subscription OnDeleteCalendar {
-    onDeleteCalendar {
+  subscription OnDeleteCalendar($owner: String) {
+    onDeleteCalendar(owner: $owner) {
       id
       name
       events {
@@ -425,17 +465,19 @@ export const onDeleteCalendar = /* GraphQL */ `
           createdAt
           updatedAt
           calendarEventsId
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
 export const onCreateEvent = /* GraphQL */ `
-  subscription OnCreateEvent {
-    onCreateEvent {
+  subscription OnCreateEvent($owner: String) {
+    onCreateEvent(owner: $owner) {
       id
       event
       artist
@@ -443,12 +485,13 @@ export const onCreateEvent = /* GraphQL */ `
       createdAt
       updatedAt
       calendarEventsId
+      owner
     }
   }
 `;
 export const onUpdateEvent = /* GraphQL */ `
-  subscription OnUpdateEvent {
-    onUpdateEvent {
+  subscription OnUpdateEvent($owner: String) {
+    onUpdateEvent(owner: $owner) {
       id
       event
       artist
@@ -456,12 +499,13 @@ export const onUpdateEvent = /* GraphQL */ `
       createdAt
       updatedAt
       calendarEventsId
+      owner
     }
   }
 `;
 export const onDeleteEvent = /* GraphQL */ `
-  subscription OnDeleteEvent {
-    onDeleteEvent {
+  subscription OnDeleteEvent($owner: String) {
+    onDeleteEvent(owner: $owner) {
       id
       event
       artist
@@ -469,6 +513,7 @@ export const onDeleteEvent = /* GraphQL */ `
       createdAt
       updatedAt
       calendarEventsId
+      owner
     }
   }
 `;

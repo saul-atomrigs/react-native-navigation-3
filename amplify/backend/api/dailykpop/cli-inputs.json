@@ -6,7 +6,24 @@
     "gqlSchemaPath": "/Users/sollee/Desktop/DailyKpop/amplify/backend/api/dailykpop/schema.graphql",
     "defaultAuthType": {
       "mode": "API_KEY",
-      "expirationTime": 7
-    }
+      "expirationTime": 365,
+      "apiKeyExpirationDate": "2023-01-09T11:53:32.704Z",
+      "keyDescription": ""
+    },
+    "additionalAuthTypes": [
+      {
+        "mode": "AMAZON_COGNITO_USER_POOLS",
+        "cognitoUserPoolId": "authdailykpop63b1ff97"
+      },
+      {
+        "mode": "OPENID_CONNECT",
+        "openIDProviderName": "firebase",
+        "openIDIssuerURL": "https://securetoken.google.com/dailykpop-ee1e3/",
+        "openIDClientID": "",
+        "openIDAuthTTL": "9000",
+        "openIDIatTTL": "9000"
+      }
+    ],
+    "conflictResolution": {}
   }
 }

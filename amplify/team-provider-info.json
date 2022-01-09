@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "dailykpop63b1ff97": {}
+      },
+      "function": {
+        "graphQlLambdaAuthorizer38f5b7b4": {
+          "deploymentBucketName": "amplify-dailykpop-dev-204219-deployment",
+          "s3Key": "amplify-builds/graphQlLambdaAuthorizer38f5b7b4-355a71344c696e375474-build.zip"
+        }
       }
     }
   }

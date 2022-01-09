@@ -16,11 +16,13 @@ export const createBlog = /* GraphQL */ `
           createdAt
           updatedAt
           blogPostsId
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -39,11 +41,13 @@ export const updateBlog = /* GraphQL */ `
           createdAt
           updatedAt
           blogPostsId
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -62,11 +66,13 @@ export const deleteBlog = /* GraphQL */ `
           createdAt
           updatedAt
           blogPostsId
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -76,19 +82,6 @@ export const createPost = /* GraphQL */ `
     $condition: ModelPostConditionInput
   ) {
     createPost(input: $input, condition: $condition) {
-      id
-      title
-      likes {
-        items {
-          id
-          userId
-          username
-          createdAt
-          updatedAt
-          postLikesId
-        }
-        nextToken
-      }
       blog {
         id
         name
@@ -97,6 +90,23 @@ export const createPost = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        owner
+      }
+      id
+      title
+      createdAt
+      updatedAt
+      likes {
+        items {
+          id
+          userId
+          username
+          createdAt
+          updatedAt
+          postLikesId
+          owner
+        }
+        nextToken
       }
       comments {
         items {
@@ -105,12 +115,12 @@ export const createPost = /* GraphQL */ `
           content
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
-      createdAt
-      updatedAt
       blogPostsId
+      owner
     }
   }
 `;
@@ -120,19 +130,6 @@ export const updatePost = /* GraphQL */ `
     $condition: ModelPostConditionInput
   ) {
     updatePost(input: $input, condition: $condition) {
-      id
-      title
-      likes {
-        items {
-          id
-          userId
-          username
-          createdAt
-          updatedAt
-          postLikesId
-        }
-        nextToken
-      }
       blog {
         id
         name
@@ -141,6 +138,23 @@ export const updatePost = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        owner
+      }
+      id
+      title
+      createdAt
+      updatedAt
+      likes {
+        items {
+          id
+          userId
+          username
+          createdAt
+          updatedAt
+          postLikesId
+          owner
+        }
+        nextToken
       }
       comments {
         items {
@@ -149,12 +163,12 @@ export const updatePost = /* GraphQL */ `
           content
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
-      createdAt
-      updatedAt
       blogPostsId
+      owner
     }
   }
 `;
@@ -164,19 +178,6 @@ export const deletePost = /* GraphQL */ `
     $condition: ModelPostConditionInput
   ) {
     deletePost(input: $input, condition: $condition) {
-      id
-      title
-      likes {
-        items {
-          id
-          userId
-          username
-          createdAt
-          updatedAt
-          postLikesId
-        }
-        nextToken
-      }
       blog {
         id
         name
@@ -185,6 +186,23 @@ export const deletePost = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        owner
+      }
+      id
+      title
+      createdAt
+      updatedAt
+      likes {
+        items {
+          id
+          userId
+          username
+          createdAt
+          updatedAt
+          postLikesId
+          owner
+        }
+        nextToken
       }
       comments {
         items {
@@ -193,12 +211,12 @@ export const deletePost = /* GraphQL */ `
           content
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
-      createdAt
-      updatedAt
       blogPostsId
+      owner
     }
   }
 `;
@@ -208,31 +226,34 @@ export const createPostLike = /* GraphQL */ `
     $condition: ModelPostLikeConditionInput
   ) {
     createPostLike(input: $input, condition: $condition) {
-      id
-      userId
-      username
       post {
-        id
-        title
-        likes {
-          nextToken
-        }
         blog {
           id
           name
           createdAt
           updatedAt
+          owner
+        }
+        id
+        title
+        createdAt
+        updatedAt
+        likes {
+          nextToken
         }
         comments {
           nextToken
         }
-        createdAt
-        updatedAt
         blogPostsId
+        owner
       }
+      id
+      userId
+      username
       createdAt
       updatedAt
       postLikesId
+      owner
     }
   }
 `;
@@ -242,31 +263,34 @@ export const updatePostLike = /* GraphQL */ `
     $condition: ModelPostLikeConditionInput
   ) {
     updatePostLike(input: $input, condition: $condition) {
-      id
-      userId
-      username
       post {
-        id
-        title
-        likes {
-          nextToken
-        }
         blog {
           id
           name
           createdAt
           updatedAt
+          owner
+        }
+        id
+        title
+        createdAt
+        updatedAt
+        likes {
+          nextToken
         }
         comments {
           nextToken
         }
-        createdAt
-        updatedAt
         blogPostsId
+        owner
       }
+      id
+      userId
+      username
       createdAt
       updatedAt
       postLikesId
+      owner
     }
   }
 `;
@@ -276,31 +300,34 @@ export const deletePostLike = /* GraphQL */ `
     $condition: ModelPostLikeConditionInput
   ) {
     deletePostLike(input: $input, condition: $condition) {
-      id
-      userId
-      username
       post {
-        id
-        title
-        likes {
-          nextToken
-        }
         blog {
           id
           name
           createdAt
           updatedAt
+          owner
+        }
+        id
+        title
+        createdAt
+        updatedAt
+        likes {
+          nextToken
         }
         comments {
           nextToken
         }
-        createdAt
-        updatedAt
         blogPostsId
+        owner
       }
+      id
+      userId
+      username
       createdAt
       updatedAt
       postLikesId
+      owner
     }
   }
 `;
@@ -310,30 +337,33 @@ export const createComment = /* GraphQL */ `
     $condition: ModelCommentConditionInput
   ) {
     createComment(input: $input, condition: $condition) {
-      id
-      postCommentsId
       post {
-        id
-        title
-        likes {
-          nextToken
-        }
         blog {
           id
           name
           createdAt
           updatedAt
+          owner
+        }
+        id
+        title
+        createdAt
+        updatedAt
+        likes {
+          nextToken
         }
         comments {
           nextToken
         }
-        createdAt
-        updatedAt
         blogPostsId
+        owner
       }
+      id
+      postCommentsId
       content
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -343,30 +373,33 @@ export const updateComment = /* GraphQL */ `
     $condition: ModelCommentConditionInput
   ) {
     updateComment(input: $input, condition: $condition) {
-      id
-      postCommentsId
       post {
-        id
-        title
-        likes {
-          nextToken
-        }
         blog {
           id
           name
           createdAt
           updatedAt
+          owner
+        }
+        id
+        title
+        createdAt
+        updatedAt
+        likes {
+          nextToken
         }
         comments {
           nextToken
         }
-        createdAt
-        updatedAt
         blogPostsId
+        owner
       }
+      id
+      postCommentsId
       content
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -376,30 +409,33 @@ export const deleteComment = /* GraphQL */ `
     $condition: ModelCommentConditionInput
   ) {
     deleteComment(input: $input, condition: $condition) {
-      id
-      postCommentsId
       post {
-        id
-        title
-        likes {
-          nextToken
-        }
         blog {
           id
           name
           createdAt
           updatedAt
+          owner
+        }
+        id
+        title
+        createdAt
+        updatedAt
+        likes {
+          nextToken
         }
         comments {
           nextToken
         }
-        createdAt
-        updatedAt
         blogPostsId
+        owner
       }
+      id
+      postCommentsId
       content
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -420,11 +456,13 @@ export const createCalendar = /* GraphQL */ `
           createdAt
           updatedAt
           calendarEventsId
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -445,11 +483,13 @@ export const updateCalendar = /* GraphQL */ `
           createdAt
           updatedAt
           calendarEventsId
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -470,11 +510,13 @@ export const deleteCalendar = /* GraphQL */ `
           createdAt
           updatedAt
           calendarEventsId
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -491,6 +533,7 @@ export const createEvent = /* GraphQL */ `
       createdAt
       updatedAt
       calendarEventsId
+      owner
     }
   }
 `;
@@ -507,6 +550,7 @@ export const updateEvent = /* GraphQL */ `
       createdAt
       updatedAt
       calendarEventsId
+      owner
     }
   }
 `;
@@ -523,6 +567,7 @@ export const deleteEvent = /* GraphQL */ `
       createdAt
       updatedAt
       calendarEventsId
+      owner
     }
   }
 `;

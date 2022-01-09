@@ -1,5 +1,12 @@
 {
   "AppSyncApiName": "dailykpop",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthModeLastUpdated": "2022-01-09T11:54:15.752Z",
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authdailykpop63b1ff97",
+      "Outputs.UserPoolId"
+    ]
+  }
 }

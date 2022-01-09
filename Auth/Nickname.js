@@ -4,11 +4,11 @@ import { CheckCircle } from 'phosphor-react-native'
 import { useRoute } from '@react-navigation/native'
 
 export default function Nickname() {
-  const { param } = useRoute().params
+  // const { param } = useRoute().params
 
   return (
     <View style={styles.component}>
-      <Text style={styles.text}>Welcome, {param} </Text>
+      {/* <Text style={styles.text}>Welcome, {param} </Text> */}
       <Text style={styles.text}>Choose your nickname. </Text>
       <TextInput
         style={styles.textInput}

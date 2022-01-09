@@ -8,10 +8,29 @@
           "defaultAuthentication": {
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
+              "apiKeyExpirationDays": 365,
+              "apiKeyExpirationDate": "2023-01-09T11:53:32.704Z",
+              "description": ""
             }
           },
-          "additionalAuthenticationProviders": []
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+              "userPoolConfig": {
+                "userPoolId": "authdailykpop63b1ff97"
+              }
+            },
+            {
+              "authenticationType": "OPENID_CONNECT",
+              "openIDConnectConfig": {
+                "name": "firebase",
+                "issuerUrl": "https://securetoken.google.com/dailykpop-ee1e3/",
+                "clientId": "",
+                "authTTL": "9000",
+                "iatTTL": "9000"
+              }
+            }
+          ]
         }
       }
     }
@@ -43,6 +62,13 @@
           "EMAIL"
         ]
       }
+    }
+  },
+  "function": {
+    "graphQlLambdaAuthorizer38f5b7b4": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   }
 }

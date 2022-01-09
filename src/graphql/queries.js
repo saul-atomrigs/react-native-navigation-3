@@ -13,11 +13,13 @@ export const getBlog = /* GraphQL */ `
           createdAt
           updatedAt
           blogPostsId
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -36,6 +38,7 @@ export const listBlogs = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }
@@ -44,19 +47,6 @@ export const listBlogs = /* GraphQL */ `
 export const getPost = /* GraphQL */ `
   query GetPost($id: ID!) {
     getPost(id: $id) {
-      id
-      title
-      likes {
-        items {
-          id
-          userId
-          username
-          createdAt
-          updatedAt
-          postLikesId
-        }
-        nextToken
-      }
       blog {
         id
         name
@@ -65,6 +55,23 @@ export const getPost = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        owner
+      }
+      id
+      title
+      createdAt
+      updatedAt
+      likes {
+        items {
+          id
+          userId
+          username
+          createdAt
+          updatedAt
+          postLikesId
+          owner
+        }
+        nextToken
       }
       comments {
         items {
@@ -73,12 +80,12 @@ export const getPost = /* GraphQL */ `
           content
           createdAt
           updatedAt
+          owner
         }
         nextToken
       }
-      createdAt
-      updatedAt
       blogPostsId
+      owner
     }
   }
 `;
@@ -90,23 +97,25 @@ export const listPosts = /* GraphQL */ `
   ) {
     listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        id
-        title
-        likes {
-          nextToken
-        }
         blog {
           id
           name
           createdAt
           updatedAt
+          owner
+        }
+        id
+        title
+        createdAt
+        updatedAt
+        likes {
+          nextToken
         }
         comments {
           nextToken
         }
-        createdAt
-        updatedAt
         blogPostsId
+        owner
       }
       nextToken
     }
@@ -115,31 +124,34 @@ export const listPosts = /* GraphQL */ `
 export const getPostLike = /* GraphQL */ `
   query GetPostLike($id: ID!) {
     getPostLike(id: $id) {
-      id
-      userId
-      username
       post {
-        id
-        title
-        likes {
-          nextToken
-        }
         blog {
           id
           name
           createdAt
           updatedAt
+          owner
+        }
+        id
+        title
+        createdAt
+        updatedAt
+        likes {
+          nextToken
         }
         comments {
           nextToken
         }
-        createdAt
-        updatedAt
         blogPostsId
+        owner
       }
+      id
+      userId
+      username
       createdAt
       updatedAt
       postLikesId
+      owner
     }
   }
 `;
@@ -151,19 +163,21 @@ export const listPostLikes = /* GraphQL */ `
   ) {
     listPostLikes(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        id
-        userId
-        username
         post {
           id
           title
           createdAt
           updatedAt
           blogPostsId
+          owner
         }
+        id
+        userId
+        username
         createdAt
         updatedAt
         postLikesId
+        owner
       }
       nextToken
     }
@@ -172,30 +186,33 @@ export const listPostLikes = /* GraphQL */ `
 export const getComment = /* GraphQL */ `
   query GetComment($id: ID!) {
     getComment(id: $id) {
-      id
-      postCommentsId
       post {
-        id
-        title
-        likes {
-          nextToken
-        }
         blog {
           id
           name
           createdAt
           updatedAt
+          owner
+        }
+        id
+        title
+        createdAt
+        updatedAt
+        likes {
+          nextToken
         }
         comments {
           nextToken
         }
-        createdAt
-        updatedAt
         blogPostsId
+        owner
       }
+      id
+      postCommentsId
       content
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -207,18 +224,20 @@ export const listComments = /* GraphQL */ `
   ) {
     listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        id
-        postCommentsId
         post {
           id
           title
           createdAt
           updatedAt
           blogPostsId
+          owner
         }
+        id
+        postCommentsId
         content
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }
@@ -238,11 +257,13 @@ export const getCalendar = /* GraphQL */ `
           createdAt
           updatedAt
           calendarEventsId
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -261,6 +282,7 @@ export const listCalendars = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }
@@ -276,6 +298,7 @@ export const getEvent = /* GraphQL */ `
       createdAt
       updatedAt
       calendarEventsId
+      owner
     }
   }
 `;
@@ -294,6 +317,7 @@ export const listEvents = /* GraphQL */ `
         createdAt
         updatedAt
         calendarEventsId
+        owner
       }
       nextToken
     }
