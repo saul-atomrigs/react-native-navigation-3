@@ -76,9 +76,9 @@ function HomeTabNavigation() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen name="Community" component={Feeds} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' }, }} />
+      <Tab.Screen name="Me" component={Me} />
       <Tab.Screen name="Calendar" component={Calendar} />
       <Tab.Screen name="Discover" component={Discover} />
-      <Tab.Screen name="Me" component={Me} />
       {/* <Tab.Screen name="Korean" component={Korean} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} /> */}
     </Tab.Navigator>
   );

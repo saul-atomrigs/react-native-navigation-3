@@ -26,12 +26,6 @@ export default function Me({ navigation }) {
     <>
       <View style={styles.userInfoContainer}>
 
-        {/* <UserProvider />
-        <Button title='sign out' onPress={() => firebase.auth().signOut()} />
-
-
-        <AWS3 /> */}
-
         <Navigation />
 
       </View>
@@ -49,6 +43,7 @@ export default function Me({ navigation }) {
         <ShareComponent />
 
         <AWS />
+        <UserProvider />
 
       </View>
     </>

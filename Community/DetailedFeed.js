@@ -30,6 +30,7 @@ export default function DetailedFeed({ post }) {
 
   }
 
+  // LIKE BUTTON 
   const LikeButton = () => {
     const [liked, setLiked] = useState(false)
     const [count, setCount] = useState(0)
@@ -58,6 +59,7 @@ export default function DetailedFeed({ post }) {
     )
   }
 
+  // CLAP BUTTON 
   const ClapButton = () => {
     const [liked, setLiked] = useState(false);
     const [count, setCount] = useState(0);
@@ -167,6 +169,8 @@ export default function DetailedFeed({ post }) {
               style={{ flexDirection: 'row' }}
             >
               <Text style={styles.author} >
+                {param.createdAt}
+                test
               </Text>
             </TouchableOpacity>
           </View>

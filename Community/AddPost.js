@@ -55,7 +55,6 @@ export default function AddPost({ navigation }) {
   function goBack() {
     navigation.goBack()
   }
-
   function forceUpdate() {
     fetchPosts()
   }

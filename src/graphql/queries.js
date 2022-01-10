@@ -1,6 +1,53 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getUser = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      id
+      name
+      nickname
+      posts {
+        items {
+          id
+          title
+          userPostId
+          createdAt
+          updatedAt
+          userPostsId
+          blogPostsId
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listUsers = /* GraphQL */ `
+  query ListUsers(
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        name
+        nickname
+        posts {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
 export const getBlog = /* GraphQL */ `
   query GetBlog($id: ID!) {
     getBlog(id: $id) {
@@ -10,8 +57,10 @@ export const getBlog = /* GraphQL */ `
         items {
           id
           title
+          userPostId
           createdAt
           updatedAt
+          userPostsId
           blogPostsId
           owner
         }
@@ -57,8 +106,20 @@ export const getPost = /* GraphQL */ `
         updatedAt
         owner
       }
+      user {
+        id
+        name
+        nickname
+        posts {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
       id
       title
+      userPostId
       createdAt
       updatedAt
       likes {
@@ -84,6 +145,7 @@ export const getPost = /* GraphQL */ `
         }
         nextToken
       }
+      userPostsId
       blogPostsId
       owner
     }
@@ -104,8 +166,17 @@ export const listPosts = /* GraphQL */ `
           updatedAt
           owner
         }
+        user {
+          id
+          name
+          nickname
+          createdAt
+          updatedAt
+          owner
+        }
         id
         title
+        userPostId
         createdAt
         updatedAt
         likes {
@@ -114,6 +185,7 @@ export const listPosts = /* GraphQL */ `
         comments {
           nextToken
         }
+        userPostsId
         blogPostsId
         owner
       }
@@ -132,8 +204,17 @@ export const getPostLike = /* GraphQL */ `
           updatedAt
           owner
         }
+        user {
+          id
+          name
+          nickname
+          createdAt
+          updatedAt
+          owner
+        }
         id
         title
+        userPostId
         createdAt
         updatedAt
         likes {
@@ -142,6 +223,7 @@ export const getPostLike = /* GraphQL */ `
         comments {
           nextToken
         }
+        userPostsId
         blogPostsId
         owner
       }
@@ -166,8 +248,10 @@ export const listPostLikes = /* GraphQL */ `
         post {
           id
           title
+          userPostId
           createdAt
           updatedAt
+          userPostsId
           blogPostsId
           owner
         }
@@ -194,8 +278,17 @@ export const getComment = /* GraphQL */ `
           updatedAt
           owner
         }
+        user {
+          id
+          name
+          nickname
+          createdAt
+          updatedAt
+          owner
+        }
         id
         title
+        userPostId
         createdAt
         updatedAt
         likes {
@@ -204,6 +297,7 @@ export const getComment = /* GraphQL */ `
         comments {
           nextToken
         }
+        userPostsId
         blogPostsId
         owner
       }
@@ -227,8 +321,10 @@ export const listComments = /* GraphQL */ `
         post {
           id
           title
+          userPostId
           createdAt
           updatedAt
+          userPostsId
           blogPostsId
           owner
         }

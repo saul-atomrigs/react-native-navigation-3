@@ -1,3 +1,20 @@
 {
-  "lambdaLayers": []
+  "lambdaLayers": [],
+  "permissions": {
+    "api": {
+      "dailykpop": [
+        "Query",
+        "Mutation",
+        "Subscription"
+      ]
+    },
+    "auth": {
+      "dailykpop63b1ff97": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  }
 }

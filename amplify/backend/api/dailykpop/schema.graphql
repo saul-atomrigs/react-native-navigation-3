@@ -4,6 +4,17 @@
 #  globalAuthRule: AuthRule = { allow: public }
 # }
 
+type User
+ @model
+ @auth(
+  rules: [{ allow: public, operations: [read, create] }, { allow: owner }]
+ ) {
+ id: String
+ name: String
+ nickname: String
+ posts: [Post] @hasMany
+}
+
 type Blog
  @model
  @auth(
@@ -19,7 +30,7 @@ type Post
  #  EVERYONE CAN READ, OWNER CAN CRUD:
  @auth(
   rules: [
-   { allow: public, operations: [read, create] }
+   { allow: public, operations: [create, read] }
    {
     allow: owner
     provider: oidc
@@ -29,9 +40,11 @@ type Post
   ]
  ) {
  blog: Blog @belongsTo
+ user: User @belongsTo
  id: ID!
  title: String!
  #  content: String!
+ userPostId: ID
  createdAt: AWSDateTime!
  updatedAt: AWSDateTime!
  likes: [PostLike] @hasMany

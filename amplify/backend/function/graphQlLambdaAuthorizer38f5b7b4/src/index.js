@@ -1,4 +1,11 @@
-// This is sample code. Please update this to suite your schema
+/* Amplify Params - DO NOT EDIT
+	API_DAILYKPOP_GRAPHQLAPIENDPOINTOUTPUT
+	API_DAILYKPOP_GRAPHQLAPIIDOUTPUT
+	API_DAILYKPOP_GRAPHQLAPIKEYOUTPUT
+	AUTH_DAILYKPOP63B1FF97_USERPOOLID
+	ENV
+	REGION
+Amplify Params - DO NOT EDIT */// This is sample code. Please update this to suite your schema
 
 // exports.handler = async (event) => {
 //   console.log(`event >`, JSON.stringify(event, null, 2));

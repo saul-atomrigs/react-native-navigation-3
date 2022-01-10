@@ -52,6 +52,9 @@ export default function GoogleAuth() {
         }
       });
 
+      // GET UID FROM FIREBASE
+      // const uid = firebase.auth().currentUser.uid;
+
       // ADD USER TO FIRESTORE DB
       // db.collection('users').doc(uid).set({
       // displayName: displayName,
@@ -62,13 +65,13 @@ export default function GoogleAuth() {
         .then(() => {
           // IF LOGGED IN
           // navigation.navigate('Nickname', { param: credential.providerId });
-          navigation.navigate('Nickname');
+          navigation.navigate('Nickname', { param: 'testname' });
           // navigation.navigate('Nickname');
           // console.log('🚀 LOGGED IN', uid);
         })
         .catch(error => {
           // IF NOT LOGGED IN
-          navigation.navigate('Discover');
+          navigation.navigate('Discover', { param: error.message });
           // console.log(error.code)
           console.log(error.message)
         })

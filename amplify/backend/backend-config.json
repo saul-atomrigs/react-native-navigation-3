@@ -68,7 +68,25 @@
     "graphQlLambdaAuthorizer38f5b7b4": {
       "build": true,
       "providerPlugin": "awscloudformation",
-      "service": "Lambda"
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "api",
+          "resourceName": "dailykpop",
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "dailykpop63b1ff97",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ]
     }
   }
 }
