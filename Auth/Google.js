@@ -27,10 +27,13 @@ export default function GoogleAuth() {
   // EXPO-AUTH-SESSION 
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
     // CLIENT ID FROM FIREBASE:
-    clientId: `634344250588-lgu10halk6fqqu366rdnommu47pekmc4.apps.googleusercontent.com`,
+    // clientId: `634344250588-lgu10halk6fqqu366rdnommu47pekmc4.apps.googleusercontent.com`,
+    // 보안비번: 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
+
     // CLiENT IDs FROM GCP: 
-    iosClientId: `410819928050-7kmse291edmagjocpcf3ok8kpgrtllqr.apps.googleusercontent.com`,
-    webClientId: `410819928050-r0q6jqltshqv8ji8hh6m6lmejfd3nmot.apps.googleusercontent.com`,
+    // iosClientId: `410819928050-7kmse291edmagjocpcf3ok8kpgrtllqr.apps.googleusercontent.com`,
+    clientId: `410819928050-r0q6jqltshqv8ji8hh6m6lmejfd3nmot.apps.googleusercontent.com`,
+    // webClientId: `410819928050-r0q6jqltshqv8ji8hh6m6lmejfd3nmot.apps.googleusercontent.com`,
   });
 
 
@@ -52,28 +55,15 @@ export default function GoogleAuth() {
         }
       });
 
-      // GET UID FROM FIREBASE
-      // const uid = firebase.auth().currentUser.uid;
-
-      // ADD USER TO FIRESTORE DB
-      // db.collection('users').doc(uid).set({
-      // displayName: displayName,
-      // uid: ,
-      // })
-
       auth.signInWithCredential(credential)
         .then(() => {
           // IF LOGGED IN
-          // navigation.navigate('Nickname', { param: credential.providerId });
-          navigation.navigate('Nickname', { param: 'testname' });
-          // navigation.navigate('Nickname');
-          // console.log('🚀 LOGGED IN', uid);
+          navigation.navigate('Nickname',
+            { param: firebase.auth().currentUser.uid });
         })
         .catch(error => {
           // IF NOT LOGGED IN
-          navigation.navigate('Discover', { param: error.message });
-          // console.log(error.code)
-          console.log(error.message)
+          navigation.navigate('Nickname', { param: error.message });
         })
     }
   }, [response])
@@ -88,8 +78,13 @@ export default function GoogleAuth() {
         <GoogleLogo weight='bold' color='red' size={20} style={styles.googleLogo} />
         <Text style={styles.btnText}>Continue with Google</Text>
       </TouchableOpacity>
-      <Button title='sign out' onPress={() => firebase.auth().signOut()} />
-      <Text>{user ? user.email : "Not Signed In yet"}</Text>
+      <Text>
+        {user ?
+          // "You are now signed in"
+          <Button title='sign out' onPress={() => firebase.auth().signOut()} />
+          :
+          ""}
+      </Text>
     </>
   );
 }

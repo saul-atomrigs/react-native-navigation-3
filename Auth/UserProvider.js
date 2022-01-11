@@ -42,23 +42,24 @@ export default ({ props }) => {
                   <View key={eachUser.id ? eachUser.id : index}>
                     <Text>
                       {eachUser.nickname}
+                      {/* {eachUser.id} */}
                     </Text>
                   </View>
                 )
               })
             }
+            <UserContext.Provider value={user}>
+              <Image
+                style={styles.image}
+                source={{ uri: user.photoURL }} />
+              <Text style={styles.text}> {user.uid} </Text>
+            </UserContext.Provider>
           </>
           : 'loading...'
       }
     </>
   )
   // return (
-  //   <UserContext.Provider value={user}>
-  //     <Image
-  //       style={styles.image}
-  //       source={{ uri: user.photoURL }} />
-  //     <Text style={styles.text}> {user.displayName} </Text>
-  //   </UserContext.Provider>
   // )
 
 }

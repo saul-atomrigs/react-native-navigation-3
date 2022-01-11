@@ -24,17 +24,17 @@ export default function Navigation() {
         currentUser ?
 
           <>
-            <Google />
-            <Apple />
+            <Button
+              title='sign out'
+              onPress={() => firebase.auth().signOut()} />
           </>
 
           :
 
           <>
-            <UserProvider />
-            <Button
-              title='sign out'
-              onPress={() => firebase.auth().signOut()} />
+            <Apple />
+            <Google />
+            {/* <UserProvider /> */}
           </>
 
       }

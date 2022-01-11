@@ -20,6 +20,18 @@ export const getUser = /* GraphQL */ `
         }
         nextToken
       }
+      comments {
+        items {
+          id
+          postCommentsId
+          userCommentsId
+          content
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       createdAt
       updatedAt
       owner
@@ -38,6 +50,9 @@ export const listUsers = /* GraphQL */ `
         name
         nickname
         posts {
+          nextToken
+        }
+        comments {
           nextToken
         }
         createdAt
@@ -113,6 +128,9 @@ export const getPost = /* GraphQL */ `
         posts {
           nextToken
         }
+        comments {
+          nextToken
+        }
         createdAt
         updatedAt
         owner
@@ -138,6 +156,7 @@ export const getPost = /* GraphQL */ `
         items {
           id
           postCommentsId
+          userCommentsId
           content
           createdAt
           updatedAt
@@ -301,8 +320,23 @@ export const getComment = /* GraphQL */ `
         blogPostsId
         owner
       }
+      user {
+        id
+        name
+        nickname
+        posts {
+          nextToken
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
       id
       postCommentsId
+      userCommentsId
       content
       createdAt
       updatedAt
@@ -328,8 +362,17 @@ export const listComments = /* GraphQL */ `
           blogPostsId
           owner
         }
+        user {
+          id
+          name
+          nickname
+          createdAt
+          updatedAt
+          owner
+        }
         id
         postCommentsId
+        userCommentsId
         content
         createdAt
         updatedAt

@@ -30,7 +30,7 @@ export default function Nickname() {
           // input: user
           input: {
             nickname: user.nickname,
-            // userPostId: user.id
+            id: param
           }
         }
       ))
@@ -40,11 +40,9 @@ export default function Nickname() {
       console.log('error creating 에러!!', err)
     }
   }
-
   function setInputNickname(key, value) {
     setFormStateNickname({ ...formStateNickname, [key]: value })
   }
-
 
   return (
     <View style={styles.component}>
@@ -59,20 +57,11 @@ export default function Nickname() {
       <TouchableOpacity
         onPress={() => {
           addUser()
-          navigation.navigate('HomeTabNavigation', { nickname: nickname })
+          navigation.navigate(
+            'HomeTabNavigation',
+            { nickname: nickname }
+          )
         }
-          // ADD USER TO FIRESTORE DB
-          // () => {
-          //   db.collection('users').doc(nickname).set({
-          //     nickname: nickname,
-          //     displayName: param,
-          //     uid: auth.currentUser.uid
-          //   })
-          //   navigation.navigate('HomeTabNavigation')
-          // }
-
-          // ADD USER TO DYNAMO DB
-          // ,
         }
       >
         <CheckCircle size={50} />

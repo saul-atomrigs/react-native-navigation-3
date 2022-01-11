@@ -13,6 +13,7 @@ type User
  name: String
  nickname: String
  posts: [Post] @hasMany
+ comments: [Comment] @hasMany
 }
 
 type Blog
@@ -68,8 +69,10 @@ type Comment
   rules: [{ allow: public, operations: [read, create] }, { allow: owner }]
  ) {
  post: Post @belongsTo
+ user: User @belongsTo
  id: ID!
  postCommentsId: ID
+ userCommentsId: ID
  content: String!
  createdAt: AWSDateTime! #important to keep it to have filter with keys
  updatedAt: AWSDateTime! #important to keep it to have filter with keys

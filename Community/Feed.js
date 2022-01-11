@@ -4,14 +4,13 @@ import { Divider } from 'react-native-elements';
 import { UserContext } from './DetailedFeed'
 import { useNavigation } from '@react-navigation/core';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useIsFocused } from '@react-navigation/native'
 import { Heart, ChatText, Plus } from "phosphor-react-native";
 
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
 import { API, graphqlOperation } from 'aws-amplify'
 import { createPost, updatePost, deletePost } from '../src/graphql/mutations'
-import { listPosts, listComments } from '../src/graphql/queries'
+import { listPosts, listComments, getUser } from '../src/graphql/queries'
 import { onCreatePost } from '../src/graphql/subscriptions'
 Amplify.configure(config)
 

@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { TouchableOpacity, StyleSheet, Text, View, TextInput, KeyboardAvoidingView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import firebase from 'firebase';
+
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
 import { API, graphqlOperation } from 'aws-amplify'
 import { createPost, } from '../src/graphql/mutations'
-import { listPosts } from '../src/graphql/queries'
+import { listPosts, getUser } from '../src/graphql/queries'
 Amplify.configure(config)
 
 export default function AddPost({ navigation }) {
@@ -29,7 +31,11 @@ export default function AddPost({ navigation }) {
       const result = await API.graphql(graphqlOperation(
         createPost,
         {
-          input: post
+          // input: post
+          input: {
+            title: formStatePosts.title,
+            userPostsId: firebase.auth().currentUser.uid,
+          }
         }
       ))
       setPosts([...posts, result.data.createPost])

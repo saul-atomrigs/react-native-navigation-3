@@ -5,12 +5,14 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { Divider } from 'react-native-elements';
 import { CheckCircle, Heart, Megaphone, UserCircle, HandsClapping } from 'phosphor-react-native';
 
+import firebase from 'firebase';
+
 // AWS IMPORT
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
 import { API, graphqlOperation } from 'aws-amplify'
 import { createComment, updateComment, deleteComment, createPostLike } from '../src/graphql/mutations'
-import { listComments, listPostLikes } from '../src/graphql/queries'
+import { listComments, listPostLikes, listUsers, getUser, getComment } from '../src/graphql/queries'
 Amplify.configure(config)
 
 import UserProvider from '../Auth/UserProvider';
@@ -22,13 +24,13 @@ export default function DetailedFeed({ post }) {
   const navigation = useNavigation();
 
   // HANDLER FOR LIKES COUNT 
-  const handleLike = (post) => {
-    const currentLikeStatus = !post.likesByUsers.includes(
-      firebase.auth().currentUsers.email
-    )
-    // ADD OR REMOVE LIKES IN DATABASE
+  // const handleLike = (post) => {
+  //   const currentLikeStatus = !post.likesByUsers.includes(
+  //     firebase.auth().currentUsers.email
+  //   )
+  //   // ADD OR REMOVE LIKES IN DATABASE
 
-  }
+  // }
 
   // LIKE BUTTON 
   const LikeButton = () => {
@@ -89,11 +91,22 @@ export default function DetailedFeed({ post }) {
   };
 
   // REFRESH CONTROL
-  const [refreshing, setRefreshing] = useState(false);
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
-  }, []);
+  // const [refreshing, setRefreshing] = useState(false);
+  // const onRefresh = useCallback(() => {
+  //   setRefreshing(true);
+  //   wait(2000).then(() => setRefreshing(false));
+  // }, []);
+
+  useEffect(() => {
+    fetchComments()
+  }, [])
+
+  function fetchCommentsAfter() {
+    addComment()
+    useEffect(() => {
+      fetchComments()
+    }, [])
+  }
 
   // HEADER BUTTONS 
   useLayoutEffect(() => {
@@ -104,11 +117,6 @@ export default function DetailedFeed({ post }) {
   const initialStateComment = { content: '' }
   const [formStateComments, setFormStateComments] = useState(initialStateComment)
   const [comments, setComments] = useState([])
-
-  useEffect(() => {
-    fetchComments()
-  }, [])
-
   // CREATE COMMENT 
   async function addComment() {
     try {
@@ -121,7 +129,10 @@ export default function DetailedFeed({ post }) {
         {
           input: {
             content: formStateComments.content,
-            postCommentsId: param.id
+            postCommentsId: param.id,
+            userCommentsId: firebase.auth().currentUser.uid,
+            // owner: 'test',
+            // owner: comment.user.nickname,
           }
         }))
       setComments([...comments, result.data.createComment])
@@ -130,7 +141,7 @@ export default function DetailedFeed({ post }) {
       console.log('creating 에러!!', err)
     }
   }
-  let commentsCount = ''
+  // let commentsCount = ''
   // FETCH COMMENTS
   async function fetchComments() {
     try {
@@ -139,27 +150,42 @@ export default function DetailedFeed({ post }) {
         listComments, { filter: { postCommentsId: { eq: param.id } } }
       ));
       setComments(commentData.data.listComments.items)
-      const commentsCount = commentData.data.listComments.items.length
-      // console.log('number of comments: ', param)
     } catch (err) {
       console.log(err, 'fetching 에러!!!');
     }
   }
-  commentsCount = comments.length
+  // commentsCount = comments.length
 
   function setInputComments(key, value) {
     setFormStateComments({ ...formStateComments, [key]: value })
   }
 
+  // GET OWNER OF THE POST
+  const [owner, setOwner] = useState([])
+  async function fetchOwner() {
+    try {
+      const ownerData = await API.graphql(graphqlOperation(getUser,
+        { id: param.userPostsId }
+      ));
+      setOwner(ownerData.data.getUser.nickname)
+      console.log('owner: ', owner)
+    } catch (err) {
+      console.log(err, 'owner fetching 에러!!!');
+    }
+  }
+  useEffect(() => {
+    fetchOwner()
+  }, [])
+
   return (
     <KeyboardAwareScrollView
       style={{ flex: 1 }}
-      refreshControl={
-        <RefreshControl
-          refreshing={refreshing}
-          onRefresh={onRefresh}
-        />
-      }
+    // refreshControl={
+    //   <RefreshControl
+    //     refreshing={refreshing}
+    //     onRefresh={onRefresh}
+    //   />
+    // }
     >
       <View style={styles.container}>
         <View style={styles.card}>
@@ -169,8 +195,7 @@ export default function DetailedFeed({ post }) {
               style={{ flexDirection: 'row' }}
             >
               <Text style={styles.author} >
-                {param.createdAt}
-                test
+                {owner}
               </Text>
             </TouchableOpacity>
           </View>
@@ -185,20 +210,23 @@ export default function DetailedFeed({ post }) {
 
           <Divider />
           <View style={styles.commentsContainer}>
-            <Text style={styles.commentsCounter}> {commentsCount} Comments </Text>
+            {/* <Text style={styles.commentsCounter}> {commentsCount} Comments </Text> */}
             <ScrollView>
               {
                 comments
                   .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).reverse()
                   .map((comment, index) => (
                     <View key={comment.id ? comment.id : index} style={styles.comment} >
-                      {/* <Image source={{ uri: < UserCircle /> }} style={styles.avatar} /> */}
-                      <UserCircle size={25} color='#000' />
+                      <View style={styles.commentHeader}>
+                        <UserCircle size={25} color='#000' />
+                        {/* <Text>{comment.owner} </Text> */}
+                        <Text>{comment?.user?.nickname} </Text>
+                      </View>
                       <Text> {comment.content} </Text>
                     </View>
                   ))
               }
-              <UserProvider />
+
             </ScrollView>
           </View>
           <View style={styles.textInputContainer}>
@@ -212,6 +240,7 @@ export default function DetailedFeed({ post }) {
             />
             <TouchableOpacity onPress={
               addComment
+              // fetchCommentsAfter
             }>
               <CheckCircle size={30} />
             </TouchableOpacity>
@@ -343,6 +372,9 @@ const styles = StyleSheet.create({
   commentsCounter: {
     fontWeight: '400',
     fontSize: 11,
+  },
+  commentHeader: {
+    flexDirection: 'row',
   },
   comment: {
     // borderWidth: 1,

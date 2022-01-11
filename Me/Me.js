@@ -14,14 +14,6 @@ export default function Me({ navigation }) {
     Header({ navigation })
   }, [navigation])
 
-  // firebase.auth().onAuthStateChanged(function(user) {
-  //   if (user) {
-  //     // User is signed in.
-  //   } else {
-  //     // No user is signed in.
-  //   }
-  // });
-
   return (
     <>
       <View style={styles.userInfoContainer}>
@@ -41,9 +33,6 @@ export default function Me({ navigation }) {
         </View>
         <Text style={styles.text} onPress={() => navigation.push('Chat')}>Feedback (suggest any idea)</Text>
         <ShareComponent />
-
-        <AWS />
-        <UserProvider />
 
       </View>
     </>

@@ -8,6 +8,7 @@ import { CalendarPlus, ChatsCircle, Compass, Fingerprint } from 'phosphor-react-
 import { withAuthenticator } from 'aws-amplify-react-native'
 import Login from './Auth/Login';
 import Apple from './Auth/Apple';
+// import signInWithApple from './Auth/Apple.ts';
 import Google from './Auth/Google';
 import AWS from './Auth/AWS';
 import AWS2 from './Auth/AWS2';
@@ -76,9 +77,9 @@ function HomeTabNavigation() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen name="Community" component={Feeds} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' }, }} />
-      <Tab.Screen name="Me" component={Me} />
       <Tab.Screen name="Calendar" component={Calendar} />
       <Tab.Screen name="Discover" component={Discover} />
+      <Tab.Screen name="Me" component={Me} />
       {/* <Tab.Screen name="Korean" component={Korean} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} /> */}
     </Tab.Navigator>
   );
@@ -88,6 +89,7 @@ function Notifications({ navigation }) {
   return (
     <View style={center}>
       <Apple />
+      {/* <signInWithApple /> */}
       <Google />
     </View>
   )
