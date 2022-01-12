@@ -52,6 +52,7 @@ export default function Nickname() {
         style={styles.textInput}
         onChangeText={(text) => setInputNickname('nickname', text)}
         value={nickname}
+        // value={nickname.toString()}
         placeholder='Nickname'
       />
       <TouchableOpacity

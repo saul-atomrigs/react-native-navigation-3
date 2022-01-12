@@ -137,6 +137,7 @@ export default function DetailedFeed({ post }) {
         }))
       setComments([...comments, result.data.createComment])
       console.log('🚀 create comment 성공')
+      console.log('🚀', firebase.auth().currentUser.providerData[0].providerId) //google.com
     } catch (err) {
       console.log('creating 에러!!', err)
     }
