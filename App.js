@@ -8,11 +8,7 @@ import { CalendarPlus, ChatsCircle, Compass, Fingerprint } from 'phosphor-react-
 import { withAuthenticator } from 'aws-amplify-react-native'
 import Login from './Auth/Login';
 import Apple from './Auth/Apple';
-// import signInWithApple from './Auth/Apple.ts';
 import Google from './Auth/Google';
-import AWS from './Auth/AWS';
-import AWS2 from './Auth/AWS2';
-import AWS3 from './Auth/AWS3';
 import Nickname from './Auth/Nickname'
 import Welcome from './Auth/Welcome';
 import AddSchedule from './Calendar/AddSchedule';
@@ -63,7 +59,6 @@ export default function App() {
         <Stack.Screen name="Connect" component={Connect} options={{ title: '' }} />
         <Stack.Screen name="Google" component={Google} options={{ title: '' }} />
         <Stack.Screen name="Apple" component={Apple} options={{ title: '' }} />
-        <Stack.Screen name="AWS3" component={AWS3} options={{ title: '' }} />
         <Stack.Screen name="Welcome" component={Welcome} options={{ title: '' }} />
         <Stack.Screen name="Nickname" component={Nickname} options={{ title: '' }} />
       </Stack.Navigator>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, TextInput, View, TouchableOpacity, ScrollView } from 'react-native'
 import { CheckCircle } from 'phosphor-react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
@@ -45,29 +45,32 @@ export default function Nickname() {
   }
 
   return (
-    <View style={styles.component}>
-      <Text style={styles.text}>Welcome, {param} </Text>
-      <Text style={styles.text}>Choose your nickname. </Text>
-      <TextInput
-        style={styles.textInput}
-        onChangeText={(text) => setInputNickname('nickname', text)}
-        value={nickname}
-        // value={nickname.toString()}
-        placeholder='Nickname'
-      />
-      <TouchableOpacity
-        onPress={() => {
-          addUser()
-          navigation.navigate(
-            'HomeTabNavigation',
-            { nickname: nickname }
-          )
-        }
-        }
-      >
-        <CheckCircle size={50} />
-      </TouchableOpacity>
-    </View >
+    <ScrollView>
+      <View style={styles.component}>
+        <Text style={styles.text}>Welcome, {param} </Text>
+        <Text style={styles.text}>Choose your nickname. </Text>
+        <TextInput
+          style={styles.textInput}
+          onChangeText={(text) => setInputNickname('nickname', text)}
+          value={nickname}
+          // value={nickname.toString()}
+          placeholder='Nickname'
+        />
+        <TouchableOpacity
+          onPress={() => {
+            addUser()
+            navigation.navigate(
+              'HomeTabNavigation',
+              { nickname: nickname }
+            )
+          }
+          }
+        >
+          <CheckCircle size={50} />
+        </TouchableOpacity>
+      </View >
+    </ScrollView>
+
   )
 }
 

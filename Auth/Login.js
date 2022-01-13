@@ -4,7 +4,6 @@ import Apple from './Apple';
 import Google from './Google';
 import UserProvider from './UserProvider';
 import { db } from '../firebase1';
-import AWS3 from './AWS3';
 export default function LoginScreen({ navigation }) {
 
   return (
@@ -15,7 +14,6 @@ export default function LoginScreen({ navigation }) {
 
       <Google />
 
-      <AWS3 />
     </View>
   );
 }

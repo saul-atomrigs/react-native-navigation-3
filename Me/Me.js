@@ -2,9 +2,6 @@ import React, { useLayoutEffect } from 'react';
 import { Dimensions, Image, Share, StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native';
 import { UserCirclePlus } from 'phosphor-react-native';
 import UserProvider from '../Auth/UserProvider'
-import AWS3 from '../Auth/AWS3'
-import AWS from '../Auth/AWS'
-import AWS2 from '../Auth/AWS2'
 
 import firebase from 'firebase';
 import Navigation from '../Auth/Navigation';

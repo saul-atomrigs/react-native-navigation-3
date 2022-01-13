@@ -5,7 +5,7 @@ import { Button } from 'react-native'
 import firebase from 'firebase/app'
 import UserProvider from './UserProvider'
 import AWS3 from './AWS3'
-// import Apple2 from './Apple2'
+import Apple from './Apple'
 import Google from './Google'
 export default function Navigation() {
   const [currentUser, setCurrentUser] = useState('')
@@ -32,7 +32,7 @@ export default function Navigation() {
           :
 
           <>
-            {/* <Apple2 /> */}
+            <Apple />
             <Google />
             {/* <UserProvider /> */}
           </>

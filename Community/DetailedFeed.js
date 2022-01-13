@@ -131,8 +131,8 @@ export default function DetailedFeed({ post }) {
             content: formStateComments.content,
             postCommentsId: param.id,
             userCommentsId: firebase.auth().currentUser.uid,
-            // owner: 'test',
-            // owner: comment.user.nickname,
+            // userCommentsId: (firebase.auth().currentUser.providerData[0].providerId === 'google.com') ? firebase.auth().currentUser.uid :
+            // firebase.auth.OAuthProvider('apple.com').credential.idToken
           }
         }))
       setComments([...comments, result.data.createComment])
@@ -347,16 +347,6 @@ const styles = StyleSheet.create({
   contentText: {
     fontWeight: '500',
     marginVertical: 20
-  },
-  stats: {
-    // marginTop: 5,
-    // borderWidth: 1,
-    // justifyContent: 'flex-end'
-  },
-  statDetails: {
-    // borderWidth: 1,
-    // marginBottom: 10,
-    // fontSize: 18,
   },
   btnContainer: {
     flexDirection: 'row',

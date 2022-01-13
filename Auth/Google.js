@@ -42,13 +42,10 @@ export default function GoogleAuth() {
     if (response?.type === 'success') {
       const { id_token } = response.params;
       const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
-      // const uid = firebase.auth().currentUser.uid;
-      // const userToken = firebase.auth().currentUser.getIdToken();
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           setUser({ user });
           console.log(credential);
-          // console.log(user.getIdToken());
           const displayName = firebase.auth().currentUser.displayName;
         } else {
           console.log('no user');
