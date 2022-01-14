@@ -11,6 +11,7 @@ import Apple from './Auth/Apple';
 import Google from './Auth/Google';
 import Nickname from './Auth/Nickname'
 import Welcome from './Auth/Welcome';
+import SignedOut from './Auth/SignedOut';
 import AddSchedule from './Calendar/AddSchedule';
 import Calendar from './Calendar/Calendar';
 import DetailedSchedule from './Calendar/DetailedSchedule';
@@ -61,6 +62,7 @@ export default function App() {
         <Stack.Screen name="Apple" component={Apple} options={{ title: '' }} />
         <Stack.Screen name="Welcome" component={Welcome} options={{ title: '' }} />
         <Stack.Screen name="Nickname" component={Nickname} options={{ title: '' }} />
+        <Stack.Screen name="SignedOut" component={SignedOut} options={{ title: '' }} />
       </Stack.Navigator>
     </NavigationContainer>
     // </AppContainer>
@@ -84,7 +86,6 @@ function Notifications({ navigation }) {
   return (
     <View style={center}>
       <Apple />
-      {/* <signInWithApple /> */}
       <Google />
     </View>
   )

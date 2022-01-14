@@ -75,13 +75,6 @@ export default function GoogleAuth() {
         <GoogleLogo weight='bold' color='red' size={20} style={styles.googleLogo} />
         <Text style={styles.btnText}>Continue with Google</Text>
       </TouchableOpacity>
-      <Text>
-        {user ?
-          // "You are now signed in"
-          <Button title='sign out' onPress={() => firebase.auth().signOut()} />
-          :
-          ""}
-      </Text>
     </>
   );
 }

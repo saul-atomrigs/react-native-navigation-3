@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Button } from 'react-native'
-// import { SignedInStack, SignedOutStack } from './Navigation'
-// import { firebase } from '../firebase1'
 import firebase from 'firebase/app'
 import UserProvider from './UserProvider'
-import AWS3 from './AWS3'
 import Apple from './Apple'
 import Google from './Google'
 export default function Navigation() {
@@ -17,12 +14,13 @@ export default function Navigation() {
     () => firebase.auth().onAuthStateChanged(user => userHandler(user))
   }, [])
 
-
   return (
     <>
       {
+        // IF USER IS LOGGED IN
         currentUser ?
 
+          // SIGN OUT BUTTONN
           <>
             <Button
               title='sign out'
@@ -31,6 +29,7 @@ export default function Navigation() {
 
           :
 
+          // OTHERWISE, GOOGLE & APPLE SIGN IN BUTTONS
           <>
             <Apple />
             <Google />

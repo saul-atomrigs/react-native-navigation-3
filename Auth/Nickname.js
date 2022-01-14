@@ -47,7 +47,7 @@ export default function Nickname() {
   return (
     <ScrollView>
       <View style={styles.component}>
-        <Text style={styles.text}>Welcome, {param} </Text>
+        <Text style={styles.text}>Welcome to DailyKpop, </Text>
         <Text style={styles.text}>Choose your nickname. </Text>
         <TextInput
           style={styles.textInput}
@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: 100,
     backgroundColor: '#fff',
   },
   text: {

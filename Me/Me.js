@@ -1,4 +1,5 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect, useEffect } from 'react';
+import { NavigationContainerRefContext, useIsFocused } from '@react-navigation/native';
 import { Dimensions, Image, Share, StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native';
 import { UserCirclePlus } from 'phosphor-react-native';
 import UserProvider from '../Auth/UserProvider'
@@ -6,19 +7,55 @@ import UserProvider from '../Auth/UserProvider'
 import firebase from 'firebase';
 import Navigation from '../Auth/Navigation';
 export default function Me({ navigation }) {
+
+  const isFocused = useIsFocused();
+
   // HEADER BUTTONS
   useLayoutEffect(() => {
     Header({ navigation })
   }, [navigation])
 
+  // function fetchData() {
+  //   return (
+  //     <Navigation />
+  //   )
+  // }
+
+  // useEffect(() => {
+  //   fetchData();
+  //   const willFocusSubscription = navigation.addListener('focus', () => {
+  //     fetchData();
+  //   });
+  //   return willFocusSubscription;
+  // }, []);
+
+
+  function signOut() {
+    alert('signing out')
+    firebase.auth().signOut();
+    navigation.reset({ index: 0, routes: [{ name: 'SignedOut' }] })
+  }
+
   return (
     <>
       <View style={styles.userInfoContainer}>
+        <>
+          {
+            firebase.auth().currentUser == null ?
+              <Navigation />
+              :
+              <>
+                <Text>Welcome, </Text>
+                <Button
+                  title='Sign out'
+                  onPress={signOut}
+                />
+              </>
+          }
+        </>
 
-        <Navigation />
 
       </View>
-
 
       <View style={styles.activityContainer}>
         {/* <Text style={styles.text}>My Fandoms</Text>
@@ -92,7 +129,7 @@ const ShareComponent = () => {
         style={styles.text}
         onPress={onShare}
       >
-        Share dailykpop
+        Share DailyKpop
       </Text>
     </View>
   );
