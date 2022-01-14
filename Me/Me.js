@@ -45,7 +45,7 @@ export default function Me({ navigation }) {
               <Navigation />
               :
               <>
-                <Text>Welcome, </Text>
+                {/* <Text>Welcome</Text> */}
                 <Button
                   title='Sign out'
                   onPress={signOut}

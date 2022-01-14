@@ -152,6 +152,7 @@ export default function AddSchedule({ navigation }) {
       {/* submit button */}
       <TouchableOpacity
         style={{ flexDirection: 'row' }}
+        disabled={!values.date || !values.artist || !values.event}
         onPress={() => {
           addItem();
           goBack();
@@ -159,7 +160,7 @@ export default function AddSchedule({ navigation }) {
         }}
       >
         <View style={styles.floatingBtn}>
-          <Text style={styles.floatingBtnText}>Add item</Text>
+          <Text style={styles.floatingBtnText}>Add event</Text>
         </View>
       </TouchableOpacity>
 
@@ -221,7 +222,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 140,
+    width: 300,
     height: 40,
     position: 'relative',
     backgroundColor: 'black',
@@ -240,7 +241,7 @@ const styles = StyleSheet.create({
   floatingBtnText: {
     fontSize: 15,
     fontWeight: '700',
-    color: 'pink',
+    color: '#fff',
     textDecorationLine: 'underline'
   },
 })

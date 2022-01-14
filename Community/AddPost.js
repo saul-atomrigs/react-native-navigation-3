@@ -78,6 +78,7 @@ export default function AddPost({ navigation }) {
           multiline
         />
         <TouchableOpacity
+          disabled={!formStatePosts.title}
           onPress={() => {
             addPost()
             goBack()

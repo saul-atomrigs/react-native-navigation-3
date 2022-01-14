@@ -1,9 +1,15 @@
 import React, { useState, useCallback, useLayoutEffect, useEffect, createContext } from 'react';
-import { ScrollView, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View, RefreshControl, TextInput, } from 'react-native';
+import { ScrollView, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View, RefreshControl, TextInput, Alert } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Divider } from 'react-native-elements';
-import { CheckCircle, Heart, Megaphone, UserCircle, HandsClapping } from 'phosphor-react-native';
+import {
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+} from 'react-native-popup-menu';
+import { CheckCircle, Heart, MoreVertical, UserCircle, HandsClapping, EyeSlash, Crosshair } from 'phosphor-react-native';
 
 import firebase from 'firebase';
 
@@ -178,6 +184,17 @@ export default function DetailedFeed({ post }) {
     fetchOwner()
   }, [])
 
+
+  const report = () => {
+    alert(`Report this post.
+    Is this post inappropriate? We will review this report within 24 hrs and if deemed inappropriate the post will be removed within that timeframe. We will also take actions against it's author
+    `)
+  }
+
+  const block = () => {
+    alert(`Confirm you want to block ${owner}`)
+  }
+
   return (
     <KeyboardAwareScrollView
       style={{ flex: 1 }}
@@ -199,6 +216,25 @@ export default function DetailedFeed({ post }) {
                 {owner}
               </Text>
             </TouchableOpacity>
+
+            <View style={styles.commentHeader}>
+
+              <View>
+                <Menu>
+                  <MenuTrigger text='+ more' />
+                  <MenuOptions>
+                    <MenuOption onSelect={report} >
+                      <Text style={{ color: 'red' }}>Report innapropriate</Text>
+                    </MenuOption>
+                    <MenuOption onSelect={block} >
+                      <Text style={{ color: 'red' }}>Block this user</Text>
+                    </MenuOption>
+                  </MenuOptions>
+                </Menu>
+
+              </View>
+            </View>
+
           </View>
           <View style={styles.content}>
             <Text style={styles.contentText}>{param.title}</Text>
@@ -239,10 +275,10 @@ export default function DetailedFeed({ post }) {
               placeholder="Write a comment..."
               placeholderTextColor={'#777'}
             />
-            <TouchableOpacity onPress={
-              addComment
-              // fetchCommentsAfter
-            }>
+            <TouchableOpacity
+              disabled={formStateComments.content.length === 0}
+              onPress={addComment
+              }>
               <CheckCircle size={30} />
             </TouchableOpacity>
           </View>
@@ -336,13 +372,14 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-start'
+    justifyContent: 'space-between',
   },
   content: {
     marginTop: 15,
     marginBottom: 10,
     paddingVertical: 5,
     color: '#fff',
+    flexDirection: 'row',
   },
   contentText: {
     fontWeight: '500',

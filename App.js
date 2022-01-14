@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import { MenuProvider } from 'react-native-popup-menu';
 import { CalendarPlus, ChatsCircle, Compass, Fingerprint } from 'phosphor-react-native';
 import { withAuthenticator } from 'aws-amplify-react-native'
 import Login from './Auth/Login';
@@ -29,6 +30,7 @@ import Translate from './Discover/Translate';
 import Twitter from './Discover/Twitter';
 import Youtube from './Discover/Youtube';
 import Me from './Me/Me';
+import Notifications from './Notifications/Notifications';
 
 
 // STACK NAVIGATOR
@@ -37,33 +39,35 @@ export default function App() {
     // <AppContainer>
     <NavigationContainer theme={MyTheme}>
       <StatusBar style='dark-content' />
-      <Stack.Navigator screenOptions={{ headerBackTitleVisible: false }}>
-        <Stack.Screen name="HomeTabNavigation" component={HomeTabNavigation} options={{ headerShown: false }} />
-        <Stack.Screen name="Calendar" component={Calendar} options={({ route }) => ({ title: route.params.param })} />
-        <Stack.Screen name="DetailedSchedule" component={DetailedSchedule} options={({ route }) => ({ title: route.params.param })} />
-        <Stack.Screen name="AddSchedule" component={AddSchedule} options={{ title: '' }} />
-        <Stack.Screen name="Community" component={Feeds} options={{ title: 'Community' }} />
-        <Stack.Screen name="DetailedFeed" component={DetailedFeed} options={{ title: '' }} />
-        <Stack.Screen name="AddPost" component={AddPost} options={{ title: '' }} />
-        <Stack.Screen name="Discover" component={Discover} options={{ title: '' }} />
-        <Stack.Screen name="DetailedDiscover" component={DetailedDiscover} options={{ title: '' }} />
-        <Stack.Screen name="Youtube" component={Youtube} options={{ title: '' }} />
-        <Stack.Screen name="Tiktok" component={Tiktok} options={{ title: '' }} />
-        <Stack.Screen name="Instagram" component={Instagram} options={{ title: '' }} />
-        <Stack.Screen name="Pinterest" component={Pinterest} options={{ title: '' }} />
-        <Stack.Screen name="Twitter" component={Twitter} options={{ title: '' }} />
-        <Stack.Screen name="Translate" component={Translate} options={{ title: '' }} />
-        <Stack.Screen name="Me" component={Me} />
-        <Stack.Screen name="Chat" component={Chat} />
-        <Stack.Screen name="Notifications" component={Notifications} />
-        <Stack.Screen name="Login" component={Login} options={{ title: '' }} />
-        <Stack.Screen name="Connect" component={Connect} options={{ title: '' }} />
-        <Stack.Screen name="Google" component={Google} options={{ title: '' }} />
-        <Stack.Screen name="Apple" component={Apple} options={{ title: '' }} />
-        <Stack.Screen name="Welcome" component={Welcome} options={{ title: '' }} />
-        <Stack.Screen name="Nickname" component={Nickname} options={{ title: '' }} />
-        <Stack.Screen name="SignedOut" component={SignedOut} options={{ title: '' }} />
-      </Stack.Navigator>
+      <MenuProvider>
+        <Stack.Navigator screenOptions={{ headerBackTitleVisible: false }}>
+          <Stack.Screen name="HomeTabNavigation" component={HomeTabNavigation} options={{ headerShown: false }} />
+          <Stack.Screen name="Calendar" component={Calendar} options={({ route }) => ({ title: route.params.param })} />
+          <Stack.Screen name="DetailedSchedule" component={DetailedSchedule} options={({ route }) => ({ title: route.params.param })} />
+          <Stack.Screen name="AddSchedule" component={AddSchedule} options={{ title: '' }} />
+          <Stack.Screen name="Community" component={Feeds} options={{ title: 'Community' }} />
+          <Stack.Screen name="DetailedFeed" component={DetailedFeed} options={{ title: '' }} />
+          <Stack.Screen name="AddPost" component={AddPost} options={{ title: '' }} />
+          <Stack.Screen name="Discover" component={Discover} options={{ title: '' }} />
+          <Stack.Screen name="DetailedDiscover" component={DetailedDiscover} options={{ title: '' }} />
+          <Stack.Screen name="Youtube" component={Youtube} options={{ title: '' }} />
+          <Stack.Screen name="Tiktok" component={Tiktok} options={{ title: '' }} />
+          <Stack.Screen name="Instagram" component={Instagram} options={{ title: '' }} />
+          <Stack.Screen name="Pinterest" component={Pinterest} options={{ title: '' }} />
+          <Stack.Screen name="Twitter" component={Twitter} options={{ title: '' }} />
+          <Stack.Screen name="Translate" component={Translate} options={{ title: '' }} />
+          <Stack.Screen name="Me" component={Me} />
+          <Stack.Screen name="Chat" component={Chat} />
+          <Stack.Screen name="Login" component={Login} options={{ title: '' }} />
+          <Stack.Screen name="Connect" component={Connect} options={{ title: '' }} />
+          <Stack.Screen name="Google" component={Google} options={{ title: '' }} />
+          <Stack.Screen name="Apple" component={Apple} options={{ title: '' }} />
+          <Stack.Screen name="Welcome" component={Welcome} options={{ title: '' }} />
+          <Stack.Screen name="Nickname" component={Nickname} options={{ title: '' }} />
+          <Stack.Screen name="SignedOut" component={SignedOut} options={{ title: '' }} />
+          <Stack.Screen name="Notifications" component={Notifications} options={{ title: '' }} />
+        </Stack.Navigator>
+      </MenuProvider>
     </NavigationContainer>
     // </AppContainer>
   );
@@ -80,15 +84,6 @@ function HomeTabNavigation() {
       {/* <Tab.Screen name="Korean" component={Korean} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} /> */}
     </Tab.Navigator>
   );
-}
-// NOTIFICATION COMPOENT  
-function Notifications({ navigation }) {
-  return (
-    <View style={center}>
-      <Apple />
-      <Google />
-    </View>
-  )
 }
 
 // REACT NAVIGATION 
