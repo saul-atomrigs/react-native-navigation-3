@@ -36,7 +36,6 @@ import Notifications from './Notifications/Notifications';
 // STACK NAVIGATOR
 export default function App() {
   return (
-    // <AppContainer>
     <NavigationContainer theme={MyTheme}>
       <StatusBar style='dark-content' />
       <MenuProvider>
@@ -69,10 +68,10 @@ export default function App() {
         </Stack.Navigator>
       </MenuProvider>
     </NavigationContainer>
-    // </AppContainer>
   );
 }
 // export default withAuthenticator(App)
+
 // TAB = 밑에 탭 네비게이션 
 function HomeTabNavigation() {
   return (
@@ -131,9 +130,3 @@ const MyTheme = {
     background: '#fff'
   },
 };
-const center = {
-  flex: 1,
-  justifyContent: 'center',
-  alignItems: 'center',
-  backgroundColor: '#fff',
-}

@@ -1,5 +1,4 @@
 import React, { useState, useLayoutEffect, useEffect } from 'react';
-import { NavigationContainerRefContext, useIsFocused } from '@react-navigation/native';
 import { Dimensions, Image, Share, StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native';
 import { UserCirclePlus } from 'phosphor-react-native';
 import UserProvider from '../Auth/UserProvider'
@@ -8,27 +7,10 @@ import firebase from 'firebase';
 import Navigation from '../Auth/Navigation';
 export default function Me({ navigation }) {
 
-  const isFocused = useIsFocused();
-
   // HEADER BUTTONS
   useLayoutEffect(() => {
     Header({ navigation })
   }, [navigation])
-
-  // function fetchData() {
-  //   return (
-  //     <Navigation />
-  //   )
-  // }
-
-  // useEffect(() => {
-  //   fetchData();
-  //   const willFocusSubscription = navigation.addListener('focus', () => {
-  //     fetchData();
-  //   });
-  //   return willFocusSubscription;
-  // }, []);
-
 
   function signOut() {
     alert('signing out')
@@ -39,22 +21,17 @@ export default function Me({ navigation }) {
   return (
     <>
       <View style={styles.userInfoContainer}>
-        <>
-          {
-            firebase.auth().currentUser == null ?
-              <Navigation />
-              :
-              <>
-                {/* <Text>Welcome</Text> */}
-                <Button
-                  title='Sign out'
-                  onPress={signOut}
-                />
-              </>
-          }
-        </>
-
-
+        {
+          firebase.auth().currentUser == null ?
+            <Navigation />
+            :
+            <>
+              <Button
+                title='Sign out'
+                onPress={signOut}
+              />
+            </>
+        }
       </View>
 
       <View style={styles.activityContainer}>
@@ -150,16 +127,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#eee',
     borderRadius: 13,
-    // borderWidth: 1,
-  },
-  userIcon: {
-    // paddingTop: 30,
   },
   activityContainer: {
     flex: 2,
-    // justifyContent: 'space-evenly',
     alignItems: 'baseline',
-    // marginHorizontal: WIDTH * 0.05,
     padding: WIDTH * 0.05,
     marginTop: HEIGHT * 0.01,
     marginBottom: 80,
@@ -169,14 +140,7 @@ const styles = StyleSheet.create({
 
   },
   text: {
-    // borderWidth: 1,
     fontSize: 18,
     marginVertical: 20,
   }
 })
-
-// const StyledBg = styled.ImageBackground`
-//   background-image: linear-gradient(90deg, rgba(200,0,0,.5) 50%, transparent 50%),
-// linear-gradient(rgba(200,0,0,.5) 50%, transparent 50%);
-//   background-size:50px 50px;
-//   `
