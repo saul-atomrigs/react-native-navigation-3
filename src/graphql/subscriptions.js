@@ -14,6 +14,8 @@ export const onCreateUser = /* GraphQL */ `
           userPostId
           createdAt
           updatedAt
+          likesCount
+          likesByUserArray
           userPostsId
           blogPostsId
           owner
@@ -51,6 +53,8 @@ export const onUpdateUser = /* GraphQL */ `
           userPostId
           createdAt
           updatedAt
+          likesCount
+          likesByUserArray
           userPostsId
           blogPostsId
           owner
@@ -88,6 +92,8 @@ export const onDeleteUser = /* GraphQL */ `
           userPostId
           createdAt
           updatedAt
+          likesCount
+          likesByUserArray
           userPostsId
           blogPostsId
           owner
@@ -124,6 +130,8 @@ export const onCreateBlog = /* GraphQL */ `
           userPostId
           createdAt
           updatedAt
+          likesCount
+          likesByUserArray
           userPostsId
           blogPostsId
           owner
@@ -148,6 +156,8 @@ export const onUpdateBlog = /* GraphQL */ `
           userPostId
           createdAt
           updatedAt
+          likesCount
+          likesByUserArray
           userPostsId
           blogPostsId
           owner
@@ -172,6 +182,8 @@ export const onDeleteBlog = /* GraphQL */ `
           userPostId
           createdAt
           updatedAt
+          likesCount
+          likesByUserArray
           userPostsId
           blogPostsId
           owner
@@ -216,18 +228,8 @@ export const onCreatePost = /* GraphQL */ `
       userPostId
       createdAt
       updatedAt
-      likes {
-        items {
-          id
-          userId
-          username
-          createdAt
-          updatedAt
-          postLikesId
-          owner
-        }
-        nextToken
-      }
+      likesCount
+      likesByUserArray
       comments {
         items {
           id
@@ -278,18 +280,8 @@ export const onUpdatePost = /* GraphQL */ `
       userPostId
       createdAt
       updatedAt
-      likes {
-        items {
-          id
-          userId
-          username
-          createdAt
-          updatedAt
-          postLikesId
-          owner
-        }
-        nextToken
-      }
+      likesCount
+      likesByUserArray
       comments {
         items {
           id
@@ -340,18 +332,8 @@ export const onDeletePost = /* GraphQL */ `
       userPostId
       createdAt
       updatedAt
-      likes {
-        items {
-          id
-          userId
-          username
-          createdAt
-          updatedAt
-          postLikesId
-          owner
-        }
-        nextToken
-      }
+      likesCount
+      likesByUserArray
       comments {
         items {
           id
@@ -366,138 +348,6 @@ export const onDeletePost = /* GraphQL */ `
       }
       userPostsId
       blogPostsId
-      owner
-    }
-  }
-`;
-export const onCreatePostLike = /* GraphQL */ `
-  subscription OnCreatePostLike($owner: String) {
-    onCreatePostLike(owner: $owner) {
-      post {
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-          owner
-        }
-        user {
-          id
-          name
-          nickname
-          createdAt
-          updatedAt
-          owner
-        }
-        id
-        title
-        userPostId
-        createdAt
-        updatedAt
-        likes {
-          nextToken
-        }
-        comments {
-          nextToken
-        }
-        userPostsId
-        blogPostsId
-        owner
-      }
-      id
-      userId
-      username
-      createdAt
-      updatedAt
-      postLikesId
-      owner
-    }
-  }
-`;
-export const onUpdatePostLike = /* GraphQL */ `
-  subscription OnUpdatePostLike($owner: String) {
-    onUpdatePostLike(owner: $owner) {
-      post {
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-          owner
-        }
-        user {
-          id
-          name
-          nickname
-          createdAt
-          updatedAt
-          owner
-        }
-        id
-        title
-        userPostId
-        createdAt
-        updatedAt
-        likes {
-          nextToken
-        }
-        comments {
-          nextToken
-        }
-        userPostsId
-        blogPostsId
-        owner
-      }
-      id
-      userId
-      username
-      createdAt
-      updatedAt
-      postLikesId
-      owner
-    }
-  }
-`;
-export const onDeletePostLike = /* GraphQL */ `
-  subscription OnDeletePostLike($owner: String) {
-    onDeletePostLike(owner: $owner) {
-      post {
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-          owner
-        }
-        user {
-          id
-          name
-          nickname
-          createdAt
-          updatedAt
-          owner
-        }
-        id
-        title
-        userPostId
-        createdAt
-        updatedAt
-        likes {
-          nextToken
-        }
-        comments {
-          nextToken
-        }
-        userPostsId
-        blogPostsId
-        owner
-      }
-      id
-      userId
-      username
-      createdAt
-      updatedAt
-      postLikesId
       owner
     }
   }
@@ -526,9 +376,8 @@ export const onCreateComment = /* GraphQL */ `
         userPostId
         createdAt
         updatedAt
-        likes {
-          nextToken
-        }
+        likesCount
+        likesByUserArray
         comments {
           nextToken
         }
@@ -584,9 +433,8 @@ export const onUpdateComment = /* GraphQL */ `
         userPostId
         createdAt
         updatedAt
-        likes {
-          nextToken
-        }
+        likesCount
+        likesByUserArray
         comments {
           nextToken
         }
@@ -642,9 +490,8 @@ export const onDeleteComment = /* GraphQL */ `
         userPostId
         createdAt
         updatedAt
-        likes {
-          nextToken
-        }
+        likesCount
+        likesByUserArray
         comments {
           nextToken
         }

@@ -3,6 +3,8 @@ import { StyleSheet, Text, TextInput, View, TouchableOpacity, ScrollView, Button
 import { CheckCircle } from 'phosphor-react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
+import firebase from 'firebase'
+
 // AWS 
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
@@ -17,6 +19,44 @@ export default function Nickname() {
 
   const [formStateNickname, setFormStateNickname] = useState({ nickname: '' })
   const [nickname, setNickname] = useState([])
+
+  // const uidExists =
+  // firebase.auth()
+  //   .getUser(uid)
+  //   .then(() => true)
+  //   .catch(() => false)
+
+  // CHECK IF USER EXISTS in FIREBASE DATABASE
+  // const uidExists = async () => {
+  //   try {
+  //     const user = await firebase.auth().currentUser
+  //     const uid = user.uid
+  //     const userData = await firebase.database().ref(`/users/${uid}`).once('value')
+  //     const userNickname = userData.val().nickname
+  //     console.log('userNickname: ', userNickname)
+  //     if (userNickname) {
+  //       navigation.navigate('Home')
+  //     }
+  //   } catch (err) {
+  //     console.log('error: ', err)
+  //   }
+  // }
+
+  // check if current user's uid exists in firebase authentication
+  const uidExists = async () => {
+    try {
+      const user = await firebase.auth().currentUser
+      const uid = user.uid
+      const userData = await firebase.database().ref(`/users/${uid}`).once('value')
+      const userNickname = userData.val().nickname
+      console.log('userNickname: ', userNickname)
+      if (userNickname) {
+        navigation.navigate('HomeTabNavigation')
+      }
+    } catch (err) {
+      console.log('error: ', err)
+    }
+  }
 
   // ADD USER NICKNAME TO DYNAMO DB
   async function addUser() {
@@ -45,38 +85,50 @@ export default function Nickname() {
   }
 
   return (
-    <ScrollView>
+    // IF USER EXISTS IN FIREBASE AUTHENTICATION
+    uidExists ?
       <View style={styles.component}>
-        <Text style={styles.text}>Welcome to DailyKpop, </Text>
-        <Text style={styles.text}>Choose your nickname. </Text>
-        <TextInput
-          style={styles.textInput}
-          onChangeText={(text) => setInputNickname('nickname', text)}
-          value={nickname}
-          // value={nickname.toString()}
-          placeholder='Nickname'
+        <Text style={styles.text}>
+          Welcome back!
+        </Text>
+        <Button
+          title='Back to DailyKpop'
+          onPress={() => navigation.navigate('HomeTabNavigation')}
         />
-        <TouchableOpacity
-          onPress={() => {
-            addUser()
-            navigation.navigate(
-              'HomeTabNavigation',
-              { nickname: nickname }
-            )
-          }
-          }
-        >
-          <CheckCircle size={50} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => alert(eula)}
-        >
-          <Text
-            style={styles.terms}
-          >by signing up you agree to terms and conditions</Text>
-        </TouchableOpacity>
-      </View >
-    </ScrollView>
+      </View>
+      :
+      <ScrollView>
+        <View style={styles.component}>
+          <Text style={styles.text}>Welcome to DailyKpop, </Text>
+          <Text style={styles.text}>Choose your nickname. </Text>
+          <TextInput
+            style={styles.textInput}
+            onChangeText={(text) => setInputNickname('nickname', text)}
+            value={nickname}
+            // value={nickname.toString()}
+            placeholder='Nickname'
+          />
+          <TouchableOpacity
+            onPress={() => {
+              addUser()
+              navigation.navigate(
+                'HomeTabNavigation',
+                { nickname: nickname }
+              )
+            }
+            }
+          >
+            <CheckCircle size={50} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => alert(eula)}
+          >
+            <Text
+              style={styles.terms}
+            >by signing up you agree to terms and conditions</Text>
+          </TouchableOpacity>
+        </View >
+      </ScrollView>
 
   )
 }

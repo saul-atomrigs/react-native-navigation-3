@@ -152,7 +152,7 @@ export default function AddSchedule({ navigation }) {
       {/* submit button */}
       <TouchableOpacity
         style={{ flexDirection: 'row' }}
-        disabled={!values.date || !values.artist || !values.event}
+        // disabled={!values.date || !values.artist || !values.event}
         onPress={() => {
           addItem();
           goBack();

@@ -3,13 +3,10 @@ import { ScrollView, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Divider } from 'react-native-elements';
-import {
-  Menu,
-  MenuOptions,
-  MenuOption,
-  MenuTrigger,
-} from 'react-native-popup-menu';
-import { CheckCircle, Heart, MoreVertical, UserCircle, HandsClapping, EyeSlash, Crosshair } from 'phosphor-react-native';
+import { Menu, MenuOption, MenuOptions, MenuTrigger, } from 'react-native-popup-menu';
+import { CheckCircle, Heart, MoreVertical, UserCircle, HandsClapping, } from 'phosphor-react-native';
+import Apple from '../Auth/Apple'
+import Google from '../Auth/Google'
 
 import firebase from 'firebase';
 
@@ -17,7 +14,7 @@ import firebase from 'firebase';
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
 import { API, graphqlOperation } from 'aws-amplify'
-import { createComment, updateComment, deleteComment, createPostLike } from '../src/graphql/mutations'
+import { createComment, updateComment, deleteComment, createPost, updatePost, createPostLike } from '../src/graphql/mutations'
 import { listComments, listPostLikes, listUsers, getUser, getComment } from '../src/graphql/queries'
 Amplify.configure(config)
 
@@ -29,39 +26,95 @@ export default function DetailedFeed({ post }) {
 
   const navigation = useNavigation();
 
-  // HANDLER FOR LIKES COUNT 
-  // const handleLike = (post) => {
-  //   const currentLikeStatus = !post.likesByUsers.includes(
-  //     firebase.auth().currentUsers.email
-  //   )
-  //   // ADD OR REMOVE LIKES IN DATABASE
-
-  // }
-
   // LIKE BUTTON 
   const LikeButton = () => {
     const [liked, setLiked] = useState(false)
-    const [count, setCount] = useState(0)
+    const [number, setNumber] = useState(param.likesCount)
+    const [counts, setCounts] = useState([])
+
+    // ADD LIKE (USER ID) TO DATABASE
+    async function addLike() {
+      try {
+        // const count = { ...liked }
+        // setCounts([...counts, count])
+        // setLiked(!liked)
+        const result = await API.graphql(graphqlOperation(
+          updatePost,
+          {
+            input: {
+              id: param.id,
+              // likesCount: liked ? param.likesCount - 1 : param.likesCount + 1,
+              likesCount: param.likesCount + 1,
+              likesByUserArray: [
+                ...param.likesByUserArray,
+                firebase.auth().currentUser.uid,
+              ],
+            }
+          }
+        ))
+        // setCounts([...counts, result.data.updatePost])
+        setNumber(result.data.updatePost.likesCount)
+
+      } catch (e) {
+        console.log('error updating post: ', e)
+      }
+    }
+
+    // REMOVE LIKE (USER ID) FROM DATABASE
+    async function removeLike() {
+      try {
+        // const count = { ...liked }
+        // setCounts([...counts, count])
+        // setLiked(!liked)
+        const result = await API.graphql(graphqlOperation(
+          updatePost,
+          {
+            input: {
+              id: param.id,
+              // DELETE USER ID FROM ARRAY
+              likesCount: param.likesCount - 1,
+              likesByUserArray: param.likesByUserArray.filter(userId => userId !== firebase.auth().currentUser.uid),
+            }
+          }
+        ))
+        // setCounts([...counts, result.data.updatePost])
+        setNumber(result.data.updatePost.likesCount)
+      } catch (e) {
+        console.log('error updating post: ', e)
+      }
+    }
+
+    // CHECK IF USER HAS LIKED POST
+    const userLiked = param.likesByUserArray.includes(
+      firebase.auth().currentUser.uid
+    )
 
     const onLikePressed = () => {
       setLiked(!liked)
-      setCount(count + 1)
+      // setNumber(number + 1)
+      addLike()
     }
 
     const onDislikePressed = () => {
       setLiked(!liked)
-      setCount(count - 1)
+      // setNumber(number - 1)
+      removeLike()
     }
 
+
+
     return (
-      <View onPress={() => setLiked((isLiked) => !isLiked)}>
+      <View>
         <TouchableOpacity
           style={styles.buttons}
-          onPress={liked ? onDislikePressed : onLikePressed}>
+          onPress={userLiked ? onDislikePressed : onLikePressed}
+        >
           {
-            liked ? <Heart size={28} color="hotpink" weight='fill' /> : <Heart size={28} color="gray" />
+            userLiked ?
+              <Heart size={28} color="hotpink" weight='fill' />
+              : <Heart size={28} color="gray" />
           }
-          <Text>{count}</Text>
+          <Text>{number}</Text>
         </TouchableOpacity>
       </View>
     )
@@ -83,12 +136,15 @@ export default function DetailedFeed({ post }) {
     }
 
     return (
-      <View onPress={() => setLiked((isLiked) => !isLiked)}>
+      // <View onPress={() => setLiked((isLiked) => !isLiked)}>
+      <View>
         <TouchableOpacity
           style={styles.buttons}
           onPress={liked ? onDislikePressed : onLikePressed}>
           {
-            liked ? <HandsClapping size={28} color="blue" weight='fill' /> : <HandsClapping size={28} color="gray" />
+            liked ?
+              <HandsClapping size={28} color="blue" weight='fill' />
+              : <HandsClapping size={28} color="gray" />
           }
           <Text>{count}</Text>
         </TouchableOpacity>
@@ -106,13 +162,6 @@ export default function DetailedFeed({ post }) {
   useEffect(() => {
     fetchComments()
   }, [])
-
-  function fetchCommentsAfter() {
-    addComment()
-    useEffect(() => {
-      fetchComments()
-    }, [])
-  }
 
   // HEADER BUTTONS 
   useLayoutEffect(() => {
@@ -137,8 +186,6 @@ export default function DetailedFeed({ post }) {
             content: formStateComments.content,
             postCommentsId: param.id,
             userCommentsId: firebase.auth().currentUser.uid,
-            // userCommentsId: (firebase.auth().currentUser.providerData[0].providerId === 'google.com') ? firebase.auth().currentUser.uid :
-            // firebase.auth.OAuthProvider('apple.com').credential.idToken
           }
         }))
       setComments([...comments, result.data.createComment])
@@ -196,95 +243,106 @@ export default function DetailedFeed({ post }) {
   }
 
   return (
-    <KeyboardAwareScrollView
-      style={{ flex: 1 }}
-    // refreshControl={
-    //   <RefreshControl
-    //     refreshing={refreshing}
-    //     onRefresh={onRefresh}
-    //   />
-    // }
-    >
-      <View style={styles.container}>
-        <View style={styles.card}>
-          <View style={styles.header}>
-            <TouchableOpacity
-              onPress={() => navigation.push('Home')}
-              style={{ flexDirection: 'row' }}
-            >
-              <Text style={styles.author} >
-                {owner}
-              </Text>
-            </TouchableOpacity>
 
-            <View style={styles.commentHeader}>
+    // IF NOT SIGNED IN 
+    firebase.auth().currentUser == null ?
 
-              <View>
-                <Menu>
-                  <MenuTrigger text='+ more' />
-                  <MenuOptions>
-                    <MenuOption onSelect={report} >
-                      <Text style={{ color: 'red' }}>Report innapropriate</Text>
-                    </MenuOption>
-                    <MenuOption onSelect={block} >
-                      <Text style={{ color: 'red' }}>Block this user</Text>
-                    </MenuOption>
-                  </MenuOptions>
-                </Menu>
+      <View style={styles.signIn}>
+        <Apple />
+        <Google />
+      </View>
 
+      :
+
+      <KeyboardAwareScrollView
+        style={{ flex: 1 }}
+      // refreshControl={
+      //   <RefreshControl
+      //     refreshing={refreshing}
+      //     onRefresh={onRefresh}
+      //   />
+      // }
+      >
+        <View style={styles.container}>
+          <View style={styles.card}>
+            <View style={styles.header}>
+              <TouchableOpacity
+                onPress={() => navigation.push('Home')}
+                style={{ flexDirection: 'row' }}
+              >
+                <Text style={styles.author} >
+                  {owner}
+                </Text>
+              </TouchableOpacity>
+
+              <View style={styles.commentHeader}>
+
+                <View>
+                  <Menu>
+                    <MenuTrigger text='+ more' />
+                    <MenuOptions>
+                      <MenuOption onSelect={report} >
+                        <Text style={{ color: 'red' }}>Report innapropriate</Text>
+                      </MenuOption>
+                      <MenuOption onSelect={block} >
+                        <Text style={{ color: 'red' }}>Block this user</Text>
+                      </MenuOption>
+                    </MenuOptions>
+                  </Menu>
+
+                </View>
               </View>
+
+            </View>
+            <View style={styles.content}>
+              <Text style={styles.contentText}>{param.title}</Text>
             </View>
 
-          </View>
-          <View style={styles.content}>
-            <Text style={styles.contentText}>{param.title}</Text>
-          </View>
+            <View style={styles.btnContainer}>
+              <LikeButton />
+              <ClapButton />
+            </View>
 
-          <View style={styles.btnContainer}>
-            <LikeButton />
-            <ClapButton />
-          </View>
-
-          <Divider />
-          <View style={styles.commentsContainer}>
-            {/* <Text style={styles.commentsCounter}> {commentsCount} Comments </Text> */}
-            <ScrollView>
-              {
-                comments
-                  .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).reverse()
-                  .map((comment, index) => (
-                    <View key={comment.id ? comment.id : index} style={styles.comment} >
-                      <View style={styles.commentHeader}>
-                        <UserCircle size={25} color='#000' />
-                        {/* <Text>{comment.owner} </Text> */}
-                        <Text>{comment?.user?.nickname} </Text>
+            <Divider />
+            <View style={styles.commentsContainer}>
+              {/* <Text style={styles.commentsCounter}> {commentsCount} Comments </Text> */}
+              <ScrollView>
+                {
+                  comments
+                    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).reverse()
+                    .map((comment, index) => (
+                      <View key={comment.id ? comment.id : index} style={styles.comment} >
+                        <View style={styles.commentHeader}>
+                          <UserCircle size={25} color='#000' />
+                          {/* <Text>{comment.owner} </Text> */}
+                          <Text>{comment?.user?.nickname} </Text>
+                        </View>
+                        <Text> {comment.content} </Text>
                       </View>
-                      <Text> {comment.content} </Text>
-                    </View>
-                  ))
-              }
+                    ))
+                }
 
-            </ScrollView>
+              </ScrollView>
+            </View>
+            <View style={styles.textInputContainer}>
+              <TextInput
+                onChangeText={val => setInputComments('content', val)}
+                value={formStateComments.content}
+                style={styles.textInput}
+                multiline
+                placeholder="Write a comment..."
+                placeholderTextColor={'#777'}
+              />
+              <TouchableOpacity
+                disabled={formStateComments.content.length === 0}
+                onPress={addComment
+                }>
+                <CheckCircle size={30} />
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={styles.textInputContainer}>
-            <TextInput
-              onChangeText={val => setInputComments('content', val)}
-              value={formStateComments.content}
-              style={styles.textInput}
-              multiline
-              placeholder="Write a comment..."
-              placeholderTextColor={'#777'}
-            />
-            <TouchableOpacity
-              disabled={formStateComments.content.length === 0}
-              onPress={addComment
-              }>
-              <CheckCircle size={30} />
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View >
-    </KeyboardAwareScrollView >
+        </View >
+      </KeyboardAwareScrollView >
   )
 }
 
@@ -346,6 +404,11 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     // marginRight: WIDTH * 0.05,
+  },
+  signIn: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   container: {
     flex: 1,

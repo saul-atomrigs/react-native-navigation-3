@@ -2,6 +2,7 @@ import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { Dimensions, Image, Share, StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native';
 import { UserCirclePlus } from 'phosphor-react-native';
 import UserProvider from '../Auth/UserProvider'
+import { NavigationContainerRefContext, useIsFocused } from '@react-navigation/native';
 
 import firebase from 'firebase';
 import Navigation from '../Auth/Navigation';
@@ -12,27 +13,11 @@ export default function Me({ navigation }) {
     Header({ navigation })
   }, [navigation])
 
-  function signOut() {
-    alert('signing out')
-    firebase.auth().signOut();
-    navigation.reset({ index: 0, routes: [{ name: 'SignedOut' }] })
-  }
-
   return (
     <>
-      <View style={styles.userInfoContainer}>
-        {
-          firebase.auth().currentUser == null ?
-            <Navigation />
-            :
-            <>
-              <Button
-                title='Sign out'
-                onPress={signOut}
-              />
-            </>
-        }
-      </View>
+      {/* <View style={styles.userInfoContainer}>
+      </View> */}
+
 
       <View style={styles.activityContainer}>
         {/* <Text style={styles.text}>My Fandoms</Text>
@@ -42,6 +27,7 @@ export default function Me({ navigation }) {
           {/* <HandsClapping /> */}
           {/* <Text>5 Claps received</Text> */}
         </View>
+        <Button title='Sign in / sign out' onPress={() => navigation.navigate('Notifications')} />
         <Text style={styles.text} onPress={() => navigation.push('Chat')}>Feedback (suggest any idea)</Text>
         <ShareComponent />
 

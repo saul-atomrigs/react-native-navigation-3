@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { TouchableOpacity, StyleSheet, Text, View, TextInput, KeyboardAvoidingView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Apple from '../Auth/Apple'
+import Google from '../Auth/Google'
 
 import firebase from 'firebase';
 
@@ -35,6 +37,8 @@ export default function AddPost({ navigation }) {
           input: {
             title: formStatePosts.title,
             userPostsId: firebase.auth().currentUser.uid,
+            likesCount: 0,
+            likesByUserArray: [],
           }
         }
       ))
@@ -67,30 +71,39 @@ export default function AddPost({ navigation }) {
 
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView>
-        <TextInput
-          value={formStatePosts.title}
-          onChangeText={val => setInputPosts('title', val)}
-          style={styles.input}
-          placeholder="Write a post"
-          placeholderTextColor={'#777'}
-          multiline
-        />
-        <TouchableOpacity
-          disabled={!formStatePosts.title}
-          onPress={() => {
-            addPost()
-            goBack()
-            forceUpdate()
-          }}
-        >
-          <View style={styles.floatingBtn}>
-            <Text style={styles.floatingBtnText}>Upload</Text>
-          </View>
-        </TouchableOpacity>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+    // IF NOT SIGNED IN 
+    firebase.auth().currentUser == null ?
+
+      <View style={styles.signIn}>
+        <Apple />
+        <Google />
+      </View>
+
+      :
+      <SafeAreaView style={styles.container}>
+        <KeyboardAvoidingView>
+          <TextInput
+            value={formStatePosts.title}
+            onChangeText={val => setInputPosts('title', val)}
+            style={styles.input}
+            placeholder="Write a post"
+            placeholderTextColor={'#777'}
+            multiline
+          />
+          <TouchableOpacity
+            disabled={!formStatePosts.title}
+            onPress={() => {
+              addPost()
+              goBack()
+              forceUpdate()
+            }}
+          >
+            <View style={styles.floatingBtn}>
+              <Text style={styles.floatingBtnText}>Upload</Text>
+            </View>
+          </TouchableOpacity>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
   );
 }
 
@@ -107,6 +120,11 @@ const styles = StyleSheet.create({
   },
   post: {
     marginBottom: 15
+  },
+  signIn: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   input: {
     fontSize: 16,

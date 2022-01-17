@@ -14,6 +14,8 @@ export const getUser = /* GraphQL */ `
           userPostId
           createdAt
           updatedAt
+          likesCount
+          likesByUserArray
           userPostsId
           blogPostsId
           owner
@@ -75,6 +77,8 @@ export const getBlog = /* GraphQL */ `
           userPostId
           createdAt
           updatedAt
+          likesCount
+          likesByUserArray
           userPostsId
           blogPostsId
           owner
@@ -140,18 +144,8 @@ export const getPost = /* GraphQL */ `
       userPostId
       createdAt
       updatedAt
-      likes {
-        items {
-          id
-          userId
-          username
-          createdAt
-          updatedAt
-          postLikesId
-          owner
-        }
-        nextToken
-      }
+      likesCount
+      likesByUserArray
       comments {
         items {
           id
@@ -198,88 +192,13 @@ export const listPosts = /* GraphQL */ `
         userPostId
         createdAt
         updatedAt
-        likes {
-          nextToken
-        }
+        likesCount
+        likesByUserArray
         comments {
           nextToken
         }
         userPostsId
         blogPostsId
-        owner
-      }
-      nextToken
-    }
-  }
-`;
-export const getPostLike = /* GraphQL */ `
-  query GetPostLike($id: ID!) {
-    getPostLike(id: $id) {
-      post {
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-          owner
-        }
-        user {
-          id
-          name
-          nickname
-          createdAt
-          updatedAt
-          owner
-        }
-        id
-        title
-        userPostId
-        createdAt
-        updatedAt
-        likes {
-          nextToken
-        }
-        comments {
-          nextToken
-        }
-        userPostsId
-        blogPostsId
-        owner
-      }
-      id
-      userId
-      username
-      createdAt
-      updatedAt
-      postLikesId
-      owner
-    }
-  }
-`;
-export const listPostLikes = /* GraphQL */ `
-  query ListPostLikes(
-    $filter: ModelPostLikeFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listPostLikes(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        post {
-          id
-          title
-          userPostId
-          createdAt
-          updatedAt
-          userPostsId
-          blogPostsId
-          owner
-        }
-        id
-        userId
-        username
-        createdAt
-        updatedAt
-        postLikesId
         owner
       }
       nextToken
@@ -310,9 +229,8 @@ export const getComment = /* GraphQL */ `
         userPostId
         createdAt
         updatedAt
-        likes {
-          nextToken
-        }
+        likesCount
+        likesByUserArray
         comments {
           nextToken
         }
@@ -358,6 +276,8 @@ export const listComments = /* GraphQL */ `
           userPostId
           createdAt
           updatedAt
+          likesCount
+          likesByUserArray
           userPostsId
           blogPostsId
           owner

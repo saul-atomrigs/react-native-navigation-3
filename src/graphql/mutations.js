@@ -17,6 +17,8 @@ export const createUser = /* GraphQL */ `
           userPostId
           createdAt
           updatedAt
+          likesCount
+          likesByUserArray
           userPostsId
           blogPostsId
           owner
@@ -57,6 +59,8 @@ export const updateUser = /* GraphQL */ `
           userPostId
           createdAt
           updatedAt
+          likesCount
+          likesByUserArray
           userPostsId
           blogPostsId
           owner
@@ -97,6 +101,8 @@ export const deleteUser = /* GraphQL */ `
           userPostId
           createdAt
           updatedAt
+          likesCount
+          likesByUserArray
           userPostsId
           blogPostsId
           owner
@@ -136,6 +142,8 @@ export const createBlog = /* GraphQL */ `
           userPostId
           createdAt
           updatedAt
+          likesCount
+          likesByUserArray
           userPostsId
           blogPostsId
           owner
@@ -163,6 +171,8 @@ export const updateBlog = /* GraphQL */ `
           userPostId
           createdAt
           updatedAt
+          likesCount
+          likesByUserArray
           userPostsId
           blogPostsId
           owner
@@ -190,6 +200,8 @@ export const deleteBlog = /* GraphQL */ `
           userPostId
           createdAt
           updatedAt
+          likesCount
+          likesByUserArray
           userPostsId
           blogPostsId
           owner
@@ -237,18 +249,8 @@ export const createPost = /* GraphQL */ `
       userPostId
       createdAt
       updatedAt
-      likes {
-        items {
-          id
-          userId
-          username
-          createdAt
-          updatedAt
-          postLikesId
-          owner
-        }
-        nextToken
-      }
+      likesCount
+      likesByUserArray
       comments {
         items {
           id
@@ -302,18 +304,8 @@ export const updatePost = /* GraphQL */ `
       userPostId
       createdAt
       updatedAt
-      likes {
-        items {
-          id
-          userId
-          username
-          createdAt
-          updatedAt
-          postLikesId
-          owner
-        }
-        nextToken
-      }
+      likesCount
+      likesByUserArray
       comments {
         items {
           id
@@ -367,18 +359,8 @@ export const deletePost = /* GraphQL */ `
       userPostId
       createdAt
       updatedAt
-      likes {
-        items {
-          id
-          userId
-          username
-          createdAt
-          updatedAt
-          postLikesId
-          owner
-        }
-        nextToken
-      }
+      likesCount
+      likesByUserArray
       comments {
         items {
           id
@@ -393,147 +375,6 @@ export const deletePost = /* GraphQL */ `
       }
       userPostsId
       blogPostsId
-      owner
-    }
-  }
-`;
-export const createPostLike = /* GraphQL */ `
-  mutation CreatePostLike(
-    $input: CreatePostLikeInput!
-    $condition: ModelPostLikeConditionInput
-  ) {
-    createPostLike(input: $input, condition: $condition) {
-      post {
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-          owner
-        }
-        user {
-          id
-          name
-          nickname
-          createdAt
-          updatedAt
-          owner
-        }
-        id
-        title
-        userPostId
-        createdAt
-        updatedAt
-        likes {
-          nextToken
-        }
-        comments {
-          nextToken
-        }
-        userPostsId
-        blogPostsId
-        owner
-      }
-      id
-      userId
-      username
-      createdAt
-      updatedAt
-      postLikesId
-      owner
-    }
-  }
-`;
-export const updatePostLike = /* GraphQL */ `
-  mutation UpdatePostLike(
-    $input: UpdatePostLikeInput!
-    $condition: ModelPostLikeConditionInput
-  ) {
-    updatePostLike(input: $input, condition: $condition) {
-      post {
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-          owner
-        }
-        user {
-          id
-          name
-          nickname
-          createdAt
-          updatedAt
-          owner
-        }
-        id
-        title
-        userPostId
-        createdAt
-        updatedAt
-        likes {
-          nextToken
-        }
-        comments {
-          nextToken
-        }
-        userPostsId
-        blogPostsId
-        owner
-      }
-      id
-      userId
-      username
-      createdAt
-      updatedAt
-      postLikesId
-      owner
-    }
-  }
-`;
-export const deletePostLike = /* GraphQL */ `
-  mutation DeletePostLike(
-    $input: DeletePostLikeInput!
-    $condition: ModelPostLikeConditionInput
-  ) {
-    deletePostLike(input: $input, condition: $condition) {
-      post {
-        blog {
-          id
-          name
-          createdAt
-          updatedAt
-          owner
-        }
-        user {
-          id
-          name
-          nickname
-          createdAt
-          updatedAt
-          owner
-        }
-        id
-        title
-        userPostId
-        createdAt
-        updatedAt
-        likes {
-          nextToken
-        }
-        comments {
-          nextToken
-        }
-        userPostsId
-        blogPostsId
-        owner
-      }
-      id
-      userId
-      username
-      createdAt
-      updatedAt
-      postLikesId
       owner
     }
   }
@@ -565,9 +406,8 @@ export const createComment = /* GraphQL */ `
         userPostId
         createdAt
         updatedAt
-        likes {
-          nextToken
-        }
+        likesCount
+        likesByUserArray
         comments {
           nextToken
         }
@@ -626,9 +466,8 @@ export const updateComment = /* GraphQL */ `
         userPostId
         createdAt
         updatedAt
-        likes {
-          nextToken
-        }
+        likesCount
+        likesByUserArray
         comments {
           nextToken
         }
@@ -687,9 +526,8 @@ export const deleteComment = /* GraphQL */ `
         userPostId
         createdAt
         updatedAt
-        likes {
-          nextToken
-        }
+        likesCount
+        likesByUserArray
         comments {
           nextToken
         }

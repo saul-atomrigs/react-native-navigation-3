@@ -31,7 +31,7 @@ type Post
  #  EVERYONE CAN READ, OWNER CAN CRUD:
  @auth(
   rules: [
-   { allow: public, operations: [create, read] }
+   { allow: public, operations: [create, read, update] }
    {
     allow: owner
     provider: oidc
@@ -48,20 +48,22 @@ type Post
  userPostId: ID
  createdAt: AWSDateTime!
  updatedAt: AWSDateTime!
- likes: [PostLike] @hasMany
+ likesCount: Int
+ likesByUserArray: [String]
+ #  likes: [PostLike] @hasMany
  comments: [Comment] @hasMany
 }
 
-type PostLike
- @model
- @auth(
-  rules: [{ allow: public, operations: [read, create] }, { allow: owner }]
- ) {
- post: Post @belongsTo
- id: ID!
- userId: String!
- username: String!
-}
+# type PostLike
+#  @model
+#  @auth(
+#   rules: [{ allow: public, operations: [read, create] }, { allow: owner }]
+#  ) {
+#  post: Post @belongsTo
+#  id: ID!
+#  userId: ID!
+#  username: String
+# }
 
 type Comment
  @model
@@ -80,7 +82,12 @@ type Comment
 
 type Calendar
  @model
- @auth(rules: [{ allow: public, operations: [read] }, { allow: owner }]) {
+ @auth(
+  rules: [
+   { allow: public, operations: [create, read, update, delete] }
+   { allow: owner }
+  ]
+ ) {
  id: ID!
  name: String!
  events: [Event] @hasMany
@@ -88,7 +95,12 @@ type Calendar
 
 type Event
  @model
- @auth(rules: [{ allow: public, operations: [read] }, { allow: owner }]) {
+ @auth(
+  rules: [
+   { allow: public, operations: [create, read, update, delete] }
+   { allow: owner }
+  ]
+ ) {
  id: ID!
  event: String!
  artist: String!

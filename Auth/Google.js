@@ -60,7 +60,7 @@ export default function GoogleAuth() {
         })
         .catch(error => {
           // IF NOT LOGGED IN
-          navigation.navigate('Nickname', { param: error.message });
+          // navigation.navigate('Nickname', { param: error.message });
         })
     }
   }, [response])

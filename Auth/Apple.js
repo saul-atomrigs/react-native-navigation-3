@@ -33,7 +33,8 @@ export default function AppleAuth() {
         navigation.navigate('Nickname', { param: firebase.auth().currentUser.uid });
       })
       .catch((e) => {
-        navigation.navigate('Nickname', { param: e.message });
+        // navigation.navigate('Nickname', { param: e.message });
+        console.log(e)
       });
   };
 

@@ -17,21 +17,11 @@ export default function DetailedDiscover({ navigation }) {
   const twtQuery = 'https://twitter.com/search?q=' + param + `&src=typed_query`
   const ytQuery = 'https://www.youtube.com/results?search_query=' + param
   const igQuery = 'https://www.instagram.com/explore/tags/' + param
-  const tikQuery = 'https://www.tiktok.com/search/?keyword=' + param
   const pinQuery = 'https://www.pinterest.com/search/pins/?q=' + param
 
   return (
     <>
       <View style={styles.tabBar}>
-        <TouchableOpacity
-          style={[styles.socialIcon, { backgroundColor: '#1D9BF0' }]}
-          onPress={() => navigation.push(
-            'Twitter',
-            { param: { twtQuery } }
-          )}
-        >
-          <Text style={styles.socialText}>Twitter</Text>
-        </TouchableOpacity>
         <TouchableOpacity
           style={[styles.socialIcon, { backgroundColor: '#FF0000' }]}
           onPress={() => navigation.push(
@@ -42,6 +32,15 @@ export default function DetailedDiscover({ navigation }) {
           <Text style={styles.socialText}>Youtube</Text>
         </TouchableOpacity>
         <TouchableOpacity
+          style={[styles.socialIcon, { backgroundColor: '#1D9BF0' }]}
+          onPress={() => navigation.push(
+            'Twitter',
+            { param: { twtQuery } }
+          )}
+        >
+          <Text style={styles.socialText}>Twitter</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
           style={[styles.socialIcon, { backgroundColor: '#8a3ab9' }]}
           onPress={() => navigation.push(
             'Instagram',
@@ -49,15 +48,6 @@ export default function DetailedDiscover({ navigation }) {
           )}
         >
           <Text style={styles.socialText}>Instagram</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.socialIcon, { backgroundColor: '#000' }]}
-          onPress={() => navigation.push(
-            'Tiktok',
-            { param: { tikQuery } }
-          )}
-        >
-          <Text style={styles.socialText}>Tiktok</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.socialIcon, { backgroundColor: '#E60023' }]}
@@ -136,10 +126,14 @@ const styles = StyleSheet.create({
   socialIcon: {
     // marginBottom: 15,
     padding: 8,
+    flex: 1,
+    marginHorizontal: 5,
+    // width: WIDTH * 0.15,
     borderRadius: 20,
   },
   socialText: {
     fontSize: 13,
+    alignSelf: 'center',
     fontWeight: 'bold',
     color: '#fff',
   },
