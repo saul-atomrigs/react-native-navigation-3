@@ -90,7 +90,8 @@ export default function Feed(props) {
                         <Icon style={styles.dot} name="ellipse" size={8} color="hotpink" />
                         <Text style={styles.text}>
                           {/* {item.postTitle.length > 90 ? item.postTitle.substring(0, 90) + '...' : item.postTitle} */}
-                          <Text> {post.title} </Text>
+                          {post.title.length > 80 ? post.title.substring(0, 80) + '...' : post.title}
+                          {/* <Text> {post.title} </Text> */}
                         </Text>
                       </View>
                       <Divider />
