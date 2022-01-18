@@ -1,11 +1,6 @@
 import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { Dimensions, Image, Share, StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native';
-import { UserCirclePlus } from 'phosphor-react-native';
-import UserProvider from '../Auth/UserProvider'
-import { NavigationContainerRefContext, useIsFocused } from '@react-navigation/native';
 
-import firebase from 'firebase';
-import Navigation from '../Auth/Navigation';
 export default function Me({ navigation }) {
 
   // HEADER BUTTONS

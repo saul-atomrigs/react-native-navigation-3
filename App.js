@@ -70,7 +70,6 @@ export default function App() {
     </NavigationContainer>
   );
 }
-// export default withAuthenticator(App)
 
 // TAB = 밑에 탭 네비게이션 
 function HomeTabNavigation() {

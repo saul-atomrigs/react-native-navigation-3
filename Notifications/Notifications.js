@@ -5,10 +5,8 @@ import Apple from '../Auth/Apple'
 import Google from '../Auth/Google'
 import { useNavigation } from '@react-navigation/native'
 
-
 export default function Notifications() {
 
-  // useNavigation
   const navigation = useNavigation()
 
   function signOut() {
