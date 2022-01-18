@@ -3,7 +3,7 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-nativ
 import Apple from './Apple';
 import Google from './Google';
 import UserProvider from './UserProvider';
-import { db } from '../firebase1';
+// import { db } from '../firebase1';
 export default function LoginScreen({ navigation }) {
 
   return (

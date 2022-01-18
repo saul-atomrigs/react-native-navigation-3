@@ -8,8 +8,8 @@ import * as Google from 'expo-auth-session/providers/google';
 
 // FIREBASE V8.
 import firebase from 'firebase';
-import { db } from '../firebase1';
-import { auth } from '../firebase1';
+// import { db } from '../firebase1';
+// import { auth } from '../firebase1';
 
 import { UserContext } from './UserProvider';
 
@@ -41,6 +41,7 @@ export default function GoogleAuth() {
   useEffect(() => {
     if (response?.type === 'success') {
       const { id_token } = response.params;
+      // const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
       const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
@@ -52,7 +53,8 @@ export default function GoogleAuth() {
         }
       });
 
-      auth.signInWithCredential(credential)
+      // auth.signInWithCredential(credential)
+      firebase.auth().signInWithCredential(credential)
         .then(() => {
           // IF LOGGED IN
           navigation.navigate('Nickname',
