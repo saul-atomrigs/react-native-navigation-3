@@ -9,7 +9,7 @@ import * as Google from 'expo-auth-session/providers/google';
 // FIREBASE V8.
 import firebase from 'firebase';
 // import { db } from '../firebase1';
-// import { auth } from '../firebase1';
+import { auth } from '../firebase1';
 
 import { UserContext } from './UserProvider';
 
@@ -53,8 +53,8 @@ export default function GoogleAuth() {
         }
       });
 
-      // auth.signInWithCredential(credential)
-      firebase.auth().signInWithCredential(credential)
+      auth.signInWithCredential(credential)
+        // firebase.auth().signInWithCredential(credential)
         .then(() => {
           // IF LOGGED IN
           navigation.navigate('Nickname',

@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useLayoutEffect, useEffect, createContext } from 'react';
-import { ScrollView, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View, RefreshControl, TextInput, Alert } from 'react-native';
+import { ScrollView, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View, RefreshControl, TextInput, Alert, Keyboard } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Divider } from 'react-native-elements';
@@ -242,6 +242,10 @@ export default function DetailedFeed({ post }) {
     alert(`Confirm you want to block ${owner}`)
   }
 
+  function keyboardDismiss() {
+    Keyboard.dismiss()
+  }
+
   return (
 
     // IF NOT SIGNED IN 
@@ -256,6 +260,7 @@ export default function DetailedFeed({ post }) {
 
       <KeyboardAwareScrollView
         style={{ flex: 1 }}
+        keyboardShouldPersistTaps='handled'
       // refreshControl={
       //   <RefreshControl
       //     refreshing={refreshing}
@@ -270,6 +275,7 @@ export default function DetailedFeed({ post }) {
                 onPress={() => navigation.push('Home')}
                 style={{ flexDirection: 'row' }}
               >
+                <UserCircle size={30} color="#000" />
                 <Text style={styles.author} >
                   {owner}
                 </Text>
@@ -335,8 +341,12 @@ export default function DetailedFeed({ post }) {
               />
               <TouchableOpacity
                 disabled={formStateComments.content.length === 0}
-                onPress={addComment
-                }>
+                onPress={() => {
+                  addComment()
+                  keyboardDismiss()
+                }
+                }
+              >
                 <CheckCircle size={30} />
               </TouchableOpacity>
             </View>
@@ -427,8 +437,9 @@ const styles = StyleSheet.create({
     // marginLeft: 20
   },
   author: {
+    marginHorizontal: 5,
     fontSize: 18,
-    fontWeight: '700'
+    fontWeight: '700',
   },
   header: {
     paddingTop: 10,
@@ -469,10 +480,10 @@ const styles = StyleSheet.create({
   },
   comment: {
     // borderWidth: 1,
-    padding: 10,
+    padding: 7,
     borderRadius: 13,
     backgroundColor: '#eee',
-    marginVertical: 10,
+    marginVertical: 5,
   },
   textInputContainer: {
     marginTop: "auto",
