@@ -26,99 +26,165 @@ export default function DetailedFeed({ post }) {
 
   const navigation = useNavigation();
 
+  const currentUser = firebase.auth().currentUser.uid;
+
   // LIKE BUTTON 
   const LikeButton = () => {
-    const [liked, setLiked] = useState(false)
-    const [number, setNumber] = useState(param.likesCount)
-    const [counts, setCounts] = useState([])
+    // INITIAL STATES
+    const initialState = param.likesByUserArray.includes(currentUser)
+    const initialArrayLength = param.likesByUserArray.length
+    const [liked, setLiked] = useState(initialState) // true or false
+    const [count, setCount] = useState(initialArrayLength) // number of users liking the post
 
-    // ADD LIKE (USER ID) TO DATABASE
-    async function addLike() {
+    // ADD LIKE 
+    const addLike = async () => {
       try {
-        // const count = { ...liked }
-        // setCounts([...counts, count])
-        // setLiked(!liked)
-        const result = await API.graphql(graphqlOperation(
-          updatePost,
-          {
-            input: {
-              id: param.id,
-              // likesCount: liked ? param.likesCount - 1 : param.likesCount + 1,
-              likesCount: param.likesCount + 1,
-              likesByUserArray: [
-                ...param.likesByUserArray,
-                firebase.auth().currentUser.uid,
-              ],
-            }
-          }
-        ))
-        // setCounts([...counts, result.data.updatePost])
-        setNumber(result.data.updatePost.likesCount)
-
-      } catch (e) {
-        console.log('error updating post: ', e)
+        const input = {
+          id: param.id,
+          likesByUserArray: [
+            ...param.likesByUserArray,
+            currentUser
+          ]
+        }
+        const result = await API.graphql(graphqlOperation(updatePost, { input }))
+        setCount([result.data.updatePost].length)
+      } catch (err) {
+        console.log('error: ', err)
+      }
+    }
+    // REMOVE LIKE
+    const removeLike = async () => {
+      try {
+        const input = {
+          id: param.id,
+          likesByUserArray: param.likesByUserArray.filter(user => user !== currentUser)
+        }
+        const result = await API.graphql(graphqlOperation(updatePost, { input }))
+        setCount([result.data.updatePost].length)
+      } catch (err) {
+        console.log('error: ', err)
       }
     }
 
-    // REMOVE LIKE (USER ID) FROM DATABASE
-    async function removeLike() {
-      try {
-        // const count = { ...liked }
-        // setCounts([...counts, count])
-        // setLiked(!liked)
-        const result = await API.graphql(graphqlOperation(
-          updatePost,
-          {
-            input: {
-              id: param.id,
-              // DELETE USER ID FROM ARRAY
-              likesCount: param.likesCount - 1,
-              likesByUserArray: param.likesByUserArray.filter(userId => userId !== firebase.auth().currentUser.uid),
-            }
-          }
-        ))
-        // setCounts([...counts, result.data.updatePost])
-        setNumber(result.data.updatePost.likesCount)
-      } catch (e) {
-        console.log('error updating post: ', e)
-      }
+    useEffect(() => {
+      setLiked(param.likesByUserArray.includes(currentUser))
+      setCount(param.likesByUserArray.length)
+    }, [initialState, initialArrayLength])
+
+    function handleLike() {
+      liked == true ? removeLike() : addLike()
+      // setLiked(!liked)
+      console.log(count)
     }
-
-    // CHECK IF USER HAS LIKED POST
-    const userLiked = param.likesByUserArray.includes(
-      firebase.auth().currentUser.uid
-    )
-
-    const onLikePressed = () => {
-      setLiked(!liked)
-      // setNumber(number + 1)
-      addLike()
-    }
-
-    const onDislikePressed = () => {
-      setLiked(!liked)
-      // setNumber(number - 1)
-      removeLike()
-    }
-
-
 
     return (
       <View>
         <TouchableOpacity
           style={styles.buttons}
-          onPress={userLiked ? onDislikePressed : onLikePressed}
+          // onPress={!liked ? onDislikePressed : onLikePressed}
+          onPress={handleLike}
         >
           {
-            userLiked ?
+            liked ?
               <Heart size={28} color="hotpink" weight='fill' />
               : <Heart size={28} color="gray" />
           }
-          <Text>{number}</Text>
+          <Text>{count}</Text>
         </TouchableOpacity>
       </View>
     )
   }
+
+
+  // const LikeButton = () => {
+  //   const initialLike = param.likesByUserArray.includes(
+  //     firebase.auth().currentUser.uid
+  //   )
+  //   const [liked, setLiked] = useState(initialLike)
+  //   console.log(liked)
+  //   const [number, setNumber] = useState(param.likesCount)
+
+  //   // ADD LIKE (USER ID) TO DATABASE
+  //   async function addLike() {
+  //     try {
+  //       const result = await API.graphql(graphqlOperation(
+  //         updatePost,
+  //         {
+  //           input: {
+  //             id: param.id,
+  //             likesCount: param.likesCount + 1,
+  //             likesByUserArray: [
+  //               ...param.likesByUserArray,
+  //               // firebase.auth().currentUser.uid,
+  //               currentUser
+  //             ],
+  //           }
+  //         }
+  //       ))
+  //       // setCounts([...counts, result.data.updatePost])
+  //       // setNumber(result.data.updatePost.likesCount)
+  //     } catch (e) {
+  //       console.log('error updating post: ', e)
+  //     }
+  //   }
+
+  //   // REMOVE LIKE (USER ID) FROM DATABASE
+  //   async function removeLike() {
+  //     try {
+  //       const result = await API.graphql(graphqlOperation(
+  //         updatePost,
+  //         {
+  //           input: {
+  //             id: param.id,
+  //             // DELETE USER ID FROM ARRAY
+  //             likesCount: param.likesCount - 1,
+  //             likesByUserArray: param.likesByUserArray.filter(userId => userId !== firebase.auth().currentUser.uid),
+  //           }
+  //         }
+  //       ))
+  //       // setCounts([...counts, result.data.updatePost])
+  //       // setNumber(result.data.updatePost.likesCount)
+  //     } catch (e) {
+  //       console.log('error updating post: ', e)
+  //     }
+  //   }
+
+  //   // CHECK IF USER HAS LIKED POST
+  //   const userLiked = param.likesByUserArray.includes(
+  //     // firebase.auth().currentUser.uid
+  //     currentUser
+  //   )
+
+  //   const onLikePressed = () => {
+  //     // setLiked(!liked)
+  //     setNumber(number + 1)
+  //     addLike()
+  //   }
+
+  //   const onDislikePressed = () => {
+  //     // setLiked(!liked)
+  //     removeLike()
+  //     setNumber(number - 1)
+  //   }
+
+
+
+  //   return (
+  //     <View>
+  //       <TouchableOpacity
+  //         style={styles.buttons}
+  //         onPress={!liked ? onDislikePressed : onLikePressed}
+  //       >
+  //         {
+  //           liked ?
+  //             <Heart size={28} color="hotpink" weight='fill' />
+  //             : <Heart size={28} color="gray" />
+  //         }
+  //         <Text>{number}</Text>
+  //       </TouchableOpacity>
+  //     </View>
+  //   )
+  // }
 
   // CLAP BUTTON 
   const ClapButton = () => {
@@ -140,7 +206,7 @@ export default function DetailedFeed({ post }) {
       <View>
         <TouchableOpacity
           style={styles.buttons}
-          onPress={liked ? onDislikePressed : onLikePressed}>
+          onPress={liked == false ? onDislikePressed : onLikePressed}>
           {
             liked ?
               <HandsClapping size={28} color="blue" weight='fill' />
