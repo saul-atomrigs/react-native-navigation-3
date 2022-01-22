@@ -7,6 +7,8 @@ import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { MenuProvider } from 'react-native-popup-menu';
 import { CalendarPlus, ChatsCircle, Compass, Fingerprint } from 'phosphor-react-native';
 import { withAuthenticator } from 'aws-amplify-react-native'
+import Toast from 'react-native-toast-message';
+
 import Login from './Auth/Login';
 import Apple from './Auth/Apple';
 import Google from './Auth/Google';
@@ -31,7 +33,7 @@ import Twitter from './Discover/Twitter';
 import Youtube from './Discover/Youtube';
 import Me from './Me/Me';
 import Notifications from './Notifications/Notifications';
-
+import SetupPush from './Notifications/SetupPush';
 
 // STACK NAVIGATOR
 export default function App() {
@@ -65,8 +67,10 @@ export default function App() {
           <Stack.Screen name="Nickname" component={Nickname} options={{ title: '' }} />
           <Stack.Screen name="SignedOut" component={SignedOut} options={{ title: '' }} />
           <Stack.Screen name="Notifications" component={Notifications} options={{ title: '' }} />
+          <Stack.Screen name="SetupPush" component={SetupPush} options={{ title: '' }} />
         </Stack.Navigator>
       </MenuProvider>
+      <Toast />
     </NavigationContainer>
   );
 }

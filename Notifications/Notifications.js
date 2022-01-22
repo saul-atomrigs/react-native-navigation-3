@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, Button } from 'react-native'
+import SetupPush from '../Notifications/SetupPush'
 import firebase from 'firebase'
 import Apple from '../Auth/Apple'
 import Google from '../Auth/Google'
@@ -34,6 +35,10 @@ export default function Notifications() {
                 onPress={signOut}
                 title='Sign out'
               />
+              {/* <Button
+                onPress={() => navigation.navigate('SetupPush')}
+                title='Register for Push Notifications'
+              /> */}
             </View>
           </>
       }

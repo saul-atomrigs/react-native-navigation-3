@@ -1,16 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, TextInput, View, TouchableOpacity, ScrollView, Button } from 'react-native'
 import { CheckCircle } from 'phosphor-react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
 import firebase from 'firebase'
+import { db } from '../firebase1'
 
 // AWS 
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
 import { API, graphqlOperation } from 'aws-amplify'
 import { createUser } from '../src/graphql/mutations'
-import { listUsers } from '../src/graphql/queries'
+import { listUsers, getUser } from '../src/graphql/queries'
 Amplify.configure(config)
 
 export default function Nickname() {
@@ -19,44 +20,7 @@ export default function Nickname() {
 
   const [formStateNickname, setFormStateNickname] = useState({ nickname: '' })
   const [nickname, setNickname] = useState([])
-
-  // const uidExists =
-  // firebase.auth()
-  //   .getUser(uid)
-  //   .then(() => true)
-  //   .catch(() => false)
-
-  // CHECK IF USER EXISTS in FIREBASE DATABASE
-  // const uidExists = async () => {
-  //   try {
-  //     const user = await firebase.auth().currentUser
-  //     const uid = user.uid
-  //     const userData = await firebase.database().ref(`/users/${uid}`).once('value')
-  //     const userNickname = userData.val().nickname
-  //     console.log('userNickname: ', userNickname)
-  //     if (userNickname) {
-  //       navigation.navigate('Home')
-  //     }
-  //   } catch (err) {
-  //     console.log('error: ', err)
-  //   }
-  // }
-
-  // check if current user's uid exists in firebase authentication
-  const uidExists = async () => {
-    try {
-      const user = await firebase.auth().currentUser
-      const uid = user.uid
-      const userData = await firebase.database().ref(`/users/${uid}`).once('value')
-      const userNickname = userData.val().nickname
-      console.log('userNickname: ', userNickname)
-      if (userNickname) {
-        navigation.navigate('HomeTabNavigation')
-      }
-    } catch (err) {
-      console.log('error: ', err)
-    }
-  }
+  const [uid, setUid] = useState('')
 
   // ADD USER NICKNAME TO DYNAMO DB
   async function addUser() {
@@ -75,7 +39,6 @@ export default function Nickname() {
         }
       ))
       setNickname([...nickname, result.data.createUser])
-      console.log('🚀 createUser: ', result)
     } catch (err) {
       console.log('error creating 에러!!', err)
     }
@@ -84,51 +47,81 @@ export default function Nickname() {
     setFormStateNickname({ ...formStateNickname, [key]: value })
   }
 
+  // Get user uid from dynamo db
+  async function getUserNickname() {
+    try {
+      const result = await API.graphql(graphqlOperation(
+        getUser,
+        {
+          id: param
+        }
+      ))
+      setUid(result.data.getUser.id)
+    } catch (err) {
+      console.log('error getting 에러!!', err)
+    }
+  }
+
+  useEffect(() => {
+    getUserNickname()
+  }, [])
+
   return (
     // IF USER EXISTS IN FIREBASE AUTHENTICATION
-    uidExists ?
-      <View style={styles.component}>
-        <Text style={styles.text}>
-          Welcome back!
-        </Text>
-        <Button
-          title='Back to DailyKpop'
-          onPress={() => navigation.navigate('HomeTabNavigation')}
-        />
-      </View>
-      :
-      <ScrollView>
-        <View style={styles.component}>
-          <Text style={styles.text}>Welcome to DailyKpop, </Text>
-          <Text style={styles.text}>Choose your nickname. </Text>
-          <TextInput
-            style={styles.textInput}
-            onChangeText={(text) => setInputNickname('nickname', text)}
-            value={nickname}
-            // value={nickname.toString()}
-            placeholder='Nickname'
-          />
-          <TouchableOpacity
-            onPress={() => {
-              addUser()
-              navigation.navigate(
-                'HomeTabNavigation',
-                { nickname: nickname }
-              )
-            }
-            }
+    <>
+      {
+        param == uid ?
+
+          // USER EXISTS 
+          <View style={styles.component}>
+            <Text style={styles.text}>
+              Welcome back!
+            </Text>
+            <Button
+              title='Back to DailyKpop'
+              onPress={() => navigation.navigate('HomeTabNavigation')}
+            />
+          </View>
+          :
+
+          // IF USER DOES NOT EXIST IN DYNAMO DB
+          <ScrollView
+            keyboardShouldPersistTaps='handled'
           >
-            <CheckCircle size={50} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => alert(eula)}
-          >
-            <Text
-              style={styles.terms}
-            >by signing up you agree to terms and conditions</Text>
-          </TouchableOpacity>
-        </View >
-      </ScrollView>
+            <View style={styles.component}>
+              <Text style={styles.text}>Welcome to DailyKpop, </Text>
+              <Text style={styles.text}>Choose your nickname. </Text>
+              <TextInput
+                style={styles.textInput}
+                onChangeText={(text) => setInputNickname('nickname', text)}
+                value={nickname}
+                // value={nickname.toString()}
+                placeholder='Nickname'
+              />
+              <TouchableOpacity
+                // disabled={formStateNickname.content.length === 0}
+                onPress={() => {
+                  addUser()
+                  navigation.navigate(
+                    'Welcome',
+                    { nickname: nickname }
+                  )
+                }
+                }
+              >
+                <CheckCircle size={50} />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => alert(eula)}
+              >
+                <Text
+                  style={styles.terms}
+                >by signing up you agree to terms and conditions</Text>
+              </TouchableOpacity>
+            </View >
+          </ScrollView>
+      }
+    </>
 
   )
 }

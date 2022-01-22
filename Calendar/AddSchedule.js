@@ -163,6 +163,9 @@ export default function AddSchedule({ navigation }) {
           <Text style={styles.floatingBtnText}>Add event</Text>
         </View>
       </TouchableOpacity>
+      <View style={{ marginTop: 20, marginHorizontal: 50 }}>
+        <Text>Feel free to add, but a moderator may remove or edit it if inaccurate.</Text>
+      </View>
 
     </View>
   );

@@ -4,6 +4,9 @@ import { AirplaneTakeoff, Cake, HandsClapping, MusicNote, Plus, Star, Television
 import { Agenda } from 'react-native-calendars';
 import { useNavigation } from '@react-navigation/native';
 import { Divider } from 'react-native-elements';
+import PropTypes from "prop-types";
+import SetupPush2 from '../Notifications/SetupPush2';
+
 
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
@@ -20,7 +23,6 @@ export default function Calendar(props) {
     const willFocusSubscription = props.navigation.addListener('focus', () => {
       fetchItems();
     });
-
     return willFocusSubscription;
   }, []);
 
@@ -28,10 +30,14 @@ export default function Calendar(props) {
     return (
       <TouchableOpacity
         style={styles.item}
-      // onPress={() => navigation.push(
-      //   'DetailedSchedule',
-      //   { param: props }
-      // )}
+        onPress={() => navigation.navigate(
+          'SetupPush',
+          {
+            artist: props.artist,
+            event: props.event,
+            date: props.date,
+          }
+        )}
       >
         <Text style={styles.artist}>{props.artist}</Text>
         <View style={styles.eventContainer}>
@@ -42,6 +48,7 @@ export default function Calendar(props) {
         <View style={styles.stats}>
           {/* <HandsClapping /> */}
           {/* <Star color='gray' /> */}
+          {/* <SetupPush2 /> */}
         </View>
       </TouchableOpacity >
     );
@@ -213,7 +220,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   event: {
-    marginHorizontal: 10, fontSize: 18
+    marginHorizontal: 10,
+    fontSize: 16
   },
   divider: {
     marginVertical: 5

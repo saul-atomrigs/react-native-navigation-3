@@ -1,5 +1,6 @@
 import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { Dimensions, Image, Share, StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native';
+import Notifications2 from '../Notifications/Notifications2';
 
 export default function Me({ navigation }) {
 
@@ -25,6 +26,7 @@ export default function Me({ navigation }) {
         <Button title='Sign in / sign out' onPress={() => navigation.navigate('Notifications')} />
         <Text style={styles.text} onPress={() => navigation.push('Chat')}>Feedback (suggest any idea)</Text>
         <ShareComponent />
+        {/* <Text style={styles.text} onPress={() => navigation.push('SetupPush')}>Notifications</Text> */}
 
       </View>
     </>
@@ -66,7 +68,7 @@ const ShareComponent = () => {
     try {
       const result = await Share.share({
         message:
-          'Share dailyKPOP ❤️🌏',
+          'https://apps.apple.com/us/app/dailykpop/id1601186004',
       });
       if (result.action === Share.sharedAction) {
         if (result.activityType) {

@@ -26,15 +26,14 @@ export default function DetailedFeed({ post }) {
 
   const navigation = useNavigation();
 
-  const currentUser = firebase.auth().currentUser.uid;
-
   // LIKE BUTTON 
   const LikeButton = () => {
     // INITIAL STATES
-    const initialState = param.likesByUserArray.includes(currentUser)
-    const initialArrayLength = param.likesByUserArray.length
-    const [liked, setLiked] = useState(initialState) // true or false
-    const [count, setCount] = useState(initialArrayLength) // number of users liking the post
+    const currentUser = firebase.auth().currentUser.uid;
+    const checkUser = param.likesByUserArray.includes(currentUser)
+    const likesByUsers = param.likesByUserArray.length
+    const [liked, setLiked] = useState(checkUser) // true or false
+    const [count, setCount] = useState(likesByUsers) // number of users liking the post
 
     // ADD LIKE 
     const addLike = async () => {
@@ -44,10 +43,12 @@ export default function DetailedFeed({ post }) {
           likesByUserArray: [
             ...param.likesByUserArray,
             currentUser
-          ]
+          ],
+          likesCount: count + 1
         }
         const result = await API.graphql(graphqlOperation(updatePost, { input }))
-        setCount([result.data.updatePost].length)
+        setLiked(true)
+        setCount(result.data.updatePost.likesCount)
       } catch (err) {
         console.log('error: ', err)
       }
@@ -57,31 +58,23 @@ export default function DetailedFeed({ post }) {
       try {
         const input = {
           id: param.id,
-          likesByUserArray: param.likesByUserArray.filter(user => user !== currentUser)
+          likesByUserArray: param.likesByUserArray.filter(user => user !== currentUser),
+          likesCount: count - 1
         }
         const result = await API.graphql(graphqlOperation(updatePost, { input }))
-        setCount([result.data.updatePost].length)
+        setLiked(false)
+        setCount(result.data.updatePost.likesCount)
       } catch (err) {
         console.log('error: ', err)
       }
     }
-
-    useEffect(() => {
-      setLiked(param.likesByUserArray.includes(currentUser))
-      setCount(param.likesByUserArray.length)
-    }, [initialState, initialArrayLength])
-
     function handleLike() {
-      liked == true ? removeLike() : addLike()
-      // setLiked(!liked)
-      console.log(count)
+      liked ? removeLike() : addLike()
     }
-
     return (
       <View>
         <TouchableOpacity
           style={styles.buttons}
-          // onPress={!liked ? onDislikePressed : onLikePressed}
           onPress={handleLike}
         >
           {
@@ -94,97 +87,6 @@ export default function DetailedFeed({ post }) {
       </View>
     )
   }
-
-
-  // const LikeButton = () => {
-  //   const initialLike = param.likesByUserArray.includes(
-  //     firebase.auth().currentUser.uid
-  //   )
-  //   const [liked, setLiked] = useState(initialLike)
-  //   console.log(liked)
-  //   const [number, setNumber] = useState(param.likesCount)
-
-  //   // ADD LIKE (USER ID) TO DATABASE
-  //   async function addLike() {
-  //     try {
-  //       const result = await API.graphql(graphqlOperation(
-  //         updatePost,
-  //         {
-  //           input: {
-  //             id: param.id,
-  //             likesCount: param.likesCount + 1,
-  //             likesByUserArray: [
-  //               ...param.likesByUserArray,
-  //               // firebase.auth().currentUser.uid,
-  //               currentUser
-  //             ],
-  //           }
-  //         }
-  //       ))
-  //       // setCounts([...counts, result.data.updatePost])
-  //       // setNumber(result.data.updatePost.likesCount)
-  //     } catch (e) {
-  //       console.log('error updating post: ', e)
-  //     }
-  //   }
-
-  //   // REMOVE LIKE (USER ID) FROM DATABASE
-  //   async function removeLike() {
-  //     try {
-  //       const result = await API.graphql(graphqlOperation(
-  //         updatePost,
-  //         {
-  //           input: {
-  //             id: param.id,
-  //             // DELETE USER ID FROM ARRAY
-  //             likesCount: param.likesCount - 1,
-  //             likesByUserArray: param.likesByUserArray.filter(userId => userId !== firebase.auth().currentUser.uid),
-  //           }
-  //         }
-  //       ))
-  //       // setCounts([...counts, result.data.updatePost])
-  //       // setNumber(result.data.updatePost.likesCount)
-  //     } catch (e) {
-  //       console.log('error updating post: ', e)
-  //     }
-  //   }
-
-  //   // CHECK IF USER HAS LIKED POST
-  //   const userLiked = param.likesByUserArray.includes(
-  //     // firebase.auth().currentUser.uid
-  //     currentUser
-  //   )
-
-  //   const onLikePressed = () => {
-  //     // setLiked(!liked)
-  //     setNumber(number + 1)
-  //     addLike()
-  //   }
-
-  //   const onDislikePressed = () => {
-  //     // setLiked(!liked)
-  //     removeLike()
-  //     setNumber(number - 1)
-  //   }
-
-
-
-  //   return (
-  //     <View>
-  //       <TouchableOpacity
-  //         style={styles.buttons}
-  //         onPress={!liked ? onDislikePressed : onLikePressed}
-  //       >
-  //         {
-  //           liked ?
-  //             <Heart size={28} color="hotpink" weight='fill' />
-  //             : <Heart size={28} color="gray" />
-  //         }
-  //         <Text>{number}</Text>
-  //       </TouchableOpacity>
-  //     </View>
-  //   )
-  // }
 
   // CLAP BUTTON 
   const ClapButton = () => {
@@ -256,7 +158,6 @@ export default function DetailedFeed({ post }) {
         }))
       setComments([...comments, result.data.createComment])
       console.log('🚀 create comment 성공')
-      console.log('🚀', firebase.auth().currentUser.providerData[0].providerId) //google.com
     } catch (err) {
       console.log('creating 에러!!', err)
     }
@@ -372,7 +273,7 @@ export default function DetailedFeed({ post }) {
 
             <View style={styles.btnContainer}>
               <LikeButton />
-              <ClapButton />
+              {/* <ClapButton /> */}
             </View>
 
             <Divider />
@@ -387,7 +288,9 @@ export default function DetailedFeed({ post }) {
                         <View style={styles.commentHeader}>
                           <UserCircle size={25} color='#000' />
                           {/* <Text>{comment.owner} </Text> */}
-                          <Text>{comment?.user?.nickname} </Text>
+                          <View style={styles.author}>
+                            <Text style={styles.commentAuthor}>{comment?.user?.nickname} </Text>
+                          </View>
                         </View>
                         <Text> {comment.content} </Text>
                       </View>
@@ -413,7 +316,7 @@ export default function DetailedFeed({ post }) {
                 }
                 }
               >
-                <CheckCircle size={30} />
+                <CheckCircle size={35} />
               </TouchableOpacity>
             </View>
           </View>
@@ -506,6 +409,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     fontSize: 18,
     fontWeight: '700',
+    alignSelf: 'center',
   },
   header: {
     paddingTop: 10,
@@ -522,7 +426,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   contentText: {
-    fontWeight: '500',
+    fontWeight: '400',
     marginVertical: 20
   },
   btnContainer: {
@@ -543,6 +447,10 @@ const styles = StyleSheet.create({
   },
   commentHeader: {
     flexDirection: 'row',
+    marginBottom: 5,
+  },
+  commentAuthor: {
+    fontWeight: '600',
   },
   comment: {
     // borderWidth: 1,
@@ -561,6 +469,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     borderWidth: 1,
+    borderColor: '#666',
     marginHorizontal: 5,
     width: "90%",
     fontSize: 15,
