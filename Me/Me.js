@@ -1,6 +1,5 @@
 import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { Dimensions, Image, Share, StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native';
-import Notifications2 from '../Notifications/Notifications2';
 
 export default function Me({ navigation }) {
 
