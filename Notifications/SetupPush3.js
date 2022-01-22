@@ -43,34 +43,42 @@ export default function SetupPush3({ date, artist, event, id }) {
     };
   }, []);
 
-  // ASYNC-STORAGE
-  const storeData = async (value) => {
-    try {
-      await AsyncStorage.setItem('@storage_Key', value)
-    } catch (e) {
-      // saving error
-    }
-  }
+  // // ASYNC-STORAGE //
+  // // READ DATA FROM ASYNC STORAGE
   const getData = async () => {
     try {
       const value = await AsyncStorage.getItem('@storage_Key')
+      console.log(value, 'GET DATA');
       if (value !== null) {
         // value previously stored
+
       }
     } catch (e) {
       // error reading value
     }
   }
+  // // UPDATE DATA IN ASYNC STORAGE
+  const setData = async (value) => {
+    try {
+      await AsyncStorage.setItem('@storage_Key', value)
+      console.log(value, 'SET DATA');
+    } catch (e) {
+      // saving error
+    }
+  }
 
-  // TOGGLE START ----
-  const [isEnabled, setIsEnabled] = useState(previousState => {
-    getData().then(value => {
-      if (value !== null) {
-        setIsEnabled(value)
-      }
-    })
-    return previousState;
-  });
+
+  // TOGGLE START //
+  const [isEnabled, setIsEnabled] = useState(
+    previousState => {
+      getData()
+        .then(value => {
+          if (value !== null) {
+            setIsEnabled(value)
+          }
+        })
+      return previousState;
+    });
 
 
   function toggleSwitch() {
@@ -124,7 +132,7 @@ export default function SetupPush3({ date, artist, event, id }) {
       : Notifications.cancelAllScheduledNotificationsAsync();
   }, [isEnabled]);
 
-  // ----- TOGGLE END
+  // TOGGLE END //
 
   return (
     <View style={styles.switch}>
