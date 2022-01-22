@@ -4,9 +4,7 @@ import { AirplaneTakeoff, Cake, HandsClapping, MusicNote, Plus, Star, Television
 import { Agenda } from 'react-native-calendars';
 import { useNavigation } from '@react-navigation/native';
 import { Divider } from 'react-native-elements';
-import PropTypes from "prop-types";
 import SetupPush3 from '../Notifications/SetupPush3';
-
 
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
@@ -17,20 +15,9 @@ Amplify.configure(config)
 export default function Calendar(props) {
   const navigation = useNavigation()
 
-  // RERENDER AFTER SUBMIT (GOBACK)
-  useEffect(() => {
-    fetchItems();
-    const willFocusSubscription = props.navigation.addListener('focus', () => {
-      fetchItems();
-    });
-    return willFocusSubscription;
-  }, []);
-
   function renderItem(props) {
     return (
-      <View
-        style={styles.item}
-      >
+      <View style={styles.item}>
         <TouchableOpacity
           onPress={() => navigation.navigate(
             'SetupPush',
@@ -83,14 +70,14 @@ export default function Calendar(props) {
     }
   }
 
-  // let itemsReduced = items.reduce(function (acc, curr) {
-  //   acc[curr['date'].toUpperCase()] = [{
-  //     artist: curr.artist,
-  //     event: curr.event,
-  //     // icon: <Television />,
-  //   }]
-  //   return acc;
-  // }, {})
+  // RERENDER AFTER SUBMIT (GOBACK)
+  useEffect(() => {
+    fetchItems();
+    const willFocusSubscription = props.navigation.addListener('focus', () => {
+      fetchItems();
+    });
+    return willFocusSubscription;
+  }, []);
 
   // GROUP MULTIPLE SCHEDULES ON THE SAME DAY & CONVERT TO CALENDAR TYPE OBJECT
   let itemsReduced = items.reduce(function (r, a) {
@@ -159,7 +146,7 @@ export default function Calendar(props) {
           onPress={() => navigation.navigate('AddSchedule')}
         >
           <Plus color="white1" weight='bold' size={20} />
-          <Text style={styles.floatingBtnText}>Add Event</Text>
+          {/* <Text style={styles.floatingBtnText}>Add Event</Text> */}
         </TouchableOpacity>
       </View>
     </>
@@ -217,7 +204,7 @@ const styles = StyleSheet.create({
     marginRight: WIDTH * 0.05,
   },
   container: {
-    // marginBottom: 80,
+    marginBottom: 40,
   },
   item: {
     backgroundColor: '#fff',
@@ -258,7 +245,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 200,
+    width: 40,
     height: 40,
     position: 'relative',
     bottom: 100,

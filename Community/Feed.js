@@ -127,7 +127,7 @@ export default function Feed(props) {
           onPress={() => navigation.navigate('AddPost')}
         >
           <Plus color="white" weight='bold' size={20} />
-          <Text style={styles.floatingBtnText}>Post</Text>
+          {/* <Text style={styles.floatingBtnText}>Post</Text> */}
         </TouchableOpacity>
       </View>
     </>
@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
     // borderColor: 'hotpink',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 200,
+    width: 40,
     height: 40,
     position: 'relative',
     bottom: 100,

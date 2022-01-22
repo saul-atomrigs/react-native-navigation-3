@@ -75,6 +75,15 @@ export default function SetupPush3({ date, artist, event, id }) {
     setData()
   }, [])
 
+  const clearStorage = async () => {
+    try {
+      await AsyncStorage.clear()
+      alert('Storage successfully cleared!')
+    } catch (e) {
+      alert('Failed to clear the async storage.')
+    }
+  }
+
 
   // TOGGLE START //
   const [isEnabled, setIsEnabled] = useState(
@@ -125,8 +134,8 @@ export default function SetupPush3({ date, artist, event, id }) {
         body: `There is an upcoming event for ${artist}, check now on DailyKpop!`,
         data: { data: 'check now' },
       },
-      trigger: triggerDate,
-      // trigger: { seconds: 3, },
+      // trigger: triggerDate,
+      trigger: { seconds: 3, },
     });
   }
 
@@ -166,6 +175,10 @@ export default function SetupPush3({ date, artist, event, id }) {
         ios_backgroundColor="#3e3e3e"
         style={styles.switch}
       />
+
+      <TouchableOpacity onPress={clearStorage} style={styles.button}>
+        <Text style={styles.buttonText}>Clear Storage</Text>
+      </TouchableOpacity>
     </View>
   );
 }
