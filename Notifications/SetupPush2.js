@@ -1,14 +1,13 @@
 import React, { useState, useCallback, useEffect, useRef, createContext, useContext, useReducer } from 'react';
-import { Text, View, Button, Platform, Switch, StyleSheet } from 'react-native';
+import { Text, View, TouchableOpacity, Button, Platform, Switch, StyleSheet } from 'react-native';
 import { useRoute } from '@react-navigation/native';
-import Toast from 'react-native-toast-message';
+import { BellRinging } from 'phosphor-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
-import { BellRinging } from 'phosphor-react-native';
-// import { toast } from 'aws-amplify';
 
+// NOTIFICATION HANDLER FOREGROUND
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -17,13 +16,13 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export default function SetupPush({ param }) {
+export default function SetupPush2() {
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
 
-  // const param = useRoute().params;
+  const param = useRoute().params;
 
   useEffect(() => {
     // INITIAL SETUP ALERT
@@ -48,16 +47,7 @@ export default function SetupPush({ param }) {
     <View
       style={styles.container}
     >
-      <BellRinging
-        onPress={async () => {
-          await schedulePushNotification();
-          console.log('bell')
-        }}
-        style={{ alignSelf: 'flex-end' }}
-      />
-      {/* <Text> {param} </Text> */}
-      {/* <Toggle /> */}
-      {/* <Text>No / Yes </Text> */}
+      <Toggle />
     </View>
   );
 }
@@ -69,7 +59,10 @@ async function schedulePushNotification() {
       body: '',
       data: { data: 'goes here' },
     },
-    trigger: { seconds: 2 },
+    trigger: {
+      seconds: 3,
+      repeats: false
+    },
   });
 }
 
@@ -93,7 +86,7 @@ async function registerForPushNotificationsAsync() {
     console.log(token);
   } else {
     console.log('Must use physical device for Push Notifications');
-    alert('Must use physical device for Push Notifications');
+    // alert('Must use physical device for Push Notifications');
   }
 
   if (Platform.OS === 'android') {
@@ -115,18 +108,6 @@ export function Toggle() {
     setIsEnabled(previousState => !previousState);
   }
 
-  const toastCancel = () => {
-    Toast.show({
-      text1: 'Notification canceled',
-    });
-  }
-
-  const toastScheduled = () => {
-    Toast.show({
-      text1: 'Notification Scheduled!',
-    });
-  }
-
   // SAVE ISENABLED TO ASYNCSTORAGE
   useEffect(() => {
     AsyncStorage.setItem('isEnabled', JSON.stringify(isEnabled));
@@ -137,33 +118,51 @@ export function Toggle() {
   if (isEnabled == false) {
     Notifications.cancelAllScheduledNotificationsAsync();
     // toastCancel()
-    console.log('Notifications Cancelled');
+    console.log('캔슬');
   } else {
     async () => {
       await schedulePushNotification();
     }
     // toastScheduled()
-    console.log('scheduled');
+    console.log('스케쥴!');
     // showAsyncStorageContentInDev()
   }
 
 
   return (
-    <View
-    >
+    <View style={styles.switch}>
+
+      <TouchableOpacity
+        onPress={() => schedulePushNotification()}>
+        {
+          isEnabled == true ?
+
+            <BellRinging
+              weight='duotone'
+              color='#FF231F7C'
+              style={styles.bell}
+            />
+            :
+            <BellRinging
+              style={styles.bell}
+            />
+        }
+      </TouchableOpacity>
+
       <Switch
+        value={isEnabled}
+        onValueChange={toggleSwitch}
+
         trackColor={{ false: "#767577", true: "#81b0ff" }}
         thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
         ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleSwitch}
-        value={isEnabled}
         style={styles.switch}
       />
     </View>
   );
 }
 
-
+// STYLES
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -171,6 +170,13 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   switch: {
-    // height: 10,
-  }
+    flexDirection: 'row',
+    alignItems: 'center',
+    transform: [{ scaleX: .8 }, { scaleY: .8 }]
+  },
+  bell: {
+    alignSelf: 'flex-end',
+    marginHorizontal: 10,
+    transform: [{ scaleX: 1.3 }, { scaleY: 1.3 }]
+  },
 });

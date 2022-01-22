@@ -102,7 +102,7 @@ export default function Nickname() {
                 // disabled={formStateNickname.content.length === 0}
                 onPress={() => {
                   addUser()
-                  navigation.navigate(
+                  navigation.replace(
                     'Welcome',
                     { nickname: nickname }
                   )

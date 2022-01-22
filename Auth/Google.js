@@ -57,9 +57,10 @@ export default function GoogleAuth() {
         // firebase.auth().signInWithCredential(credential)
         .then(() => {
           // IF LOGGED IN
-          navigation.navigate('Nickname',
+          navigation.replace('Nickname',
             { param: firebase.auth().currentUser.uid });
         })
+
         .catch(error => {
           // IF NOT LOGGED IN
           // navigation.navigate('Nickname', { param: error.message });

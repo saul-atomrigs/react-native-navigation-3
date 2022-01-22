@@ -10,7 +10,7 @@ export default function SignedOut() {
       <Text>Successfully signed out!</Text>
       <Button
         title='Back to DailyKpop'
-        onPress={() => navigation.navigate('HomeTabNavigation')}
+        onPress={() => navigation.replace('HomeTabNavigation')}
       />
     </View>
   )

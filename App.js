@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -8,6 +8,7 @@ import { MenuProvider } from 'react-native-popup-menu';
 import { CalendarPlus, ChatsCircle, Compass, Fingerprint } from 'phosphor-react-native';
 import { withAuthenticator } from 'aws-amplify-react-native'
 import Toast from 'react-native-toast-message';
+// import { AuthContext, AuthProvider } from './Notifications/AuthAsync'
 
 import Login from './Auth/Login';
 import Apple from './Auth/Apple';
@@ -37,11 +38,17 @@ import SetupPush from './Notifications/SetupPush';
 
 // STACK NAVIGATOR
 export default function App() {
+  // const { auth } = useContext(AuthContext);
+
   return (
     <NavigationContainer theme={MyTheme}>
       <StatusBar style='dark-content' />
       <MenuProvider>
         <Stack.Navigator screenOptions={{ headerBackTitleVisible: false }}>
+          {/* {auth.token ? (
+            <Stack.Screen name="Notifications" component={Notifications} />
+          ) : (
+            <> */}
           <Stack.Screen name="HomeTabNavigation" component={HomeTabNavigation} options={{ headerShown: false }} />
           <Stack.Screen name="Calendar" component={Calendar} options={({ route }) => ({ title: route.params.param })} />
           <Stack.Screen name="DetailedSchedule" component={DetailedSchedule} options={({ route }) => ({ title: route.params.param })} />
@@ -68,6 +75,8 @@ export default function App() {
           <Stack.Screen name="SignedOut" component={SignedOut} options={{ title: '' }} />
           <Stack.Screen name="Notifications" component={Notifications} options={{ title: '' }} />
           <Stack.Screen name="SetupPush" component={SetupPush} options={{ title: '' }} />
+          {/* </>
+          )} */}
         </Stack.Navigator>
       </MenuProvider>
       <Toast />

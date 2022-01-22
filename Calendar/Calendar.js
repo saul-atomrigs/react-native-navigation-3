@@ -5,7 +5,7 @@ import { Agenda } from 'react-native-calendars';
 import { useNavigation } from '@react-navigation/native';
 import { Divider } from 'react-native-elements';
 import PropTypes from "prop-types";
-import SetupPush2 from '../Notifications/SetupPush2';
+import SetupPush3 from '../Notifications/SetupPush3';
 
 
 import Amplify from 'aws-amplify'
@@ -28,29 +28,43 @@ export default function Calendar(props) {
 
   function renderItem(props) {
     return (
-      <TouchableOpacity
+      <View
         style={styles.item}
-        onPress={() => navigation.navigate(
-          'SetupPush',
-          {
-            artist: props.artist,
-            event: props.event,
-            date: props.date,
-          }
-        )}
       >
-        <Text style={styles.artist}>{props.artist}</Text>
-        <View style={styles.eventContainer}>
-          <View>{props.icon}</View>
-          <Text style={styles.event}>{props.event}</Text>
-        </View>
+        <TouchableOpacity
+          onPress={() => navigation.navigate(
+            'SetupPush',
+            {
+              artist: props.artist,
+              event: props.event,
+              date: props.date,
+              id: props.id,
+            }
+          )}
+        >
+          <Text style={styles.artist}>{props.artist}</Text>
+          <View style={styles.eventContainer}>
+            <View>{props.icon}</View>
+            <Text style={styles.event}>{props.event}</Text>
+          </View>
+          <View style={styles.stats}>
+            {/* <HandsClapping /> */}
+            {/* <Star color='gray' /> */}
+          </View>
+        </TouchableOpacity >
+
         <Divider style={styles.divider} />
+
         <View style={styles.stats}>
-          {/* <HandsClapping /> */}
-          {/* <Star color='gray' /> */}
-          {/* <SetupPush2 /> */}
+          <SetupPush3
+            date={props.date}
+            artist={props.artist}
+            event={props.event}
+            id={props.id}
+          />
         </View>
-      </TouchableOpacity >
+
+      </View>
     );
   }
 

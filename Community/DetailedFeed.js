@@ -28,6 +28,7 @@ export default function DetailedFeed({ post }) {
 
   // LIKE BUTTON 
   const LikeButton = () => {
+
     // INITIAL STATES
     const currentUser = firebase.auth().currentUser.uid;
     const checkUser = param.likesByUserArray.includes(currentUser)
@@ -79,7 +80,7 @@ export default function DetailedFeed({ post }) {
         >
           {
             liked ?
-              <Heart size={28} color="hotpink" weight='fill' />
+              <Heart size={28} color="hotpink" weight='duotone' />
               : <Heart size={28} color="gray" />
           }
           <Text>{count}</Text>

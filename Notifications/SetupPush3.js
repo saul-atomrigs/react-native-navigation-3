@@ -1,12 +1,11 @@
 import React, { useState, useCallback, useEffect, useRef, createContext, useContext, useReducer } from 'react';
-import { Text, View, Button, Platform, Switch, StyleSheet } from 'react-native';
-import { useRoute } from '@react-navigation/native';
-import Toast from 'react-native-toast-message';
+import { Text, View, TouchableOpacity, Button, Platform, Switch, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Async from './Async';
+import { BellRinging } from 'phosphor-react-native';
+import Toast from 'react-native-toast-message';
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
-import StatePersist from './StatePersist';
+
 
 // NOTIFICATION HANDLER FOREGROUND
 Notifications.setNotificationHandler({
@@ -17,13 +16,11 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export default function SetupPush() {
+export default function SetupPush3({ date, artist, event, id }) {
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
-
-  const { artist, event, date, id } = useRoute().params
 
   useEffect(() => {
     // INITIAL SETUP ALERT
@@ -101,40 +98,50 @@ export default function SetupPush() {
   }, []);
 
   // PUSH NOTIFICATION FUNCTION
-  async function schedulePushNotification2() {
+  async function schedulePushNotification() {
     // GET THE DATE FROM PARENT SCREEN (=EVENT DATE)
     const triggerDate = new Date(date);
     console.log(triggerDate, 'triggerDate');
+
     await Notifications.scheduleNotificationAsync({
       content: {
-        title: `Notification from DailyKpop`,
-        body: `There is an upcoming event from ${artist}!`,
+        title: `${artist}`,
+        body: `There is an upcoming event for ${artist}, check now on DailyKpop!`,
         data: { data: 'check now' },
       },
-      // trigger: { seconds: 3, },
       trigger: triggerDate,
+      // trigger: { seconds: 3, },
     });
   }
 
-  // isEnabled => NOTIFICATION ACTIVATE/DEACTIVATE
+  // TOGGLE => NOTIFICATION ACTIVATE/DEACTIVATE
   useEffect(() => {
-    isEnabled ? schedulePushNotification2() : Notifications.cancelAllScheduledNotificationsAsync();
+    // TOGGLE IS ENABLED?
+    isEnabled ?
+      // ACTIVATE NOTIFICATION
+      schedulePushNotification()
+      // OTHERWISE, CANCEL NOTIFICATION
+      : Notifications.cancelAllScheduledNotificationsAsync();
   }, [isEnabled]);
 
   // ----- TOGGLE END
 
   return (
-    <View style={styles.container}>
-      <View style={styles.infoContainer}>
-        <Text
-          style={styles.message}
-        // onPress={async () => {
-        //   await schedulePushNotification2();
-        // }}
-        > Get notification for {artist}'s {event} on {date} ? </Text>
-      </View>
+    <View style={styles.switch}>
 
-      {/* <Toggle /> */}
+      {
+        isEnabled == true ?
+          <BellRinging
+            weight='duotone'
+            color='#FF231F7C'
+            style={styles.bell}
+          />
+          :
+          <BellRinging
+            style={styles.bell}
+          />
+      }
+
       <Switch
         value={isEnabled}
         onValueChange={toggleSwitch}
@@ -144,16 +151,11 @@ export default function SetupPush() {
         ios_backgroundColor="#3e3e3e"
         style={styles.switch}
       />
-
-      <Text> {id} </Text>
-
-      {/* <Async /> */}
-
-      {/* <StatePersist /> */}
     </View>
   );
 }
 
+// INITIAL PERMISSION SETUP
 async function registerForPushNotificationsAsync() {
   let token;
   if (Constants.isDevice) {
@@ -188,81 +190,6 @@ async function registerForPushNotificationsAsync() {
   return token;
 }
 
-// export function Toggle() {
-//   const [isEnabled, setIsEnabled] = useState(false);
-
-//   function toggleSwitch() {
-//     setIsEnabled(previousState => !previousState);
-//   }
-
-//   // SAVE ISENABLED TO ASYNCSTORAGE
-//   useEffect(() => {
-//     AsyncStorage.setItem('isEnabled', JSON.stringify(isEnabled));
-//     console.log(isEnabled, 'isEnabled');
-//   }, [isEnabled]);
-
-//   // READ ISENABLED FROM ASYNCSTORAGE
-//   useEffect(() => {
-//     AsyncStorage.getItem('isEnabled')
-//       .then(value => {
-//         if (value !== null) {
-//           setIsEnabled(JSON.parse(value));
-//           console.log(value, 'value');
-//         }
-//       })
-//       .catch(err => {
-//         console.log('에러', err);
-//       });
-//   }, []);
-
-//   // PUSH NOTIFICATION FUNCTION
-//   async function schedulePushNotification2() {
-//     // const triggerDate = new Date('2022-01-30');
-//     const triggerDate = new Date();
-//     console.log(triggerDate, 'triggerDate')
-
-//     await Notifications.scheduleNotificationAsync({
-//       content: {
-//         title: `Notification from DailyKpop`,
-//         body: `There is an upcoming event from your ${artist}!`,
-//         data: { data: 'check now' },
-//       },
-//       // trigger: triggerDate,
-//       trigger: {
-//         seconds: 3,
-//       },
-//     });
-//   }
-
-//   if (isEnabled == false) {
-//     // CANCEL NOTIFICATION
-//     Notifications.cancelAllScheduledNotificationsAsync();
-//     console.log('CANCELED');
-//   } else {
-//     // SCHEDULE NOTIFICATION
-//     async () => {
-//       await schedulePushNotification2();
-//     }
-//     console.log('SCHEDULED');
-//   }
-
-
-//   return (
-//     <>
-//       <Switch
-
-//         value={isEnabled}
-//         onValueChange={toggleSwitch}
-
-//         trackColor={{ false: "#767577", true: "#81b0ff" }}
-//         thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-//         ios_backgroundColor="#3e3e3e"
-//         style={styles.switch}
-//       />
-//     </>
-//   );
-// }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -278,6 +205,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   switch: {
-
-  }
+    flexDirection: 'row',
+    transform: [{ scaleX: .8 }, { scaleY: .8 }]
+  },
+  bell: {
+    alignSelf: 'center',
+    marginHorizontal: 10,
+    transform: [{ scaleX: 1.3 }, { scaleY: 1.3 }]
+  },
 });
