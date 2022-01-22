@@ -44,14 +44,18 @@ export default function SetupPush3({ date, artist, event, id }) {
   }, []);
 
   // // ASYNC-STORAGE //
+  const STORAGE_KEY = id
   // // READ DATA FROM ASYNC STORAGE
   const getData = async () => {
     try {
-      const value = await AsyncStorage.getItem('@storage_Key')
+      const value = await AsyncStorage.getItem(STORAGE_KEY)
+      // const value = await AsyncStorage.getItem('@storage_Key')
       console.log(value, 'GET DATA');
+      console.log(STORAGE_KEY, 'STORAGE KEY');
       if (value !== null) {
         // value previously stored
-
+        setIsEnabled(value);
+        // setIsEnabled(JSON.parse(value));
       }
     } catch (e) {
       // error reading value
@@ -60,12 +64,16 @@ export default function SetupPush3({ date, artist, event, id }) {
   // // UPDATE DATA IN ASYNC STORAGE
   const setData = async (value) => {
     try {
-      await AsyncStorage.setItem('@storage_Key', value)
+      await AsyncStorage.setItem(STORAGE_KEY, value)
+      // await AsyncStorage.setItem('@storage_Key', value)
       console.log(value, 'SET DATA');
     } catch (e) {
       // saving error
     }
   }
+  useEffect(() => {
+    setData()
+  }, [])
 
 
   // TOGGLE START //
@@ -87,13 +95,13 @@ export default function SetupPush3({ date, artist, event, id }) {
 
   // SAVE ISENABLED TO ASYNCSTORAGE (SAVE EVERY TIME TOGGLE CHANGES)
   useEffect(() => {
-    AsyncStorage.setItem('isEnabled', JSON.stringify(isEnabled));
+    AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(isEnabled));
     console.log(isEnabled, 'SAVED');
   }, [isEnabled]);
 
   // READ ISENABLED FROM ASYNCSTORAGE (READ ONCE)
   useEffect(() => {
-    AsyncStorage.getItem('isEnabled')
+    AsyncStorage.getItem(STORAGE_KEY)
       .then(value => {
         if (value !== null) {
           setIsEnabled(JSON.parse(value));
@@ -144,8 +152,7 @@ export default function SetupPush3({ date, artist, event, id }) {
             color='#FF231F7C'
             style={styles.bell}
           />
-          :
-          <BellRinging
+          : <BellRinging
             style={styles.bell}
           />
       }
@@ -162,6 +169,7 @@ export default function SetupPush3({ date, artist, event, id }) {
     </View>
   );
 }
+
 
 // INITIAL PERMISSION SETUP
 async function registerForPushNotificationsAsync() {
