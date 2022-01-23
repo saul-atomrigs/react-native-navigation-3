@@ -7,6 +7,7 @@ import Async from './Async';
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import StatePersist from './StatePersist';
+import SetupPush3 from './SetupPush3';
 
 // NOTIFICATION HANDLER FOREGROUND
 Notifications.setNotificationHandler({
@@ -136,7 +137,7 @@ export default function SetupPush() {
       </View>
 
       {/* <Toggle /> */}
-      <Switch
+      {/* <Switch
         value={isEnabled}
         onValueChange={toggleSwitch}
 
@@ -144,9 +145,9 @@ export default function SetupPush() {
         thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
         ios_backgroundColor="#3e3e3e"
         style={styles.switch}
-      />
+      /> */}
 
-      <Text> {id} </Text>
+      <SetupPush3 />
 
       {/* <Async /> */}
 

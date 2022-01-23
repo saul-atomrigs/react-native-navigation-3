@@ -1,5 +1,7 @@
 import React, { useState, useCallback, useEffect, useRef, createContext, useContext, useReducer } from 'react';
 import { Text, View, TouchableOpacity, Button, Platform, Switch, StyleSheet } from 'react-native';
+import { useRoute } from '@react-navigation/native';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BellRinging } from 'phosphor-react-native';
 import Toast from 'react-native-toast-message';
@@ -16,22 +18,14 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export default function SetupPush3({ date, artist, event, id }) {
+// export default function SetupPush3({ date, artist, event, id }) {
+export default function SetupPush3() {
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
 
-  // const [isEnabled, setIsEnabled] = useState(
-  //   previousState => {
-  //     getData()
-  //       .then(value => {
-  //         if (value !== null) {
-  //           setIsEnabled(value)
-  //         }
-  //       })
-  //     return previousState;
-  //   });
+  const { artist, event, date, id } = useRoute().params
 
   useEffect(() => {
     // INITIAL SETUP ALERT
@@ -59,8 +53,8 @@ export default function SetupPush3({ date, artist, event, id }) {
   // // READ DATA FROM ASYNC STORAGE
   const getData = async () => {
     try {
-      // const value = await AsyncStorage.getItem(STORAGE_KEY)
-      const value = await AsyncStorage.getItem('@storage_Key')
+      const value = await AsyncStorage.getItem(STORAGE_KEY)
+      // const value = await AsyncStorage.getItem('@storage_Key')
       console.log(value, 'GET DATA');
       console.log(STORAGE_KEY, 'STORAGE KEY');
       if (value !== null) {
@@ -75,8 +69,8 @@ export default function SetupPush3({ date, artist, event, id }) {
   // // UPDATE DATA IN ASYNC STORAGE
   const setData = async (value) => {
     try {
-      // await AsyncStorage.setItem(STORAGE_KEY, value)
-      await AsyncStorage.setItem('@storage_Key', value)
+      await AsyncStorage.setItem(STORAGE_KEY, value)
+      // await AsyncStorage.setItem('@storage_Key', value)
       console.log(value, 'SET DATA');
     } catch (e) {
       // saving error
@@ -145,8 +139,8 @@ export default function SetupPush3({ date, artist, event, id }) {
         body: `There is an upcoming event for ${artist}, check now on DailyKpop!`,
         data: { data: 'check now' },
       },
-      // trigger: triggerDate,
-      trigger: { seconds: 3, },
+      trigger: triggerDate,
+      // trigger: { seconds: 3, },
     });
   }
 

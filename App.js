@@ -18,6 +18,7 @@ import Welcome from './Auth/Welcome';
 import SignedOut from './Auth/SignedOut';
 import AddSchedule from './Calendar/AddSchedule';
 import Calendar from './Calendar/Calendar';
+import Calendar2 from './Notifications/Calendar2';
 import DetailedSchedule from './Calendar/DetailedSchedule';
 import AddPost from './Community/AddPost';
 import DetailedFeed from './Community/DetailedFeed';
@@ -34,7 +35,7 @@ import Twitter from './Discover/Twitter';
 import Youtube from './Discover/Youtube';
 import Me from './Me/Me';
 import Notifications from './Notifications/Notifications';
-import SetupPush from './Notifications/SetupPush';
+import SetupPush3 from './Notifications/SetupPush3';
 
 // STACK NAVIGATOR
 export default function App() {
@@ -51,6 +52,7 @@ export default function App() {
             <> */}
           <Stack.Screen name="HomeTabNavigation" component={HomeTabNavigation} options={{ headerShown: false }} />
           <Stack.Screen name="Calendar" component={Calendar} options={({ route }) => ({ title: route.params.param })} />
+          <Stack.Screen name="Calendar2" component={Calendar2} options={({ route }) => ({ title: route.params.param })} />
           <Stack.Screen name="DetailedSchedule" component={DetailedSchedule} options={({ route }) => ({ title: route.params.param })} />
           <Stack.Screen name="AddSchedule" component={AddSchedule} options={{ title: '' }} />
           <Stack.Screen name="Community" component={Feeds} options={{ title: 'Community' }} />
@@ -74,7 +76,7 @@ export default function App() {
           <Stack.Screen name="Nickname" component={Nickname} options={{ title: '' }} />
           <Stack.Screen name="SignedOut" component={SignedOut} options={{ title: '' }} />
           <Stack.Screen name="Notifications" component={Notifications} options={{ title: '' }} />
-          <Stack.Screen name="SetupPush" component={SetupPush} options={{ title: '' }} />
+          <Stack.Screen name="SetupPush3" component={SetupPush3} options={{ title: '' }} />
           {/* </>
           )} */}
         </Stack.Navigator>

@@ -80,10 +80,10 @@ export default function DetailedFeed({ post }) {
         >
           {
             liked ?
-              <Heart size={28} color="hotpink" weight='duotone' />
-              : <Heart size={28} color="gray" />
+              <Heart size={25} color="hotpink" weight='duotone' />
+              : <Heart size={25} color="gray" />
           }
-          <Text>{count}</Text>
+          <Text>reactions ({count})</Text>
         </TouchableOpacity>
       </View>
     )
@@ -278,8 +278,31 @@ export default function DetailedFeed({ post }) {
             </View>
 
             <Divider />
+
             <View style={styles.commentsContainer}>
+
+              <View style={styles.textInputContainer}>
+                <TextInput
+                  onChangeText={val => setInputComments('content', val)}
+                  value={formStateComments.content}
+                  style={styles.textInput}
+                  multiline
+                  placeholder="What are your thoughts?"
+                  placeholderTextColor={'#777'}
+                />
+                <TouchableOpacity
+                  disabled={formStateComments.content.length === 0}
+                  onPress={() => {
+                    addComment()
+                    keyboardDismiss()
+                  }
+                  }
+                >
+                  <CheckCircle size={35} />
+                </TouchableOpacity>
+              </View>
               {/* <Text style={styles.commentsCounter}> {commentsCount} Comments </Text> */}
+
               <ScrollView>
                 {
                   comments
@@ -299,26 +322,6 @@ export default function DetailedFeed({ post }) {
                 }
 
               </ScrollView>
-            </View>
-            <View style={styles.textInputContainer}>
-              <TextInput
-                onChangeText={val => setInputComments('content', val)}
-                value={formStateComments.content}
-                style={styles.textInput}
-                multiline
-                placeholder="Write a comment..."
-                placeholderTextColor={'#777'}
-              />
-              <TouchableOpacity
-                disabled={formStateComments.content.length === 0}
-                onPress={() => {
-                  addComment()
-                  keyboardDismiss()
-                }
-                }
-              >
-                <CheckCircle size={35} />
-              </TouchableOpacity>
             </View>
           </View>
         </View >
@@ -364,7 +367,7 @@ export const Header = ({ navigation }) => {
 
 // CREATE CONTEXT 
 const userObjectContext = {
-  likes: "likes",
+  likes: "reactions",
   comments: 'comments',
 }
 export const UserContext = createContext(userObjectContext)
@@ -433,11 +436,13 @@ const styles = StyleSheet.create({
   btnContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
+    // borderWidth: 1,
   },
   buttons: {
     alignItems: 'center',
     justifyContent: 'center',
     marginHorizontal: 10,
+    marginVertical: 10,
   },
   commentsContainer: {
     marginTop: 20,

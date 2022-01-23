@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { Dimensions, Image, Button, StyleSheet, Text, TouchableOpacity, View, SafeAreaView, Switch } from 'react-native';
-import { AirplaneTakeoff, Cake, HandsClapping, MusicNote, Plus, Star, Television, VideoCamera } from 'phosphor-react-native';
+import { AirplaneTakeoff, BellRinging, Cake, HandsClapping, MusicNote, Plus, Star, Television, VideoCamera } from 'phosphor-react-native';
 import { Agenda } from 'react-native-calendars';
 import { useNavigation } from '@react-navigation/native';
 import { Divider } from 'react-native-elements';
 import SetupPush3 from '../Notifications/SetupPush3';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
@@ -30,44 +31,63 @@ export default function Calendar(props) {
     fetchItems()
   }, [])
 
+  // READ ISENABLED FROM ASYNCSTORAGE (READ ONCE)
+  const STORAGE_KEY = props.id
+  console.log(STORAGE_KEY, 'STORAGE_KEY')
+  useEffect(() => {
+    AsyncStorage.getItem(STORAGE_KEY)
+      .then(value => {
+        if (value !== null) {
+          setIsEnabled(JSON.parse(value));
+          console.log(value, 'READ');
+        }
+      })
+      .catch(err => {
+        console.log('에러', err);
+      });
+  }, []);
+
   // EACH COMPONENT IN AGENDA
   function renderItem(props) {
     return (
-      <View style={styles.item}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate(
-            'SetupPush',
-            {
-              artist: props.artist,
-              event: props.event,
-              date: props.date,
-              id: props.id,
-            }
-          )}
-        >
-          <Text style={styles.artist}>{props.artist}</Text>
-          <View style={styles.eventContainer}>
-            <View>{props.icon}</View>
-            <Text style={styles.event}>{props.event}</Text>
-          </View>
-          <View style={styles.stats}>
-            {/* <HandsClapping /> */}
-            {/* <Star color='gray' /> */}
-          </View>
-        </TouchableOpacity >
+      <TouchableOpacity
+        style={styles.item}
+        onPress={() => navigation.navigate(
+          'DetailedSchedule',
+          {
+            artist: props.artist,
+            event: props.event,
+            date: props.date,
+            id: props.id,
+          }
+        )}
+      >
+        <Text style={styles.artist}>{props.artist}</Text>
+        <View style={styles.eventContainer}>
+          <View>{props.icon}</View>
+          <Text style={styles.event}>{props.event}</Text>
+        </View>
+        <View style={styles.stats}>
+          {/* <HandsClapping /> */}
+          {/* <Star color='gray' /> */}
+        </View>
 
         <Divider style={styles.divider} />
 
         <View style={styles.stats}>
-          <SetupPush3
+          {/* <SetupPush3
             date={props.date}
             artist={props.artist}
             event={props.event}
             id={props.id}
+          /> */}
+          <BellRinging
+            size={17}
           />
+
         </View>
 
-      </View>
+      </TouchableOpacity >
     );
   }
 
@@ -152,8 +172,12 @@ function renderEmptyDate() {
 }
 
 // RERENDERING AGENDA AFTER SUBMIT
-rowHasChanged = (r1, r2) => r1 !== r2;
-// rowHasChanged = (r1, r2) => r1.text !== r2.text;
+const rowHasChanged = (r1, r2) => r1.text !== r2.text;
+// rowHasChanged = (r1, r2) => r1 !== r2;
+// export function rowHasChanged() {
+//   return true;
+// }
+
 
 // HEADER BUTTONS
 export const Header = ({ navigation }) => {
@@ -220,6 +244,7 @@ const styles = StyleSheet.create({
   },
   stats: {
     flexDirection: 'row',
+    marginHorizontal: 10,
     justifyContent: 'flex-end'
   },
   emptyDate: {
