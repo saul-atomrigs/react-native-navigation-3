@@ -10,7 +10,7 @@ import * as Notifications from 'expo-notifications';
 // NOTIFICATION HANDLER FOREGROUND
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
-    shouldShowAlert: true,
+    shouldShowAlert: false,
     shouldPlaySound: false,
     shouldSetBadge: false,
   }),
@@ -21,6 +21,17 @@ export default function SetupPush3({ date, artist, event, id }) {
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
+
+  // const [isEnabled, setIsEnabled] = useState(
+  //   previousState => {
+  //     getData()
+  //       .then(value => {
+  //         if (value !== null) {
+  //           setIsEnabled(value)
+  //         }
+  //       })
+  //     return previousState;
+  //   });
 
   useEffect(() => {
     // INITIAL SETUP ALERT
@@ -48,13 +59,13 @@ export default function SetupPush3({ date, artist, event, id }) {
   // // READ DATA FROM ASYNC STORAGE
   const getData = async () => {
     try {
-      const value = await AsyncStorage.getItem(STORAGE_KEY)
-      // const value = await AsyncStorage.getItem('@storage_Key')
+      // const value = await AsyncStorage.getItem(STORAGE_KEY)
+      const value = await AsyncStorage.getItem('@storage_Key')
       console.log(value, 'GET DATA');
       console.log(STORAGE_KEY, 'STORAGE KEY');
       if (value !== null) {
         // value previously stored
-        setIsEnabled(value);
+        // setIsEnabled(value);
         // setIsEnabled(JSON.parse(value));
       }
     } catch (e) {
@@ -64,8 +75,8 @@ export default function SetupPush3({ date, artist, event, id }) {
   // // UPDATE DATA IN ASYNC STORAGE
   const setData = async (value) => {
     try {
-      await AsyncStorage.setItem(STORAGE_KEY, value)
-      // await AsyncStorage.setItem('@storage_Key', value)
+      // await AsyncStorage.setItem(STORAGE_KEY, value)
+      await AsyncStorage.setItem('@storage_Key', value)
       console.log(value, 'SET DATA');
     } catch (e) {
       // saving error
@@ -176,9 +187,9 @@ export default function SetupPush3({ date, artist, event, id }) {
         style={styles.switch}
       />
 
-      <TouchableOpacity onPress={clearStorage} style={styles.button}>
+      {/* <TouchableOpacity onPress={clearStorage} style={styles.button}>
         <Text style={styles.buttonText}>Clear Storage</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 }
@@ -198,7 +209,7 @@ async function registerForPushNotificationsAsync() {
     }
     // 
     if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!');
+      // alert('Failed to get push token for push notification!');
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;

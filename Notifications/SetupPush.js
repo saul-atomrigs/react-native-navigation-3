@@ -57,6 +57,7 @@ export default function SetupPush() {
   const getData = async () => {
     try {
       const value = await AsyncStorage.getItem('@storage_Key')
+      console.log(value, 'GET DATA');
       if (value !== null) {
         // value previously stored
       }
