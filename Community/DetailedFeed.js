@@ -286,27 +286,6 @@ export default function DetailedFeed({ post }) {
 
             <View style={styles.commentsContainer}>
 
-              <View style={styles.textInputContainer}>
-                <TextInput
-                  onChangeText={val => setInputComments('content', val)}
-                  value={formStateComments.content}
-                  style={styles.textInput}
-                  multiline
-                  placeholder="What are your thoughts?"
-                  placeholderTextColor={'#777'}
-                />
-                <TouchableOpacity
-                  disabled={formStateComments.content.length === 0}
-                  onPress={() => {
-                    addComment()
-                    keyboardDismiss()
-                  }
-                  }
-                >
-                  <CheckCircle size={35} />
-                </TouchableOpacity>
-              </View>
-              {/* <Text style={styles.commentsCounter}> {commentsCount} Comments </Text> */}
 
               <ScrollView>
                 {
@@ -326,6 +305,27 @@ export default function DetailedFeed({ post }) {
                     ))
                 }
 
+                <View style={styles.textInputContainer}>
+                  <TextInput
+                    onChangeText={val => setInputComments('content', val)}
+                    value={formStateComments.content}
+                    style={styles.textInput}
+                    multiline
+                    placeholder="What are your thoughts?"
+                    placeholderTextColor={'#777'}
+                  />
+                  <TouchableOpacity
+                    disabled={formStateComments.content.length === 0}
+                    onPress={() => {
+                      addComment()
+                      keyboardDismiss()
+                    }
+                    }
+                  >
+                    <CheckCircle size={35} />
+                  </TouchableOpacity>
+                </View>
+                {/* <Text style={styles.commentsCounter}> {commentsCount} Comments </Text> */}
               </ScrollView>
             </View>
           </View>
