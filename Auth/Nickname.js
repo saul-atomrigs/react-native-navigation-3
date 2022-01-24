@@ -3,6 +3,8 @@ import { StyleSheet, Text, TextInput, View, TouchableOpacity, ScrollView, Button
 import { CheckCircle } from 'phosphor-react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
+import * as SecureStore from 'expo-secure-store';
+
 import firebase from 'firebase'
 import { db } from '../firebase1'
 
@@ -15,12 +17,28 @@ import { listUsers, getUser } from '../src/graphql/queries'
 Amplify.configure(config)
 
 export default function Nickname() {
+
+  // const { param, credential } = useRoute().params
   const { param } = useRoute().params
+
   const navigation = useNavigation()
 
   const [formStateNickname, setFormStateNickname] = useState({ nickname: '' })
   const [nickname, setNickname] = useState([])
   const [uid, setUid] = useState('')
+
+  // SAVE USER DATA TO SECURE STORAGE
+  // const saveUserData = async () => {
+  //   try {
+  //     await SecureStore.setItemAsync('nickname', formStateNickname.nickname)
+  //     await SecureStore.setItemAsync('uid', param)
+  //     await SecureStore.setItemAsync('credential', credential)
+
+  //     console.log(credential, '닉네임 크레덴셜')
+  //   } catch (e) {
+  //     console.log(e)
+  //   }
+  // }
 
   // ADD USER NICKNAME TO DYNAMO DB
   async function addUser() {
@@ -102,6 +120,7 @@ export default function Nickname() {
                 // disabled={formStateNickname.content.length === 0}
                 onPress={() => {
                   addUser()
+                  // saveUserData()
                   navigation.replace(
                     'Welcome',
                     { nickname: nickname }

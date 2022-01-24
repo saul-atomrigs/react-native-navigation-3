@@ -86,9 +86,12 @@
     "react-native-web": "0.17.1",
     "react-native-webview": "^11.14.3",
     "react-redux": "^7.2.6",
+    "redux": "^4.1.2",
+    "redux-thunk": "^2.4.1",
     "socket.io": "^4.4.0",
     "styled-component": "^2.8.0",
-    "styled-components": "^5.3.3"
+    "styled-components": "^5.3.3",
+    "expo-secure-store": "~11.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

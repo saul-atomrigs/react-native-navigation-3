@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -6,9 +6,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { MenuProvider } from 'react-native-popup-menu';
 import { CalendarPlus, ChatsCircle, Compass, Fingerprint } from 'phosphor-react-native';
-import { withAuthenticator } from 'aws-amplify-react-native'
-import Toast from 'react-native-toast-message';
-// import { AuthContext, AuthProvider } from './Notifications/AuthAsync'
 
 import Login from './Auth/Login';
 import Apple from './Auth/Apple';
@@ -39,49 +36,46 @@ import SetupPush3 from './Notifications/SetupPush3';
 
 // STACK NAVIGATOR
 export default function App() {
-  // const { auth } = useContext(AuthContext);
+  // SecureStore.deleteItemAsync('credential')
 
   return (
     <NavigationContainer theme={MyTheme}>
       <StatusBar style='dark-content' />
       <MenuProvider>
         <Stack.Navigator screenOptions={{ headerBackTitleVisible: false }}>
-          {/* {auth.token ? (
-            <Stack.Screen name="Notifications" component={Notifications} />
-          ) : (
-            <> */}
-          <Stack.Screen name="HomeTabNavigation" component={HomeTabNavigation} options={{ headerShown: false }} />
-          <Stack.Screen name="Calendar" component={Calendar} options={({ route }) => ({ title: route.params.param })} />
-          <Stack.Screen name="Calendar2" component={Calendar2} options={({ route }) => ({ title: route.params.param })} />
-          <Stack.Screen name="DetailedSchedule" component={DetailedSchedule} options={({ route }) => ({ title: route.params.param })} />
-          <Stack.Screen name="AddSchedule" component={AddSchedule} options={{ title: '' }} />
-          <Stack.Screen name="Community" component={Feeds} options={{ title: 'Community' }} />
-          <Stack.Screen name="DetailedFeed" component={DetailedFeed} options={{ title: '' }} />
-          <Stack.Screen name="AddPost" component={AddPost} options={{ title: '' }} />
-          <Stack.Screen name="Discover" component={Discover} options={{ title: '' }} />
-          <Stack.Screen name="DetailedDiscover" component={DetailedDiscover} options={{ title: '' }} />
-          <Stack.Screen name="Youtube" component={Youtube} options={{ title: '' }} />
-          <Stack.Screen name="Tiktok" component={Tiktok} options={{ title: '' }} />
-          <Stack.Screen name="Instagram" component={Instagram} options={{ title: '' }} />
-          <Stack.Screen name="Pinterest" component={Pinterest} options={{ title: '' }} />
-          <Stack.Screen name="Twitter" component={Twitter} options={{ title: '' }} />
-          <Stack.Screen name="Translate" component={Translate} options={{ title: '' }} />
-          <Stack.Screen name="Me" component={Me} />
-          <Stack.Screen name="Chat" component={Chat} />
-          <Stack.Screen name="Login" component={Login} options={{ title: '' }} />
-          <Stack.Screen name="Connect" component={Connect} options={{ title: '' }} />
-          <Stack.Screen name="Google" component={Google} options={{ title: '' }} />
-          <Stack.Screen name="Apple" component={Apple} options={{ title: '' }} />
-          <Stack.Screen name="Welcome" component={Welcome} options={{ title: '' }} />
-          <Stack.Screen name="Nickname" component={Nickname} options={{ title: '' }} />
-          <Stack.Screen name="SignedOut" component={SignedOut} options={{ title: '' }} />
-          <Stack.Screen name="Notifications" component={Notifications} options={{ title: '' }} />
-          <Stack.Screen name="SetupPush3" component={SetupPush3} options={{ title: '' }} />
-          {/* </>
-          )} */}
+
+          <>
+            <Stack.Screen name="HomeTabNavigation" component={HomeTabNavigation} options={{ headerShown: false }} />
+            <Stack.Screen name="Calendar" component={Calendar} options={({ route }) => ({ title: route.params.param })} />
+            <Stack.Screen name="Calendar2" component={Calendar2} options={({ route }) => ({ title: route.params.param })} />
+            <Stack.Screen name="DetailedSchedule" component={DetailedSchedule} options={({ route }) => ({ title: route.params.param })} />
+            <Stack.Screen name="AddSchedule" component={AddSchedule} options={{ title: '' }} />
+            <Stack.Screen name="Community" component={Feeds} options={{ title: 'Community' }} />
+            <Stack.Screen name="DetailedFeed" component={DetailedFeed} options={{ title: '' }} />
+            <Stack.Screen name="AddPost" component={AddPost} options={{ title: '' }} />
+            <Stack.Screen name="Discover" component={Discover} options={{ title: '' }} />
+            <Stack.Screen name="DetailedDiscover" component={DetailedDiscover} options={{ title: '' }} />
+            <Stack.Screen name="Youtube" component={Youtube} options={{ title: '' }} />
+            <Stack.Screen name="Tiktok" component={Tiktok} options={{ title: '' }} />
+            <Stack.Screen name="Instagram" component={Instagram} options={{ title: '' }} />
+            <Stack.Screen name="Pinterest" component={Pinterest} options={{ title: '' }} />
+            <Stack.Screen name="Twitter" component={Twitter} options={{ title: '' }} />
+            <Stack.Screen name="Translate" component={Translate} options={{ title: '' }} />
+            <Stack.Screen name="Me" component={Me} />
+            <Stack.Screen name="Chat" component={Chat} />
+            <Stack.Screen name="Login" component={Login} options={{ title: '' }} />
+            <Stack.Screen name="Connect" component={Connect} options={{ title: '' }} />
+            <Stack.Screen name="Google" component={Google} options={{ title: '' }} />
+            <Stack.Screen name="Apple" component={Apple} options={{ title: '' }} />
+            <Stack.Screen name="Welcome" component={Welcome} options={{ title: '' }} />
+            <Stack.Screen name="Nickname" component={Nickname} options={{ title: '' }} />
+            <Stack.Screen name="SignedOut" component={SignedOut} options={{ title: '' }} />
+            <Stack.Screen name="Notifications" component={Notifications} options={{ title: '' }} />
+            <Stack.Screen name="SetupPush3" component={SetupPush3} options={{ title: '' }} />
+          </>
+
         </Stack.Navigator>
       </MenuProvider>
-      <Toast />
     </NavigationContainer>
   );
 }

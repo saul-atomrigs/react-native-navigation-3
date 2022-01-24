@@ -7,6 +7,7 @@ import { Menu, MenuOption, MenuOptions, MenuTrigger, } from 'react-native-popup-
 import { CheckCircle, Heart, MoreVertical, UserCircle, HandsClapping, } from 'phosphor-react-native';
 import Apple from '../Auth/Apple'
 import Google from '../Auth/Google'
+import Login from '../Auth/Login'
 
 import firebase from 'firebase';
 
@@ -223,6 +224,10 @@ export default function DetailedFeed({ post }) {
         <Apple />
         <Google />
       </View>
+
+      // <>
+      //   <Login />
+      // </>
 
       :
 
