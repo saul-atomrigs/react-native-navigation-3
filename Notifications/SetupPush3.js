@@ -1,12 +1,11 @@
-import React, { useState, useCallback, useEffect, useRef, createContext, useContext, useReducer } from 'react';
-import { Text, View, TouchableOpacity, Button, Platform, Switch, StyleSheet } from 'react-native';
-import { useRoute } from '@react-navigation/native';
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { BellRinging } from 'phosphor-react-native';
-import Toast from 'react-native-toast-message';
+import { useRoute } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
+import { BellRinging } from 'phosphor-react-native';
+
+import React, { useEffect, useRef, useState } from 'react';
+import { Platform, StyleSheet, Switch, View } from 'react-native';
 
 
 // NOTIFICATION HANDLER FOREGROUND
@@ -56,7 +55,7 @@ export default function SetupPush3() {
       const value = await AsyncStorage.getItem(STORAGE_KEY)
       // const value = await AsyncStorage.getItem('@storage_Key')
       console.log(value, 'GET DATA');
-      console.log(STORAGE_KEY, 'STORAGE KEY');
+      // console.log(STORAGE_KEY, 'STORAGE KEY');
       if (value !== null) {
         // value previously stored
         // setIsEnabled(value);

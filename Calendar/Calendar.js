@@ -33,7 +33,7 @@ export default function Calendar(props) {
 
   // READ ISENABLED FROM ASYNCSTORAGE (READ ONCE)
   const STORAGE_KEY = props.id
-  console.log(STORAGE_KEY, 'STORAGE_KEY')
+  // console.log(STORAGE_KEY, 'STORAGE_KEY')
   useEffect(() => {
     AsyncStorage.getItem(STORAGE_KEY)
       .then(value => {

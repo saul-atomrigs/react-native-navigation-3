@@ -20,7 +20,7 @@ export default class Chat extends React.Component {
           createdAt: new Date(),
           user: {
             _id: 2,
-            name: 'dailyKPOP Team 🇰🇷',
+            name: 'DailyKpop Team 🇰🇷',
             avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEMpUS3NxMp4i7QkSKNn40Oax_w-mLBFsoPA&usqp=CAU',
           },
         },
