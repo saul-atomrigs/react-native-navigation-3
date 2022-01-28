@@ -38,6 +38,7 @@ import SetupPush3 from './Notifications/SetupPush3';
 export default function App() {
   // SecureStore.deleteItemAsync('credential')
 
+
   return (
     <NavigationContainer theme={MyTheme}>
       <StatusBar style='dark-content' />

@@ -32,14 +32,16 @@ export default function SetupPush3() {
       .then(token => setExpoPushToken(token));
 
     // FIRED WHEN NOTIFICATION RECEIVED FOREGROUND
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      setNotification(notification);
-    });
+    notificationListener.current = Notifications.addNotificationReceivedListener(
+      notification => {
+        setNotification(notification);
+      });
 
     // FIRED WHEN USER TAPS ON NOTIFICATION
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response);
-    });
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(
+      response => {
+        console.log(response);
+      });
 
     return () => {
       Notifications.removeNotificationSubscription(notificationListener.current);

@@ -1,11 +1,13 @@
-import { useNavigation } from '@react-navigation/native';
-import * as Google from 'expo-auth-session/providers/google';
-import * as WebBrowser from 'expo-web-browser';
-// FIREBASE V8.
-import firebase from 'firebase';
-import { GoogleLogo } from 'phosphor-react-native';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { GoogleLogo } from 'phosphor-react-native';
+
+import * as Google from 'expo-auth-session/providers/google';
+import * as WebBrowser from 'expo-web-browser';
+
+// FIREBASE V8.
+import firebase from 'firebase';
 import { auth } from '../firebase1';
 
 
