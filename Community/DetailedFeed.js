@@ -15,8 +15,8 @@ import firebase from 'firebase';
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
 import { API, graphqlOperation } from 'aws-amplify'
-import { createComment, updateComment, deleteComment, createPost, updatePost, createPostLike } from '../src/graphql/mutations'
-import { listComments, listPostLikes, listUsers, getUser, getComment } from '../src/graphql/queries'
+import { createComment, updateComment, deleteComment, updatePost } from '../src/graphql/mutations'
+import { listComments, getUser, getComment } from '../src/graphql/queries'
 Amplify.configure(config)
 
 import UserProvider from '../Auth/UserProvider';

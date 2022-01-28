@@ -19,7 +19,7 @@ Amplify.configure(config)
 export default function Nickname() {
 
   // const { param, credential } = useRoute().params
-  const { param } = useRoute().params
+  const { param } = useRoute().params // uid
 
   const navigation = useNavigation()
 

@@ -28,7 +28,6 @@ export default function GoogleAuth() {
     webClientId: `410819928050-r0q6jqltshqv8ji8hh6m6lmejfd3nmot.apps.googleusercontent.com`,
   });
 
-
   // SIGN IN WITH GOOGLE
   useEffect(() => {
     if (response?.type === 'success') {
