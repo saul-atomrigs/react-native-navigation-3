@@ -3,11 +3,6 @@ import { StyleSheet, Text, TextInput, View, TouchableOpacity, ScrollView, Button
 import { CheckCircle } from 'phosphor-react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
-import * as SecureStore from 'expo-secure-store';
-
-import firebase from 'firebase'
-import { db } from '../firebase1'
-
 // AWS 
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
@@ -15,6 +10,10 @@ import { API, graphqlOperation } from 'aws-amplify'
 import { createUser } from '../src/graphql/mutations'
 import { listUsers, getUser } from '../src/graphql/queries'
 Amplify.configure(config)
+
+import * as SecureStore from 'expo-secure-store';
+import firebase from 'firebase'
+import { db } from '../firebase1'
 
 export default function Nickname() {
 
@@ -91,15 +90,20 @@ export default function Nickname() {
         param == uid ?
 
           // USER EXISTS 
-          <View style={styles.component}>
-            <Text style={styles.text}>
-              Welcome back!
-            </Text>
-            <Button
-              title='Back to DailyKpop'
-              onPress={() => navigation.navigate('HomeTabNavigation')}
-            />
-          </View>
+          // <View style={styles.component}>
+          //   <Text style={styles.text}>
+          //     Welcome back!
+          //   </Text>
+          //   <Button
+          //     title='Back to DailyKpop'
+          //     onPress={() => navigation.navigate('HomeTabNavigation')}
+          //   />
+          // </View>
+
+          // navigate to HomeTabNavigation
+          // navigation.navigate('HomeTabNavigation')
+          navigation.replace('HomeTabNavigation')
+
           :
 
           // IF USER DOES NOT EXIST IN DYNAMO DB

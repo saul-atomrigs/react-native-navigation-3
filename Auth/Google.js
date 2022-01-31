@@ -5,18 +5,17 @@ import { GoogleLogo } from 'phosphor-react-native';
 
 import * as Google from 'expo-auth-session/providers/google';
 import * as WebBrowser from 'expo-web-browser';
+import * as SecureStore from 'expo-secure-store';
 
 // FIREBASE V8.
 import firebase from 'firebase';
 import { auth } from '../firebase1';
 
-
 // GOOGLE SIGN IN MODAL
 WebBrowser.maybeCompleteAuthSession();
 
 export default function GoogleAuth() {
-
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState('');
   const navigation = useNavigation();
 
   // const user = useContext(UserContext);
@@ -31,29 +30,21 @@ export default function GoogleAuth() {
   // SIGN IN WITH GOOGLE
   useEffect(() => {
     if (response?.type === 'success') {
+
       const { id_token } = response.params;
       const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
-      // console.log(user, '유저')
-      // firebase.auth().onAuthStateChanged((user) => {
-      //   if (user) {
-      //     setUser({ user });
-      //   } else {
-      //     console.log('no user');
-      //   }
-      // });
 
-      // ON ID TOKEN EXPIRATION
-      // firebase.auth().onIdTokenChanged(function (user) {
-      //   if (user) {
-      //     setUser({ user });
-      //     console.log('유저 토큰 변경!')
-      //   } else {
-      //     console.log('no user');
-      //   }
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          setUser(user);
+          console.log(user, '유저')
+        } else {
+          console.log('no user');
+        }
+      });
 
-      // });
-
-      auth.signInWithCredential(credential)
+      auth
+        .signInWithCredential(credential)
         .then(() => {
           // IF LOGGED IN
           navigation.replace('Nickname',

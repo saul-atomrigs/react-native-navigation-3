@@ -34,6 +34,10 @@ import Me from './Me/Me';
 import Notifications from './Notifications/Notifications';
 import SetupPush3 from './Notifications/SetupPush3';
 
+import * as SecureStore from 'expo-secure-store';
+import { auth } from './firebase1';
+import firebase from 'firebase';
+
 // STACK NAVIGATOR
 export default function App() {
   // SecureStore.deleteItemAsync('credential')
