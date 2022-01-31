@@ -35,7 +35,7 @@ export default function Nickname() {
 
   //     console.log(credential, '닉네임 크레덴셜')
   //   } catch (e) {
-  //     console.log(e)
+  //     console.log(e
   //   }
   // }
 
