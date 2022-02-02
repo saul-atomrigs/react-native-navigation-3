@@ -5,20 +5,25 @@ import { GoogleLogo } from 'phosphor-react-native';
 
 import * as Google from 'expo-auth-session/providers/google';
 import * as WebBrowser from 'expo-web-browser';
+import * as AuthSession from 'expo-auth-session';
 import * as SecureStore from 'expo-secure-store';
+import { Linking } from 'expo';
 
 // FIREBASE V8.
 import firebase from 'firebase';
 import { auth } from '../firebase1';
 
+
 // GOOGLE SIGN IN MODAL
-WebBrowser.maybeCompleteAuthSession();
+WebBrowser.maybeCompleteAuthSession()
+
+// WebBrowser.openAuthSessionAsync(
+//   'https://expo.dev'
+// )
 
 export default function GoogleAuth() {
   const [user, setUser] = useState('');
   const navigation = useNavigation();
-
-  // const user = useContext(UserContext);
 
   // EXPO-AUTH-SESSION 
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
@@ -30,24 +35,14 @@ export default function GoogleAuth() {
   // SIGN IN WITH GOOGLE
   useEffect(() => {
     if (response?.type === 'success') {
-
       const { id_token } = response.params;
       const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
-
-      firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          setUser(user);
-          console.log(user, '유저')
-        } else {
-          console.log('no user');
-        }
-      });
 
       auth
         .signInWithCredential(credential)
         .then(() => {
           // IF LOGGED IN
-          navigation.replace('Nickname',
+          navigation.navigate('Nickname',
             {
               param: firebase.auth().currentUser.uid,
               // credential: JSON.stringify(credential),
@@ -61,11 +56,9 @@ export default function GoogleAuth() {
 
   return (
     <TouchableOpacity
-      onPress={() => {
-        promptAsync();
-      }}
+      onPress={() => { promptAsync() }}
+      // onPress={() => { openSession({ useProxy: false }) }}
       style={styles.googleBtn}>
-
       <GoogleLogo weight='bold' color='red' size={20} style={styles.googleLogo} />
       <Text style={styles.btnText}>Continue with Google</Text>
     </TouchableOpacity>
