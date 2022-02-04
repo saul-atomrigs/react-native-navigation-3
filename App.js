@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
@@ -15,7 +14,7 @@ import Welcome from './Auth/Welcome';
 import SignedOut from './Auth/SignedOut';
 import AddSchedule from './Calendar/AddSchedule';
 import Calendar from './Calendar/Calendar';
-import Calendar2 from './Notifications/Calendar2';
+// import Calendar2 from './Notifications/Calendar2';
 import DetailedSchedule from './Calendar/DetailedSchedule';
 import AddPost from './Community/AddPost';
 import DetailedFeed from './Community/DetailedFeed';
@@ -40,8 +39,6 @@ import firebase from 'firebase';
 
 // STACK NAVIGATOR
 export default function App() {
-  // SecureStore.deleteItemAsync('credential')
-
   return (
     <NavigationContainer theme={MyTheme}>
       <StatusBar style='dark-content' />
@@ -51,7 +48,7 @@ export default function App() {
           <>
             <Stack.Screen name="HomeTabNavigation" component={HomeTabNavigation} options={{ headerShown: false }} />
             <Stack.Screen name="Calendar" component={Calendar} options={({ route }) => ({ title: route.params.param })} />
-            <Stack.Screen name="Calendar2" component={Calendar2} options={({ route }) => ({ title: route.params.param })} />
+            {/* <Stack.Screen name="Calendar2" component={Calendar2} options={({ route }) => ({ title: route.params.param })} /> */}
             <Stack.Screen name="DetailedSchedule" component={DetailedSchedule} options={({ route }) => ({ title: route.params.artist })} />
             <Stack.Screen name="AddSchedule" component={AddSchedule} options={{ title: '' }} />
             <Stack.Screen name="Community" component={Feeds} options={{ title: 'Community' }} />

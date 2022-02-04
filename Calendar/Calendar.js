@@ -166,7 +166,7 @@ export default function Calendar(props) {
 function renderEmptyDate() {
   return (
     <View style={styles.emptyDate}>
-      <Button title='Nothing for this date yet...' />
+
     </View>
   );
 }

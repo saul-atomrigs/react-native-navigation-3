@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, TouchableOpacity, TextInput, Text } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, TextInput, Text, Platform } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { Picker } from '@react-native-community/picker';
+import PickerModal from 'react-native-picker-modal-view';
 
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
@@ -17,9 +20,7 @@ export default function AddSchedule({ navigation }) {
     event: ''
   }
   const [values, setValues] = useState(initialValues);
-
   const [items, setItems] = useState([]);
-
 
   // DATE PICKER 
   const [datePickerVisible, setDatePickerVisibility] = useState(false);
@@ -28,11 +29,9 @@ export default function AddSchedule({ navigation }) {
   const showDatePicker = () => {
     setDatePickerVisibility(true);
   };
-
   const hideDatePicker = () => {
     setDatePickerVisibility(false);
   };
-
   const handleConfirm = (text) => {
     hideDatePicker();
     onChangeText(text.format("yyyy-MM-dd"))
@@ -56,12 +55,10 @@ export default function AddSchedule({ navigation }) {
         createEvent,
         {
           input: {
-            // date: values.date,
             date: text,
             artist: values.artist,
             event: values.event
           }
-          // input: item
         }
       ))
       const final = result.data.createEvent
@@ -71,6 +68,80 @@ export default function AddSchedule({ navigation }) {
       console.log(e, '에러!!: ')
     }
   }
+
+  // ITEM PICKER
+  const WheelPicker = (itemValue, index) => {
+    const PickerItem = Picker.Item;
+    const itemList = artistList
+
+    const [selectedIndex, setSelectedIndex] = useState('')
+
+    // useEffect(() => {
+    //   setValues({ artist: selectedIndex })
+    //   console.log(index, 'INDEX')
+    //   console.log(selectedIndex, 'SELECTED INDEX')
+    // }, [selectedIndex])
+
+    const onValueChange = (index) => {
+      setSelectedIndex(index)
+      console.log(index, selectedIndex)
+    };
+
+    const confirmArtist = () => {
+      setValues({ ...values, artist: selectedIndex })
+      console.log(selectedIndex)
+    }
+
+    return (
+      <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', }}>
+
+        <Picker
+          selectedValue={selectedIndex}
+          onValueChange={onValueChange}
+
+          style={{ width: 150, height: 220 }}
+          lineColor="#000000"
+          itemStyle={{ color: 'black', fontSize: 13 }}
+        >
+          {itemList.map((value, index) => (
+            <PickerItem label={value} value={value} key={index} />
+          ))}
+        </Picker>
+
+        <TouchableOpacity onPress={confirmArtist} style={styles.confirm}>
+          <Text>Confirm</Text>
+        </TouchableOpacity>
+      </View >
+    );
+  };
+
+  // // PICKER MODAL
+  // function PickerMo() {
+  //   const [modalVisible, setModalVisible] = useState(false);
+  //   const [selectedValue, setSelectedValue] = useState(1);
+
+  //   const onValueChange = (index) => {
+  //     setSelectedValue(index)
+  //     console.log(selectedValue, index)
+  //   };
+
+  //   return (
+  //     <View style={{ flex: 1 }}>
+  //       <PickerModal
+  //         renderSelectView={(disabled, selected, showModal) =>
+  //           <Button disabled={disabled} title={'Show me!'} onPress={showModal} />
+  //         }
+  //         items={artistList}
+  //         onSelected={() => setModalVisible(false)}
+  //         onValueChange={onValueChange}
+  //         onCancel={() => setModalVisible(false)}
+  //         visible={modalVisible}
+  //         selectedValue={selectedValue}
+  //         itemStyle={{ color: 'black', fontSize: 13 }}
+  //       />
+  //     </View>
+  //   );
+  // }
 
   // GO BACK
   function goBack() {
@@ -98,76 +169,74 @@ export default function AddSchedule({ navigation }) {
   }, [])
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={showDatePicker}>
-        {/* <Text>{text}</Text> */}
-        {/* Date input field */}
+    <KeyboardAwareScrollView style={{ flex: 1 }}
+      keyboardShouldPersistTaps='handled'>
+      <View style={styles.container}>
         <TextInput
-          // value={values.date}
-          value={text}
-          onChangeText={value => handleInputChange('date', value)}
-          // onChangeText={value => handleConfirm('date', value)}
-          name="date"
-          pointerEvents="none"
-          style={styles.textInput}
-          placeholder="1. When is it happening?"
-          placeholderTextColor='#666'
-          underlineColorAndroid="transparent"
-          editable={false}
-        />
-        <DateTimePickerModal
-          headerTextIOS="1. When is it happening?"
-          isVisible={datePickerVisible}
-          mode="date"
-          onConfirm={handleConfirm}
-          onCancel={hideDatePicker}
-          display="inline" // ios 14.0 new styling
-        />
-      </TouchableOpacity>
-      {/* Artist input field */}
-      <TextInput
-        value={values.artist}
-        onChangeText={value => handleInputChange('artist', value)}
-        // onChangeText={handleInputChange}
-        name="artist"
-        placeholder="2. Which artist?"
-        style={styles.textInput}
-        placeholderTextColor='#666'
-        autoCompleteType="off"
-        autoCorrect={false}
-      />
-      {/* Event input field */}
-      <TextInput
-        value={values.event}
-        onChangeText={value => handleInputChange('event', value)}
-        // onChangeText={value => setInputItems('event', value)}
-        name="event"
-        placeholder="3. What's the event?"
-        style={styles.textInput}
-        placeholderTextColor='#666'
-        autoCompleteType="off"
-        autoCorrect={false}
-      />
+          value={values.artist}
+          onChangeText={value => handleInputChange('artist', value)}
 
-      {/* submit button */}
-      <TouchableOpacity
-        style={{ flexDirection: 'row' }}
-        // disabled={!values.date || !values.artist || !values.event}
-        onPress={() => {
-          addItem();
-          goBack();
-          forceUpdate();
-        }}
-      >
-        <View style={styles.floatingBtn}>
-          <Text style={styles.floatingBtnText}>Add event</Text>
+          name="artist"
+          placeholder="1. Who? (write here or pick below)"
+          style={styles.textInput}
+          placeholderTextColor='#666'
+          autoCompleteType="off"
+          autoCorrect={false}
+        />
+        <WheelPicker />
+
+        <TouchableOpacity onPress={showDatePicker}>
+          <TextInput
+            value={text}
+            onChangeText={value => handleInputChange('date', value)}
+            name="date"
+            pointerEvents="none"
+            style={styles.textInput}
+            placeholder="2. When?"
+            placeholderTextColor='#666'
+            underlineColorAndroid="transparent"
+            editable={false}
+          />
+          <DateTimePickerModal
+            headerTextIOS="1. When is it happening?"
+            isVisible={datePickerVisible}
+            mode="date"
+            onConfirm={handleConfirm}
+            onCancel={hideDatePicker}
+            display="inline" // ios 14.0 new styling
+          />
+        </TouchableOpacity>
+
+        <TextInput
+          value={values.event}
+          onChangeText={value => handleInputChange('event', value)}
+          name="event"
+          placeholder="3. Event (schedule, birthday, release..)"
+          style={styles.textInput}
+          placeholderTextColor='#666'
+          autoCompleteType="off"
+          autoCorrect={false}
+        />
+
+        <TouchableOpacity
+          style={{ flexDirection: 'row' }}
+          // disabled={!values.date || !values.artist || !values.event}
+          onPress={() => {
+            addItem();
+            goBack();
+            forceUpdate();
+          }}
+        >
+          <View style={styles.floatingBtn}>
+            <Text style={styles.floatingBtnText}>Add to Calendar</Text>
+          </View>
+        </TouchableOpacity>
+        <View style={{ marginTop: 20, marginHorizontal: 50 }}>
+          <Text>Feel free to add!</Text>
         </View>
-      </TouchableOpacity>
-      <View style={{ marginTop: 20, marginHorizontal: 50 }}>
-        <Text>Feel free to add, but a moderator may remove or edit it if inaccurate.</Text>
       </View>
 
-    </View>
+    </KeyboardAwareScrollView >
   );
 }
 
@@ -195,6 +264,26 @@ Date.prototype.format = function (f) {
   });
 };
 
+export const artistList = [
+  '',
+  'ATEEZ',
+  'BLACKPINK',
+  'STAYC',
+  'TWICE',
+  'EXO',
+  'aespa',
+  'JENNIE',
+  'NCT 127',
+  'Stray Kids',
+  'ITZY',
+  'TXT',
+  'Kep1er',
+  'IVE',
+]
+  .sort(function (a, b) {
+    return a.toLowerCase().localeCompare(b.toLowerCase());
+  });
+
 String.prototype.string = function (len) { var s = '', i = 0; while (i++ < len) { s += this; } return s; };
 String.prototype.zf = function (len) { return "0".string(len - this.length) + this; };
 Number.prototype.zf = function (len) { return this.toString().zf(len); };
@@ -218,10 +307,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 13,
     padding: 10,
-    marginBottom: 30,
+    marginVertical: 15,
+  },
+  confirm: {
+    // borderWidth: 1,
+    height: 180,
+    justifyContent: 'center',
   },
   floatingBtn: {
-    // borderWidth: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
