@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useLayoutEffect, useEffect, createContext } from 'react';
 import { ScrollView, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View, RefreshControl, TextInput, Alert, Keyboard } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute, useIsFocused } from '@react-navigation/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Divider } from 'react-native-elements';
 import { Menu, MenuOption, MenuOptions, MenuTrigger, } from 'react-native-popup-menu';
@@ -129,10 +129,6 @@ export default function DetailedFeed({ post }) {
   //   wait(2000).then(() => setRefreshing(false));
   // }, []);
 
-  useEffect(() => {
-    fetchComments()
-  }, [])
-
   // HEADER BUTTONS 
   useLayoutEffect(() => {
     Header({ navigation })
@@ -215,122 +211,136 @@ export default function DetailedFeed({ post }) {
     Keyboard.dismiss()
   }
 
+  // REFRESH THE COMMENT INPUT AFTER COMING BACK FROM SIGN IN
+  const isFocused = useIsFocused()
+  useEffect(() => {
+    fetchComments()
+  }, [isFocused])
+
+
   return (
 
-    // IF NOT SIGNED IN 
-    firebase.auth().currentUser == null ?
+    <KeyboardAwareScrollView
+      style={{ flex: 1 }}
+      keyboardShouldPersistTaps='handled'
+    // refreshControl={
+    //   <RefreshControl
+    //     refreshing={refreshing}
+    //     onRefresh={onRefresh}
+    //   />
+    // }
+    >
+      <View style={styles.container}>
+        <View style={styles.card}>
+          <View style={styles.header}>
+            <TouchableOpacity
+              onPress={() => navigation.push('Home')}
+              style={{ flexDirection: 'row' }}
+            >
+              <UserCircle size={30} color="#000" />
+              <Text style={styles.author} >
+                {owner}
+              </Text>
+            </TouchableOpacity>
 
-      <View style={styles.signIn}>
-        <Apple />
-        <Google />
-      </View>
+            <View style={styles.commentHeader}>
 
-      // <>
-      //   <Login />
-      // </>
+              <View>
+                <Menu>
+                  <MenuTrigger text='+ more' />
+                  <MenuOptions>
+                    <MenuOption onSelect={report} >
+                      <Text style={{ color: 'red' }}>Report innapropriate</Text>
+                    </MenuOption>
+                    <MenuOption onSelect={block} >
+                      <Text style={{ color: 'red' }}>Block this user</Text>
+                    </MenuOption>
+                  </MenuOptions>
+                </Menu>
 
-      :
-
-      <KeyboardAwareScrollView
-        style={{ flex: 1 }}
-        keyboardShouldPersistTaps='handled'
-      // refreshControl={
-      //   <RefreshControl
-      //     refreshing={refreshing}
-      //     onRefresh={onRefresh}
-      //   />
-      // }
-      >
-        <View style={styles.container}>
-          <View style={styles.card}>
-            <View style={styles.header}>
-              <TouchableOpacity
-                onPress={() => navigation.push('Home')}
-                style={{ flexDirection: 'row' }}
-              >
-                <UserCircle size={30} color="#000" />
-                <Text style={styles.author} >
-                  {owner}
-                </Text>
-              </TouchableOpacity>
-
-              <View style={styles.commentHeader}>
-
-                <View>
-                  <Menu>
-                    <MenuTrigger text='+ more' />
-                    <MenuOptions>
-                      <MenuOption onSelect={report} >
-                        <Text style={{ color: 'red' }}>Report innapropriate</Text>
-                      </MenuOption>
-                      <MenuOption onSelect={block} >
-                        <Text style={{ color: 'red' }}>Block this user</Text>
-                      </MenuOption>
-                    </MenuOptions>
-                  </Menu>
-
-                </View>
               </View>
-
-            </View>
-            <View style={styles.content}>
-              <Text style={styles.contentText}>{param.title}</Text>
             </View>
 
-            <View style={styles.btnContainer}>
-              <LikeButton />
-              {/* <ClapButton /> */}
-            </View>
-
-            <Divider />
-
-            <View style={styles.commentsContainer}>
-
-
-              <ScrollView>
-                {
-                  comments
-                    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).reverse()
-                    .map((comment, index) => (
-                      <View key={comment.id ? comment.id : index} style={styles.comment} >
-                        <View style={styles.commentHeader}>
-                          <UserCircle size={25} color='#000' />
-                          {/* <Text>{comment.owner} </Text> */}
-                          <View style={styles.author}>
-                            <Text style={styles.commentAuthor}>{comment?.user?.nickname} </Text>
-                          </View>
-                        </View>
-                        <Text> {comment.content} </Text>
-                      </View>
-                    ))
-                }
-
-                <View style={styles.textInputContainer}>
-                  <TextInput
-                    onChangeText={val => setInputComments('content', val)}
-                    value={formStateComments.content}
-                    style={styles.textInput}
-                    multiline
-                    placeholder="What are your thoughts?"
-                    placeholderTextColor={'#777'}
-                  />
-                  <TouchableOpacity
-                    disabled={formStateComments.content.length === 0}
-                    onPress={() => {
-                      addComment()
-                      keyboardDismiss()
-                    }
-                    }
-                  >
-                    <CheckCircle size={35} />
-                  </TouchableOpacity>
-                </View>
-                {/* <Text style={styles.commentsCounter}> {commentsCount} Comments </Text> */}
-              </ScrollView>
-            </View>
           </View>
-        </View >
-      </KeyboardAwareScrollView >
+          <View style={styles.content}>
+            <Text style={styles.contentText}>{param.title}</Text>
+          </View>
+
+          {
+            firebase.auth().currentUser == null ?
+              null
+              :
+              <View style={styles.btnContainer}>
+                <LikeButton />
+                {/* <ClapButton /> */}
+              </View>
+          }
+
+          <Divider />
+
+          <View style={styles.commentsContainer}>
+
+
+            <ScrollView>
+              {
+                comments
+                  .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).reverse()
+                  .map((comment, index) => (
+                    <View key={comment.id ? comment.id : index} style={styles.comment} >
+                      <View style={styles.commentHeader}>
+                        <UserCircle size={25} color='#000' />
+                        <View style={styles.author}>
+                          <Text style={styles.commentAuthor}>{comment?.user?.nickname} </Text>
+                        </View>
+                      </View>
+                      <Text> {comment.content} </Text>
+                    </View>
+                  ))
+              }
+
+              {
+                // IF NOT SIGNED IN 
+                firebase.auth().currentUser == null ?
+
+                  <>
+                    <Text style={{ alignSelf: 'center', marginTop: 20 }}>Sign in to comment</Text>
+                    <View style={styles.signIn}>
+                      <Apple />
+                      <Google />
+                    </View>
+                  </>
+
+                  :
+
+                  <View style={styles.textInputContainer}>
+                    <TextInput
+                      onChangeText={val => setInputComments('content', val)}
+                      value={formStateComments.content}
+                      style={styles.textInput}
+                      multiline
+                      placeholder="What are your thoughts?"
+                      placeholderTextColor={'#777'}
+                    />
+
+                    <TouchableOpacity
+                      disabled={formStateComments.content.length === 0}
+                      onPress={() => {
+                        addComment()
+                        keyboardDismiss()
+                      }
+                      }
+                    >
+                      <CheckCircle size={35} />
+                    </TouchableOpacity>
+                  </View>
+              }
+
+              {/* <Text style={styles.commentsCounter}> {commentsCount} Comments </Text> */}
+            </ScrollView>
+          </View>
+        </View>
+      </View >
+    </KeyboardAwareScrollView >
   )
 }
 
@@ -394,9 +404,10 @@ const styles = StyleSheet.create({
     // marginRight: WIDTH * 0.05,
   },
   signIn: {
-    flex: 1,
+    // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    transform: [{ scaleX: 0.7 }, { scaleY: 0.7 }],
   },
   container: {
     flex: 1,

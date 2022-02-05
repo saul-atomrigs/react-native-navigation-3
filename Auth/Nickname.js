@@ -89,20 +89,7 @@ export default function Nickname() {
       {
         param == uid ?
 
-          // USER EXISTS 
-          // <View style={styles.component}>
-          //   <Text style={styles.text}>
-          //     Welcome back!
-          //   </Text>
-          //   <Button
-          //     title='Back to DailyKpop'
-          //     onPress={() => navigation.navigate('HomeTabNavigation')}
-          //   />
-          // </View>
-
-          // navigate to HomeTabNavigation
-          // navigation.navigate('HomeTabNavigation')
-          navigation.replace('HomeTabNavigation')
+          navigation.goBack()
 
           :
 

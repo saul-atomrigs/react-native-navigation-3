@@ -19,7 +19,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "app.dailykpop",
-      "buildNumber": "1.4.5",
+      "buildNumber": "1.4.6",
       "usesAppleSignIn": true
     },
     "android": {

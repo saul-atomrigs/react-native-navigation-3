@@ -1,12 +1,21 @@
 import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { Dimensions, Image, Share, StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native';
-
+import firebase from 'firebase';
+import Apple from '../Auth/Apple'
+import Google from '../Auth/Google'
 export default function Me({ navigation }) {
 
   // HEADER BUTTONS
   useLayoutEffect(() => {
     Header({ navigation })
   }, [navigation])
+
+  // SIGN OUT FUNCTION
+  function signOut() {
+    alert('signing out')
+    firebase.auth().signOut();
+    navigation.reset({ index: 0, routes: [{ name: 'SignedOut' }] })
+  }
 
   return (
     <>
@@ -22,9 +31,16 @@ export default function Me({ navigation }) {
           {/* <HandsClapping /> */}
           {/* <Text>5 Claps received</Text> */}
         </View>
-        <Button title='Sign in / sign out' onPress={() => navigation.navigate('Notifications')} />
-        <Text style={styles.text} onPress={() => navigation.push('Chat')}>Feedback (suggest any idea)</Text>
         <ShareComponent />
+        <Text style={styles.textContainer}
+          onPress={() => navigation.push('Chat')}>Feedback (suggest any idea)</Text>
+        <Text style={styles.textContainer}
+          onPress={
+            firebase.auth().currentUser == null ?
+              () => navigation.navigate('Notifications')
+              :
+              signOut
+          }>Sign in / sign out </Text>
         {/* <Text style={styles.text} onPress={() => navigation.push('SetupPush')}>Notifications</Text> */}
 
       </View>
@@ -85,7 +101,7 @@ const ShareComponent = () => {
   return (
     <View>
       <Text
-        style={styles.text}
+        style={styles.textContainer}
         onPress={onShare}
       >
         Share DailyKpop
@@ -119,7 +135,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   textContainer: {
-
+    marginVertical: 20,
   },
   text: {
     fontSize: 18,

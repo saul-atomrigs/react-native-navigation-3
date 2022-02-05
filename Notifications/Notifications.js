@@ -34,19 +34,6 @@ export default function Notifications() {
           :
           <>
             <Text>No Notifications yet</Text>
-            <View
-              style={styles.signOut}
-            >
-              <Text>You're currently signed in.</Text>
-              <Button
-                onPress={signOut}
-                title='Sign out'
-              />
-              {/* <Button
-                onPress={() => navigation.navigate('SetupPush')}
-                title='Register for Push Notifications'
-              /> */}
-            </View>
           </>
       }
     </View>
