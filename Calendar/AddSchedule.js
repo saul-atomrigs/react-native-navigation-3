@@ -266,6 +266,8 @@ Date.prototype.format = function (f) {
 
 export const artistList = [
   '',
+  'ASTRO',
+  'Apink',
   'ATEEZ',
   'BLACKPINK',
   'STAYC',
@@ -279,6 +281,7 @@ export const artistList = [
   'TXT',
   'Kep1er',
   'IVE',
+  'VIVIZ',
 ]
   .sort(function (a, b) {
     return a.toLowerCase().localeCompare(b.toLowerCase());

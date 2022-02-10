@@ -5,6 +5,7 @@ import firebase from 'firebase'
 import Apple from '../Auth/Apple'
 import Google from '../Auth/Google'
 import { useNavigation } from '@react-navigation/native'
+import Onboarding from '../Components/Onboarding';
 
 // import * as Google from 'expo-auth-session/providers/google';
 import { auth } from '../firebase1';
@@ -34,6 +35,7 @@ export default function Notifications() {
           :
           <>
             <Text>No Notifications yet</Text>
+            {/* <Onboarding /> */}
           </>
       }
     </View>

@@ -2,11 +2,11 @@
   "expo": {
     "name": "DailyKpop",
     "slug": "dailykpop",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/icons/logo.png",
     "splash": {
-      "image": "./assets/icons/splash3.png",
+      "image": "./assets/bg/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,7 +19,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "app.dailykpop",
-      "buildNumber": "1.4.6",
+      "buildNumber": "1.4.8",
       "usesAppleSignIn": true
     },
     "android": {

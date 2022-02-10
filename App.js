@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Image } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { MenuProvider } from 'react-native-popup-menu';
+import Onboarding from './Components/Onboarding';
 import { CalendarPlus, ChatsCircle, Compass, Fingerprint } from 'phosphor-react-native';
 
 import Login from './Auth/Login';
@@ -39,45 +41,74 @@ import firebase from 'firebase';
 
 // STACK NAVIGATOR
 export default function App() {
+
+  const [firstLaunched, setFirstLaunched] = useState('false');
+  const [loading, setLoading] = useState(false);
+
+  async function getFirstLaunched() {
+    setLoading(true);
+    const firstLaunched = await SecureStore.getItemAsync('firstLaunchKey').then(response => {
+      if (response) {
+        setFirstLaunched(response)
+      }
+    })
+    setLoading(false);
+  }
+  async function writeData() {
+    setLoading(true)
+    setFirstLaunched('true')
+    await SecureStore.setItemAsync('firstLaunchKey', 'true');
+    setLoading(false)
+  }
+
+
   return (
-    <NavigationContainer theme={MyTheme}>
-      <StatusBar style='dark-content' />
-      <MenuProvider>
-        <Stack.Navigator screenOptions={{ headerBackTitleVisible: false }}>
+    // firstLaunched == 'true' && loading ?
+    true ?
 
-          <>
-            <Stack.Screen name="HomeTabNavigation" component={HomeTabNavigation} options={{ headerShown: false }} />
-            <Stack.Screen name="Calendar" component={Calendar} options={({ route }) => ({ title: route.params.param })} />
-            {/* <Stack.Screen name="Calendar2" component={Calendar2} options={({ route }) => ({ title: route.params.param })} /> */}
-            <Stack.Screen name="DetailedSchedule" component={DetailedSchedule} options={({ route }) => ({ title: route.params.artist })} />
-            <Stack.Screen name="AddSchedule" component={AddSchedule} options={{ title: '' }} />
-            <Stack.Screen name="Community" component={Feeds} options={{ title: 'Community' }} />
-            <Stack.Screen name="DetailedFeed" component={DetailedFeed} options={{ title: '' }} />
-            <Stack.Screen name="AddPost" component={AddPost} options={{ title: '' }} />
-            <Stack.Screen name="Discover" component={Discover} options={{ title: '' }} />
-            <Stack.Screen name="DetailedDiscover" component={DetailedDiscover} options={{ title: '' }} />
-            <Stack.Screen name="Youtube" component={Youtube} options={{ title: '' }} />
-            <Stack.Screen name="Tiktok" component={Tiktok} options={{ title: '' }} />
-            <Stack.Screen name="Instagram" component={Instagram} options={{ title: '' }} />
-            <Stack.Screen name="Pinterest" component={Pinterest} options={{ title: '' }} />
-            <Stack.Screen name="Twitter" component={Twitter} options={{ title: '' }} />
-            <Stack.Screen name="Translate" component={Translate} options={{ title: '' }} />
-            <Stack.Screen name="Me" component={Me} />
-            <Stack.Screen name="Chat" component={Chat} />
-            <Stack.Screen name="Login" component={Login} options={{ title: '' }} />
-            <Stack.Screen name="Connect" component={Connect} options={{ title: '' }} />
-            {/* <Stack.Screen name="Google" component={Google} options={{ title: '' }} /> */}
-            <Stack.Screen name="Apple" component={Apple} options={{ title: '' }} />
-            <Stack.Screen name="Welcome" component={Welcome} options={{ title: '' }} />
-            <Stack.Screen name="Nickname" component={Nickname} options={{ title: '' }} />
-            <Stack.Screen name="SignedOut" component={SignedOut} options={{ title: '' }} />
-            <Stack.Screen name="Notifications" component={Notifications} options={{ title: '' }} />
-            <Stack.Screen name="SetupPush3" component={SetupPush3} options={{ title: '' }} />
-          </>
+      <NavigationContainer theme={MyTheme}>
+        <StatusBar style='dark-content' />
+        <MenuProvider>
+          <Stack.Navigator screenOptions={{ headerBackTitleVisible: false }}>
+            <>
+              <Stack.Screen name="HomeTabNavigation" component={HomeTabNavigation} options={{ headerShown: false }} />
+              <Stack.Screen name="Calendar" component={Calendar} options={({ route }) => ({ title: route.params.param })} />
+              {/* <Stack.Screen name="Calendar2" component={Calendar2} options={({ route }) => ({ title: route.params.param })} /> */}
+              <Stack.Screen name="DetailedSchedule" component={DetailedSchedule} options={({ route }) => ({ title: route.params.artist })} />
+              <Stack.Screen name="AddSchedule" component={AddSchedule} options={{ title: '' }} />
+              <Stack.Screen name="Community" component={Feeds} options={{ title: 'Community' }} />
+              <Stack.Screen name="DetailedFeed" component={DetailedFeed} options={{ title: '' }} />
+              <Stack.Screen name="AddPost" component={AddPost} options={{ title: '' }} />
+              <Stack.Screen name="Discover" component={Discover} options={{ title: '' }} />
+              <Stack.Screen name="DetailedDiscover" component={DetailedDiscover} options={{ title: '' }} />
+              <Stack.Screen name="Youtube" component={Youtube} options={{ title: '' }} />
+              <Stack.Screen name="Tiktok" component={Tiktok} options={{ title: '' }} />
+              <Stack.Screen name="Instagram" component={Instagram} options={{ title: '' }} />
+              <Stack.Screen name="Pinterest" component={Pinterest} options={{ title: '' }} />
+              <Stack.Screen name="Twitter" component={Twitter} options={{ title: '' }} />
+              <Stack.Screen name="Translate" component={Translate} options={{ title: '' }} />
+              <Stack.Screen name="Me" component={Me} />
+              <Stack.Screen name="Chat" component={Chat} />
+              <Stack.Screen name="Login" component={Login} options={{ title: '' }} />
+              <Stack.Screen name="Connect" component={Connect} options={{ title: '' }} />
+              {/* <Stack.Screen name="Google" component={Google} options={{ title: '' }} /> */}
+              <Stack.Screen name="Apple" component={Apple} options={{ title: '' }} />
+              <Stack.Screen name="Welcome" component={Welcome} options={{ title: '' }} />
+              <Stack.Screen name="Nickname" component={Nickname} options={{ title: '' }} />
+              <Stack.Screen name="SignedOut" component={SignedOut} options={{ title: '' }} />
+              <Stack.Screen name="Notifications" component={Notifications} options={{ title: '' }} />
+              <Stack.Screen name="SetupPush3" component={SetupPush3} options={{ title: '' }} />
+            </>
 
-        </Stack.Navigator>
-      </MenuProvider>
-    </NavigationContainer>
+          </Stack.Navigator>
+        </MenuProvider>
+      </NavigationContainer>
+
+      :
+
+      <>
+        <Onboarding />
+      </>
   );
 }
 

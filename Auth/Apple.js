@@ -30,7 +30,7 @@ export default function AppleAuth() {
         return firebase.auth().signInWithCredential(credential)
       })
       .then(() => {
-        navigation.replace('Nickname', { param: firebase.auth().currentUser.uid });
+        navigation.navigate('Nickname', { param: firebase.auth().currentUser.uid });
       })
       .catch((e) => {
         // navigation.navigate('Nickname', { param: e.message });
