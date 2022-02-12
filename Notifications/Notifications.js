@@ -23,6 +23,9 @@ export default function Notifications() {
     navigation.reset({ index: 0, routes: [{ name: 'SignedOut' }] })
   }
 
+  // CHANGE COLOR TO BLUE
+
+
   return (
     <View style={styles.container}>
       {

@@ -4,7 +4,7 @@ import { AirplaneTakeoff, BellRinging, Cake, HandsClapping, MusicNote, Plus, Sta
 import { Agenda } from 'react-native-calendars';
 import { useNavigation } from '@react-navigation/native';
 import { Divider } from 'react-native-elements';
-import SetupPush3 from '../Notifications/SetupPush3';
+// import SetupPush3 from '../Notifications/SetupPush3';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Amplify from 'aws-amplify'
@@ -33,7 +33,6 @@ export default function Calendar(props) {
 
   // READ ISENABLED FROM ASYNCSTORAGE (READ ONCE)
   const STORAGE_KEY = props.id
-  // console.log(STORAGE_KEY, 'STORAGE_KEY')
   useEffect(() => {
     AsyncStorage.getItem(STORAGE_KEY)
       .then(value => {
@@ -123,6 +122,31 @@ export default function Calendar(props) {
     return new Promise(resolve => setTimeout(resolve, timeout));
   }
 
+  // CUSTOM TEXT BELOW DATE
+
+  // function CalendarDayComponent(props) {
+  //   const { date, marking, state, onPress, calendarData, children } = props;
+  //   const onPressed = () => {
+  //     requestAnimationFrame(() => onPress(date));
+  //   }
+  //   let items = '';
+
+  //   // if (marking.marked) {
+  //   //   items = calendarData[date.dateString].length
+  //   // }
+  //   return (
+  //     <View style={styles.container}>
+  //       <Text onPress={onPressed} style={{ color: state === 'disabled' ? 'gray' : 'black' }}>
+  //         {children}
+  //       </Text>
+  //       <Text style={styles.itemsCount}>
+  //         {items}
+  //       </Text>
+  //     </View>
+  //   )
+  // };
+  // const renderDayComponent = props => <CalendarDayComponent />;
+
   return (
     <>
       <Agenda
@@ -135,6 +159,7 @@ export default function Calendar(props) {
         markingType={'custom'}
         refreshing={refreshing}
         onRefresh={onRefresh}
+        // dayComponent={renderDayComponent}
         theme={{
           textDayFontWeight: '500',
           textMonthFontWeight: '500',
@@ -219,7 +244,18 @@ const styles = StyleSheet.create({
     marginRight: WIDTH * 0.05,
   },
   container: {
-    // marginBottom: 40,
+    // flex: 1,
+    // margin: 12,
+  },
+  dayItem: {
+    textAlign: 'center',
+    fontFamily: 'roboto'
+  },
+  itemsCount: {
+    textAlign: 'center',
+    fontFamily: 'roboto',
+    fontSize: 11,
+    // color: colors.alert
   },
   item: {
     backgroundColor: '#fff',
