@@ -74,12 +74,7 @@ export default function Calendar(props) {
         <Divider style={styles.divider} />
 
         <View style={styles.stats}>
-          {/* <SetupPush3
-            date={props.date}
-            artist={props.artist}
-            event={props.event}
-            id={props.id}
-          /> */}
+
           <BellRinging
             size={17}
           />
@@ -122,31 +117,6 @@ export default function Calendar(props) {
     return new Promise(resolve => setTimeout(resolve, timeout));
   }
 
-  // CUSTOM TEXT BELOW DATE
-
-  // function CalendarDayComponent(props) {
-  //   const { date, marking, state, onPress, calendarData, children } = props;
-  //   const onPressed = () => {
-  //     requestAnimationFrame(() => onPress(date));
-  //   }
-  //   let items = '';
-
-  //   // if (marking.marked) {
-  //   //   items = calendarData[date.dateString].length
-  //   // }
-  //   return (
-  //     <View style={styles.container}>
-  //       <Text onPress={onPressed} style={{ color: state === 'disabled' ? 'gray' : 'black' }}>
-  //         {children}
-  //       </Text>
-  //       <Text style={styles.itemsCount}>
-  //         {items}
-  //       </Text>
-  //     </View>
-  //   )
-  // };
-  // const renderDayComponent = props => <CalendarDayComponent />;
-
   return (
     <>
       <Agenda
@@ -167,10 +137,21 @@ export default function Calendar(props) {
           textDayHeaderFontWeight: '500',
           calendarBackground: '#fff',
           agendaKnobColor: 'gray',
+          dotColor: '#000',
+          textSectionTitleColor: '#000',
+          textSectionTitleDisabledColor: '#d9e1e8',
+          selectedDayBackgroundColor: '#000',
+          selectedDayTextColor: '#ffffff',
+          monthTextColor: 'blue',
+          todayTextColor: 'blue',
+          dayTextColor: '#2d4150',
+          textDisabledColor: '#d9e1e8',
+          selectedDotColor: '#ffffff',
           'stylesheet.calendar.header': {
             // marginBottom: 80,
           },
         }}
+
         style={styles.container}
         hideExtraDays={false}
       />
@@ -191,7 +172,7 @@ export default function Calendar(props) {
 function renderEmptyDate() {
   return (
     <View style={styles.emptyDate}>
-
+      {/* <Text>Waiting for new activities...</Text> */}
     </View>
   );
 }
@@ -249,11 +230,11 @@ const styles = StyleSheet.create({
   },
   dayItem: {
     textAlign: 'center',
-    fontFamily: 'roboto'
+    // fontFamily: 'roboto'
   },
   itemsCount: {
     textAlign: 'center',
-    fontFamily: 'roboto',
+    // fontFamily: 'roboto',
     fontSize: 11,
     // color: colors.alert
   },

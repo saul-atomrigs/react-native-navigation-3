@@ -16,7 +16,7 @@ import Welcome from './Auth/Welcome';
 import SignedOut from './Auth/SignedOut';
 import AddSchedule from './Calendar/AddSchedule';
 import Calendar from './Calendar/Calendar';
-// import Calendar2 from './Notifications/Calendar2';
+import Calendar2 from './Notifications/Calendar2';
 import DetailedSchedule from './Calendar/DetailedSchedule';
 import AddPost from './Community/AddPost';
 import DetailedFeed from './Community/DetailedFeed';
@@ -73,7 +73,7 @@ export default function App() {
             <>
               <Stack.Screen name="HomeTabNavigation" component={HomeTabNavigation} options={{ headerShown: false }} />
               <Stack.Screen name="Calendar" component={Calendar} options={({ route }) => ({ title: route.params.param })} />
-              {/* <Stack.Screen name="Calendar2" component={Calendar2} options={({ route }) => ({ title: route.params.param })} /> */}
+              <Stack.Screen name="Calendar2" component={Calendar2} options={({ route }) => ({ title: route.params.param })} />
               <Stack.Screen name="DetailedSchedule" component={DetailedSchedule} options={({ route }) => ({ title: route.params.artist })} />
               <Stack.Screen name="AddSchedule" component={AddSchedule} options={{ title: '' }} />
               <Stack.Screen name="Community" component={Feeds} options={{ title: 'Community' }} />
@@ -116,8 +116,8 @@ export default function App() {
 function HomeTabNavigation() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
-      <Tab.Screen name="Community" component={Feeds} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' }, }} />
       <Tab.Screen name="Calendar" component={Calendar} />
+      <Tab.Screen name="Community" component={Feeds} options={{ tabBarBadge: 'new', tabBarBadgeStyle: { backgroundColor: 'pink' }, }} />
       <Tab.Screen name="Discover" component={Discover} />
       <Tab.Screen name="Me" component={Me} />
       {/* <Tab.Screen name="Korean" component={Korean} options={{ tabBarBadge: 2, tabBarBadgeStyle: { backgroundColor: 'pink' } }} /> */}
