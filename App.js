@@ -34,6 +34,7 @@ import Youtube from './Discover/Youtube';
 import Me from './Me/Me';
 import Notifications from './Notifications/Notifications';
 import SetupPush3 from './Notifications/SetupPush3';
+import ArtistPage from './Artists/ArtistPage';
 
 import * as SecureStore from 'expo-secure-store';
 import { auth } from './firebase1';
@@ -98,6 +99,7 @@ export default function App() {
               <Stack.Screen name="SignedOut" component={SignedOut} options={{ title: '' }} />
               <Stack.Screen name="Notifications" component={Notifications} options={{ title: '' }} />
               <Stack.Screen name="SetupPush3" component={SetupPush3} options={{ title: '' }} />
+              <Stack.Screen name="ArtistPage" component={ArtistPage} options={{ title: '' }} />
             </>
 
           </Stack.Navigator>

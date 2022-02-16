@@ -4,6 +4,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Picker } from '@react-native-community/picker';
 import PickerModal from 'react-native-picker-modal-view';
+import { artistList } from '../Artists/Artists'
 
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
@@ -263,29 +264,6 @@ Date.prototype.format = function (f) {
     }
   });
 };
-
-export const artistList = [
-  '',
-  'ASTRO',
-  'Apink',
-  'ATEEZ',
-  'BLACKPINK',
-  'STAYC',
-  'TWICE',
-  'EXO',
-  'aespa',
-  'JENNIE',
-  'NCT 127',
-  'Stray Kids',
-  'ITZY',
-  'TXT',
-  'Kep1er',
-  'IVE',
-  'VIVIZ',
-]
-  .sort(function (a, b) {
-    return a.toLowerCase().localeCompare(b.toLowerCase());
-  });
 
 String.prototype.string = function (len) { var s = '', i = 0; while (i++ < len) { s += this; } return s; };
 String.prototype.zf = function (len) { return "0".string(len - this.length) + this; };

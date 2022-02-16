@@ -4,7 +4,6 @@ import { AirplaneTakeoff, BellRinging, Cake, HandsClapping, MusicNote, Plus, Sta
 import { Agenda, Calendar } from 'react-native-calendars';
 import { useNavigation } from '@react-navigation/native';
 import { Divider } from 'react-native-elements';
-// import SetupPush3 from '../Notifications/SetupPush3';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Modal from './Modal'
 
@@ -119,33 +118,38 @@ export default function Calendar1(props) {
   }
 
   // CUSTOM TEXT BELOW DATE
-  function CalendarDayComponent(props) {
-    const { date, marking, state, onPress, calendarData, children, artist } = props;
-    const onPressed = () => {
-      requestAnimationFrame(() => onPress(date));
-    }
-    let items = '';
+  // function CalendarDayComponent(props) {
+  //   const { date, marking, state, onPress, calendarData, children, artist } = props;
+  //   const onPressed = () => {
+  //     requestAnimationFrame(() => onPress(date));
+  //   }
+  //   let items = '';
 
-    // if (marking.marked) {
-    //   items = calendarData[date.dateString].length
-    // }
+  //   // if (marking.marked) {
+  //   //   items = calendarData[date.dateString].length
+  //   // }
+  //   return (
+  //     <View style={styles.container}>
+  //       <Text style={styles.itemsCount}>
+  //         {/* {items} */}
+  //         {/* black... */}
+  //         {props.artist}
+  //         {props.date}
+  //         {/* .length > 6 ? .substring(0,6) + '..' :  */}
+  //       </Text>
+  //     </View>
+  //   )
+  // };
+  // const renderDayComponent = (props) => <CalendarDayComponent />;
+
+  function renderDayComponent(props) {
+    console.log(props.artist)
     return (
-      <View style={styles.container}>
-        <Text style={styles.itemsCount}>
-          {/* {items} */}
-          {/* black... */}
-          {props.artist}
-          {/* .length > 6 ? .substring(0,6) + '..' :  */}
-        </Text>
-      </View>
+      <>
+        <Text style={styles.artist}>{props.artist}</Text>
+      </>
     )
   };
-  const renderDayComponent = (props) => <CalendarDayComponent />;
-  // function renderDayComponent(props) {
-  //   <>
-  //     <Text>test</Text>
-  //   </>
-  // };
 
   return (
     <>
@@ -207,7 +211,6 @@ export default function Calendar1(props) {
           onPress={() => navigation.navigate('AddSchedule')}
         >
           <Plus color="white" weight='bold' />
-          {/* <Text style={styles.floatingBtnText}>Add Event</Text> */}
         </TouchableOpacity>
       </View>
     </>
@@ -324,16 +327,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    // width: 40,
-    // height: 40,
     position: 'relative',
     bottom: 100,
     borderRadius: 20,
     padding: 10,
     elevation: 2,
-    // right: 30,
     backgroundColor: 'black',
-    // borderRadius: 100,
     // shadow ios:
     shadowColor: 'lightgray',
     shadowOffset: {

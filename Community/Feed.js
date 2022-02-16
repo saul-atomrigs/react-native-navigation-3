@@ -126,7 +126,7 @@ export default function Feed(props) {
         <TouchableOpacity style={styles.floatingBtn}
           onPress={() => navigation.navigate('AddPost')}
         >
-          <Plus color="white" weight='bold' size={20} />
+          <Plus color="white" weight='bold' />
           {/* <Text style={styles.floatingBtnText}>Post</Text> */}
         </TouchableOpacity>
       </View>
@@ -241,17 +241,16 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   floatingBtn: {
+    borderWidth: 1,
     flexDirection: 'row',
-    // borderColor: 'hotpink',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 40,
-    height: 40,
     position: 'relative',
     bottom: 100,
-    // right: 30,
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
     backgroundColor: 'black',
-    borderRadius: 100,
     // shadow ios:
     shadowColor: 'lightgray',
     shadowOffset: {
