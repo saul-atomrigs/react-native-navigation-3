@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@aws-amplify/cli": "^7.6.5",
-    "@invertase/react-native-apple-authentication": "^2.1.5",
     "@react-native-async-storage/async-storage": "^1.15.14",
     "@react-native-community/datetimepicker": "^4.0.1",
     "@react-native-community/masked-view": "^0.1.11",
