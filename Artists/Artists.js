@@ -6,6 +6,7 @@ export const artistList = [
   'ASTRO',
   'ATEEZ',
   'BLACKPINK',
+  'BTS',
   'STAYC',
   'TWICE',
   'EXO',

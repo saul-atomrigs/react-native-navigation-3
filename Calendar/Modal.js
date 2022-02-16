@@ -35,7 +35,7 @@ export default function Modal1() {
 
     const confirmArtist = () => {
       // setValues({ ...values, artist: selectedIndex })
-      navigation.navigate('ArtistPage')
+      navigation.navigate('ArtistPage', { artist: selectedIndex })
       onCloseModal()
       console.log(selectedIndex)
     }
@@ -46,9 +46,9 @@ export default function Modal1() {
         <Picker
           selectedValue={selectedIndex}
           onValueChange={onValueChange}
-          style={{ width: 150, height: 220 }}
+          style={{ width: 250, height: 220 }}
           lineColor="#000000"
-          itemStyle={{ color: 'black', fontSize: 13 }}
+          itemStyle={{ color: 'black', fontSize: 16 }}
         >
           {itemList.map((value, index) => (
             <PickerItem label={value} value={value} key={index} />
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalView: {
-    margin: 20,
+    margin: 0,
     backgroundColor: "white",
     borderRadius: 20,
     padding: 20,
