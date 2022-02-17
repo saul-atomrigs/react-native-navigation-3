@@ -7,6 +7,7 @@ export const artistList = [
   'ATEEZ',
   'BLACKPINK',
   'BTS',
+  'Cherry Bullet',
   'STAYC',
   'TWICE',
   'EXO',
