@@ -153,6 +153,7 @@ export default function Calendar1(props) {
 
   return (
     <>
+      {/* <Swiper>test</Swiper> */}
       <Agenda
         items={itemsReduced}
         dayLoading={false}
