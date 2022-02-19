@@ -12,16 +12,11 @@ export default function ArtistPage() {
   const { artist } = useRoute().params
   const [modalVisible, setModalVisible] = useState(false);
 
-
   return (
 
     <View style={{ flex: 1 }}>
       <Text style={styles.title}> {artist} </Text>
       {/* <TweetEmbed id='771763270273294336' options={{ theme: 'dark' }} /> */}
-      {/* <WebView
-        style={{ flex: 5, height: 1000, width: '100%' }}
-        source={{ uri: 'https://twitter.com/aespa_official/status/1472854342789382150' }}
-      /> */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -40,12 +35,11 @@ export default function ArtistPage() {
               <Text style={styles.textStyle}>Hide Modal</Text>
             </Pressable>
 
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, justifyContent: 'center' }}>
 
-              <Text>Hide Modal</Text>
               <WebView
                 originWhitelist={['*']}
-                style={{ width: '100%' }}
+                style={{ width: 300, alignContent: 'center', alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: 'black' }}
                 source={{
                   html: `
                 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">[STATION] aespa 에스파 &#39;Dreams Come True&#39; MV<br><br>🎬 <a href="https://t.co/aCPr6EgLwK">https://t.co/aCPr6EgLwK</a><a href="https://twitter.com/hashtag/aespa?src=hash&amp;ref_src=twsrc%5Etfw">#aespa</a> <a href="https://twitter.com/hashtag/%C3%A6spa?src=hash&amp;ref_src=twsrc%5Etfw">#æspa</a> <a href="https://twitter.com/hashtag/%EC%97%90%EC%8A%A4%ED%8C%8C?src=hash&amp;ref_src=twsrc%5Etfw">#에스파</a><a href="https://twitter.com/hashtag/DreamsComeTrue?src=hash&amp;ref_src=twsrc%5Etfw">#DreamsComeTrue</a> <a href="https://t.co/f8rjc3oiPS">pic.twitter.com/f8rjc3oiPS</a></p>&mdash; aespa (@aespa_official) <a href="https://twitter.com/aespa_official/status/1472854342789382150?ref_src=twsrc%5Etfw">December 20, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
