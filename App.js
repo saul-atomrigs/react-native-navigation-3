@@ -30,6 +30,7 @@ import Pinterest from './Discover/Pinterest';
 import Tiktok from './Discover/Tiktok';
 import Translate from './Discover/Translate';
 import Twitter from './Discover/Twitter';
+import Twitter2 from './Discover/Twitter2';
 import Youtube from './Discover/Youtube';
 import Me from './Me/Me';
 import Notifications from './Notifications/Notifications';
@@ -87,6 +88,7 @@ export default function App() {
               <Stack.Screen name="Instagram" component={Instagram} options={{ title: '' }} />
               <Stack.Screen name="Pinterest" component={Pinterest} options={{ title: '' }} />
               <Stack.Screen name="Twitter" component={Twitter} options={{ title: '' }} />
+              <Stack.Screen name="Twitter2" component={Twitter2} options={{ title: '' }} />
               <Stack.Screen name="Translate" component={Translate} options={{ title: '' }} />
               <Stack.Screen name="Me" component={Me} />
               <Stack.Screen name="Chat" component={Chat} />
