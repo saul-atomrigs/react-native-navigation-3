@@ -1,16 +1,35 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, ScrollView, Image, Modal, Pressable, SafeAreaView } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { artistList2 } from './Artists'
 
 import { WebView } from 'react-native-webview';
 
+import Amplify from 'aws-amplify'
+import config from '../src/aws-exports'
+import { API, graphqlOperation } from 'aws-amplify'
+import { listEvents } from '../src/graphql/queries'
+Amplify.configure(config)
 
 export default function ArtistPage() {
 
   const { artist } = useRoute().params
   const [modalVisible, setModalVisible] = useState(false);
+  const [items, setItems] = useState([])
   const navigation = useNavigation()
+
+  // FETCH EVENTS ITEMS
+  async function fetchItems() {
+    try {
+      const itemData = await API.graphql(graphqlOperation(listEvents));
+      setItems(itemData.data.listEvents.items)
+    } catch (err) {
+      console.log(err, 'fetching 에러!!');
+    }
+  }
+  useEffect(() => {
+    fetchItems()
+  }, [])
 
   return (
 
@@ -54,17 +73,27 @@ export default function ArtistPage() {
 
       <View style={styles.wrapper}>
         <Text style={styles.subtitle}> Upcoming Events </Text>
-        <ScrollView horizontal={true}>
-          <View style={[styles.content, styles.eventsWrapper]}>
-            <Text>
-              MY (마이) MY (마이) MY (마이)MY (마이)MY (마이)MY (마이)MY (마이)
-            </Text>
-          </View>
-          <View style={[styles.content, styles.eventsWrapper]}>
-            <Text>
-              MY (마이)
-            </Text>
-          </View>
+        <ScrollView horizontal={true}
+          showsHorizontalScrollIndicator={false}>
+
+          {items
+            .sort((a, b) => new Date(a.date) - new Date(b.date))
+            .map((item, index) => {
+              if (item.artist === artist) {
+                return (
+                  <View style={[styles.content, styles.eventsWrapper]}>
+                    <View key={index}>
+                      <Text style={styles.date}> {item.date} </Text>
+                      <Text > {item.event} </Text>
+                    </View>
+                  </View>
+                )
+              } else {
+                return (
+                  null
+                )
+              }
+            })}
 
         </ScrollView>
       </View>
@@ -74,6 +103,7 @@ export default function ArtistPage() {
 
         <ScrollView
           horizontal={true}
+          showsHorizontalScrollIndicator={false}
         >
           <Pressable
             onPress={() => navigation.navigate(
@@ -81,12 +111,12 @@ export default function ArtistPage() {
             )}
           >
             <Image
-              style={{ width: 300, height: 150, marginHorizontal: 5, borderRadius: 13 }}
+              style={styles.socialMedia}
               source={{ uri: 'https://pbs.twimg.com/media/FHCgKeLaIAUsOoU?format=jpg&name=large' }}
             />
           </Pressable>
           <Image
-            style={{ width: 300, height: 150, marginHorizontal: 5, borderRadius: 13 }}
+            style={styles.socialMedia}
             source={{ uri: 'https://pbs.twimg.com/media/FK4pN9KVkAA8L7q?format=jpg&name=large' }}
           />
         </ScrollView>
@@ -122,22 +152,42 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: '400',
     color: '#000',
-    marginRight: 5,
+    marginRight: 2,
 
   },
   wrapper: {
     marginTop: 20,
   },
   text: {
-    color: '#fff',
-    fontSize: 30,
-    fontWeight: 'bold'
+    fontSize: 13,
+  },
+  date: {
+    fontSize: 13,
+    fontWeight: '400',
+    color: '#666',
+    marginRight: 20,
+    marginBottom: 5,
   },
   eventsWrapper: {
-    padding: 20,
-    backgroundColor: '#eee',
-    borderRadius: 13,
     width: 250,
+    margin: 10,
+    backgroundColor: "white",
+    borderRadius: 13,
+    padding: 20,
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  socialMedia: {
+    width: 250,
+    height: 120,
+    marginHorizontal: 5,
+    marginTop: 10,
+    borderRadius: 13
   },
 
   // MODAL
@@ -165,7 +215,6 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 20,
     padding: 10,
-    // width: '100%',
     elevation: 2
   },
   buttonOpen: {
