@@ -1,2 +1,7 @@
 declare module 'aws-amplify-react-native'
 declare module 'react-native-twitter-embed'
+declare module 'needle'
+declare module 'fs'
+declare module 'https'
+declare module 'react-native-https'
+declare module 'react-native-crypto-js'
