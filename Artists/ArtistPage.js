@@ -4,6 +4,8 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import { artistList2 } from './Artists'
 
 import { WebView } from 'react-native-webview';
+// import Twitter3 from '../Discover/Twitter3'
+// import getRequest from './recent_search.py'
 
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
@@ -17,6 +19,11 @@ export default function ArtistPage() {
   const [modalVisible, setModalVisible] = useState(false);
   const [items, setItems] = useState([])
   const navigation = useNavigation()
+
+  const TWITTER_API_KEY = '5uV1QEfBWR6sNbcFjAuUHj3Np'
+  const TWITTER_API_KEY_SECRET = 'to52SOvNSZt8tyV0VwIkiwa95ylQvdYKy7WCPGtqmvriwQ5kzy'
+  const TWITTER_BEARER_TOKEN = 'AAAAAAAAAAAAAAAAAAAAACoaZgEAAAAA%2FrOfCNrnhwph9Q9qZbbnhLweZbM%3DHPFqwB7RlYzDf72Rypqch1uw46iLdye4kaUic84G7KNn8AMD76'
+  // const twitterClient = new TwitterApi('<TWITTER_BEARER_TOKEN>');
 
   // FETCH EVENTS ITEMS
   async function fetchItems() {
@@ -88,10 +95,6 @@ export default function ArtistPage() {
                     </View>
                   </View>
                 )
-              } else {
-                return (
-                  null
-                )
               }
             })}
 
@@ -105,6 +108,7 @@ export default function ArtistPage() {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
         >
+
           <Pressable
             onPress={() => navigation.navigate(
               'Twitter2'
@@ -115,6 +119,7 @@ export default function ArtistPage() {
               source={{ uri: 'https://pbs.twimg.com/media/FHCgKeLaIAUsOoU?format=jpg&name=large' }}
             />
           </Pressable>
+
           <Image
             style={styles.socialMedia}
             source={{ uri: 'https://pbs.twimg.com/media/FK4pN9KVkAA8L7q?format=jpg&name=large' }}
@@ -122,10 +127,11 @@ export default function ArtistPage() {
         </ScrollView>
       </View>
 
+      {/* <StreamConnect /> */}
+
     </View>
   )
 }
-
 
 // STYLES
 const styles = StyleSheet.create({
