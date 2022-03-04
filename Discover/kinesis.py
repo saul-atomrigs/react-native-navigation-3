@@ -6,6 +6,10 @@ import os
 
 from botocore.exceptions import ClientError
 
+# CONNECT TO THE TWITTER SAMPLE STREAM AND DELIVER TO S3 USING KINESIS
+# TUTORIAL:
+# https://dev.to/twitterdev/introduction-to-twitter-data-processing-and-storage-on-aws-1og
+
 url = "https://api.twitter.com/2/tweets/sample/stream"
 
 
@@ -19,11 +23,13 @@ aws_delivery_stream_name = 'DailyKpop_Twitter'
 
 
 def stream_connect(headers):
-    kinesis_client = boto3.client('firehose',
-                                  region_name=os.environ.get("aws_region"),
-                                  aws_access_key_id=os.environ.get(
-                                      "aws_access_key_id"),
-                                  aws_secret_access_key=os.environ.get("aws_secret_access_key"))
+    kinesis_client = boto3.client(
+        'firehose',
+        region_name=os.environ.get("aws_region"),
+        aws_access_key_id=os.environ.get(
+            "aws_access_key_id"),
+        aws_secret_access_key=os.environ.get("aws_secret_access_key")
+    )
 
     response = requests.request("GET", url, headers=headers, stream=True)
     if response.status_code != 200:

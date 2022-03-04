@@ -4,8 +4,6 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import { artistList2 } from './Artists'
 
 import { WebView } from 'react-native-webview';
-// import Twitter3 from '../Discover/Twitter3'
-// import getRequest from './recent_search.py'
 
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
