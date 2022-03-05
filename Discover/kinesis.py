@@ -26,8 +26,7 @@ def stream_connect(headers):
     kinesis_client = boto3.client(
         'firehose',
         region_name=os.environ.get("aws_region"),
-        aws_access_key_id=os.environ.get(
-            "aws_access_key_id"),
+        aws_access_key_id=os.environ.get("aws_access_key_id"),
         aws_secret_access_key=os.environ.get("aws_secret_access_key")
     )
 
@@ -41,8 +40,10 @@ def stream_connect(headers):
     for response_line in response.iter_lines():
         if response_line:
             try:
-                kinesis_client.put_record(DeliveryStreamName=aws_delivery_stream_name,
-                                          Record={'Data': response_line.decode("utf-8")})
+                kinesis_client.put_record(
+                    DeliveryStreamName=aws_delivery_stream_name,
+                    Record={'Data': response_line.decode("utf-8")}
+                )
             except ClientError as e:
                 print(e, file=sys.stderr)
 
