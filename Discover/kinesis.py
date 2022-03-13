@@ -11,11 +11,11 @@ from botocore.exceptions import ClientError
 # https://dev.to/twitterdev/introduction-to-twitter-data-processing-and-storage-on-aws-1og
 
 # url = "https://api.twitter.com/2/tweets/sample/stream"
-url = "https://api.twitter.com/2/tweets?ids=1228393702244134912,1227640996038684673,1199786642791452673&tweet.fields=created_at&expansions=author_id&user.fields=created_at"
+url = "https://api.twitter.com/2/users/1277453652924366848/tweets?max_results=5"
 
 
 def create_headers(bearer_token):
-    headers = {"Authorization": "Bearer {}".format(bearer_token)}
+    headers = {"Authorization": "4Bearer {}".format(bearer_token)}
     return headers
 
 
