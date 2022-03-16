@@ -1,9 +1,9 @@
 // BEARER TOKEN or APP ACCESS TOKEN
-export const bearerToken = 'AAAAAAAAAAAAAAAAAAAAACoaZgEAAAAA%2FrOfCNrnhwph9Q9qZbbnhLweZbM%3DHPFqwB7RlYzDf72Rypqch1uw46iLdye4kaUic84G7KNn8AMD76'
+export const bearerToken = 'AAAAAAAAAAAAAAAAAAAAACoaZgEAAAAAelAeuMOqTkTq2wnDWIb1ACgPqxQ%3Dx8Sg6YdwWP11U4GAcMzsYgSHXwii3r1NSvPsZSEzkt0J5d59PT'
 
 // API KEY or CONSUMMER_KEY
-export const API_KEY = '5uV1QEfBWR6sNbcFjAuUHj3Np'
-export const API_KEY_SECRET = 'to52SOvNSZt8tyV0VwIkiwa95ylQvdYKy7WCPGtqmvriwQ5kzy'
+export const API_KEY = 'kGaVdfsBEDZQoONRw7CSjLxaS'
+export const API_KEY_SECRET = 'q7lZbzH9a09yrV60uo61Zg8ZXuAMIDGSwigyEtijLtry4UFFkF'
 
 export const ACCESS_TOKEN = '1495392862518738953-ZQMoWcV1jWJoeYAsSy87HHpHoSe6ru'
 export const ACCESS_TOKEN_SECRET = 'n86FPszNhZAhdgjD8bEbSBWosFxL25r9bHjcDIOlv6Weu'
