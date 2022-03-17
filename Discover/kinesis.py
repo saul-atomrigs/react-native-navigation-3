@@ -6,16 +6,19 @@ import os
 
 from botocore.exceptions import ClientError
 
+token = process.env.TWITTER_BEARER_TOKEN
+
 # CONNECT TO THE TWITTER SAMPLE STREAM AND DELIVER TO S3 USING KINESIS
 # TUTORIAL:
 # https://dev.to/twitterdev/introduction-to-twitter-data-processing-and-storage-on-aws-1og
 
-# url = "https://api.twitter.com/2/tweets/sample/stream"
-url = "https://api.twitter.com/2/users/1277453652924366848/tweets?max_results=5"
+url = "https://api.twitter.com/2/tweets/sample/stream"
+# url = "https://api.twitter.com/2/users/1277453652924366848/tweets?max_results=5"
 
 
 def create_headers(bearer_token):
     headers = {"Authorization": "4Bearer {}".format(bearer_token)}
+    print(TWITTER_BEARER_TOKEN)
     return headers
 
 
