@@ -3,10 +3,16 @@ from time import sleep
 import boto3
 import requests
 import os
+from dotenv import load_dotenv
+import configparser
 
 from botocore.exceptions import ClientError
 
-token = process.env.TWITTER_BEARER_TOKEN
+# load_dotenv(verbose=True)
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+# bearer_token = os.getenv('TWITTER_BEARER_TOKEN')
 
 # CONNECT TO THE TWITTER SAMPLE STREAM AND DELIVER TO S3 USING KINESIS
 # TUTORIAL:
@@ -15,10 +21,15 @@ token = process.env.TWITTER_BEARER_TOKEN
 url = "https://api.twitter.com/2/tweets/sample/stream"
 # url = "https://api.twitter.com/2/users/1277453652924366848/tweets?max_results=5"
 
+# bearer_token = os.getenv('TWITTER_BEARER_TOKEN')
+# bearer_token = os.getenv('bearer_token')
+bearer_token = config['twitter']['TWITTER_BEARER_TOKEN']
+# bearer_token = os.environ.get('TWITTER_BEARER_TOKEN')
+print(bearer_token)
+
 
 def create_headers(bearer_token):
     headers = {"Authorization": "4Bearer {}".format(bearer_token)}
-    print(TWITTER_BEARER_TOKEN)
     return headers
 
 
