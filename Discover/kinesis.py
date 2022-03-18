@@ -1,35 +1,23 @@
+# 매뉴얼: https://github.com/twitterdev/twitter-aws-samples/tree/master/kinesis
 import sys
 from time import sleep
 import boto3
 import requests
 import os
 from dotenv import load_dotenv
-import configparser
 
 from botocore.exceptions import ClientError
 
-# load_dotenv(verbose=True)
-config = configparser.ConfigParser()
-config.read('config.ini')
-
-# bearer_token = os.getenv('TWITTER_BEARER_TOKEN')
-
-# CONNECT TO THE TWITTER SAMPLE STREAM AND DELIVER TO S3 USING KINESIS
-# TUTORIAL:
-# https://dev.to/twitterdev/introduction-to-twitter-data-processing-and-storage-on-aws-1og
-
 url = "https://api.twitter.com/2/tweets/sample/stream"
-# url = "https://api.twitter.com/2/users/1277453652924366848/tweets?max_results=5"
 
-# bearer_token = os.getenv('TWITTER_BEARER_TOKEN')
-# bearer_token = os.getenv('bearer_token')
-bearer_token = config['twitter']['TWITTER_BEARER_TOKEN']
-# bearer_token = os.environ.get('TWITTER_BEARER_TOKEN')
-print(bearer_token)
+load_dotenv()
+# bearer_token = os.getenv("bearer_token")
+
+bearer_token = os.environ.get("bearer_token")
 
 
 def create_headers(bearer_token):
-    headers = {"Authorization": "4Bearer {}".format(bearer_token)}
+    headers = {"Authorization": "Bearer {}".format(bearer_token)}
     return headers
 
 
@@ -38,12 +26,11 @@ aws_delivery_stream_name = 'DailyKpop_Twitter'
 
 
 def stream_connect(headers):
-    kinesis_client = boto3.client(
-        'firehose',
-        region_name=os.environ.get("aws_region"),
-        aws_access_key_id=os.environ.get("aws_access_key_id"),
-        aws_secret_access_key=os.environ.get("aws_secret_access_key")
-    )
+    kinesis_client = boto3.client('firehose',
+                                  region_name=os.environ.get("aws_region"),
+                                  aws_access_key_id=os.environ.get(
+                                      "aws_access_key_id"),
+                                  aws_secret_access_key=os.environ.get("aws_secret_access_key"))
 
     response = requests.request("GET", url, headers=headers, stream=True)
     if response.status_code != 200:
@@ -55,10 +42,8 @@ def stream_connect(headers):
     for response_line in response.iter_lines():
         if response_line:
             try:
-                kinesis_client.put_record(
-                    DeliveryStreamName=aws_delivery_stream_name,
-                    Record={'Data': response_line.decode("utf-8")}
-                )
+                kinesis_client.put_record(DeliveryStreamName=aws_delivery_stream_name,
+                                          Record={'Data': response_line.decode("utf-8")})
             except ClientError as e:
                 print(e, file=sys.stderr)
 
@@ -66,6 +51,7 @@ def stream_connect(headers):
 def main():
     bearer_token = os.environ.get("bearer_token")
     if bearer_token is not None:
+        print("processing...")
         headers = create_headers(bearer_token)
         retry = 0
         while True:
@@ -74,8 +60,7 @@ def main():
             sleep(wait_seconds if wait_seconds < 900 else 900)
             retry += 1
     else:
-        print(
-            "Error obtaining the bearer token. Please make sure you have added a valid bearer token to the config file")
+        print("에러")
 
 
 if __name__ == '__main__':
