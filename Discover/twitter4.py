@@ -14,9 +14,20 @@ aws_delivery_stream_name = 'DailyKpop_Twitter'
 
 def create_url():
     tweet_fields = "tweet.fields=lang,author_id"
-    ids = "1277453652924366848"
-    url = "https://api.twitter.com/2/users/{}/tweets?max_results=5".format(ids)
-    return url
+    ids = [
+        "967000437797761024",
+        "1277453652924366848"
+    ]
+    for id in ids:
+        # list of urls
+        url = "https://api.twitter.com/2/users/{}/tweets?max_results=5".format(
+            id
+        )
+        print(url)
+        return url
+
+
+print('CREATE_URL:', create_url())
 
 
 def create_headers(bearer_token):
@@ -32,24 +43,31 @@ def stream_connect(headers):
         aws_secret_access_key=os.environ.get("aws_secret_access_key")
     )
 
-    url = create_url()
-    response = requests.request(
-        "GET", url, headers=headers, stream=True)
-    if response.status_code != 200:
-        raise Exception(
-            "Request returned an error: {} {}".format(
-                response.status_code, response.text
-            )
-        )
-    for response_line in response.iter_lines():
-        if response_line:
-            try:
-                kinesis_client.put_record(
-                    DeliveryStreamName=aws_delivery_stream_name,
-                    Record={'Data': response_line.decode("utf-8")}
+    # url = create_url()
+    # print('유알엘:', url)
+    urls = [
+        "https://api.twitter.com/2/users/967000437797761024/tweets?max_results=5",
+        "https://api.twitter.com/2/users/1277453652924366848/tweets?max_results=5",
+    ]
+
+    for url in urls:
+        response = requests.request(
+            "GET", url, headers=headers, stream=True)
+        if response.status_code != 200:
+            raise Exception(
+                "Request returned an error: {} {}".format(
+                    response.status_code, response.text
                 )
-            except ClientError as e:
-                print(e, file=sys.stderr)
+            )
+        for response_line in response.iter_lines():
+            if response_line:
+                try:
+                    kinesis_client.put_record(
+                        DeliveryStreamName=aws_delivery_stream_name,
+                        Record={'Data': response_line.decode("utf-8")}
+                    )
+                except ClientError as e:
+                    print(e, file=sys.stderr)
 
 
 def main():
