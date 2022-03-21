@@ -43,8 +43,6 @@ def stream_connect(headers):
         aws_secret_access_key=os.environ.get("aws_secret_access_key")
     )
 
-    # url = create_url()
-    # print('유알엘:', url)
     urls = [
         "https://api.twitter.com/2/users/967000437797761024/tweets?max_results=5",
         "https://api.twitter.com/2/users/1277453652924366848/tweets?max_results=5",
