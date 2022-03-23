@@ -9,6 +9,7 @@
  },
  "dependencies": {
   "@aws-amplify/cli": "^7.6.5",
+  "@aws-sdk/client-s3": "^3.55.0",
   "@react-native-async-storage/async-storage": "^1.15.14",
   "@react-native-community/datetimepicker": "^4.0.1",
   "@react-native-community/masked-view": "^0.1.11",
