@@ -44,8 +44,8 @@ def stream_connect(headers):
     )
 
     urls = [
-        "https://api.twitter.com/2/users/967000437797761024/tweets?max_results=5",
-        "https://api.twitter.com/2/users/1277453652924366848/tweets?max_results=5",
+        "https://api.twitter.com/2/users/967000437797761024/tweets?max_results=5&expansions=attachments.media_keys&media.fields=url",
+        "https://api.twitter.com/2/users/1277453652924366848/tweets?max_results=5&expansions=attachments.media_keys&media.fields=url",
     ]
 
     for url in urls:

@@ -114,13 +114,13 @@ export default function ArtistPage() {
           >
             <Image
               style={styles.socialMedia}
-              source={{ uri: 'https://pbs.twimg.com/media/FHCgKeLaIAUsOoU?format=jpg&name=large' }}
+              source={{ uri: "https://pbs.twimg.com/media/FNuLIh2VQAEc_iW.jpg" }}
             />
           </Pressable>
 
           <Image
             style={styles.socialMedia}
-            source={{ uri: 'https://pbs.twimg.com/media/FK4pN9KVkAA8L7q?format=jpg&name=large' }}
+            source={{ uri: "https://pbs.twimg.com/media/FNuLH5UUcAMef6F.jpg" }}
           />
         </ScrollView>
       </View>

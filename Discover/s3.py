@@ -12,9 +12,9 @@ global count
 global time_stamp
 
 # Replace with the number of Tweets you want in a file
-file_size = 1000
+file_size = 100
 # Replace the AWS Bucket name below
-aws_bucket_name = "dailykpop_s3"
+aws_bucket_name = "dailykpoptwitters3"
 
 url = "https://api.twitter.com/2/tweets/sample/stream"
 
@@ -93,6 +93,7 @@ def main():
         retry = 0
         while True:
             stream_connect(headers)
+            upload_file()
             wait_seconds = 2 ** retry
             sleep(wait_seconds if wait_seconds < 900 else 900)
             retry += 1
