@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, ScrollView, Image, Modal, Pressable, SafeAreaView } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { artistList2 } from './Artists'
+import { run } from '../Discover/aws_s3.js'
 
 import { WebView } from 'react-native-webview';
 
@@ -18,11 +19,6 @@ export default function ArtistPage() {
   const [items, setItems] = useState([])
   const navigation = useNavigation()
 
-  const TWITTER_API_KEY = '5uV1QEfBWR6sNbcFjAuUHj3Np'
-  const TWITTER_API_KEY_SECRET = 'to52SOvNSZt8tyV0VwIkiwa95ylQvdYKy7WCPGtqmvriwQ5kzy'
-  const TWITTER_BEARER_TOKEN = 'AAAAAAAAAAAAAAAAAAAAACoaZgEAAAAA%2FrOfCNrnhwph9Q9qZbbnhLweZbM%3DHPFqwB7RlYzDf72Rypqch1uw46iLdye4kaUic84G7KNn8AMD76'
-  // const twitterClient = new TwitterApi('<TWITTER_BEARER_TOKEN>');
-
   // FETCH EVENTS ITEMS
   async function fetchItems() {
     try {
@@ -35,6 +31,16 @@ export default function ArtistPage() {
   useEffect(() => {
     fetchItems()
   }, [])
+
+  // Run AWS S3
+  const [data, setData] = useState([])
+  useEffect(() => {
+    run().then((data) => {
+      setData(data)
+    })
+  }, [])
+  console.log(data, '데이터')
+
 
   return (
 
@@ -122,7 +128,14 @@ export default function ArtistPage() {
             style={styles.socialMedia}
             source={{ uri: "https://pbs.twimg.com/media/FNuLH5UUcAMef6F.jpg" }}
           />
+
         </ScrollView>
+
+        {/* data */}
+        <Text>
+          {data}
+          ㅇ
+        </Text>
       </View>
 
       {/* <StreamConnect /> */}
