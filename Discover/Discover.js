@@ -61,22 +61,22 @@ const dummyData = [
       'BLACKPINK',
       'TWICE',
       'EXO',
+      'IVE',
       'JENNIE',
       'NCT 127',
+      'Kep1er',
       'Stray Kids',
       'ITZY',
       'TXT',
     ]
   },
 
-  {
-    header: 'NEW RELEASES',
-    data: [
-      'Kep1er',
-      'IVE',
+  // {
+  //   header: 'NEW RELEASES',
+  //   data: [
 
-    ]
-  },
+  //   ]
+  // },
   // {
   //   header: 'POPULAR FANDOMS',
   //   data: [
