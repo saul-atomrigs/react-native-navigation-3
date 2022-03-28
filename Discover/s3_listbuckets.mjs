@@ -1,15 +1,16 @@
-// Import required AWS SDK clients and commands for Node.js.
 import { ListObjectsCommand } from "@aws-sdk/client-s3";
-import { s3Client } from "./libs/s3Client.mjs"; // Helper function that creates an Amazon S3 service client module.
+import { S3Client } from "@aws-sdk/client-s3";
 
-// Create the parameters for the bucket
+const REGION = "us-east-2"
+const s3Client = new S3Client({ region: REGION });
+
 export const bucketParams = { Bucket: "dailykpoptwitter" };
 
 export const run = async () => {
   try {
     const data = await s3Client.send(new ListObjectsCommand(bucketParams));
-    console.log("Success", data);
-    return data; // For unit tests.
+    console.log("Success", data)
+    return data
   } catch (err) {
     console.log("Error", err);
   }
