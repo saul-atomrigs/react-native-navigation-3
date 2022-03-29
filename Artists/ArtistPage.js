@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, ScrollView, Image, Modal, Pressable, SafeAreaView } from 'react-native'
+import { FlatList, StyleSheet, Text, View, ScrollView, Image, Modal, Pressable, SafeAreaView } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { artistList2 } from './Artists'
 
@@ -30,6 +30,34 @@ export default function ArtistPage() {
   useEffect(() => {
     fetchItems()
   }, [])
+
+  const [isLoading, setLoading] = useState(true);
+  const [dataA, setDataA] = useState([]);
+
+  const getMovies = async () => {
+    try {
+      const response = await fetch("https://api.twitter.com/2/users/1277453652924366848/tweets?max_results=5&expansions=attachments.media_keys&media.fields=url", {
+        method: 'GET',
+        headers: {
+          'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAACoaZgEAAAAAgaSVszggYbS86NDGV6glfOSRr7M%3DkHtPVV4FlAns2R4D4fvEPDUflDquTHbDxaNA453XUDMnLeaeyc',
+          'Content-Type': 'application/json'
+        }
+      });
+      const json = await response.json();
+      // setDataA(json.includes.media);
+      // setDataA(json.data[2].text);
+      setDataA(json);
+      // console.log(token)
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    getMovies();
+  }, []);
 
   return (
 
@@ -77,7 +105,7 @@ export default function ArtistPage() {
           showsHorizontalScrollIndicator={false}>
 
           {items
-            .sort((a, b) => new Date(a.date) - new Date(b.date))
+            // .sort((a, b) => new Date(a.date) - new Date(b.date))
             .map((item, index) => {
               if (item.artist === artist) {
                 return (
@@ -103,26 +131,46 @@ export default function ArtistPage() {
         >
 
           <Pressable
-            onPress={() => navigation.navigate(
-              'Twitter2'
-            )}
+          // onPress={() => navigation.navigate(
+          //   'Twitter2'
+          // )}
           >
             <Image
               style={styles.socialMedia}
-              source={{ uri: "https://pbs.twimg.com/media/FNuLIh2VQAEc_iW.jpg" }}
+              source={{ uri: dataA.includes.media[0].url }}
             />
+            <View style={styles.socialMediaText}>
+              <Text>
+                {dataA.data[0].text}
+              </Text>
+            </View>
+
           </Pressable>
 
-          <Image
-            style={styles.socialMedia}
-            source={{ uri: "https://dailykpoptwitter.s3.us-east-2.amazonaws.com/2022/03/23/13/app_logo.png" }}
-          />
+          <Pressable>
+            <Image
+              style={styles.socialMedia}
+              source={{ uri: dataA.includes.media[1].url }}
+            />
+            <View style={styles.socialMediaText}>
+              <Text>
+                {dataA.data[1].text}
+              </Text>
+            </View>
+          </Pressable>
+
+          <Pressable style={[styles.content, styles.eventsWrapper]}
+            onPress={() => navigation.navigate('Twitter2')}>
+            <Text>+ More</Text>
+          </Pressable>
+
+          <Text>
+            {/* {dataA[1].text} */}
+          </Text>
 
         </ScrollView>
 
       </View>
-
-      {/* <StreamConnect /> */}
 
     </View>
   )
@@ -171,6 +219,7 @@ const styles = StyleSheet.create({
   },
   eventsWrapper: {
     width: 250,
+    height: 120,
     margin: 10,
     backgroundColor: "white",
     borderRadius: 13,
@@ -189,6 +238,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     marginTop: 10,
     borderRadius: 13
+  },
+  socialMediaText: {
+    width: 250,
+    margin: 7,
   },
 
   // MODAL
