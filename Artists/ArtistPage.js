@@ -17,6 +17,8 @@ export default function ArtistPage() {
   const [modalVisible, setModalVisible] = useState(false);
   const [items, setItems] = useState([])
   const navigation = useNavigation()
+  const endpoint = "https://api.twitter.com/2/users/1277453652924366848/tweets?max_results=5&expansions=attachments.media_keys&media.fields=url"
+
 
   // FETCH EVENTS ITEMS
   async function fetchItems() {
@@ -31,39 +33,43 @@ export default function ArtistPage() {
     fetchItems()
   }, [])
 
-  const [isLoading, setLoading] = useState(true);
-  const [dataA, setDataA] = useState([]);
-
-  const getMovies = async () => {
+  // GET TWITTER DATA FROM API:
+  const [dataA, setDataA] = useState([])
+  const getTwitter = async () => {
     try {
-      const response = await fetch("https://api.twitter.com/2/users/1277453652924366848/tweets?max_results=5&expansions=attachments.media_keys&media.fields=url", {
-        method: 'GET',
+      const response = await fetch(
+        endpoint, {
         headers: {
           'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAACoaZgEAAAAAgaSVszggYbS86NDGV6glfOSRr7M%3DkHtPVV4FlAns2R4D4fvEPDUflDquTHbDxaNA453XUDMnLeaeyc',
           'Content-Type': 'application/json'
         }
-      });
+      }
+      );
       const json = await response.json();
-      // setDataA(json.includes.media);
-      // setDataA(json.data[2].text);
-      setDataA(json);
-      // console.log(token)
+      setDataA(json.includes.media)
+      console.log(dataA)
+      return json;
     } catch (error) {
       console.error(error);
-    } finally {
-      setLoading(false);
     }
-  }
-
+  };
   useEffect(() => {
-    getMovies();
-  }, []);
+    getTwitter();
+  }, [])
+
 
   return (
 
     <View style={styles.container}>
       <Text style={styles.title}> {artist} </Text>
 
+      {/* TEST FOR TWITTER IMAGE */}
+      <Image
+        style={styles.socialMedia}
+        // source={{ uri: dataA.includes.media[0].url }}
+        source={{ uri: dataA[0].url }}
+      />
+      {/*  */}
       <View style={styles.subtitleContainer}>
         <Text style={styles.subtitle}> Albums </Text>
         <ScrollView horizontal={true}
@@ -137,11 +143,11 @@ export default function ArtistPage() {
           >
             <Image
               style={styles.socialMedia}
-              source={{ uri: dataA.includes.media[0].url }}
+            // source={{ uri: dataA.includes.media[0].url }}
             />
             <View style={styles.socialMediaText}>
               <Text>
-                {dataA.data[0].text}
+                {/* {dataA.data[0].text} */}
               </Text>
             </View>
 
@@ -150,11 +156,11 @@ export default function ArtistPage() {
           <Pressable>
             <Image
               style={styles.socialMedia}
-              source={{ uri: dataA.includes.media[1].url }}
+            // source={{ uri: dataA.includes.media[1].url }}
             />
             <View style={styles.socialMediaText}>
               <Text>
-                {dataA.data[1].text}
+                {/* {dataA.data[1].text} */}
               </Text>
             </View>
           </Pressable>
