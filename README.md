@@ -1,5 +1,5 @@
-KPOP Community App for Global Fans
-글로벌 케이팝 커뮤니티 앱
+<KPOP Community App for Global Fans
+글로벌 케이팝 커뮤니티 앱>
 
 Stacks:
 - Frontend: React Native
