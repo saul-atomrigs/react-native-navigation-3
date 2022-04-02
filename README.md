@@ -3,11 +3,11 @@
 
 Stacks:
 - Frontend: React Native
-- backend: AWS, firebase auth, GraphQL 
+- backend: AWS amplify, DynamoDB, firebase auth, GraphQL 
 - versioning: git
 
 Lauched on App Store (Jan 2022)
-앱스토어 출시 완료 (버전 1.5)
+앱스토어 출시 완료 (버전 1.5.0)
 
 ![Simulator Screen Shot - iPhone 13 - 2022-04-01 at 00 34 32](https://user-images.githubusercontent.com/82362278/161094058-924c7486-04e5-45b0-933b-be8cb87e405c.png)
 ![Simulator Screen Shot - iPhone 13 - 2022-04-01 at 00 34 42](https://user-images.githubusercontent.com/82362278/161094077-0e91379d-2b3a-4877-9be9-c94efdc14c05.png)
