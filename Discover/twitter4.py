@@ -11,23 +11,6 @@ bearer_token = os.environ.get("bearer_token")
 
 aws_delivery_stream_name = 'DailyKpop_Twitter'
 
-# def create_url():
-#     tweet_fields = "tweet.fields=lang,author_id"
-#     ids = [
-#         "967000437797761024",
-#         "1277453652924366848"
-#     ]
-#     for id in ids:
-#         # list of urls
-#         url = "https://api.twitter.com/2/users/{}/tweets?max_results=5".format(
-#             id
-#         )
-#         print(url)
-#         return url
-
-
-# print('CREATE_URL:', create_url())
-
 
 def create_headers(bearer_token):
     headers = {"Authorization": "Bearer {}".format(bearer_token)}
