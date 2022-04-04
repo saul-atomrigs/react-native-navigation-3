@@ -3,8 +3,6 @@ import { FlatList, StyleSheet, Text, View, ScrollView, Image, Modal, Pressable, 
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { artistList2 } from './Artists'
 
-import { WebView } from 'react-native-webview';
-
 import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
 import { API, graphqlOperation } from 'aws-amplify'
@@ -12,13 +10,38 @@ import { listEvents } from '../src/graphql/queries'
 Amplify.configure(config)
 
 export default function ArtistPage() {
-
   const { artist } = useRoute().params
   const [modalVisible, setModalVisible] = useState(false);
   const [items, setItems] = useState([])
   const navigation = useNavigation()
-  const endpoint = "https://api.twitter.com/2/users/1277453652924366848/tweets?max_results=5&expansions=attachments.media_keys&media.fields=url"
+  const endpoint = "https://api.twitter.com/2/users/967000437797761024/tweets?max_results=5&expansions=attachments.media_keys&media.fields=url"
 
+  // // GET TWITTER DATA FROM FETCH API:
+  const [twitterData, setTwitterData] = useState([])
+  const getTwitter = async () => {
+    try {
+      const response = await fetch(
+        endpoint, {
+        headers: {
+          'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAACoaZgEAAAAAgaSVszggYbS86NDGV6glfOSRr7M%3DkHtPVV4FlAns2R4D4fvEPDUflDquTHbDxaNA453XUDMnLeaeyc',
+          'Content-Type': 'application/json'
+        }
+      }
+      );
+      const json = await response.json();
+      // setTwitterData(json.includes.media)
+      setTwitterData(json)
+      // console.log(twitterData)
+      return json;
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    console.log('twitterDATA', twitterData)
+    getTwitter();
+  }, [])
 
   // FETCH EVENTS ITEMS
   async function fetchItems() {
@@ -33,43 +56,36 @@ export default function ArtistPage() {
     fetchItems()
   }, [])
 
-  // GET TWITTER DATA FROM API:
-  const [dataA, setDataA] = useState([])
-  const getTwitter = async () => {
-    try {
-      const response = await fetch(
-        endpoint, {
-        headers: {
-          'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAACoaZgEAAAAAgaSVszggYbS86NDGV6glfOSRr7M%3DkHtPVV4FlAns2R4D4fvEPDUflDquTHbDxaNA453XUDMnLeaeyc',
-          'Content-Type': 'application/json'
-        }
-      }
-      );
-      const json = await response.json();
-      setDataA(json.includes.media)
-      console.log(dataA)
-      return json;
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  useEffect(() => {
-    getTwitter();
-  }, [])
-
-
   return (
-
     <View style={styles.container}>
       <Text style={styles.title}> {artist} </Text>
 
       {/* TEST FOR TWITTER IMAGE */}
+      <Text>
+        {/* {twitterData.data[1].text} */}
+      </Text>
       <Image
         style={styles.socialMedia}
-        // source={{ uri: dataA.includes.media[0].url }}
-        source={{ uri: dataA[0].url }}
+        // source={{ uri: twitterData.includes.media[0].url }}
+        source={{
+          // uri: twitterData[0].url,
+          uri: twitterData.includes.media[0].url,
+          headers: {
+            Authorization: 'Bearer AAAAAAAAAAAAAAAAAAAAACoaZgEAAAAAgaSVszggYbS86NDGV6glfOSRr7M%3DkHtPVV4FlAns2R4D4fvEPDUflDquTHbDxaNA453XUDMnLeaeyc'
+          }
+        }}
+
+      />
+      <FlatList
+        data={data}
+        keyExtractor={({ id }, index) => id}
+        renderItem={({ item }) => (
+          <Text>{item.title}, {item.releaseYear}</Text>
+        )}
       />
       {/*  */}
+
+
       <View style={styles.subtitleContainer}>
         <Text style={styles.subtitle}> Albums </Text>
         <ScrollView horizontal={true}
@@ -143,11 +159,11 @@ export default function ArtistPage() {
           >
             <Image
               style={styles.socialMedia}
-            // source={{ uri: dataA.includes.media[0].url }}
+            // source={{ uri: twitterData.includes.media[0].url }}
             />
             <View style={styles.socialMediaText}>
               <Text>
-                {/* {dataA.data[0].text} */}
+                {/* {twitterData.data[0].text} */}
               </Text>
             </View>
 
@@ -156,11 +172,11 @@ export default function ArtistPage() {
           <Pressable>
             <Image
               style={styles.socialMedia}
-            // source={{ uri: dataA.includes.media[1].url }}
+            // source={{ uri: twitterData.includes.media[1].url }}
             />
             <View style={styles.socialMediaText}>
               <Text>
-                {/* {dataA.data[1].text} */}
+                {/* {twitterData.data[1].text} */}
               </Text>
             </View>
           </Pressable>
@@ -171,7 +187,7 @@ export default function ArtistPage() {
           </Pressable>
 
           <Text>
-            {/* {dataA[1].text} */}
+            {/* {twitterData[1].text} */}
           </Text>
 
         </ScrollView>
