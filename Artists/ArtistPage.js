@@ -23,7 +23,7 @@ export default function ArtistPage() {
       const response = await fetch(
         endpoint, {
         headers: {
-          'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAACoaZgEAAAAAgaSVszggYbS86NDGV6glfOSRr7M%3DkHtPVV4FlAns2R4D4fvEPDUflDquTHbDxaNA453XUDMnLeaeyc',
+          'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAACoaZgEAAAAAQYHG4z03eZAbwhH9M7QzTi9QpSE%3Dmgthlks2jpdT6V262QL4VhUCByXCcVkBNrBim53Bw83WD9RBIx',
           'Content-Type': 'application/json'
         }
       }
@@ -35,7 +35,7 @@ export default function ArtistPage() {
       return json;
 
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
   useEffect(() => {
@@ -62,20 +62,21 @@ export default function ArtistPage() {
 
       {/* TEST FOR TWITTER IMAGE */}
       <Text>
-        {/* {twitterData.data[1].text} */}
+        {twitterData.data[1].text}
       </Text>
-      <Image
+      {/* <Image
         style={styles.socialMedia}
         // source={{ uri: twitterData.includes.media[0].url }}
-        source={{
-          // uri: twitterData[0].url,
-          uri: twitterData.includes.media[0].url,
-          headers: {
-            Authorization: 'Bearer AAAAAAAAAAAAAAAAAAAAACoaZgEAAAAAgaSVszggYbS86NDGV6glfOSRr7M%3DkHtPVV4FlAns2R4D4fvEPDUflDquTHbDxaNA453XUDMnLeaeyc'
-          }
-        }}
+        // source={{ uri: twitterData[0].url }}
+      // source={{
+      //   // uri: twitterData[0].url,
+      //   // uri: twitterData.includes.media[0].url,
+      //   headers: {
+      //     Authorization: 'Bearer AAAAAAAAAAAAAAAAAAAAACoaZgEAAAAAgaSVszggYbS86NDGV6glfOSRr7M%3DkHtPVV4FlAns2R4D4fvEPDUflDquTHbDxaNA453XUDMnLeaeyc'
+      //   }
+      // }}
 
-      />
+      /> */}
       <FlatList
         data={data}
         keyExtractor={({ id }, index) => id}
