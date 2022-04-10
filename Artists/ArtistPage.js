@@ -31,7 +31,6 @@ export default function ArtistPage() {
       const json = await response.json();
       // setTwitterData(json.includes.media)
       setTwitterData(json)
-      // console.log(twitterData)
       return json;
 
     } catch (error) {
