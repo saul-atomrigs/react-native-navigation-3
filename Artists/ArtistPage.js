@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { FlatList, StyleSheet, Text, View, ScrollView, Image, Modal, Pressable, SafeAreaView } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
+import { WebView } from 'react-native-webview';
 import { artistList2 } from './Artists'
 
 import Amplify from 'aws-amplify'
@@ -14,7 +15,7 @@ export default function ArtistPage() {
   const [modalVisible, setModalVisible] = useState(false);
   const [items, setItems] = useState([])
   const navigation = useNavigation()
-  const endpoint = "https://api.twitter.com/2/users/967000437797761024/tweets?max_results=5&expansions=attachments.media_keys&media.fields=url"
+  const endpoint = "https://api.twitter.com/2/users/1277453652924366848/tweets?max_results=5&expansions=attachments.media_keys&media.fields=url"
 
   // // GET TWITTER DATA FROM FETCH API:
   const [twitterData, setTwitterData] = useState([])
@@ -31,7 +32,8 @@ export default function ArtistPage() {
       const json = await response.json();
       setTwitterData(json)
       // return json;
-      return twitterData;
+      console.log(json)
+      return json;
 
     } catch (error) {
       console.log('에러:', error);
@@ -126,32 +128,38 @@ export default function ArtistPage() {
         >
 
           <Pressable
-          // onPress={() => navigation.navigate(
-          //   'Twitter2'
-          // )}
+            onPress={() => navigation.navigate(
+              'Twitter2',
+            )}
+            style={styles.twitterWrapper}
           >
             <Image
               style={styles.socialMedia}
               source={
-                !twitterData.data ? null : { uri: twitterData.includes.media[0].url }
+                !twitterData.includes.media ? null : { uri: twitterData.includes.media[0].url }
               }
             />
             <View style={styles.socialMediaText}>
               <Text>
-                {!twitterData.data ? null : twitterData.data[0].text}
+                {!twitterData.data ? null : twitterData.data[3].text}
               </Text>
             </View>
 
           </Pressable>
 
-          <Pressable>
+          <Pressable
+            style={styles.twitterWrapper}
+          >
             <Image
               style={styles.socialMedia}
-            // source={{ uri: twitterData.includes.media[1].url }}
+              // source={{ uri: twitterData.includes.media[1].url }}
+              source={
+                !twitterData.includes.media ? null : { uri: twitterData.includes.media[2].url }
+              }
             />
             <View style={styles.socialMediaText}>
               <Text>
-                {/* {twitterData.data[1].text} */}
+                {!twitterData.data ? null : twitterData.data[2].text}
               </Text>
             </View>
           </Pressable>
@@ -160,10 +168,6 @@ export default function ArtistPage() {
             onPress={() => navigation.navigate('Twitter2')}>
             <Text>+ More</Text>
           </Pressable>
-
-          <Text>
-            {/* {twitterData[1].text} */}
-          </Text>
 
         </ScrollView>
 
@@ -228,6 +232,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5
+  },
+  twitterWrapper: {
+    backgroundColor: '#eee',
+    borderRadius: 13,
+    marginHorizontal: 3
   },
   socialMedia: {
     width: 250,

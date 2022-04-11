@@ -19,7 +19,7 @@ export default function Twitter() {
 
       <WebView
         // source={{ uri: param.twtQuery }}
-        source={{ url: 'https://twitter.com/aespa_official/status/1472854342789382150' }}
+        source={{ url: 'https://twitter.com/aespa_official' }}
       />
     </SafeAreaView>
   );
