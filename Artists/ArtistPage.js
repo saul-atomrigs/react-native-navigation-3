@@ -29,12 +29,12 @@ export default function ArtistPage() {
       }
       );
       const json = await response.json();
-      // setTwitterData(json.includes.media)
       setTwitterData(json)
-      return json;
+      // return json;
+      return twitterData;
 
     } catch (error) {
-      console.log(error);
+      console.log('에러:', error);
     }
   };
   useEffect(() => {
@@ -58,33 +58,6 @@ export default function ArtistPage() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}> {artist} </Text>
-
-      {/* TEST FOR TWITTER IMAGE */}
-      <Text>
-        {twitterData.data[1].text}
-      </Text>
-      {/* <Image
-        style={styles.socialMedia}
-        // source={{ uri: twitterData.includes.media[0].url }}
-        // source={{ uri: twitterData[0].url }}
-      // source={{
-      //   // uri: twitterData[0].url,
-      //   // uri: twitterData.includes.media[0].url,
-      //   headers: {
-      //     Authorization: 'Bearer AAAAAAAAAAAAAAAAAAAAACoaZgEAAAAAgaSVszggYbS86NDGV6glfOSRr7M%3DkHtPVV4FlAns2R4D4fvEPDUflDquTHbDxaNA453XUDMnLeaeyc'
-      //   }
-      // }}
-
-      /> */}
-      <FlatList
-        data={data}
-        keyExtractor={({ id }, index) => id}
-        renderItem={({ item }) => (
-          <Text>{item.title}, {item.releaseYear}</Text>
-        )}
-      />
-      {/*  */}
-
 
       <View style={styles.subtitleContainer}>
         <Text style={styles.subtitle}> Albums </Text>
@@ -159,11 +132,13 @@ export default function ArtistPage() {
           >
             <Image
               style={styles.socialMedia}
-            // source={{ uri: twitterData.includes.media[0].url }}
+              source={
+                !twitterData.data ? null : { uri: twitterData.includes.media[0].url }
+              }
             />
             <View style={styles.socialMediaText}>
               <Text>
-                {/* {twitterData.data[0].text} */}
+                {!twitterData.data ? null : twitterData.data[0].text}
               </Text>
             </View>
 
