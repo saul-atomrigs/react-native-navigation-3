@@ -15,7 +15,8 @@ export default function ArtistPage() {
   const [modalVisible, setModalVisible] = useState(false);
   const [items, setItems] = useState([])
   const navigation = useNavigation()
-  const endpoint = "https://api.twitter.com/2/users/1277453652924366848/tweets?max_results=5&expansions=attachments.media_keys&media.fields=url"
+  const twitterID = artistList2[artist].twitterID
+  const endpoint = `https://api.twitter.com/2/users/${twitterID}/tweets?max_results=5&expansions=attachments.media_keys&media.fields=url`
 
   // // GET TWITTER DATA FROM FETCH API:
   const [twitterData, setTwitterData] = useState([])
@@ -78,7 +79,10 @@ export default function ArtistPage() {
 
       <View style={styles.subtitleContainer}>
         <Text style={styles.subtitle}> Members </Text>
-        <Text style={styles.content}> {artistList2[artist].members.toString().replaceAll(',', '   ')} </Text>
+        <ScrollView horizontal={true}
+          showsHorizontalScrollIndicator={false}>
+          <Text style={styles.content}> {artistList2[artist].members.toString().replaceAll(',', '   ')} </Text>
+        </ScrollView>
       </View>
 
       <View style={styles.subtitleContainer}>
@@ -97,7 +101,7 @@ export default function ArtistPage() {
       </View>
 
       <View style={styles.wrapper}>
-        <Text style={styles.subtitle}> Upcoming Events </Text>
+        <Text style={styles.subtitle}> Main Events </Text>
         <ScrollView horizontal={true}
           showsHorizontalScrollIndicator={false}>
 
@@ -141,7 +145,7 @@ export default function ArtistPage() {
             />
             <View style={styles.socialMediaText}>
               <Text>
-                {!twitterData.data ? null : twitterData.data[3].text}
+                {!twitterData.data ? null : twitterData.data[0].text}
               </Text>
             </View>
 
@@ -154,12 +158,12 @@ export default function ArtistPage() {
               style={styles.socialMedia}
               // source={{ uri: twitterData.includes.media[1].url }}
               source={
-                !twitterData.includes.media ? null : { uri: twitterData.includes.media[2].url }
+                !twitterData.includes.media ? null : { uri: twitterData.includes.media[1].url }
               }
             />
             <View style={styles.socialMediaText}>
               <Text>
-                {!twitterData.data ? null : twitterData.data[2].text}
+                {!twitterData.data ? null : twitterData.data[1].text}
               </Text>
             </View>
           </Pressable>

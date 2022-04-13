@@ -44,46 +44,78 @@ export const artistList2 = {
       'Next Level',
       'Savage',
       'Dreams Come True',
-    ]
+    ],
+    twitterID: '1277453652924366848',
   },
 
   'Apink': {
-    debut: '2011.',
+    debut: '2011.04.19',
     members: [
-      'Winter',
-      'Karina',
-      'Giselle',
-      'Ning Ning'
+      'Park Cho Rong,',
+      'Yoon Bo mi,',
+      'Jeong Eun Ji,',
+      'Kim Nam ju,',
+      'Oh Ha Young,'
     ],
-    leader: 'Karina',
-    label: 'SM Entertainment',
-    fandom: 'MY (마이)',
+    leader: 'Park Cho Rong',
+    label: 'IST Entertainment',
+    fandom: 'PANDA',
     albums: [
-      'Black Mamba',
-      'forever',
-      'Next Level',
-      'Savage',
-      'Dreams Come True',
-    ]
+      'Horn'
+    ],
+    twitterID: '631007548'
   },
 
-  'JENNIE': {
-    debut: '2020.11.17',
+  'ASTRO': {
+    debut: '2016.02.23',
     members: [
-      'Winter',
-      'Karina',
-      'Giselle',
-      'Ning Ning'
+      'MJ',
+      'Jin Jin',
+      'Cha Eun Woo',
+      'Moon Bin',
+      'ROCKY',
+      'Yoon Sanha'
     ],
-    leader: 'Karina',
-    label: 'SM Entertainment',
-    fandom: 'MY (마이)',
+    leader: 'Jin Jin',
+    label: 'fantagio',
+    fandom: 'AROHA',
     albums: [
-      'Black Mamba',
-      'forever',
-      'Next Level',
-      'Savage',
-      'Dreams Come True',
-    ]
-  }
+
+    ],
+    twitterID: '3314485566'
+  },
+  // 'ATEEZ': {
+  //   debut: ,
+  //   members: [
+  //   ],
+  //   leader: ,
+  //   label: ,
+  //   fandom: ,
+  //   albums: [
+
+  //   ]
+  // },
+  // 'BLACKPINK': {
+  //   debut: ,
+  //   members: [
+  //   ],
+  //   leader: ,
+  //   label: ,
+  //   fandom: ,
+  //   albums: [
+
+  //   ]
+  // },
+  // 'BTS': {
+  //   debut: ,
+  //   members: [
+  //   ],
+  //   leader: ,
+  //   label: ,
+  //   fandom: ,
+  //   albums: [
+
+  //   ]
+  // },
+
 }
