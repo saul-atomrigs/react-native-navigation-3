@@ -2,11 +2,11 @@ import React, { useLayoutEffect } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Dimensions, SafeAreaView, StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
-
+import { artistList2 } from '../Artists/Artists'
 
 export default function Twitter() {
   const navigation = useNavigation();
-  // const { param } = useRoute().params
+  const { twitterIDurl } = useRoute().params
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -19,20 +19,8 @@ export default function Twitter() {
 
       <WebView
         // source={{ uri: param.twtQuery }}
-        source={{ url: 'https://twitter.com/aespa_official' }}
+        source={{ url: `https://twitter.com/${twitterIDurl}` }}
       />
     </SafeAreaView>
   );
 }
-
-// Swiper slide images dimensions
-const WIDTH = Dimensions.get('window').width;
-const HEIGHT = Dimensions.get('window').height;
-
-const headerRightButtons = {
-  width: 30,
-  height: 30,
-  marginRight: WIDTH * 0.05,
-}
-
-const styles = StyleSheet.create({})

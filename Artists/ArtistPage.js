@@ -16,6 +16,7 @@ export default function ArtistPage() {
   const [items, setItems] = useState([])
   const navigation = useNavigation()
   const twitterID = artistList2[artist].twitterID
+  const twitterIDurl = artistList2[artist].twitterIDurl
   const endpoint = `https://api.twitter.com/2/users/${twitterID}/tweets?max_results=5&expansions=attachments.media_keys&media.fields=url`
 
   // // GET TWITTER DATA FROM FETCH API:
@@ -62,7 +63,7 @@ export default function ArtistPage() {
     <View style={styles.container}>
       <Text style={styles.title}> {artist} </Text>
 
-      <View style={styles.subtitleContainer}>
+      {/* <View style={styles.subtitleContainer}>
         <Text style={styles.subtitle}> Albums </Text>
         <ScrollView horizontal={true}
           showsHorizontalScrollIndicator={false}>
@@ -70,7 +71,7 @@ export default function ArtistPage() {
             {artistList2[artist].albums.toString().replaceAll(',', '   ')}
           </Text>
         </ScrollView>
-      </View>
+      </View> */}
 
       <View style={styles.subtitleContainer}>
         <Text style={styles.subtitle}> Debut </Text>
@@ -124,7 +125,7 @@ export default function ArtistPage() {
       </View>
 
       <View style={styles.wrapper}>
-        <Text style={styles.subtitle}> On Social Media </Text>
+        <Text style={styles.subtitle}> On Social Media (@{twitterIDurl})</Text>
 
         <ScrollView
           horizontal={true}
@@ -134,6 +135,7 @@ export default function ArtistPage() {
           <Pressable
             onPress={() => navigation.navigate(
               'Twitter2',
+              { twitterIDurl }
             )}
             style={styles.twitterWrapper}
           >
@@ -152,6 +154,10 @@ export default function ArtistPage() {
           </Pressable>
 
           <Pressable
+            onPress={() => navigation.navigate(
+              'Twitter2',
+              { twitterIDurl }
+            )}
             style={styles.twitterWrapper}
           >
             <Image
@@ -169,7 +175,7 @@ export default function ArtistPage() {
           </Pressable>
 
           <Pressable style={[styles.content, styles.eventsWrapper]}
-            onPress={() => navigation.navigate('Twitter2')}>
+            onPress={() => navigation.navigate('Twitter2', { twitterIDurl })}>
             <Text>+ More</Text>
           </Pressable>
 

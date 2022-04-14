@@ -1,3 +1,4 @@
+import React, { useReducer } from "react";
 
 export const artistList = [
   '',
@@ -13,6 +14,7 @@ export const artistList = [
   'EXO',
   'JENNIE',
   'NCT 127',
+  'NMIXX',
   'Stray Kids',
   'ITZY',
   'TXT',
@@ -24,6 +26,15 @@ export const artistList = [
     return a.toLowerCase().localeCompare(b.toLowerCase());
   });
 
+// CREATE REDUCER
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "SET_ARTIST":
+      return { ...state, artist: action.payload };
+    default:
+      return state;
+  }
+};
 
 export const artistList2 = {
 
@@ -46,6 +57,7 @@ export const artistList2 = {
       'Dreams Come True',
     ],
     twitterID: '1277453652924366848',
+    twitterIDurl: 'aespa_official',
   },
 
   'Apink': {
@@ -63,7 +75,8 @@ export const artistList2 = {
     albums: [
       'Horn'
     ],
-    twitterID: '631007548'
+    twitterID: '631007548',
+    twitterIDurl: 'Apink_2011',
   },
 
   'ASTRO': {
@@ -82,40 +95,145 @@ export const artistList2 = {
     albums: [
 
     ],
-    twitterID: '3314485566'
+    twitterID: '3314485566',
+    twitterIDurl: 'offclAstro',
   },
-  // 'ATEEZ': {
-  //   debut: ,
-  //   members: [
-  //   ],
-  //   leader: ,
-  //   label: ,
-  //   fandom: ,
-  //   albums: [
+  'ATEEZ': {
+    debut: '2018.10.24',
+    members: [
+      'Seong Wha',
+      'Hong Joong',
+      'Yoon Ho',
+      'Yeosang',
+      'San',
+      'Min Gi',
+      'Woo Young',
+      'Jong Ho'
+    ],
+    leader: 'Hong Joong',
+    label: 'KQ Entertainment',
+    fandom: 'ATINY',
+    albums: [
 
-  //   ]
-  // },
-  // 'BLACKPINK': {
-  //   debut: ,
-  //   members: [
-  //   ],
-  //   leader: ,
-  //   label: ,
-  //   fandom: ,
-  //   albums: [
+    ],
+    twitterID: '923415570522914819',
+    twitterIDurl: 'ATEEZofficial',
+  },
 
-  //   ]
-  // },
-  // 'BTS': {
-  //   debut: ,
-  //   members: [
-  //   ],
-  //   leader: ,
-  //   label: ,
-  //   fandom: ,
-  //   albums: [
 
-  //   ]
-  // },
+  'BLACKPINK': {
+    debut: '2016.08.08',
+    members: [
+      'JISOO',
+      'JENNIE',
+      'ROSÉ',
+      'LISA'
+    ],
+    leader: '-',
+    label: 'YG Entertainment',
+    fandom: 'BLINK',
+    albums: [
+
+    ],
+    twitterID: '1273850774380883975',
+    twitterIDurl: 'BLACKPINK',
+  },
+
+
+  'BTS': {
+    debut: '2013.06.13',
+    members: [
+      'Jin',
+      'Suga',
+      'J Hope',
+      'RM',
+      'Jimin',
+      'V',
+      'Jungkook',
+    ],
+    leader: 'RM',
+    label: 'HYBE Labels',
+    fandom: 'ARMY',
+    albums: [
+
+    ],
+    twitterID: '1409798257',
+    twitterIDurl: 'bts_bighit',
+  },
+
+  'Cherry Bullet': {
+    debut: '2019.01.21',
+    members: [
+      'May',
+      'Yuju',
+      'Jiwon',
+      'Haeyoon',
+      'Remi',
+      'Bora',
+      'Chaerin'
+    ],
+    leader: '',
+    label: 'FNC Entertainment',
+    fandom: 'Bullet',
+    albums: [
+
+    ],
+    twitterID: '',
+    twitterIDurl: '',
+  },
+
+  'EXO': {
+    debut: '2012.04.08',
+    members: [
+      'Xiumin',
+      'Suho',
+      'Lay',
+      'Baekhyun',
+      'Chen',
+      'Chanyeol',
+      'D.O.',
+      'Kai',
+      'Sehun',
+    ],
+    leader: 'Suho',
+    label: 'SM Entertainment',
+    fandom: 'EXO-L',
+    albums: [
+
+    ],
+    twitterID: '873115441303924736',
+    twitterIDurl: 'weareoneEXO',
+  },
+
+  '': {
+    debut: '',
+    members: [
+      '',
+    ],
+    leader: '',
+    label: '',
+    fandom: '',
+    albums: [
+
+    ],
+    twitterID: '',
+    twitterIDurl: '',
+  },
+
+  '': {
+    debut: '',
+    members: [
+      '',
+    ],
+    leader: '',
+    label: '',
+    fandom: '',
+    albums: [
+
+    ],
+    twitterID: '',
+    twitterIDurl: '',
+  },
+
 
 }
