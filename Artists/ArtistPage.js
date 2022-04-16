@@ -33,8 +33,6 @@ export default function ArtistPage() {
       );
       const json = await response.json();
       setTwitterData(json)
-      // return json;
-      console.log(json)
       return json;
 
     } catch (error) {
@@ -42,7 +40,6 @@ export default function ArtistPage() {
     }
   };
   useEffect(() => {
-    console.log('twitterDATA', twitterData)
     getTwitter();
   }, [])
 
@@ -60,7 +57,7 @@ export default function ArtistPage() {
   }, [])
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.title}> {artist} </Text>
 
       {/* <View style={styles.subtitleContainer}>
@@ -145,6 +142,7 @@ export default function ArtistPage() {
                 !twitterData.includes.media ? null : { uri: twitterData.includes.media[0].url }
               }
             />
+
             <View style={styles.socialMediaText}>
               <Text>
                 {!twitterData.data ? null : twitterData.data[0].text}
@@ -162,7 +160,6 @@ export default function ArtistPage() {
           >
             <Image
               style={styles.socialMedia}
-              // source={{ uri: twitterData.includes.media[1].url }}
               source={
                 !twitterData.includes.media ? null : { uri: twitterData.includes.media[1].url }
               }
@@ -183,7 +180,7 @@ export default function ArtistPage() {
 
       </View>
 
-    </View>
+    </ScrollView>
   )
 }
 

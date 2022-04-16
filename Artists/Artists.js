@@ -10,9 +10,9 @@ export const artistList = [
   'BTS',
   'Cherry Bullet',
   'STAYC',
-  'TWICE',
+  'Twice',
   'EXO',
-  'JENNIE',
+
   'NCT 127',
   'NMIXX',
   'Stray Kids',
@@ -205,25 +205,223 @@ export const artistList2 = {
     twitterIDurl: 'weareoneEXO',
   },
 
-  '': {
-    debut: '',
+  'ITZY': {
+    debut: '2019.02.12',
     members: [
-      '',
+      'Yeji',
+      'Lia',
+      'Ryujin',
+      'Chaeryoung',
+      'Yuna',
     ],
-    leader: '',
-    label: '',
-    fandom: '',
+    leader: 'Yeji',
+    label: 'JYP Entertainment',
+    fandom: 'midzy',
     albums: [
 
     ],
-    twitterID: '',
-    twitterIDurl: '',
+    twitterID: '1062578718214770688',
+    twitterIDurl: 'ITZYofficial',
   },
 
+  'IVE': {
+    debut: '2021.12.01',
+    members: [
+      'Yujin',
+      'Gaeul',
+      'Rei',
+      'Wonyoung',
+      'Liz',
+      'Leeseo'
+    ],
+    leader: 'Yujin',
+    label: 'STARSHIP Entertainment',
+    fandom: 'dive',
+    albums: [
+
+    ],
+    twitterIDurl: 'IVEstarship',
+    twitterID: '1402182579265048598',
+  },
+
+  'Kep1er': {
+    debut: '2021.10.22',
+    members: [
+      'Yujin',
+      'Xiaoting',
+      'Mashiro',
+      'Chaehyun',
+      'Dayeon',
+      'Hikaru',
+      'Huening Bahiyyih',
+      'Youngeun',
+      'Yeseo'
+    ],
+    leader: 'Yujin',
+    label: 'WAKE ONE - Swing Entertainment',
+    fandom: 'Keplian',
+    albums: [
+
+    ],
+    twitterIDurl: 'official_kep1er',
+    twitterID: '1448627067856179203',
+  },
+
+  'NCT 127': {
+    debut: '2016.07.07',
+    members: [
+      'Taeil',
+      'Johnny',
+      'Taeyong',
+      'Yuta',
+      'Doyoung',
+      'Jaehyun',
+      'Winwin',
+      'Jeongwoo',
+      'Mark',
+      'Haechan'
+    ],
+    leader: 'Taeyong',
+    label: 'SM Entertainment',
+    fandom: 'NCTzen',
+    albums: [
+
+    ],
+    twitterIDurl: 'NCTsmtown_127',
+    twitterID: '869875390465982465',
+  },
+
+  'NMIXX': {
+    debut: '2022.02.22',
+    members: [
+      'Lily',
+      'Haewon',
+      'Sullyoon',
+      'Jinni',
+      'Bae',
+      'Jiwoo',
+      'Kyujin'
+    ],
+    leader: 'Haewon',
+    label: 'JYP Entertainment',
+    fandom: 'NSWER',
+    albums: [
+
+    ],
+    twitterIDurl: 'NMIXX_official',
+    twitterID: '1392302226782052355',
+  },
+
+  'STAYC': {
+    debut: '2020.11.12',
+    members: [
+      'Sumin',
+      'Sieun',
+      'Isa',
+      'Seeun',
+      'Yoon',
+      'J'
+    ],
+    leader: 'Sumin',
+    label: 'Highup Entertainment',
+    fandom: 'SWITH',
+    albums: [
+
+    ],
+    twitterIDurl: 'STAYC_official',
+    twitterID: '1302813483902230528',
+  },
+
+  'Stray Kids': {
+    debut: '2018.03.25',
+    members: [
+      'Bang Chan',
+      'Leeknow',
+      'Changbin',
+      'Hyunjin',
+      'Han',
+      'Felix',
+      'Seungmin',
+      'I.N'
+
+    ],
+    leader: 'Bang Chan',
+    label: 'JYP Entertainment',
+    fandom: 'STAY',
+    albums: [
+
+    ],
+    twitterIDurl: 'Stray_Kids',
+    twitterID: '859297966581891072',
+  },
+
+
+  'Twice': {
+    debut: '2015.10.20',
+    members: [
+      'Nayeon',
+      'Momo',
+      'Jihyo',
+      'Sana',
+      'Jeongyeon',
+      'Chaeyoung',
+      'Tzuyu',
+      'Dahyun',
+      'Mina'
+    ],
+    leader: 'Nayeon',
+    label: 'JYP Entertainment',
+    fandom: 'Once',
+    albums: [
+
+    ],
+    twitterIDurl: 'JYPETWICE',
+    twitterID: '3129056526',
+  },
+
+
+  'TXT': {
+    debut: '2019.03.04',
+    members: [
+      'Yeonjun',
+      'Subin',
+      'Beomgyu',
+      'Taehyun',
+      'HUENINGKAI'
+    ],
+    leader: 'Subin',
+    label: 'HYBE Labels',
+    fandom: 'MOA',
+    albums: [
+
+    ],
+    twitterIDurl: 'TXT_bighit',
+    twitterID: '1083198663424237569',
+  },
+
+
+  'VIVIZ': {
+    debut: '2022.02.09',
+    members: [
+      'Umji',
+      'Eunha',
+      'Sinbi'
+    ],
+    leader: 'Umji',
+    label: 'Swing Entertainment',
+    fandom: 'Na.V',
+    albums: [
+
+    ],
+    twitterIDurl: 'VIVIZ_official',
+    twitterID: '1441319485638463495',
+  },
+
+
   '': {
     debut: '',
     members: [
-      '',
+
     ],
     leader: '',
     label: '',
@@ -231,8 +429,24 @@ export const artistList2 = {
     albums: [
 
     ],
-    twitterID: '',
     twitterIDurl: '',
+    twitterID: '',
+  },
+
+
+  '': {
+    debut: '',
+    members: [
+
+    ],
+    leader: '',
+    label: '',
+    fandom: '',
+    albums: [
+
+    ],
+    twitterIDurl: '',
+    twitterID: '',
   },
 
 
