@@ -18,12 +18,6 @@ export default function Modal1() {
 
     const [selectedIndex, setSelectedIndex] = useState('')
 
-    // useEffect(() => {
-    //   setValues({ artist: selectedIndex })
-    //   console.log(index, 'INDEX')
-    //   console.log(selectedIndex, 'SELECTED INDEX')
-    // }, [selectedIndex])
-
     const onValueChange = (index) => {
       setSelectedIndex(index)
       console.log(index, selectedIndex)
