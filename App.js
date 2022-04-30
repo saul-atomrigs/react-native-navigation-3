@@ -94,7 +94,6 @@ export default function App() {
               <Stack.Screen name="Chat" component={Chat} />
               <Stack.Screen name="Login" component={Login} options={{ title: '' }} />
               <Stack.Screen name="Connect" component={Connect} options={{ title: '' }} />
-              {/* <Stack.Screen name="Google" component={Google} options={{ title: '' }} /> */}
               <Stack.Screen name="Apple" component={Apple} options={{ title: '' }} />
               <Stack.Screen name="Welcome" component={Welcome} options={{ title: '' }} />
               <Stack.Screen name="Nickname" component={Nickname} options={{ title: '' }} />
