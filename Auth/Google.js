@@ -1,28 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
 import { GoogleLogo } from 'phosphor-react-native';
 
 import * as Google from 'expo-auth-session/providers/google';
 import * as WebBrowser from 'expo-web-browser';
-import * as AuthSession from 'expo-auth-session';
-import * as SecureStore from 'expo-secure-store';
-import { Linking } from 'expo';
 
 // FIREBASE V8.
 import firebase from 'firebase';
 import { auth } from '../firebase1';
 
-
 // GOOGLE SIGN IN MODAL
 WebBrowser.maybeCompleteAuthSession()
 
-// WebBrowser.openAuthSessionAsync(
-//   'https://expo.dev'
-// )
-
 export default function GoogleAuth() {
-  const [user, setUser] = useState('');
   const navigation = useNavigation();
 
   // EXPO-AUTH-SESSION 
@@ -37,7 +29,6 @@ export default function GoogleAuth() {
     if (response?.type === 'success') {
       const { id_token } = response.params;
       const credential = firebase.auth.GoogleAuthProvider.credential(id_token);
-
       auth
         .signInWithCredential(credential)
         .then(() => {
@@ -49,7 +40,7 @@ export default function GoogleAuth() {
             });
         })
         .catch(error => {
-          // IF NOT LOGGED IN
+          console.log('error: ', error);
         })
     }
   }, [response])
@@ -57,7 +48,6 @@ export default function GoogleAuth() {
   return (
     <TouchableOpacity
       onPress={() => { promptAsync() }}
-      // onPress={() => { openSession({ useProxy: false }) }}
       style={styles.googleBtn}>
       <GoogleLogo weight='bold' color='red' size={20} style={styles.googleLogo} />
       <Text style={styles.btnText}>Continue with Google</Text>

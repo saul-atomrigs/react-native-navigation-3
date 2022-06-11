@@ -11,10 +11,12 @@ import { listEvents } from '../src/graphql/queries'
 Amplify.configure(config)
 
 export default function ArtistPage() {
-  const { artist } = useRoute().params
   const [modalVisible, setModalVisible] = useState(false);
   const [items, setItems] = useState([])
+
+  const { artist } = useRoute().params
   const navigation = useNavigation()
+
   const twitterID = artistList2[artist].twitterID
   const twitterIDurl = artistList2[artist].twitterIDurl
   const endpoint = `https://api.twitter.com/2/users/${twitterID}/tweets?max_results=5&expansions=attachments.media_keys&media.fields=url`

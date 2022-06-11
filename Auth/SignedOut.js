@@ -1,10 +1,10 @@
 import React from 'react'
-import { useNavigation } from '@react-navigation/native'
 import { StyleSheet, Text, Button, View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 export default function SignedOut() {
-
   const navigation = useNavigation()
+
   return (
     <View style={styles.container}>
       <Text>Successfully signed out!</Text>

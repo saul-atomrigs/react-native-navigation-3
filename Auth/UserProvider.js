@@ -9,23 +9,18 @@ Amplify.configure(config)
 
 export const UserContext = createContext({ user: null })
 export default ({ props }) => {
-
   const [user, setUser] = useState([])
 
   // FETCH USER
   async function fetchUser() {
     try {
-      const userData = await API.graphql(graphqlOperation(
-        listUsers,
-        // { filter: { userPostId: { eq: user.uid } } }
-      ))
+      const userData = await API.graphql(graphqlOperation(listUsers,))
       setUser(userData.data.listUsers.items)
       console.log('🚀 listUsers: ', userData)
     } catch (err) {
       console.log('error fetching 에러!!', err)
     }
   }
-
   useEffect(() => {
     fetchUser()
   }, [])
@@ -42,7 +37,6 @@ export default ({ props }) => {
                   <View key={eachUser.id ? eachUser.id : index}>
                     <Text>
                       {eachUser.nickname}
-                      {/* {eachUser.id} */}
                     </Text>
                   </View>
                 )
@@ -55,14 +49,13 @@ export default ({ props }) => {
               <Text style={styles.text}> {user.uid} </Text>
             </UserContext.Provider>
           </>
-          : 'loading...'
+          :
+          'loading...'
       }
     </>
   )
-  // return (
-  // )
-
 }
+
 const styles = StyleSheet.create({
   image: {
     width: 25,

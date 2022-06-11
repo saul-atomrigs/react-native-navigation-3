@@ -12,6 +12,7 @@ import { API, graphqlOperation } from 'aws-amplify'
 import { createPost, updatePost, deletePost } from '../src/graphql/mutations'
 import { listPosts, listComments, getUser } from '../src/graphql/queries'
 import { onCreatePost } from '../src/graphql/subscriptions'
+import Modal from '../Calendar/Modal';
 Amplify.configure(config)
 
 export default function Feed(props) {
@@ -156,6 +157,7 @@ export const Header = ({ navigation }) => {
             source={require('../assets/icons/logo.png')}
           />
         </TouchableOpacity> */}
+        <Modal />
         <TouchableOpacity
           onPress={() => navigation.navigate('Notifications')}
         >

@@ -1,33 +1,27 @@
-import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, TextInput, View, TouchableOpacity, ScrollView, Button } from 'react-native'
-import { CheckCircle } from 'phosphor-react-native'
+import React, { useEffect, useState } from 'react'
+import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
 
+import { CheckCircle } from 'phosphor-react-native'
+
 // AWS 
-import Amplify from 'aws-amplify'
+import Amplify, { API, graphqlOperation } from 'aws-amplify'
 import config from '../src/aws-exports'
-import { API, graphqlOperation } from 'aws-amplify'
 import { createUser } from '../src/graphql/mutations'
-import { listUsers, getUser } from '../src/graphql/queries'
+import { getUser } from '../src/graphql/queries'
+
 Amplify.configure(config)
 
-import * as SecureStore from 'expo-secure-store';
-import firebase from 'firebase'
-import { db } from '../firebase1'
-
 export default function Nickname() {
+  const [uid, setUid] = useState('')
+  const [nickname, setNickname] = useState([])
+  const [formStateNickname, setFormStateNickname] = useState({ nickname: '' })
 
-  // const { param, credential } = useRoute().params
   const { param } = useRoute().params // uid
-
   const navigation = useNavigation()
 
-  const [formStateNickname, setFormStateNickname] = useState({ nickname: '' })
-  const [nickname, setNickname] = useState([])
-  const [uid, setUid] = useState('')
-
   // SAVE USER DATA TO SECURE STORAGE
-  // const saveUserData = async () => {
+  // const saveUserDataInStorage = async () => {
   //   try {
   //     await SecureStore.setItemAsync('nickname', formStateNickname.nickname)
   //     await SecureStore.setItemAsync('uid', param)
@@ -40,7 +34,7 @@ export default function Nickname() {
   // }
 
   // ADD USER NICKNAME TO DYNAMO DB
-  async function addUser() {
+  async function addUserToDynamoDB() {
     try {
       const user = { ...formStateNickname }
       setNickname([...nickname, user])
@@ -48,7 +42,6 @@ export default function Nickname() {
       const result = await API.graphql(graphqlOperation(
         createUser,
         {
-          // input: user
           input: {
             nickname: user.nickname,
             id: param
@@ -64,21 +57,17 @@ export default function Nickname() {
     setFormStateNickname({ ...formStateNickname, [key]: value })
   }
 
-  // Get user uid from dynamo db
+  // GET USER UID FROM DYNAMO DB
   async function getUserNickname() {
     try {
       const result = await API.graphql(graphqlOperation(
-        getUser,
-        {
-          id: param
-        }
+        getUser, { id: param }
       ))
       setUid(result.data.getUser.id)
     } catch (err) {
       console.log('error getting 에러!!', err)
     }
   }
-
   useEffect(() => {
     getUserNickname()
   }, [])
@@ -88,11 +77,8 @@ export default function Nickname() {
     <>
       {
         param == uid ?
-
           navigation.goBack()
-
           :
-
           // IF USER DOES NOT EXIST IN DYNAMO DB
           <ScrollView
             keyboardShouldPersistTaps='handled'
@@ -109,12 +95,9 @@ export default function Nickname() {
               <TouchableOpacity
                 // disabled={formStateNickname.content.length === 0}
                 onPress={() => {
-                  addUser()
-                  // saveUserData()
-                  navigation.replace(
-                    'Welcome',
-                    { nickname: nickname }
-                  )
+                  addUserToDynamoDB()
+                  // saveUserDataInStorage()
+                  navigation.replace('Welcome', { nickname: nickname })
                 }
                 }
               >
