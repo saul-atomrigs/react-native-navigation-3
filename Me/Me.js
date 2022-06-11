@@ -34,15 +34,15 @@ export default function Me({ navigation }) {
         <ShareComponent />
         <Text style={styles.textContainer}
           onPress={() => navigation.push('Chat')}>Feedback (suggest any idea)</Text>
+
         <Text style={styles.textContainer}
           onPress={
-            firebase.auth().currentUser == null ?
-              () => navigation.navigate('Notifications')
-              :
-              signOut
-          }>Sign in / sign out </Text>
-        {/* <Text style={styles.text} onPress={() => navigation.push('SetupPush')}>Notifications</Text> */}
-
+            // firebase.auth().currentUser == !null
+            // ?
+            signOut
+            // :
+            // () => navigation.navigate('Notifications')
+          }>Sign out </Text>
       </View>
     </>
   )
