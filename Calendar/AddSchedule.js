@@ -1,20 +1,19 @@
-import React, { useState, useEffect } from 'react'
-import { View, StyleSheet, TouchableOpacity, TextInput, Text, Platform } from 'react-native'
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Picker } from '@react-native-community/picker';
-import PickerModal from 'react-native-picker-modal-view';
-import { artistList } from '../Artists/Artists'
 
-import Amplify from 'aws-amplify'
-import config from '../src/aws-exports'
-import { API, graphqlOperation } from 'aws-amplify'
-import { createEvent, updatePost, deletePost } from '../src/graphql/mutations'
-import { listEvents } from '../src/graphql/queries'
+import { artistList } from '../Artists/Artists';
+
+import Amplify, { API, graphqlOperation } from 'aws-amplify';
+import config from '../src/aws-exports';
+import { createEvent } from '../src/graphql/mutations';
+import { listEvents } from '../src/graphql/queries';
+
 Amplify.configure(config)
 
 export default function AddSchedule({ navigation }) {
-
   const initialValues = {
     date: '',
     artist: '',
@@ -22,7 +21,6 @@ export default function AddSchedule({ navigation }) {
   }
   const [values, setValues] = useState(initialValues);
   const [items, setItems] = useState([]);
-
   // DATE PICKER 
   const [datePickerVisible, setDatePickerVisibility] = useState(false);
   const [text, onChangeText] = useState('');
@@ -39,12 +37,10 @@ export default function AddSchedule({ navigation }) {
     console.log(values.date)
   };
 
-
   // UPDATE INPUT FIELDS EVERY TIME THEY CHANGE
   function handleInputChange(key, value) {
     setValues({ ...values, [key]: value })
   }
-
 
   // CREATE ITEM 
   async function addItem() {
@@ -77,12 +73,6 @@ export default function AddSchedule({ navigation }) {
 
     const [selectedIndex, setSelectedIndex] = useState('')
 
-    // useEffect(() => {
-    //   setValues({ artist: selectedIndex })
-    //   console.log(index, 'INDEX')
-    //   console.log(selectedIndex, 'SELECTED INDEX')
-    // }, [selectedIndex])
-
     const onValueChange = (index) => {
       setSelectedIndex(index)
       console.log(index, selectedIndex)
@@ -95,54 +85,22 @@ export default function AddSchedule({ navigation }) {
 
     return (
       <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', }}>
-
         <Picker
           selectedValue={selectedIndex}
           onValueChange={onValueChange}
-
           style={{ width: 150, height: 220 }}
           lineColor="#000000"
-          itemStyle={{ color: 'black', fontSize: 13 }}
-        >
+          itemStyle={{ color: 'black', fontSize: 13 }}>
           {itemList.map((value, index) => (
             <PickerItem label={value} value={value} key={index} />
           ))}
         </Picker>
-
         <TouchableOpacity onPress={confirmArtist} style={styles.confirm}>
           <Text>Confirm</Text>
         </TouchableOpacity>
       </View >
     );
   };
-
-  // // PICKER MODAL
-  // function PickerMo() {
-  //   const [modalVisible, setModalVisible] = useState(false);
-  //   const [selectedValue, setSelectedValue] = useState(1);
-
-  //   const onValueChange = (index) => {
-  //     setSelectedValue(index)
-  //     console.log(selectedValue, index)
-  //   };
-
-  //   return (
-  //     <View style={{ flex: 1 }}>
-  //       <PickerModal
-  //         renderSelectView={(disabled, selected, showModal) =>
-  //           <Button disabled={disabled} title={'Show me!'} onPress={showModal} />
-  //         }
-  //         items={artistList}
-  //         onSelected={() => setModalVisible(false)}
-  //         onValueChange={onValueChange}
-  //         onCancel={() => setModalVisible(false)}
-  //         visible={modalVisible}
-  //         selectedValue={selectedValue}
-  //         itemStyle={{ color: 'black', fontSize: 13 }}
-  //       />
-  //     </View>
-  //   );
-  // }
 
   // GO BACK
   function goBack() {
@@ -176,14 +134,12 @@ export default function AddSchedule({ navigation }) {
         <TextInput
           value={values.artist}
           onChangeText={value => handleInputChange('artist', value)}
-
           name="artist"
           placeholder="1. Who? (write here or pick below)"
           style={styles.textInput}
           placeholderTextColor='#666'
           autoCompleteType="off"
-          autoCorrect={false}
-        />
+          autoCorrect={false} />
         <WheelPicker />
 
         <TouchableOpacity onPress={showDatePicker}>
@@ -196,16 +152,14 @@ export default function AddSchedule({ navigation }) {
             placeholder="2. When?"
             placeholderTextColor='#666'
             underlineColorAndroid="transparent"
-            editable={false}
-          />
+            editable={false} />
           <DateTimePickerModal
             headerTextIOS="1. When is it happening?"
             isVisible={datePickerVisible}
             mode="date"
             onConfirm={handleConfirm}
-            onCancel={hideDatePicker}
             display="inline" // ios 14.0 new styling
-          />
+            onCancel={hideDatePicker} />
         </TouchableOpacity>
 
         <TextInput
@@ -216,9 +170,7 @@ export default function AddSchedule({ navigation }) {
           style={styles.textInput}
           placeholderTextColor='#666'
           autoCompleteType="off"
-          autoCorrect={false}
-        />
-
+          autoCorrect={false} />
         <TouchableOpacity
           style={{ flexDirection: 'row' }}
           // disabled={!values.date || !values.artist || !values.event}
@@ -226,8 +178,7 @@ export default function AddSchedule({ navigation }) {
             addItem();
             goBack();
             forceUpdate();
-          }}
-        >
+          }} >
           <View style={styles.floatingBtn}>
             <Text style={styles.floatingBtnText}>Add to Calendar</Text>
           </View>

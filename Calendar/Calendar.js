@@ -1,16 +1,17 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
-import { Dimensions, Image, Button, StyleSheet, Text, TouchableOpacity, View, SafeAreaView, Switch } from 'react-native';
-import { AirplaneTakeoff, BellRinging, Cake, HandsClapping, MusicNote, Plus, Star, Television, VideoCamera } from 'phosphor-react-native';
-import { Agenda, Calendar } from 'react-native-calendars';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Divider } from 'react-native-elements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Modal from './Modal'
+import { Divider } from 'react-native-elements';
+import { Agenda } from 'react-native-calendars';
+import { BellRinging, Plus } from 'phosphor-react-native';
 
-import Amplify from 'aws-amplify'
-import config from '../src/aws-exports'
-import { API, graphqlOperation } from 'aws-amplify'
-import { listEvents } from '../src/graphql/queries'
+import Modal from './Modal';
+
+import Amplify, { API, graphqlOperation } from 'aws-amplify';
+import config from '../src/aws-exports';
+import { listEvents } from '../src/graphql/queries';
+
 Amplify.configure(config)
 
 export default function Calendar1(props) {
@@ -59,8 +60,7 @@ export default function Calendar1(props) {
             date: props.date,
             id: props.id,
           }
-        )}
-      >
+        )} >
         <Text style={styles.artist}>{props.artist}</Text>
         <View style={styles.eventContainer}>
           <View>{props.icon}</View>
@@ -70,17 +70,10 @@ export default function Calendar1(props) {
           {/* <HandsClapping /> */}
           {/* <Star color='gray' /> */}
         </View>
-
         <Divider style={styles.divider} />
-
         <View style={styles.stats}>
-
-          <BellRinging
-            size={20}
-          />
-
+          <BellRinging size={20} />
         </View>
-
       </TouchableOpacity >
     );
   }

@@ -4,7 +4,6 @@ import { StyleSheet, Text, View } from 'react-native'
 import SetupPush3 from '../Notifications/SetupPush3';
 
 export default function DetailedSchedule() {
-
   const { artist, event, date, id } = useRoute().params
 
   return (
