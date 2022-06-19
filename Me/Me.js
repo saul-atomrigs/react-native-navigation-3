@@ -1,5 +1,6 @@
 import React, { useState, useLayoutEffect, useEffect } from 'react';
 import { Dimensions, Image, Share, StyleSheet, Text, TouchableOpacity, View, Button } from 'react-native';
+
 import firebase from 'firebase';
 import Apple from '../Auth/Apple'
 import Google from '../Auth/Google'
@@ -17,11 +18,33 @@ export default function Me({ navigation }) {
     navigation.reset({ index: 0, routes: [{ name: 'SignedOut' }] })
   }
 
+  function SignInScreen() {
+    return (
+      firebase.auth().currentUser == null ?
+        <View style={styles.userInfoContainer}>
+          <Apple />
+          <Google />
+        </View>
+        :
+        <View style={styles.userInfoContainer}>
+          <Text style={styles.textContainer}
+            onPress={
+              // firebase.auth().currentUser == !null
+              // ?
+              signOut
+              // :
+              // () => navigation.navigate('Notifications')
+            }>Sign out </Text>
+        </View>
+
+    )
+  }
+
+  console.log('Current user:', firebase.auth().currentUser)
+
   return (
     <>
-      {/* <View style={styles.userInfoContainer}>
-      </View> */}
-
+      <SignInScreen />
 
       <View style={styles.activityContainer}>
         {/* <Text style={styles.text}>My Fandoms</Text>
@@ -35,14 +58,6 @@ export default function Me({ navigation }) {
         <Text style={styles.textContainer}
           onPress={() => navigation.push('Chat')}>Feedback (suggest any idea)</Text>
 
-        <Text style={styles.textContainer}
-          onPress={
-            // firebase.auth().currentUser == !null
-            // ?
-            signOut
-            // :
-            // () => navigation.navigate('Notifications')
-          }>Sign out </Text>
       </View>
     </>
   )

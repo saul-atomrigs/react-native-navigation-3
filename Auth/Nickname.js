@@ -77,7 +77,7 @@ export default function Nickname() {
     <>
       {
         param == uid ?
-          navigation.goBack()
+          navigation.reset({ index: 0, routes: [{ name: 'HomeTabNavigation' }] })
           :
           // IF USER DOES NOT EXIST IN DYNAMO DB
           <ScrollView
