@@ -3,12 +3,12 @@ import 'firebase/auth'
 import 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCz-Wd5fT_9DNmaJp_mGBYu9NjRSgBLk3U",
+  apiKey: processs.env.FIREBASE_API_KEY,
   authDomain: "dailykpop-ee1e3.firebaseapp.com",
   projectId: "dailykpop-ee1e3",
   storageBucket: "dailykpop-ee1e3.appspot.com",
   messagingSenderId: "634344250588",
-  appId: "1:634344250588:web:6922ef76271f0f4a58e819",
+  appId: process.env.FIREBASE_APP_ID,
   measurementId: "G-XNXPPVHXBC"
 };
 
