@@ -10,7 +10,7 @@ import { CalendarPlus, ChatsCircle, Compass, Fingerprint } from 'phosphor-react-
 
 import Login from './Auth/Login';
 import Apple from './Auth/Apple';
-import Google from './Auth/Google';
+// import Google from './Auth/Google';
 import Nickname from './Auth/Nickname'
 import Welcome from './Auth/Welcome';
 import SignedOut from './Auth/SignedOut';
