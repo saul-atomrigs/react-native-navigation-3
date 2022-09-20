@@ -10,30 +10,25 @@ import Amplify from 'aws-amplify'
 import config from '../src/aws-exports'
 import { API, graphqlOperation } from 'aws-amplify'
 import { createPost, } from '../src/graphql/mutations'
-import { listPosts, getUser } from '../src/graphql/queries'
+import { listPosts } from '../src/graphql/queries'
 Amplify.configure(config)
 
 export default function AddPost({ navigation }) {
-
-  const initialStatePost = { title: '' }
-  const [formStatePosts, setFormStatePosts] = useState(initialStatePost)
+  const [formStatePosts, setFormStatePosts] = useState({ title: '' })
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
     fetchPosts()
   }, [])
 
-  // CREATE POST
   async function addPost() {
     try {
       const post = { ...formStatePosts }
       setPosts([...posts, post])
       setFormStatePosts(initialStatePost)
-      // ✅ REFRESH AFTER SUBMIT:
       const result = await API.graphql(graphqlOperation(
         createPost,
         {
-          // input: post
           input: {
             title: formStatePosts.title,
             userPostsId: firebase.auth().currentUser.uid,
@@ -43,12 +38,11 @@ export default function AddPost({ navigation }) {
         }
       ))
       setPosts([...posts, result.data.createPost])
-      console.log('🚀 createPost: ', result)
     } catch (err) {
       console.log('error creating 에러!!', err)
     }
   }
-  // FETCH POSTS
+
   async function fetchPosts() {
     try {
       const postData = await API.graphql(graphqlOperation(listPosts));
@@ -69,16 +63,12 @@ export default function AddPost({ navigation }) {
     fetchPosts()
   }
 
-
   return (
-    // IF NOT SIGNED IN 
     firebase.auth().currentUser == null ?
-
       <View style={styles.signIn}>
         <Apple />
         <Google />
       </View>
-
       :
       <SafeAreaView style={styles.container}>
         <KeyboardAvoidingView>
@@ -110,7 +100,6 @@ export default function AddPost({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // paddingVertical: 50,
     justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: 'white',
