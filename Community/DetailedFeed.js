@@ -22,14 +22,11 @@ Amplify.configure(config)
 import UserProvider from '../Auth/UserProvider';
 
 export default function DetailedFeed({ post }) {
-
   const { param } = useRoute().params
 
   const navigation = useNavigation();
 
-  // LIKE BUTTON 
   const LikeButton = () => {
-
     // INITIAL STATES
     const currentUser = firebase.auth().currentUser.uid;
     const checkUser = param.likesByUserArray.includes(currentUser)
@@ -37,7 +34,6 @@ export default function DetailedFeed({ post }) {
     const [liked, setLiked] = useState(checkUser) // true or false
     const [count, setCount] = useState(likesByUsers) // number of users liking the post
 
-    // ADD LIKE 
     const addLike = async () => {
       try {
         const input = {
@@ -55,7 +51,7 @@ export default function DetailedFeed({ post }) {
         console.log('error: ', err)
       }
     }
-    // REMOVE LIKE
+
     const removeLike = async () => {
       try {
         const input = {
@@ -70,9 +66,11 @@ export default function DetailedFeed({ post }) {
         console.log('error: ', err)
       }
     }
+
     function handleLike() {
       liked ? removeLike() : addLike()
     }
+
     return (
       <View>
         <TouchableOpacity
@@ -138,7 +136,7 @@ export default function DetailedFeed({ post }) {
   const initialStateComment = { content: '' }
   const [formStateComments, setFormStateComments] = useState(initialStateComment)
   const [comments, setComments] = useState([])
-  // CREATE COMMENT 
+
   async function addComment() {
     try {
       const comment = { ...formStateComments }
@@ -161,7 +159,7 @@ export default function DetailedFeed({ post }) {
     }
   }
   // let commentsCount = ''
-  // FETCH COMMENTS
+
   async function fetchComments() {
     try {
       const commentData = await API.graphql(graphqlOperation(
@@ -219,7 +217,6 @@ export default function DetailedFeed({ post }) {
 
 
   return (
-
     <KeyboardAwareScrollView
       style={{ flex: 1 }}
       keyboardShouldPersistTaps='handled'
@@ -242,9 +239,7 @@ export default function DetailedFeed({ post }) {
                 {owner}
               </Text>
             </TouchableOpacity>
-
             <View style={styles.commentHeader}>
-
               <View>
                 <Menu>
                   <MenuTrigger text='+ more' />
@@ -257,15 +252,12 @@ export default function DetailedFeed({ post }) {
                     </MenuOption>
                   </MenuOptions>
                 </Menu>
-
               </View>
             </View>
-
           </View>
           <View style={styles.content}>
             <Text style={styles.contentText}>{param.title}</Text>
           </View>
-
           {
             firebase.auth().currentUser == null ?
               null
@@ -275,12 +267,8 @@ export default function DetailedFeed({ post }) {
                 {/* <ClapButton /> */}
               </View>
           }
-
           <Divider />
-
           <View style={styles.commentsContainer}>
-
-
             <ScrollView>
               {
                 comments
@@ -297,11 +285,9 @@ export default function DetailedFeed({ post }) {
                     </View>
                   ))
               }
-
               {
                 // IF NOT SIGNED IN 
                 firebase.auth().currentUser == null ?
-
                   <>
                     <Text style={{ alignSelf: 'center', marginTop: 20 }}>Sign in to comment</Text>
                     <View style={styles.signIn}>
@@ -309,9 +295,7 @@ export default function DetailedFeed({ post }) {
                       <Google />
                     </View>
                   </>
-
                   :
-
                   <View style={styles.textInputContainer}>
                     <TextInput
                       onChangeText={val => setInputComments('content', val)}
@@ -321,7 +305,6 @@ export default function DetailedFeed({ post }) {
                       placeholder="What are your thoughts?"
                       placeholderTextColor={'#777'}
                     />
-
                     <TouchableOpacity
                       disabled={formStateComments.content.length === 0}
                       onPress={() => {
@@ -334,7 +317,6 @@ export default function DetailedFeed({ post }) {
                     </TouchableOpacity>
                   </View>
               }
-
               {/* <Text style={styles.commentsCounter}> {commentsCount} Comments </Text> */}
             </ScrollView>
           </View>
@@ -379,14 +361,12 @@ export const Header = ({ navigation }) => {
   });
 }
 
-
 // CREATE CONTEXT 
 const userObjectContext = {
   likes: "reactions",
   comments: 'comments',
 }
 export const UserContext = createContext(userObjectContext)
-
 
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
