@@ -1,22 +1,18 @@
-import React, { useState, useEffect, useLayoutEffect, useContext } from 'react'
-import { Dimensions, Text, Image, View, TouchableOpacity, StyleSheet, RefreshControl, ScrollView } from 'react-native'
-import { Divider } from 'react-native-elements';
-import { UserContext } from './DetailedFeed'
 import { useNavigation } from '@react-navigation/core';
+import { ChatText, Heart, Plus } from "phosphor-react-native";
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
+import { Dimensions, Image, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Divider } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Heart, ChatText, Plus } from "phosphor-react-native";
+import { UserContext } from './DetailedFeed';
 
-import Amplify from 'aws-amplify'
-import config from '../src/aws-exports'
-import { API, graphqlOperation } from 'aws-amplify'
-import { createPost, updatePost, deletePost } from '../src/graphql/mutations'
-import { listPosts, listComments, getUser } from '../src/graphql/queries'
-import { onCreatePost } from '../src/graphql/subscriptions'
+import Amplify, { API, graphqlOperation } from 'aws-amplify';
 import Modal from '../Calendar/Modal';
+import config from '../src/aws-exports';
+import { listPosts } from '../src/graphql/queries';
 Amplify.configure(config)
 
 export default function Feed(props) {
-
   const navigation = useNavigation();
 
   const [posts, setPosts] = useState([])
@@ -29,11 +25,9 @@ export default function Feed(props) {
     const willFocusSubscription = props.navigation.addListener('focus', () => {
       fetchPosts();
     });
-
     return willFocusSubscription;
   }, []);
 
-  // FETCH POSTS 
   async function fetchPosts() {
     try {
       const postData = await API.graphql(graphqlOperation(listPosts));
@@ -128,7 +122,6 @@ export default function Feed(props) {
           onPress={() => navigation.navigate('AddPost')}
         >
           <Plus color="white" weight='bold' />
-          {/* <Text style={styles.floatingBtnText}>Post</Text> */}
         </TouchableOpacity>
       </View>
     </>
@@ -183,7 +176,6 @@ const styles = StyleSheet.create({
     marginRight: WIDTH * 0.05,
   },
   container: {
-    // flex: 1,
     backgroundColor: '#eee',
     marginBottom: 80,
   },
@@ -196,8 +188,6 @@ const styles = StyleSheet.create({
     marginTop: 5
   },
   createdAt: {
-    // marginTop: 5,
-    // marginBottom: 10,
     marginLeft: 12,
   },
   content: {
@@ -213,27 +203,19 @@ const styles = StyleSheet.create({
   postFooter: {
     marginVertical: 10,
     flexDirection: 'row',
-    // paddingTop: 10,
-    // flexDirection: 'row',
-    // alignItems: 'center',
-    // justifyContent: 'flex-start'
   },
   stat: {
     flexDirection: 'row',
     marginLeft: 5,
     marginRight: 5,
-    // marginTop: 5,
     flex: 1,
     justifyContent: 'flex-end'
   },
   statDetails: {
-    // borderWidth: 1,
     padding: 2,
     backgroundColor: '#eee',
     borderRadius: 13,
     marginHorizontal: 5,
-    // marginLeft: 5,
-    // marginBottom: 10,
     fontSize: 12,
     fontWeight: '600',
     flexDirection: 'row',
@@ -268,6 +250,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '700',
     color: '#fff',
-    // textDecorationLine: 'underline'
   },
 })
