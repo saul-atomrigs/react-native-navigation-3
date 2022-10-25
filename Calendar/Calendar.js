@@ -1,49 +1,56 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
-import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Divider } from 'react-native-elements';
-import { Agenda } from 'react-native-calendars';
-import { BellRinging, Plus } from 'phosphor-react-native';
+import React, { useEffect, useLayoutEffect, useState } from "react";
+import {
+  Dimensions,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Divider } from "react-native-elements";
+import { Agenda } from "react-native-calendars";
+import { BellRinging, Plus } from "phosphor-react-native";
 
-import Modal from './Modal';
+import Modal from "./Modal";
 
-import Amplify, { API, graphqlOperation } from 'aws-amplify';
-import config from '../src/aws-exports';
-import { listEvents } from '../src/graphql/queries';
+import Amplify, { API, graphqlOperation } from "aws-amplify";
+import config from "../src/aws-exports";
+import { listEvents } from "../src/graphql/queries";
 
-Amplify.configure(config)
+Amplify.configure(config);
 
 export default function Calendar1(props) {
-  const [items, setItems] = useState([])
+  const [items, setItems] = useState([]);
 
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   // FETCH ITEMS
   async function fetchItems() {
     try {
       const itemData = await API.graphql(graphqlOperation(listEvents));
-      setItems(itemData.data.listEvents.items)
+      setItems(itemData.data.listEvents.items);
     } catch (err) {
-      console.log(err, 'fetching 에러!!');
+      console.log(err, "fetching 에러!!");
     }
   }
   useEffect(() => {
-    fetchItems()
-  }, [])
+    fetchItems();
+  }, []);
 
   // READ ISENABLED FROM ASYNCSTORAGE (READ ONCE)
-  const STORAGE_KEY = props.id
+  const STORAGE_KEY = props.id;
   useEffect(() => {
     AsyncStorage.getItem(STORAGE_KEY)
-      .then(value => {
+      .then((value) => {
         if (value !== null) {
           setIsEnabled(JSON.parse(value));
-          console.log(value, 'READ');
+          console.log(value, "READ");
         }
       })
-      .catch(err => {
-        console.log('에러', err);
+      .catch((err) => {
+        console.log("에러", err);
       });
   }, []);
 
@@ -52,15 +59,15 @@ export default function Calendar1(props) {
     return (
       <TouchableOpacity
         style={styles.item}
-        onPress={() => navigation.navigate(
-          'DetailedSchedule',
-          {
+        onPress={() =>
+          navigation.navigate("DetailedSchedule", {
             artist: props.artist,
             event: props.event,
             date: props.date,
             id: props.id,
-          }
-        )} >
+          })
+        }
+      >
         <Text style={styles.artist}>{props.artist}</Text>
         <View style={styles.eventContainer}>
           <View>{props.icon}</View>
@@ -74,14 +81,14 @@ export default function Calendar1(props) {
         <View style={styles.stats}>
           <BellRinging size={20} />
         </View>
-      </TouchableOpacity >
+      </TouchableOpacity>
     );
   }
 
   // RERENDER AFTER SUBMIT (GOBACK)
   useEffect(() => {
     fetchItems();
-    const willFocusSubscription = props.navigation.addListener('focus', () => {
+    const willFocusSubscription = props.navigation.addListener("focus", () => {
       fetchItems();
     });
     return willFocusSubscription;
@@ -90,14 +97,14 @@ export default function Calendar1(props) {
   // GROUP MULTIPLE SCHEDULES ON THE SAME DAY & CONVERT TO CALENDAR TYPE OBJECT
   let itemsReduced = items.reduce(function (r, a) {
     r[a.date] = r[a.date] || [];
-    r[a.date].push(a)
+    r[a.date].push(a);
     return r;
-  }, Object.create(null))
+  }, Object.create(null));
 
   // HEADER BUTTONS
   useLayoutEffect(() => {
-    Header({ navigation })
-  }, [navigation])
+    Header({ navigation });
+  }, [navigation]);
 
   // REFRESH CONTROL
   const [refreshing, setRefreshing] = useState(false);
@@ -107,8 +114,8 @@ export default function Calendar1(props) {
     fetchItems();
   }, []);
   const wait = (timeout) => {
-    return new Promise(resolve => setTimeout(resolve, timeout));
-  }
+    return new Promise((resolve) => setTimeout(resolve, timeout));
+  };
 
   // CUSTOM TEXT BELOW DATE
   // function CalendarDayComponent(props) {
@@ -136,13 +143,13 @@ export default function Calendar1(props) {
   // const renderDayComponent = (props) => <CalendarDayComponent />;
 
   function renderDayComponent(props) {
-    console.log(props.artist)
+    console.log(props.artist);
     return (
       <>
         <Text style={styles.artist}>{props.artist}</Text>
       </>
-    )
-  };
+    );
+  }
 
   return (
     <>
@@ -154,11 +161,10 @@ export default function Calendar1(props) {
         renderEmptyData={renderEmptyDate}
         rowHasChanged={rowHasChanged}
         showClosingKnob={true}
-        markingType={'custom'}
+        markingType={"custom"}
         refreshing={refreshing}
         onRefresh={onRefresh}
         showScrollIndicator={true}
-
         // dayComponent={renderDayComponent}
 
         // dayComponent={({ date, state }, props) => {
@@ -173,28 +179,27 @@ export default function Calendar1(props) {
         // }}
 
         theme={{
-          textDayFontWeight: '500',
-          textMonthFontWeight: '500',
-          todayButtonFontWeight: '500',
-          textDayHeaderFontWeight: '500',
-          calendarBackground: '#fff',
-          agendaKnobColor: 'gray',
-          agendaTodayColor: 'blue',
-          dotColor: '#000',
-          textSectionTitleColor: '#000',
-          textSectionTitleDisabledColor: '#d9e1e8',
-          selectedDayBackgroundColor: '#000',
-          selectedDayTextColor: '#ffffff',
-          monthTextColor: 'blue',
-          todayTextColor: 'blue',
-          dayTextColor: '#2d4150',
-          textDisabledColor: '#d9e1e8',
-          selectedDotColor: '#ffffff',
-          'stylesheet.calendar.header': {
+          textDayFontWeight: "500",
+          textMonthFontWeight: "500",
+          todayButtonFontWeight: "500",
+          textDayHeaderFontWeight: "500",
+          calendarBackground: "#fff",
+          agendaKnobColor: "gray",
+          agendaTodayColor: "blue",
+          dotColor: "#000",
+          textSectionTitleColor: "#000",
+          textSectionTitleDisabledColor: "#d9e1e8",
+          selectedDayBackgroundColor: "#000",
+          selectedDayTextColor: "#ffffff",
+          monthTextColor: "blue",
+          todayTextColor: "blue",
+          dayTextColor: "#2d4150",
+          textDisabledColor: "#d9e1e8",
+          selectedDotColor: "#ffffff",
+          "stylesheet.calendar.header": {
             // marginBottom: 80,
           },
         }}
-
         style={styles.container}
         hideExtraDays={false}
       />
@@ -202,9 +207,9 @@ export default function Calendar1(props) {
       <View style={styles.floatingBtnContainer}>
         <TouchableOpacity
           style={styles.floatingBtn}
-          onPress={() => navigation.navigate('AddSchedule')}
+          onPress={() => navigation.navigate("AddSchedule")}
         >
-          <Plus color="white" weight='bold' />
+          <Plus color="white" weight="bold" />
         </TouchableOpacity>
       </View>
     </>
@@ -226,15 +231,14 @@ const rowHasChanged = (r1, r2) => r1.text !== r2.text;
 //   return true;
 // }
 
-
 // HEADER BUTTONS
 export const Header = ({ navigation }) => {
   navigation.setOptions({
     // LEFT
-    headerTitleAlign: 'left',
+    headerTitleAlign: "left",
     // RIGHT
     headerRight: () => (
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{ flexDirection: "row" }}>
         {/* <TouchableOpacity
           onPress={() => navigation.navigate('Home')}
         >
@@ -244,22 +248,20 @@ export const Header = ({ navigation }) => {
           />
         </TouchableOpacity> */}
         <Modal />
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Notifications')}
-        >
+        <TouchableOpacity onPress={() => navigation.navigate("Notifications")}>
           <Image
             style={styles.headerRightButtons}
-            source={require('../assets/icons/dots-nine.png')}
+            source={require("../assets/icons/dots-nine.png")}
           />
         </TouchableOpacity>
       </View>
     ),
   });
-}
+};
 
-// styling 
-const WIDTH = Dimensions.get('window').width;
-const HEIGHT = Dimensions.get('window').height;
+// styling
+const WIDTH = Dimensions.get("window").width;
+const HEIGHT = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
   headerRightButtons: {
@@ -272,17 +274,17 @@ const styles = StyleSheet.create({
     // margin: 12,
   },
   dayItem: {
-    textAlign: 'center',
+    textAlign: "center",
     // fontFamily: 'roboto'
   },
   itemsCount: {
-    textAlign: 'center',
+    textAlign: "center",
     // fontFamily: 'roboto',
     fontSize: 10,
     // color: colors.alert
   },
   item: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     flex: 1,
     borderRadius: 13,
     padding: 10,
@@ -290,82 +292,81 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   artist: {
-    fontWeight: '800'
+    fontWeight: "800",
   },
   eventContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   event: {
     marginHorizontal: 10,
-    fontSize: 16
+    fontSize: 16,
   },
   divider: {
-    marginVertical: 5
+    marginVertical: 5,
   },
   stats: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginHorizontal: 10,
-    justifyContent: 'flex-end'
+    justifyContent: "flex-end",
   },
   emptyDate: {
     height: 15,
     flex: 1,
-    paddingTop: 30
+    paddingTop: 30,
   },
   floatingBtnContainer: {
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: "center",
+    alignItems: "center",
   },
   floatingBtn: {
     borderWidth: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
     bottom: 100,
     borderRadius: 20,
     padding: 10,
     elevation: 2,
-    backgroundColor: 'black',
+    backgroundColor: "black",
     // shadow ios:
-    shadowColor: 'lightgray',
+    shadowColor: "lightgray",
     shadowOffset: {
       width: 5,
       height: 5,
     },
     shadowOpacity: 0.5,
     shadowRadius: 5,
-    // shadow android: 
+    // shadow android:
     elevation: 0.8,
   },
   floatingBtnText: {
     fontSize: 16,
-    fontWeight: '700',
-    color: '#fff',
-    textDecorationLine: 'underline'
-  }
+    fontWeight: "700",
+    color: "#fff",
+    textDecorationLine: "underline",
+  },
 });
 
+// const dummyData = {
+//   "2021-12-15": [
+//     {
+//       artist: "aespa",
+//       event: 'tv show on MBC',
+//       icon: <Television />,
+//     },
+//     {
+//       artist: "BTS",
+//       event: 'Birthday',
+//       icon: <Cake />,
+//     },
+//   ],
 
-  // const dummyData = {
-  //   "2021-12-15": [
-  //     {
-  //       artist: "aespa",
-  //       event: 'tv show on MBC',
-  //       icon: <Television />,
-  //     },
-  //     {
-  //       artist: "BTS",
-  //       event: 'Birthday',
-  //       icon: <Cake />,
-  //     },
-  //   ],
-
-  //   "2021-12-16": [
-  //     {
-  //       artist: "ive",
-  //       event: 'tv show on MBC',
-  //       icon: <Television />,
-  //     },
-  //   ]
-  // }
+//   "2021-12-16": [
+//     {
+//       artist: "ive",
+//       event: 'tv show on MBC',
+//       icon: <Television />,
+//     },
+//   ]
+// }
